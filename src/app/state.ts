@@ -1,0 +1,55 @@
+import type { DailyCounter, Progress, SessionState } from '../domain/types.ts';
+import type { Catalog } from '../content/catalog.ts';
+
+export type Screen = 'card' | 'done';
+export type AppError = 'save-failed';
+
+export type AppState =
+  | { status: 'loading' }
+  | { status: 'fatal'; message: string }
+  | ReadyState;
+
+export interface ReadyState {
+  status: 'ready';
+  screen: Screen;
+  catalog: Catalog;
+  progress: ReadonlyMap<string, Progress>;
+  flags: ReadonlySet<string>;
+  counter: DailyCounter;
+  session: SessionState | undefined;
+  /** A write is in flight; buttons that write are disabled. */
+  busy: boolean;
+  error?: AppError;
+}
+
+export type Action =
+  | { type: 'booted'; state: Omit<ReadyState, 'status' | 'busy'> }
+  | { type: 'fatal'; message: string }
+  | { type: 'busy' }
+  | { type: 'session'; session: SessionState | undefined; screen?: Screen }
+  | { type: 'graded'; progress: Progress; counter: DailyCounter; session: SessionState }
+  | { type: 'error'; error: AppError }
+  | { type: 'clearError' };
+
+export const initialState: AppState = { status: 'loading' };
+
+export function appReducer(state: AppState, action: Action): AppState {
+  if (action.type === 'booted') return { status: 'ready', busy: false, ...action.state };
+  if (action.type === 'fatal') return { status: 'fatal', message: action.message };
+  if (state.status !== 'ready') return state;
+  switch (action.type) {
+    case 'busy':
+      return { ...state, busy: true };
+    case 'session':
+      return { ...state, busy: false, session: action.session, screen: action.screen ?? state.screen };
+    case 'graded': {
+      const progress = new Map(state.progress);
+      progress.set(action.progress.itemId, action.progress);
+      return { ...state, busy: false, error: undefined, progress, counter: action.counter, session: action.session };
+    }
+    case 'error':
+      return { ...state, busy: false, error: action.error };
+    case 'clearError':
+      return { ...state, error: undefined };
+  }
+}
