@@ -19,6 +19,7 @@ body,
 
 body {
   margin: 0;
+  overscroll-behavior: none;
   background: var(--bg);
   color: var(--text);
   font-family: var(--font);
@@ -40,7 +41,7 @@ body {
 }
 
 /* Screen: flex column whose height follows the visual viewport (keyboard aware).
-   The primary button sits at the bottom in normal flow; no position: fixed (02 §3). */
+   The primary button sits at the bottom in normal flow; never fixed positioning (02 §3). */
 .screen {
   display: flex;
   flex-direction: column;

@@ -6,6 +6,7 @@ import { currentEntry } from '../../domain/session.ts';
 import { AnswerInput } from '../components/AnswerInput.tsx';
 import { GradeButtons } from '../components/GradeButtons.tsx';
 import { useDebouncedCallback } from '../hooks/useDebouncedCallback.ts';
+import { useVisualViewportHeight } from '../hooks/useVisualViewportHeight.ts';
 import { ResultPanel } from '../components/ResultPanel.tsx';
 import { t } from '../strings.tr.ts';
 
@@ -25,6 +26,7 @@ export function CardScreen({ state, actions }: Props) {
   const entry = session && currentEntry(session);
   const item = entry && state.catalog.byId.get(entry.itemId);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  useVisualViewportHeight();
   // Draft lives locally while typing; keyed per card so it resets on "Sonraki".
   const cardKey = `${session?.cursor ?? 0}:${entry?.itemId ?? ''}`;
   const [draft, setDraft] = useState({ key: cardKey, text: session?.draft ?? '' });
