@@ -2,7 +2,7 @@
 // Every file is JSON with `format` + `schemaVersion`; imports are recognised by `format`.
 // `schemaVersion` is independent of the IndexedDB version.
 import { z } from 'zod';
-import { isDayKey } from './dates.ts';
+import { compareDays, isDayKey } from './dates.ts';
 import { ItemSchema } from './itemSchema.ts';
 import type { AnswerLog, Box, DailyCounter, Flag, Item, NotebookEntry, Progress } from './types.ts';
 
@@ -396,4 +396,103 @@ export function planItemsImport(
     if (entry) updates.set(entry.id, { ...entry, status: 'converted', convertedItemId: item.id });
   }
   return { items: accepted, rejected, notebookUpdates: [...updates.values()] };
+}
+
+// --- Backup merge (07 §3.8 merge table) ------------------------------------
+
+export interface MergeResult {
+  data: BackupData;
+  /** Incoming imported items whose id collides with bundled content; not merged. */
+  rejectedImportedItems: RejectedItem[];
+}
+
+/** Local rows first (in their order), then incoming rows whose key is new. `pick` resolves a key collision. */
+function mergeBy<T>(
+  local: readonly T[],
+  incoming: readonly T[],
+  key: (row: T) => string,
+  pick: (local: T, incoming: T) => T = (l) => l,
+): T[] {
+  const out = new Map<string, T>();
+  for (const row of local) out.set(key(row), row);
+  for (const row of incoming) {
+    const k = key(row);
+    const existing = out.get(k);
+    out.set(k, existing === undefined ? row : pick(existing, row));
+  }
+  return [...out.values()];
+}
+
+/** Later `lastAnsweredOn` wins; on a tie the later `updatedAt`; on a full tie the local row. */
+export function pickProgress(local: Progress, incoming: Progress): Progress {
+  const byDay = compareDays(incoming.lastAnsweredOn, local.lastAnsweredOn);
+  if (byDay !== 0) return byDay > 0 ? incoming : local;
+  return incoming.updatedAt > local.updatedAt ? incoming : local;
+}
+
+/** Splits imported items into those allowed and those whose id is bundled content ("Tümünü değiştir" uses this too). */
+export function rejectBuiltinImportedItems(
+  items: readonly ImportedItem[],
+  builtinIds: ReadonlySet<string>,
+): { items: ImportedItem[]; rejected: RejectedItem[] } {
+  const kept: ImportedItem[] = [];
+  const rejected: RejectedItem[] = [];
+  for (const i of items) {
+    if (builtinIds.has(i.id)) rejected.push({ id: i.id, reason: 'builtin-id' });
+    else kept.push(i);
+  }
+  return { items: kept, rejected };
+}
+
+const logKey = (l: AnswerLog) => `${l.at}\u0000${l.itemId}`;
+
+function withoutId(l: AnswerLog): AnswerLog {
+  const copy = { ...l };
+  delete copy.id;
+  return copy;
+}
+
+/**
+ * "Birleştir" (default import of a full backup). Pure; the storage layer writes
+ * the result in one transaction. Rules per store (07 §3.8):
+ * - progress: later lastAnsweredOn, then later updatedAt, then local.
+ * - dailyCounters: same day → the larger value of each field.
+ * - notebook: same id → local; otherwise all kept.
+ * - flags: union by itemId; on a collision local stays.
+ * - answerLog: deduplicated by (at, itemId); local rows keep their id, new
+ *   incoming rows lose theirs so the store's autoIncrement assigns a fresh one.
+ * - importedItems: an incoming id that collides with bundled content is
+ *   rejected and listed; the same id locally → local stays.
+ */
+export function mergeBackup(local: BackupData, incoming: BackupData, builtinIds: ReadonlySet<string>): MergeResult {
+  const allowed = rejectBuiltinImportedItems(incoming.importedItems, builtinIds);
+  // Local log rows are kept as they are (even an odd local duplicate); only incoming rows are deduplicated.
+  const seenLogKeys = new Set(local.answerLog.map(logKey));
+  const newLogs: AnswerLog[] = [];
+  for (const l of incoming.answerLog) {
+    const k = logKey(l);
+    if (seenLogKeys.has(k)) continue;
+    seenLogKeys.add(k);
+    newLogs.push(withoutId(l));
+  }
+  return {
+    data: {
+      progress: mergeBy(local.progress, incoming.progress, (p) => p.itemId, pickProgress),
+      dailyCounters: mergeBy(
+        local.dailyCounters,
+        incoming.dailyCounters,
+        (c) => c.day,
+        (l, i) => ({
+          day: l.day,
+          newIntroduced: Math.max(l.newIntroduced, i.newIntroduced),
+          reviewsAnswered: Math.max(l.reviewsAnswered, i.reviewsAnswered),
+        }),
+      ),
+      notebook: mergeBy(local.notebook, incoming.notebook, (e) => e.id),
+      flags: mergeBy(local.flags, incoming.flags, (f) => f.itemId),
+      answerLog: [...local.answerLog, ...newLogs],
+      importedItems: mergeBy(local.importedItems, allowed.items, (i) => i.id),
+    },
+    rejectedImportedItems: allowed.rejected,
+  };
 }

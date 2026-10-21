@@ -5,8 +5,10 @@ import {
   buildNotebookExport,
   detectFormat,
   formatPath,
+  mergeBackup,
   parseFile,
   planItemsImport,
+  rejectBuiltinImportedItems,
   USER_IMPORT,
   type BackupData,
   type ImportedItem,
@@ -287,6 +289,158 @@ describe('planItemsImport', () => {
     expect(plan.notebookUpdates).toEqual([]);
   });
 });
+
+describe('mergeBackup (07 §3.8 merge table)', () => {
+  const builtin = new Set(['could-you-base-verb']);
+  const merge = (local: Partial<BackupData>, incoming: Partial<BackupData>) =>
+    mergeBackup(data(local), data(incoming), builtin);
+
+  describe('progress', () => {
+    it('later lastAnsweredOn wins (incoming newer)', () => {
+      const inc = progress('a', { lastAnsweredOn: '2026-11-03', box: 3, updatedAt: 1 });
+      const r = merge({ progress: [progress('a')] }, { progress: [inc] });
+      expect(r.data.progress).toEqual([inc]);
+    });
+    it('later lastAnsweredOn wins (local newer, despite older updatedAt)', () => {
+      const loc = progress('a', { lastAnsweredOn: '2026-11-03', updatedAt: 1 });
+      const r = merge({ progress: [loc] }, { progress: [progress('a', { updatedAt: 9999 })] });
+      expect(r.data.progress).toEqual([loc]);
+    });
+    it('compares days as calendar days across a month boundary', () => {
+      const inc = progress('a', { lastAnsweredOn: '2026-12-01' });
+      const r = merge({ progress: [progress('a', { lastAnsweredOn: '2026-11-30' })] }, { progress: [inc] });
+      expect(r.data.progress).toEqual([inc]);
+    });
+    it('same lastAnsweredOn → later updatedAt wins', () => {
+      const inc = progress('a', { updatedAt: 2000, box: 4 });
+      expect(merge({ progress: [progress('a')] }, { progress: [inc] }).data.progress).toEqual([inc]);
+      const loc = progress('a', { updatedAt: 3000, box: 1 });
+      expect(merge({ progress: [loc] }, { progress: [inc] }).data.progress).toEqual([loc]);
+    });
+    it('full tie → local stays', () => {
+      const loc = progress('a', { box: 1 });
+      const r = merge({ progress: [loc] }, { progress: [progress('a', { box: 5 })] });
+      expect(r.data.progress).toEqual([loc]);
+    });
+    it('different items are all kept', () => {
+      const r = merge({ progress: [progress('a')] }, { progress: [progress('b')] });
+      expect(r.data.progress.map((p) => p.itemId)).toEqual(['a', 'b']);
+    });
+  });
+
+  describe('dailyCounters', () => {
+    it('same day → the larger value of each field', () => {
+      const r = merge(
+        { dailyCounters: [counter('2026-11-02', 5, 2)] },
+        { dailyCounters: [counter('2026-11-02', 3, 9)] },
+      );
+      expect(r.data.dailyCounters).toEqual([counter('2026-11-02', 5, 9)]);
+    });
+    it('different days are all kept', () => {
+      const r = merge(
+        { dailyCounters: [counter('2026-11-02', 1, 1)] },
+        { dailyCounters: [counter('2026-11-01', 2, 2)] },
+      );
+      expect(r.data.dailyCounters).toEqual([counter('2026-11-02', 1, 1), counter('2026-11-01', 2, 2)]);
+    });
+  });
+
+  describe('notebook', () => {
+    it('same id → local stays', () => {
+      const loc = entry('n1', { status: 'open', textTr: 'yerel' });
+      const r = merge({ notebook: [loc] }, { notebook: [entry('n1', { status: 'converted', textTr: 'gelen' })] });
+      expect(r.data.notebook).toEqual([loc]);
+    });
+    it('different ids are all kept', () => {
+      const r = merge({ notebook: [entry('n1')] }, { notebook: [entry('n2'), entry('n3')] });
+      expect(r.data.notebook.map((e) => e.id)).toEqual(['n1', 'n2', 'n3']);
+    });
+  });
+
+  describe('flags', () => {
+    it('union by itemId', () => {
+      const r = merge({ flags: [flag('a')] }, { flags: [flag('b')] });
+      expect(r.data.flags.map((f) => f.itemId)).toEqual(['a', 'b']);
+    });
+    it('collision → local stays (one record per item)', () => {
+      const loc = flag('a', { flaggedAt: 1, screen: 'result' });
+      const r = merge({ flags: [loc] }, { flags: [flag('a', { flaggedAt: 2 })] });
+      expect(r.data.flags).toEqual([loc]);
+    });
+  });
+
+  describe('answerLog', () => {
+    it('deduplicates by (at, itemId); local rows keep their id', () => {
+      const loc = log('a', 10, { id: 1 });
+      const r = merge({ answerLog: [loc] }, { answerLog: [log('a', 10, { id: 55, answer: 'other' })] });
+      expect(r.data.answerLog).toEqual([loc]);
+    });
+    it('same at but different item, or same item at a different time, are distinct', () => {
+      const r = merge({ answerLog: [log('a', 10, { id: 1 })] }, { answerLog: [log('b', 10), log('a', 11)] });
+      expect(r.data.answerLog.map((l) => [l.itemId, l.at])).toEqual([
+        ['a', 10],
+        ['b', 10],
+        ['a', 11],
+      ]);
+    });
+    it('new incoming rows lose their id so a fresh one is generated', () => {
+      const r = merge({ answerLog: [log('a', 10, { id: 1 })] }, { answerLog: [log('b', 20, { id: 1 })] });
+      expect(r.data.answerLog[1]).toEqual(log('b', 20));
+      expect(r.data.answerLog[1]).not.toHaveProperty('id');
+    });
+    it('duplicates inside the incoming file collapse to one', () => {
+      const r = merge({}, { answerLog: [log('a', 10, { id: 3 }), log('a', 10, { id: 4 })] });
+      expect(r.data.answerLog).toEqual([log('a', 10)]);
+    });
+    it('does not touch local rows, even a local duplicate', () => {
+      const local = [log('a', 10, { id: 1 }), log('a', 10, { id: 2 })];
+      expect(merge({ answerLog: local }, {}).data.answerLog).toEqual(local);
+    });
+  });
+
+  describe('importedItems', () => {
+    it('incoming id colliding with bundled content is rejected and listed', () => {
+      const r = merge({}, { importedItems: [imported('could-you-base-verb'), imported('u1')] });
+      expect(r.rejectedImportedItems).toEqual([{ id: 'could-you-base-verb', reason: 'builtin-id' }]);
+      expect(r.data.importedItems.map((i) => i.id)).toEqual(['u1']);
+    });
+    it('same id locally → local stays', () => {
+      const loc = imported('u1', 100);
+      const r = merge({ importedItems: [loc] }, { importedItems: [imported('u1', 200)] });
+      expect(r.data.importedItems).toEqual([loc]);
+      expect(r.rejectedImportedItems).toEqual([]);
+    });
+  });
+
+  it('merging with an empty backup returns local unchanged; into empty returns incoming', () => {
+    const full = fullData();
+    expect(mergeBackup(full, data(), builtin)).toEqual({ data: full, rejectedImportedItems: [] });
+    const r = mergeBackup(data(), full, builtin);
+    expect(r.data).toEqual({ ...full, answerLog: full.answerLog.map(stripId) });
+  });
+
+  it('does not mutate its inputs', () => {
+    const local = fullData();
+    const incoming = data({ answerLog: [log('z', 99, { id: 9 })], progress: [progress('a', { updatedAt: 5000 })] });
+    const before = structuredClone({ local, incoming });
+    mergeBackup(local, incoming, builtin);
+    expect({ local, incoming }).toEqual(before);
+  });
+});
+
+describe('rejectBuiltinImportedItems ("Tümünü değiştir")', () => {
+  it('splits bundled-id collisions from the rest', () => {
+    const r = rejectBuiltinImportedItems([imported('u1'), imported('could-you-base-verb')], new Set(['could-you-base-verb']));
+    expect(r.items.map((i) => i.id)).toEqual(['u1']);
+    expect(r.rejected).toEqual([{ id: 'could-you-base-verb', reason: 'builtin-id' }]);
+  });
+});
+
+function stripId(l: AnswerLog): AnswerLog {
+  const copy = { ...l };
+  delete copy.id;
+  return copy;
+}
 
 describe('formatPath', () => {
   it.each([
