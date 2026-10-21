@@ -7,12 +7,26 @@
 //   --out <file>          (src/content/items.json)
 //   --lock <file>         (content/shipped-ids.lock.json)
 //   --allow-remove <id>   may be repeated; lets a locked id disappear on purpose
+//   --denylist <file>     (content/privacy-denylist.local.txt, gitignored) plus env PRIVACY_DENYLIST
+//   --allowlist <file>    (content/privacy-allowlist.json)
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { ContentBundle } from '../src/domain/types.ts';
-import { canonicalJson, countByCategory, hasErrors, runChecks, type DraftFile, type Finding } from './content-checks.ts';
+import {
+  canonicalJson,
+  checkPrivacyPatterns,
+  countByCategory,
+  hasErrors,
+  makeDenylistCheck,
+  makeProperNounCheck,
+  parseDenylist,
+  runChecks,
+  type Allowlist,
+  type DraftFile,
+  type Finding,
+} from './content-checks.ts';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -20,6 +34,8 @@ interface Args {
   drafts: string;
   out: string;
   lock: string;
+  denylist: string;
+  allowlist: string;
   allowRemove: string[];
 }
 
@@ -28,6 +44,8 @@ function parseArgs(argv: readonly string[]): Args {
     drafts: join(ROOT, 'content/drafts'),
     out: join(ROOT, 'src/content/items.json'),
     lock: join(ROOT, 'content/shipped-ids.lock.json'),
+    denylist: join(ROOT, 'content/privacy-denylist.local.txt'),
+    allowlist: join(ROOT, 'content/privacy-allowlist.json'),
     allowRemove: [],
   };
   for (let i = 0; i < argv.length; i++) {
@@ -37,6 +55,8 @@ function parseArgs(argv: readonly string[]): Args {
     if (flag === '--drafts') args.drafts = resolve(value);
     else if (flag === '--out') args.out = resolve(value);
     else if (flag === '--lock') args.lock = resolve(value);
+    else if (flag === '--denylist') args.denylist = resolve(value);
+    else if (flag === '--allowlist') args.allowlist = resolve(value);
     else if (flag === '--allow-remove') args.allowRemove.push(value);
     else throw new Error(`unknown flag ${flag}`);
     i++;
@@ -58,6 +78,32 @@ function readLock(file: string): string[] {
   return parsed;
 }
 
+/** Denylist terms from the local file and/or the PRIVACY_DENYLIST env (CI secret). */
+function readDenylist(file: string): { terms: string[]; findings: Finding[] } {
+  const terms: string[] = [];
+  const sources: string[] = [];
+  if (existsSync(file)) {
+    terms.push(...parseDenylist(readFileSync(file, 'utf8')));
+    sources.push('file');
+  }
+  const env = process.env.PRIVACY_DENYLIST;
+  if (env && env.trim() !== '') {
+    terms.push(...parseDenylist(env));
+    sources.push('env');
+  }
+  const findings: Finding[] =
+    sources.length === 0
+      ? [{ check: 'C9', severity: 'warning', message: 'no privacy denylist (local file or PRIVACY_DENYLIST); real-name check skipped' }]
+      : [];
+  return { terms, findings };
+}
+
+function readAllowlist(file: string): Allowlist {
+  if (!existsSync(file)) return { names: [], terms: [] };
+  const raw = JSON.parse(readFileSync(file, 'utf8')) as Partial<Allowlist>;
+  return { names: raw.names ?? [], terms: raw.terms ?? [] };
+}
+
 function print(f: Finding): void {
   const where = [f.file, f.itemId].filter(Boolean).join(' / ');
   const line = `[${f.check}] ${f.severity.toUpperCase()} ${where ? where + ': ' : ''}${f.message}`;
@@ -69,7 +115,13 @@ function main(): number {
   const args = parseArgs(process.argv.slice(2));
   const drafts = readDrafts(args.drafts);
   const locked = readLock(args.lock);
-  const { findings, shipped } = runChecks(drafts, { locked, allowRemove: args.allowRemove });
+  const deny = readDenylist(args.denylist);
+  const { findings, shipped } = runChecks(drafts, {
+    locked,
+    allowRemove: args.allowRemove,
+    extraItemChecks: [checkPrivacyPatterns, makeDenylistCheck(deny.terms), makeProperNounCheck(readAllowlist(args.allowlist))],
+  });
+  findings.unshift(...deny.findings);
 
   findings.forEach(print);
   const info = findings.filter((f) => f.severity === 'info').length;

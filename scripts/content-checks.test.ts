@@ -14,11 +14,16 @@ import {
   checkIds,
   checkLockedIds,
   checkNotEmpty,
+  checkPrivacyPatterns,
   checkSchema,
   checkVerifiedNote,
   hasErrors,
+  makeDenylistCheck,
+  makeProperNounCheck,
+  parseDenylist,
   runChecks,
 } from './content-checks.ts';
+import allowlist from '../content/privacy-allowlist.json' with { type: 'json' };
 
 const good: Item = {
   id: 'could-you-base-verb',
@@ -119,6 +124,59 @@ describe('C12 / C13', () => {
   });
 });
 
+describe('C8 privacy patterns', () => {
+  it('green for the good item', () => expect(checkPrivacyPatterns(good)).toEqual([]));
+  it.each([
+    ['e-mail', 'Send it to ayse.k@example-corp.com.'],
+    ['URL', 'See https://jira.internal/browse/QA-1'],
+    ['www', 'Open www.example.org'],
+    ['domain', 'Our host is acme.io'],
+    ['IP', 'Staging is on 10.0.12.7'],
+    ['phone', 'Call me on +90 532 123 45 67'],
+  ])('red for %s', (_n, text) => {
+    expect(hasErrors(checkPrivacyPatterns(item({ situationTr: text })))).toBe(true);
+  });
+  it('does not flag ticket keys like QA-123', () => {
+    expect(checkPrivacyPatterns(item({ situationTr: 'QA-123 ve QA-124' }))).toEqual([]);
+  });
+  it('exempts verifiedNote (cites public sources)', () => {
+    expect(checkPrivacyPatterns(item({ verifiedNote: 'dictionary.com, https://www.oxfordlearnersdictionaries.com' }))).toEqual([]);
+  });
+});
+
+describe('C9 denylist', () => {
+  const check = makeDenylistCheck(parseDenylist('# comment\n\nZeynep Kaya\nAcmeSoft\n'));
+  it('parses lines, skipping comments and blanks', () => {
+    expect(parseDenylist('# x\n a \n\nb\r\n')).toEqual(['a', 'b']);
+  });
+  it('red for a denylisted term in any field, case-insensitive, with Turkish suffix', () => {
+    expect(hasErrors(check(item({ situationTr: "zeynep kaya'ya yazıyorsun" })))).toBe(true);
+    expect(hasErrors(check(item({ noteTr: 'ACMESOFT ekibi' })))).toBe(true);
+  });
+  it('matches whole words only and does not print the term', () => {
+    expect(check(item({ noteTr: 'AcmeSoftware' }))).toEqual([]);
+    expect(check(item({ noteTr: 'AcmeSoft' }))[0]?.message).not.toContain('AcmeSoft');
+  });
+});
+
+describe('C10 proper-noun candidates (warning)', () => {
+  const check = makeProperNounCheck(allowlist);
+  it('warns on an unknown capitalised word mid-sentence', () => {
+    const f = check(item({ situationTr: "[Teams] Zeynep'e yazıyorsun." }));
+    expect(f).toHaveLength(1);
+    expect(f[0]?.severity).toBe('warning');
+  });
+  it('ignores allowlisted names/terms and sentence-initial words', () => {
+    expect(check(item({ situationTr: "[Teams, rica] Mert'e yazıyorsun: \"Logları kontrol et.\" Sonra Ayşe'ye.", modelSentences: ['Could you ask Deniz?', 'The PR is on Jira.'] }))).toEqual([]);
+  });
+  it('the fictional names in the real drafts produce no warning', () => {
+    const drafts = ['batch-a.verified.json', 'batch-b.verified.json'].flatMap(
+      (file) => JSON.parse(readFileSync(join('content/drafts', file), 'utf8')) as Item[],
+    );
+    expect(drafts.flatMap(check)).toEqual([]);
+  });
+});
+
 describe('runChecks', () => {
   it('ships only verified items', () => {
     const r = runChecks([{ file: 'a', raw: [good, item({ id: 'unverified', verified: false })] }]);
@@ -154,7 +212,13 @@ describe('build-content CLI', () => {
     const lockFile = join(dir, 'lock.json');
     if (lock) writeFileSync(lockFile, JSON.stringify(lock));
     const out = join(dir, 'out', 'items.json');
-    const r = spawnSync(process.execPath, ['scripts/build-content.ts', '--drafts', dir, '--out', out, '--lock', lockFile, ...extra], { encoding: 'utf8' });
+    const env = { ...process.env };
+    delete env.PRIVACY_DENYLIST;
+    const r = spawnSync(
+      process.execPath,
+      ['scripts/build-content.ts', '--drafts', dir, '--out', out, '--lock', lockFile, '--denylist', join(dir, 'deny.txt'), ...extra],
+      { encoding: 'utf8', env },
+    );
     return { code: r.status, stderr: r.stderr, out, lockFile };
   }
 
@@ -168,6 +232,21 @@ describe('build-content CLI', () => {
     const r = run(items);
     expect(r.code).toBe(1);
     expect(r.stderr).toContain('content:build failed');
+  });
+
+  it('exits 1 on an e-mail address (C8)', () => {
+    expect(run([item({ noteTr: 'Ask ali@corp.example.com' })]).code).toBe(1);
+  });
+
+  it('exits 1 on a denylisted name from the file, warns when no denylist exists (C9)', () => {
+    const dir = mkdtempSync(join(tmpdir(), 'deny-'));
+    const deny = join(dir, 'deny.txt');
+    writeFileSync(deny, 'Zeynep\n');
+    expect(run([good], undefined, ['--denylist', deny]).code).toBe(0); // good item has no denylisted term
+    expect(run([item({ situationTr: "Zeynep'e yaz." })], undefined, ['--denylist', deny]).code).toBe(1);
+    const noList = run([good]);
+    expect(noList.code).toBe(0);
+    expect(noList.stderr).toContain('no privacy denylist');
   });
 
   it('exits 0, writes only verified items and grows the lock', () => {

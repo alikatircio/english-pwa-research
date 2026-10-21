@@ -124,6 +124,95 @@ export function checkVerifiedNote(item: Item): Finding[] {
     : [];
 }
 
+// --- Privacy (C8–C10). The repo is public: no real names, addresses or contacts. ---
+
+/** Every text value of an item, labelled by field. */
+export function textFields(item: Item): Array<[field: string, value: string]> {
+  const out: Array<[string, string]> = [];
+  for (const [k, v] of Object.entries(item)) {
+    if (typeof v === 'string') out.push([k, v]);
+    else if (Array.isArray(v)) v.forEach((s, i) => typeof s === 'string' && out.push([`${k}[${i}]`, s]));
+  }
+  return out;
+}
+
+const PRIVACY_PATTERNS: ReadonlyArray<[label: string, re: RegExp]> = [
+  ['e-mail address', /[\p{L}\p{N}._%+-]+@[\p{L}\p{N}.-]+\.\p{L}{2,}/u],
+  ['URL', /\bhttps?:\/\/|\bwww\./i],
+  ['domain name', /\.(com|io|net|org|dev)\b/i],
+  ['IP address', /\b\d{1,3}(?:\.\d{1,3}){3}\b/],
+  // Phone-like: 7+ digits, optionally separated by spaces, dots, dashes or brackets.
+  // (A plain "3+ digits" rule would flag ticket keys such as QA-123.)
+  ['phone-like number', /(?:\+|\b)\d(?:[\s().-]*\d){6,}\b/],
+];
+
+/**
+ * C8: contact/address patterns in any text field. verifiedNote is exempt: it
+ * cites public sources (dictionaries, docs sites) and is not user-facing.
+ */
+export function checkPrivacyPatterns(item: Item): Finding[] {
+  const f: Finding[] = [];
+  for (const [field, value] of textFields(item)) {
+    if (field === 'verifiedNote') continue;
+    for (const [label, re] of PRIVACY_PATTERNS) {
+      if (re.test(value)) f.push({ check: 'C8', severity: 'error', itemId: item.id, message: `${field}: looks like a ${label}` });
+    }
+  }
+  return f;
+}
+
+function escapeRegExp(s: string): string {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+/** Parse a denylist (file or env): one term per line, '#' comments and blanks ignored. */
+export function parseDenylist(text: string): string[] {
+  return text
+    .split(/\r?\n/)
+    .map((l) => l.trim())
+    .filter((l) => l !== '' && !l.startsWith('#'));
+}
+
+/** C9: no denylisted term (case-insensitive, whole word) in any text field. */
+export function makeDenylistCheck(terms: readonly string[]): (item: Item) => Finding[] {
+  const res = terms.map((t) => [t, new RegExp(`(?<![\\p{L}\\p{N}])${escapeRegExp(t)}(?![\\p{L}\\p{N}])`, 'iu')] as const);
+  return (item) => {
+    const f: Finding[] = [];
+    for (const [field, value] of textFields(item)) {
+      for (const [, re] of res) {
+        // The term itself is not printed: CI logs are public.
+        if (re.test(value)) f.push({ check: 'C9', severity: 'error', itemId: item.id, message: `${field}: contains a denylisted term` });
+      }
+    }
+    return f;
+  };
+}
+
+export interface Allowlist {
+  names: string[];
+  terms: string[];
+}
+
+/**
+ * C10 (warning): capitalised words in situationTr/modelSentences that are not
+ * sentence-initial and not allowlisted are proper-noun candidates.
+ */
+export function makeProperNounCheck(allow: Allowlist): (item: Item) => Finding[] {
+  const ok = new Set([...allow.names, ...allow.terms]);
+  return (item) => {
+    const f: Finding[] = [];
+    const fields: Array<[string, string]> = [['situationTr', item.situationTr], ...item.modelSentences.map((s, i): [string, string] => [`modelSentences[${i}]`, s])];
+    for (const [field, value] of fields) {
+      for (const m of value.matchAll(/(?<![\p{L}\p{N}'’])\p{Lu}[\p{L}\p{N}]*/gu)) {
+        const before = value.slice(0, m.index).trimEnd();
+        if (before === '' || /[.?!:"“„(]$/.test(before)) continue; // sentence start
+        if (!ok.has(m[0])) f.push({ check: 'C10', severity: 'warning', itemId: item.id, message: `${field}: "${m[0]}" may be a real name; add it to privacy-allowlist.json if fictional` });
+      }
+    }
+    return f;
+  };
+}
+
 /** C11: a shipped id must never disappear (progress would be orphaned). */
 export function checkLockedIds(locked: readonly string[], shippedIds: readonly string[], allowRemove: readonly string[]): Finding[] {
   const out = new Set(shippedIds);
