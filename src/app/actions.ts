@@ -85,11 +85,20 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       }
     },
 
+    /** Self-grade an unmatched answer (decision 10): progress + answer log written immediately. */
+    async selfGrade(g: Grade): Promise<void> {
+      const phase = ready(getState)?.session?.phase;
+      if (!phase || phase.tag !== 'result' || phase.matched || phase.grade) return;
+      await grade(g, 'self', phase.answer, { ...phase, grade: g });
+    },
+
     /** "Sonraki": move to the next unanswered card, or finish. Synchronous so the caller can focus in the same gesture. */
     next(): void {
       const s = ready(getState);
       const session = s?.session;
-      if (!s || !session || session.phase.tag !== 'result' || s.busy) return;
+      const phase = session?.phase;
+      if (!s || !session || !phase || phase.tag !== 'result' || s.busy) return;
+      if (!phase.matched && !phase.grade) return; // must self-grade first
       let cursor = session.cursor + 1;
       while (cursor < session.queue.length) {
         const e = session.queue[cursor];

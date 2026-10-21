@@ -1,13 +1,16 @@
-import type { Item } from '../../domain/types.ts';
+import type { Grade, Item } from '../../domain/types.ts';
 import { t } from '../strings.tr.ts';
+import { gradeLabel } from './GradeButtons.tsx';
 
 interface Props {
   item: Item;
   answer: string;
   matched: boolean;
+  /** Self-grade once chosen (unmatched answers only). */
+  grade?: Grade | undefined;
 }
 
-export function ResultPanel({ item, answer, matched }: Props) {
+export function ResultPanel({ item, answer, matched, grade }: Props) {
   const canonical = item.acceptedAnswers[0] ?? '';
   const others = item.modelSentences.filter((s) => s !== canonical);
   return (
@@ -34,6 +37,23 @@ export function ResultPanel({ item, answer, matched }: Props) {
           </div>
         )}
       </dl>
+
+      {!matched && (
+        <div className="block">
+          <h2 className="label">{t.checklist}</h2>
+          <ul className="checklist">
+            {item.checklistTr.map((c) => (
+              <li key={c}>{c}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {!matched && grade && (
+        <p className="graded" role="status">
+          {t.gradedAs(gradeLabel(grade))}
+        </p>
+      )}
 
       {others.length > 0 && (
         <div className="block">

@@ -246,3 +246,29 @@ body {
     animation: none !important;
   }
 }
+
+.grade-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.btn--grade {
+  min-height: 56px;
+  font-size: 1.0625rem;
+}
+
+.checklist {
+  margin: 0;
+  padding-left: 1.2em;
+}
+
+.checklist li + li {
+  margin-top: 4px;
+}
+
+.graded {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 600;
+}

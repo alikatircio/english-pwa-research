@@ -4,6 +4,7 @@ import type { Actions } from '../../app/actions.ts';
 import type { ReadyState } from '../../app/state.ts';
 import { currentEntry } from '../../domain/session.ts';
 import { AnswerInput } from '../components/AnswerInput.tsx';
+import { GradeButtons } from '../components/GradeButtons.tsx';
 import { ResultPanel } from '../components/ResultPanel.tsx';
 import { t } from '../strings.tr.ts';
 
@@ -54,7 +55,7 @@ export function CardScreen({ state, actions }: Props) {
         {phase.tag === 'question' ? (
           <AnswerInput ref={inputRef} value={draft.text} onChange={(v) => setDraft({ key: cardKey, text: v })} onSubmit={submit} disabled={state.busy} />
         ) : (
-          <ResultPanel item={item} answer={phase.answer} matched={phase.matched} />
+          <ResultPanel item={item} answer={phase.answer} matched={phase.matched} grade={phase.matched ? undefined : phase.grade} />
         )}
 
         {state.error === 'save-failed' && (
@@ -69,6 +70,9 @@ export function CardScreen({ state, actions }: Props) {
           <button type="button" className="btn btn--primary" onClick={submit} disabled={state.busy || draft.text.trim() === ''}>
             {t.check}
           </button>
+        ) : !phase.matched && !phase.grade ? (
+          // No "Sonraki" until the user grades an unmatched answer (T1.9).
+          <GradeButtons onGrade={(g) => void actions.selfGrade(g)} disabled={state.busy} />
         ) : (
           <button type="button" className="btn btn--primary" onClick={next} disabled={state.busy}>
             {t.next}
