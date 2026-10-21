@@ -1,0 +1,1017 @@
+[
+  {
+    "id": "could-you-base-verb",
+    "category": "aux_to",
+    "level": 1,
+    "targetChunk": "can / could + base verb",
+    "patternSlots": "could you ___ ...?",
+    "clozeTemplate": "Could you ___ the logs?",
+    "situationTr": "[Teams, nazik rica] Mert'e yazıyorsun: \"Logları kontrol edebilir misin?\"",
+    "acceptedAnswers": [
+      "Could you check the logs?",
+      "Can you check the logs?",
+      "Could you please check the logs?",
+      "Can you please check the logs?"
+    ],
+    "modelSentences": [
+      "Could you check the logs?",
+      "Can you rerun the pipeline?",
+      "Could you send me the link?"
+    ],
+    "commonMistake": "Could you to check the logs?",
+    "checklistTr": [
+      "could / can'den sonra to koymadın, değil mi?",
+      "Fiil yalın mı? (checks / checking değil, check)",
+      "Nesneyi (the logs) yazdın mı?"
+    ],
+    "noteTr": "Türkçede '-ebilir' fiile ek olarak gelir; İngilizcede can/could ayrı sözcüktür ve arkasından to almadan yalın fiil gelir.",
+    "verifiedNote": "verifier (independent, 2026-10-21): Cambridge/Oxford modal + bare infinitive (core grammar); SkELL (skell_3_11, 2026-10-21) 'could you check' attested, 'could you to' 0 hits; fixes: none",
+    "source": "curated",
+    "verified": true
+  },
+  {
+    "id": "will-base-verb",
+    "category": "aux_to",
+    "level": 1,
+    "targetChunk": "will + base verb",
+    "patternSlots": "I'll ___ ...",
+    "clozeTemplate": "I'll ___ the test report today.",
+    "situationTr": "[Teams, bilgi veriyorsun] Takım liderine: \"Test raporunu bugün göndereceğim.\"",
+    "acceptedAnswers": [
+      "I'll send the test report today.",
+      "I'll send you the test report today.",
+      "I'm going to send the test report today.",
+      "I'm going to send you the test report today."
+    ],
+    "modelSentences": [
+      "I'll send the test report today.",
+      "I'll update the ticket after lunch.",
+      "We'll merge it tomorrow."
+    ],
+    "commonMistake": "I will to send the test report today.",
+    "checklistTr": [
+      "will / 'll'den sonra to koymadın, değil mi?",
+      "Fiil yalın mı? (sends / sending değil)",
+      "Nesneyi (the test report) yazdın mı?"
+    ],
+    "noteTr": "Türkçede gelecek zaman fiile ek olarak gelir (-ecek); İngilizcede will ayrı bir yardımcı fiildir ve arkasından to gelmez. 'going to' da burada doğru (yakın plan, bağlama göre).",
+    "verifiedNote": "verifier (independent, 2026-10-21): Cambridge/Oxford will + bare infinitive; SkELL (skell_3_11, 2026-10-21) 'will to send' 3 hits, all noun 'will' or non-native; fixes: none",
+    "source": "curated",
+    "verified": true
+  },
+  {
+    "id": "need-to-do",
+    "category": "aux_to",
+    "level": 1,
+    "targetChunk": "need to do something",
+    "patternSlots": "need ___ ___",
+    "clozeTemplate": "I need ___ ___ the test data.",
+    "situationTr": "[daily'de söylüyorsun] \"Test verisini güncellemem gerekiyor.\"",
+    "acceptedAnswers": [
+      "I need to update the test data.",
+      "I still need to update the test data.",
+      "I need to update our test data.",
+      "I have to update the test data."
+    ],
+    "modelSentences": [
+      "I need to update the test data.",
+      "We need to rerun the regression suite.",
+      "You don't need to restart the server."
+    ],
+    "commonMistake": "I need update the test data.",
+    "checklistTr": [
+      "need'den sonra to var mı?",
+      "to'dan sonra fiil yalın mı? (updating değil)",
+      "Nesneyi (the test data) yazdın mı?"
+    ],
+    "noteTr": "'-mem gerekiyor' = need to + fiil; to düşmez. 'have to' da doğru, anlam çok yakın (bağlama göre).",
+    "verifiedNote": "verifier (independent, 2026-10-21): Longman need GRAMMAR (fetched): 'Don't say: I don't need leave'; Cambridge need; SkELL (skell_3_11, 2026-10-21) 'need to update' 348 hits; fixes: none",
+    "source": "curated",
+    "verified": true
+  },
+  {
+    "id": "let-me-check",
+    "category": "aux_to",
+    "level": 1,
+    "targetChunk": "let someone do something",
+    "patternSlots": "let me ___ ...",
+    "clozeTemplate": "Let me ___ the logs.",
+    "situationTr": "[Teams] Ayşe build'in neden kırmızı olduğunu soruyor. Sen: \"Bir logları kontrol edeyim.\"",
+    "acceptedAnswers": [
+      "Let me check the logs.",
+      "Let me just check the logs.",
+      "Let me check the logs first.",
+      "Let me have a look at the logs.",
+      "Let me take a look at the logs."
+    ],
+    "modelSentences": [
+      "Let me check the logs.",
+      "Let me rerun the test and see.",
+      "Let me know if it fails again."
+    ],
+    "commonMistake": "Let me to check the logs.",
+    "checklistTr": [
+      "let me'den sonra to koymadın, değil mi?",
+      "Fiil yalın mı? (checking değil)",
+      "Nesneyi (the logs) yazdın mı?"
+    ],
+    "noteTr": "let + kişi + yalın fiil: to yok. Türkçedeki '-eyim' isteği İngilizcede 'Let me + fiil' ile verilir.",
+    "verifiedNote": "verifier (independent, 2026-10-21): Longman let 'let somebody do something'; Cambridge let; SkELL (skell_3_11, 2026-10-21) 'let me check' 77 hits, 'let me to' only non-standard lines; fixes: none",
+    "source": "curated",
+    "verified": true
+  },
+  {
+    "id": "i-agree-with-you",
+    "category": "aux_to",
+    "level": 1,
+    "targetChunk": "I agree (with someone)",
+    "patternSlots": "I ___ ___ you",
+    "clozeTemplate": "I ___ ___ you.",
+    "situationTr": "[toplantıda] Deniz bir öneri yaptı. Ona dönüp diyorsun: \"Sana katılıyorum.\"",
+    "acceptedAnswers": [
+      "I agree with you.",
+      "I totally agree with you.",
+      "I completely agree with you.",
+      "I fully agree with you."
+    ],
+    "modelSentences": [
+      "I agree with you.",
+      "I agree with Deniz on this.",
+      "I don't agree with that approach."
+    ],
+    "commonMistake": "I'm agree with you.",
+    "checklistTr": [
+      "agree'nin önünde am / 'm var mı? (I agree, am yok)",
+      "agree'den sonra kişi için with var mı?",
+      "I am agreeing gibi -ing biçimi kullanmadın, değil mi?"
+    ],
+    "noteTr": "agree zaten fiildir; Türkçedeki 'katılıyorum'un ek-fiili gibi am eklenmez. Kişiyle 'agree with', konu üzerinde 'agree on'.",
+    "verifiedNote": "verifier (independent, 2026-10-21): Longman agree (fetched): 'You agree with someone... Don't say: I agree Tanya', not progressive; Cambridge agree; SkELL (skell_3_11, 2026-10-21) 'I agree with you' 1363 hits vs 'I am agree' 16 (non-native lines); fixes: none",
+    "source": "curated",
+    "verified": true
+  },
+  {
+    "id": "didnt-fail",
+    "category": "aux_to",
+    "level": 1,
+    "targetChunk": "didn't + base verb",
+    "patternSlots": "didn't ___",
+    "clozeTemplate": "The test ___ ___ on Chrome.",
+    "situationTr": "[Jira yorumu] \"Test Chrome'da başarısız olmadı.\" (geçmiş)",
+    "acceptedAnswers": [
+      "The test didn't fail on Chrome.",
+      "The test didn't fail in Chrome.",
+      "This test didn't fail on Chrome.",
+      "This test didn't fail in Chrome."
+    ],
+    "modelSentences": [
+      "The test didn't fail on Chrome.",
+      "The build didn't start this morning.",
+      "It doesn't fail locally."
+    ],
+    "commonMistake": "The test wasn't fail on Chrome.",
+    "checklistTr": [
+      "Fiilin önünde was / is kullanmadın, değil mi? (didn't fail)",
+      "didn't'ten sonra fiil yalın mı? (failed değil)",
+      "Zaman geçmiş mi? (didn't)"
+    ],
+    "noteTr": "fail bir fiildir; olumsuzu didn't / doesn't ile yapılır, was / is ile değil. 'on Chrome' / 'in Chrome' ikisi de kullanılıyor (bağlama göre).",
+    "verifiedNote": "verifier (independent, 2026-10-21): Cambridge fail verb; SkELL (skell_3_11, 2026-10-21) 'didn't fail' 65 / 'did not fail' 263; 'in Chrome' 294, 'on Chrome' 97 (both used); fixes: none",
+    "source": "curated",
+    "verified": true
+  },
+  {
+    "id": "the-test-passed",
+    "category": "aux_to",
+    "level": 1,
+    "targetChunk": "the test passed / failed",
+    "patternSlots": "the test ___",
+    "clozeTemplate": "The login test ___.",
+    "situationTr": "[daily'de söylüyorsun] \"Login testi geçti.\" (az önce, geçmiş)",
+    "acceptedAnswers": [
+      "The login test passed.",
+      "The login test has passed.",
+      "The login test passed successfully."
+    ],
+    "modelSentences": [
+      "The login test passed.",
+      "Two tests failed on staging.",
+      "All the API tests passed last night."
+    ],
+    "commonMistake": "The login test is passed.",
+    "checklistTr": [
+      "passed'in önünde is / was kullanmadın, değil mi?",
+      "Zaman geçmiş mi? (passed / has passed)",
+      "Özne doğru mu? (the login test)"
+    ],
+    "noteTr": "Test kendisi geçer: 'The test passed' etken cümledir, Türkçe 'geçti'yi 'is passed' diye edilgen yapma. Şu anki durum için 'The test is passing' da doğru.",
+    "verifiedNote": "verifier (independent, 2026-10-21): Oxford pass [I,T] (fetched); Cambridge pass; domain: pytest docs output '3 failed, 1 passed' (docs.pytest.org/how-to/output); SkELL (skell_3_11, 2026-10-21) 'test passed' attested; 'is passed' lines are true passives (someone passes a test), not the software sense; fixes: noteTr shortened to 2 sentences and wording made definite ('edilgen yapma')",
+    "source": "curated",
+    "verified": true
+  },
+  {
+    "id": "be-able-to",
+    "category": "aux_to",
+    "level": 2,
+    "targetChunk": "be able to do something",
+    "patternSlots": "wasn't able ___ ___",
+    "clozeTemplate": "I wasn't ___ ___ ___ it on my machine.",
+    "situationTr": "[Jira yorumu] \"Bunu kendi makinemde tekrar üretemedim.\"",
+    "acceptedAnswers": [
+      "I wasn't able to reproduce it on my machine.",
+      "I wasn't able to reproduce this on my machine.",
+      "I couldn't reproduce it on my machine.",
+      "I couldn't reproduce this on my machine."
+    ],
+    "modelSentences": [
+      "I wasn't able to reproduce it on my machine.",
+      "We weren't able to deploy to staging yesterday.",
+      "Will you be able to test it today?"
+    ],
+    "commonMistake": "I wasn't able reproduce it on my machine.",
+    "checklistTr": [
+      "able'dan sonra to var mı?",
+      "to'dan sonra fiil yalın mı? (reproducing değil)",
+      "Nesneyi (it / this) yazdın mı?"
+    ],
+    "noteTr": "'-emedim' = wasn't able to / couldn't (ikisi de doğru, bağlama göre). able'dan sonra to düşmez.",
+    "verifiedNote": "verifier (independent, 2026-10-21): Cambridge able 'be able to do sth'; Longman able; SkELL (skell_3_11, 2026-10-21) 'wasn't able to reproduce' / 'couldn't reproduce' / 'unable to reproduce' attested in bug-report-like lines; fixes: noteTr shortened to 2 sentences",
+    "source": "curated",
+    "verified": true
+  },
+  {
+    "id": "want-someone-to",
+    "category": "aux_to",
+    "level": 2,
+    "targetChunk": "want someone to do something",
+    "patternSlots": "want ___ ___ ___",
+    "clozeTemplate": "Do you ___ ___ ___ check it?",
+    "situationTr": "[Teams] Ayşe'ye soruyorsun: \"Bunu kontrol etmemi ister misin?\"",
+    "acceptedAnswers": [
+      "Do you want me to check it?",
+      "Do you want me to check this?",
+      "Would you like me to check it?",
+      "Would you like me to check this?"
+    ],
+    "modelSentences": [
+      "Do you want me to check it?",
+      "I want you to review the test cases.",
+      "Would you like me to rerun the job?"
+    ],
+    "commonMistake": "Do you want that I check it?",
+    "checklistTr": [
+      "want'tan sonra kişi + to + fiil yapısını kullandın mı? (want that I değil)",
+      "Kişi 'me' mi? (I değil)",
+      "Nesneyi (it / this) yazdın mı?"
+    ],
+    "noteTr": "Türkçe '-memi istiyor musun' yan cümlesi İngilizcede 'want + kişi + to + fiil' olur; want genelde that cümlesi almaz.",
+    "verifiedNote": "verifier (independent, 2026-10-21): Longman want (fetched): 'Want is not usually followed by a that clause. Don't say: They want that their son goes...'; Cambridge want; SkELL (skell_3_11, 2026-10-21) 'want me to check' 11, 'would you like me to' 174; fixes: none",
+    "source": "curated",
+    "verified": true
+  },
+  {
+    "id": "explain-something-to-someone",
+    "category": "object",
+    "level": 1,
+    "targetChunk": "explain something to someone",
+    "patternSlots": "explain ___ to ___",
+    "clozeTemplate": "Could you explain ___ ___ ___?",
+    "situationTr": "[Teams, nazik rica] Mert'e yazıyorsun: \"Bunu bana açıklayabilir misin?\"",
+    "acceptedAnswers": [
+      "Could you explain it to me?",
+      "Can you explain it to me?",
+      "Could you explain this to me?",
+      "Can you explain this to me?",
+      "Could you please explain it to me?",
+      "Could you please explain this to me?"
+    ],
+    "modelSentences": [
+      "Could you explain it to me?",
+      "I explained the issue to the team.",
+      "Can you explain the new flow to Ayşe?"
+    ],
+    "commonMistake": "Could you explain me?",
+    "checklistTr": [
+      "explain'den sonra nesneyi (it / this) koydun mu?",
+      "Kişiden önce to var mı? (explain it to me, explain me değil)",
+      "Sıra 'şey önce, kişi sonra' mı?"
+    ],
+    "noteTr": "Türkçe 'bana' (-e) İngilizcede doğrudan nesne olmaz: explain + şey + to + kişi. Uzun bir soru cümlesiyle 'explain to me how it works' da doğrudur.",
+    "verifiedNote": "verifier (independent, 2026-10-21): Longman explain (fetched): 'Don't say: Alan explained me the system'; Cambridge explain sth to sb; SkELL (skell_3_11, 2026-10-21) 'explain it to me' 118, 'explain this to me' 37; fixes: name Mehmet -> Mert (situationTr)",
+    "source": "curated",
+    "verified": true
+  },
+  {
+    "id": "discuss-something",
+    "category": "object",
+    "level": 1,
+    "targetChunk": "discuss something (no 'about')",
+    "patternSlots": "discuss ___",
+    "clozeTemplate": "Let's discuss ___ in the daily.",
+    "situationTr": "[Teams] Mert'e yazıyorsun: \"Bunu daily'de tartışalım.\"",
+    "acceptedAnswers": [
+      "Let's discuss it in the daily.",
+      "Let's discuss this in the daily.",
+      "Let's discuss it during the daily.",
+      "Let's discuss this during the daily.",
+      "Let's discuss it at the daily.",
+      "Let's discuss this at the daily."
+    ],
+    "modelSentences": [
+      "Let's discuss it in the daily.",
+      "We discussed the test scope with the PO.",
+      "Can we discuss this tomorrow?"
+    ],
+    "commonMistake": "Let's discuss about it in the daily.",
+    "checklistTr": [
+      "discuss'tan sonra about koymadın, değil mi?",
+      "discuss'tan sonra nesneyi (it / this) koydun mu?",
+      "Kişi varsa 'with' ile mi? (discuss it with Mert)"
+    ],
+    "noteTr": "discuss geçişlidir: 'hakkında' anlamı fiilin içinde, about gerekmez. in / during / at the daily üçü de doğru (bağlama göre); günlük dilde 'talk about it' da doğal.",
+    "verifiedNote": "verifier (independent, 2026-10-21): Longman discuss (fetched): 'Don't say: discuss about something'; Cambridge discuss; SkELL (skell_3_11, 2026-10-21) 'discuss it' 2231 vs 'discuss about it' 10; 'at the meeting' 3163 > 'in the meeting' 1024; fixes: added 'at the daily' variants (2); noteTr now lists in/during/at and is 2 sentences",
+    "source": "curated",
+    "verified": true
+  },
+  {
+    "id": "remind-someone-to",
+    "category": "object",
+    "level": 1,
+    "targetChunk": "remind someone to do something",
+    "patternSlots": "remind ___ to ___",
+    "clozeTemplate": "I just wanted to remind ___ to ___ the test plan.",
+    "situationTr": "[Teams, nazik hatırlatma] Ayşe'ye yazıyorsun: \"Sadece sana test planını göndermeni hatırlatmak istedim.\"",
+    "acceptedAnswers": [
+      "I just wanted to remind you to send the test plan.",
+      "I wanted to remind you to send the test plan.",
+      "Just wanted to remind you to send the test plan.",
+      "I just want to remind you to send the test plan.",
+      "I just wanted to remind you to send me the test plan."
+    ],
+    "modelSentences": [
+      "I just wanted to remind you to send the test plan.",
+      "Can you remind Mert to update the ticket?",
+      "Remind me to check the nightly run."
+    ],
+    "commonMistake": "I just want to reminder it.",
+    "checklistTr": [
+      "remind'dan sonra kişiyi (you) koydun mu?",
+      "Kişiden sonra to + fiil var mı? (remind you to send)",
+      "remind fiil mi? (reminder isim, burada fiil gerekli)"
+    ],
+    "noteTr": "remind + kişi + to + fiil. Türkçe '-meni hatırlatmak' yapısında kişi (sana) mutlaka nesne olarak gelir; reminder isimdir, fiil yerine kullanılmaz.",
+    "verifiedNote": "verifier (independent, 2026-10-21): Longman remind 'remind somebody to do something'; Cambridge remind [T]; SkELL (skell_3_11, 2026-10-21) 'remind you to' 184; seed from 00-brief; fixes: clozeTemplate set to decision 18 exact form 'I just wanted to remind ___ to ___ the test plan.'",
+    "source": "curated",
+    "verified": true
+  },
+  {
+    "id": "share-something-with-someone",
+    "category": "object",
+    "level": 1,
+    "targetChunk": "share something with someone",
+    "patternSlots": "share ___ with ___",
+    "clozeTemplate": "I shared ___ ___ ___ ___ you.",
+    "situationTr": "[Teams, bilgi veriyorsun] Deniz'e: \"Test planını seninle paylaştım.\"",
+    "acceptedAnswers": [
+      "I shared the test plan with you.",
+      "I've shared the test plan with you.",
+      "I just shared the test plan with you.",
+      "I've just shared the test plan with you."
+    ],
+    "modelSentences": [
+      "I shared the test plan with you.",
+      "Could you share the logs with Mert?",
+      "I'll share my screen with the team."
+    ],
+    "commonMistake": "I shared with you the test plan.",
+    "checklistTr": [
+      "Nesne (the test plan) fiilden hemen sonra mı?",
+      "Kişiden önce with var mı?",
+      "Sıra 'şey önce, kişi sonra' mı? (shared with you the test plan değil)"
+    ],
+    "noteTr": "share + şey + with + kişi. Türkçedeki 'seninle'yi öne almak doğal geliyor, ama kısa bir nesnede (the test plan) İngilizcede nesne önce gelir.",
+    "verifiedNote": "verifier (independent, 2026-10-21): Longman/Cambridge share sth with sb; SkELL (skell_3_11, 2026-10-21) 'share it with you' 186; 'shared with you the' 7 hits, only with long/heavy objects, so short-object order is unnatural; seed from 00-brief; fixes: names Sarah -> Deniz (situationTr), Tom -> Mert (modelSentences); noteTr limited to short objects (heavy-NP shift exists)",
+    "source": "curated",
+    "verified": true
+  },
+  {
+    "id": "take-a-look-at-it",
+    "category": "object",
+    "level": 1,
+    "targetChunk": "take a look at something",
+    "patternSlots": "take a look at ___",
+    "clozeTemplate": "Could you take a look ___ ___?",
+    "situationTr": "[Teams, nazik rica] PR'ını Mert'e gönderdin: \"Buna bir göz atabilir misin?\"",
+    "acceptedAnswers": [
+      "Could you take a look at it?",
+      "Can you take a look at it?",
+      "Could you take a look at this?",
+      "Can you take a look at this?",
+      "Could you have a look at it?",
+      "Can you have a look at it?",
+      "Could you have a look at this?",
+      "Can you have a look at this?"
+    ],
+    "modelSentences": [
+      "Could you take a look at it?",
+      "I'll take a look at the failing test.",
+      "Can you have a look at my PR?"
+    ],
+    "checklistTr": [
+      "at'ten sonra nesneyi (it / this) koydun mu?",
+      "look'tan sonra at var mı?",
+      "'take a look' ya da 'have a look' kalıbını tam yazdın mı? (a dahil)"
+    ],
+    "noteTr": "'Buna' nesnesi at + it ile verilir. Bağlam açıksa 'Could you take a look?' tek başına da doğaldır (bağlama göre); 'have a look' daha çok BrE.",
+    "verifiedNote": "verifier (independent, 2026-10-21): Cambridge look noun: 'take a look', 'have a look mainly UK'; Longman look at; SkELL (skell_3_11, 2026-10-21) 'take a look at it' 181, 'have a look at it' 205; seed from 00-brief; fixes: name Tom -> Mert (situationTr)",
+    "source": "curated",
+    "verified": true
+  },
+  {
+    "id": "fix-it-today",
+    "category": "object",
+    "level": 1,
+    "targetChunk": "fix it / send it (pronoun object)",
+    "patternSlots": "fix ___",
+    "clozeTemplate": "I'll fix ___ today.",
+    "situationTr": "[daily'de söylüyorsun] \"Bunu bugün düzelteceğim.\"",
+    "acceptedAnswers": [
+      "I'll fix it today.",
+      "I'll fix this today.",
+      "I'm going to fix it today.",
+      "I'm going to fix this today."
+    ],
+    "modelSentences": [
+      "I'll fix it today.",
+      "I checked it and sent it to Ayşe.",
+      "Can you review it before lunch?"
+    ],
+    "commonMistake": "I'll fix today.",
+    "checklistTr": [
+      "fix'ten sonra nesneyi (it / this) koydun mu?",
+      "Fiil ile nesne arasında gereksiz edat var mı?",
+      "will'den sonra to koymadın, değil mi?"
+    ],
+    "noteTr": "Türkçede bağlamdan anlaşılan nesne düşer ('bugün düzelteceğim'); İngilizcede geçişli fiil açık nesne ister: fix it.",
+    "verifiedNote": "verifier (independent, 2026-10-21): Cambridge fix verb [T]; Longman fix transitive; SkELL (skell_3_11, 2026-10-21) 'I'll fix it' 28 hits; fixes: none",
+    "source": "curated",
+    "verified": true
+  },
+  {
+    "id": "tell-someone-about",
+    "category": "object",
+    "level": 1,
+    "targetChunk": "tell someone about something",
+    "patternSlots": "tell ___ about ___",
+    "clozeTemplate": "I ___ ___ ___ the issue.",
+    "situationTr": "[daily'de söylüyorsun] \"Mert'e sorunu söyledim.\" (geçmiş)",
+    "acceptedAnswers": [
+      "I told Mert about the issue.",
+      "I told Mert about the problem.",
+      "I've told Mert about the issue.",
+      "I've told Mert about the problem.",
+      "I already told Mert about the issue."
+    ],
+    "modelSentences": [
+      "I told Mert about the issue.",
+      "Can you tell the team about the new release date?",
+      "She told me the build was green."
+    ],
+    "commonMistake": "I said Mert about the issue.",
+    "checklistTr": [
+      "told'dan hemen sonra kişiyi (Mert) koydun mu? (to Mert değil)",
+      "say yerine tell mi kullandın? (kişiyle tell)",
+      "Konudan önce about var mı?"
+    ],
+    "noteTr": "tell + kişi (edatsız) + about + konu. say kişiyi doğrudan almaz; Türkçedeki 'Mert'e' -e eki to'ya çevrilmez.",
+    "verifiedNote": "verifier (independent, 2026-10-21): Longman tell (fetched): 'Don't say: He told to his mother the news... You tell someone about something'; Cambridge tell; SkELL (skell_3_11, 2026-10-21) 'told him about the' 280, 'said him about' 0; fixes: none",
+    "source": "curated",
+    "verified": true
+  },
+  {
+    "id": "ask-someone-to",
+    "category": "object",
+    "level": 1,
+    "targetChunk": "ask someone to do something",
+    "patternSlots": "ask ___ to ___",
+    "clozeTemplate": "I asked ___ ___ rerun the pipeline.",
+    "situationTr": "[daily'de söylüyorsun] \"Deniz'den pipeline'ı tekrar çalıştırmasını istedim.\"",
+    "acceptedAnswers": [
+      "I asked Deniz to rerun the pipeline.",
+      "I asked Deniz to re-run the pipeline.",
+      "I asked Deniz to run the pipeline again.",
+      "I've asked Deniz to rerun the pipeline.",
+      "I've asked Deniz to run the pipeline again."
+    ],
+    "modelSentences": [
+      "I asked Deniz to rerun the pipeline.",
+      "Could you ask Mert to review my PR?",
+      "She asked me to update the test data."
+    ],
+    "commonMistake": "I asked to Deniz to rerun the pipeline.",
+    "checklistTr": [
+      "asked'dan hemen sonra kişiyi (Deniz) koydun mu? (to Deniz değil)",
+      "Kişiden sonra to + fiil var mı?",
+      "Nesneyi (the pipeline) yazdın mı?"
+    ],
+    "noteTr": "ask + kişi (edatsız) + to + fiil. Türkçedeki 'Deniz'den' -den eki İngilizcede edata dönüşmez.",
+    "verifiedNote": "verifier (independent, 2026-10-21): Longman ask (fetched): 'Don't say: ask to someone'; Cambridge ask; SkELL (skell_3_11, 2026-10-21) 'asked him to' 3466; spelling: Cambridge 'rerun' verb, GitHub Docs 'Re-run workflows and jobs' (both spellings in use); fixes: name Tom -> Mert (modelSentences)",
+    "source": "curated",
+    "verified": true
+  },
+  {
+    "id": "inform-someone-about",
+    "category": "object",
+    "level": 2,
+    "targetChunk": "inform someone about/of something",
+    "patternSlots": "inform ___ about ___",
+    "clozeTemplate": "I'll inform ___ ___ ___ the delay.",
+    "situationTr": "[Teams] Takım liderine: \"Gecikmeyle ilgili ekibe bilgi vereceğim.\"",
+    "acceptedAnswers": [
+      "I'll inform the team about the delay.",
+      "I'll inform the team of the delay.",
+      "I'm going to inform the team about the delay.",
+      "I'm going to inform the team of the delay."
+    ],
+    "modelSentences": [
+      "I'll inform the team about the delay.",
+      "Please inform us of any changes.",
+      "Ayşe informed the client team about the outage."
+    ],
+    "commonMistake": "I'll inform to the team about the delay.",
+    "checklistTr": [
+      "inform'dan hemen sonra kişiyi (the team) koydun mu? (to yok)",
+      "Konudan önce about / of var mı?",
+      "will'den sonra to koymadın, değil mi?"
+    ],
+    "noteTr": "inform + kişi (edatsız) + about/of + konu; 'ekibe'deki -e eki to olmaz. of daha resmî, günlük dilde 'let the team know' daha yaygın.",
+    "verifiedNote": "verifier (independent, 2026-10-21): Cambridge 'inform sb about sth' / 'inform sb of sth' (fetched); Longman inform; SkELL (skell_3_11, 2026-10-21) 'inform them of' 761, 'inform them about' 173; fixes: noteTr shortened to 2 sentences",
+    "source": "curated",
+    "verified": true
+  },
+  {
+    "id": "mention-something",
+    "category": "object",
+    "level": 2,
+    "targetChunk": "mention something (no 'about')",
+    "patternSlots": "mention ___",
+    "clozeTemplate": "Mert mentioned ___ in the meeting.",
+    "situationTr": "[Teams] Ayşe'ye yazıyorsun: \"Mert toplantıda bundan bahsetti.\"",
+    "acceptedAnswers": [
+      "Mert mentioned it in the meeting.",
+      "Mert mentioned this in the meeting.",
+      "Mert mentioned it during the meeting.",
+      "Mert mentioned this during the meeting.",
+      "Mert mentioned it at the meeting.",
+      "Mert mentioned this at the meeting."
+    ],
+    "modelSentences": [
+      "Mert mentioned it in the meeting.",
+      "As I mentioned yesterday, staging is down.",
+      "Did Deniz mention the new deadline?"
+    ],
+    "commonMistake": "Mert mentioned about it in the meeting.",
+    "checklistTr": [
+      "mention'dan sonra about koymadın, değil mi?",
+      "mentioned'dan sonra nesneyi (it / this) koydun mu?",
+      "Zaman geçmiş mi? (mentioned)"
+    ],
+    "noteTr": "mention geçişlidir: 'bahsetmek'teki '-den' about'a çevrilmez. in / during / at the meeting üçü de kullanılıyor (bağlama göre).",
+    "verifiedNote": "verifier (independent, 2026-10-21): Longman mention (fetched): 'Don't say: He mentioned about a book'; Cambridge mention; SkELL (skell_3_11, 2026-10-21) 'in/at the meeting' both frequent, 'mentioned it during' attested; fixes: name Tom -> Mert throughout; model 3 'Did Mert' -> 'Did Deniz' to avoid repeating",
+    "source": "curated",
+    "verified": true
+  },
+  {
+    "id": "update-someone-on",
+    "category": "object",
+    "level": 2,
+    "targetChunk": "update someone on something",
+    "patternSlots": "update ___ on ___",
+    "clozeTemplate": "I'll update ___ ___ the status.",
+    "situationTr": "[Teams] Deniz'e: \"Durumla ilgili seni bilgilendireceğim.\"",
+    "acceptedAnswers": [
+      "I'll update you on the status.",
+      "I'll keep you updated on the status.",
+      "I'm going to update you on the status.",
+      "I'll update you on the current status.",
+      "I'll keep you posted on the status."
+    ],
+    "modelSentences": [
+      "I'll update you on the status.",
+      "Can you update me on the release?",
+      "I'll keep you updated."
+    ],
+    "checklistTr": [
+      "update'ten sonra kişiyi (you) koydun mu? (to you değil)",
+      "Konudan önce on var mı?",
+      "will'den sonra to koymadın, değil mi?"
+    ],
+    "noteTr": "update + kişi + on + konu; 'seni bilgilendirmek'teki gibi kişi doğrudan nesnedir. 'I'll keep you posted / updated' da yaygın.",
+    "verifiedNote": "verifier (independent, 2026-10-21): Cambridge 'update sb on sth' (fetched); Longman update; SkELL (skell_3_11, 2026-10-21) 'update you on' 123, 'keep you updated on' 77, 'keep you posted' 355; fixes: name Sarah -> Deniz; added 'I'll keep you posted on the status.'; noteTr 2 sentences",
+    "source": "curated",
+    "verified": true
+  },
+  {
+    "id": "data-uncountable",
+    "category": "word_form",
+    "level": 1,
+    "targetChunk": "data (uncountable)",
+    "patternSlots": "the ___",
+    "clozeTemplate": "Can you see the ___?",
+    "situationTr": "[Teams] Deniz'e soruyorsun: \"Verileri görebiliyor musun?\"",
+    "acceptedAnswers": [
+      "Can you see the data?",
+      "Are you able to see the data?",
+      "Can you view the data?"
+    ],
+    "modelSentences": [
+      "Can you see the data?",
+      "The test data is out of date.",
+      "I need some data from the payment API."
+    ],
+    "commonMistake": "Can you see the datas?",
+    "checklistTr": [
+      "data'ya -s eklemedin, değil mi?",
+      "data isim olarak mı kullanıldı?",
+      "can'den sonra to koymadın, değil mi?"
+    ],
+    "noteTr": "Türkçede 'veriler' çoğul, ama İngilizcede data sayılamaz: datas yok. Günlük kullanımda 'the data is' tekil fiil alır.",
+    "verifiedNote": "verifier (independent, 2026-10-21): Longman data (fetched): 'Don't say: datas', singular verb in everyday English; Oxford data [U, pl]; SkELL (skell_3_11, 2026-10-21) 'the data is' 1854 vs 'the data are' 799; seed from 00-brief; fixes: none",
+    "source": "curated",
+    "verified": true
+  },
+  {
+    "id": "feedback-uncountable",
+    "category": "word_form",
+    "level": 1,
+    "targetChunk": "feedback (uncountable)",
+    "patternSlots": "the ___",
+    "clozeTemplate": "Thanks for the ___.",
+    "situationTr": "[PR yorumu] Mert yorumlarını yazdı. Sen: \"Geri bildirimler için teşekkürler.\"",
+    "acceptedAnswers": [
+      "Thanks for the feedback.",
+      "Thank you for the feedback.",
+      "Thanks for your feedback.",
+      "Thank you for your feedback.",
+      "Thanks a lot for the feedback."
+    ],
+    "modelSentences": [
+      "Thanks for the feedback.",
+      "I got some feedback on the test plan.",
+      "Any feedback is welcome."
+    ],
+    "commonMistake": "Thanks for the feedbacks.",
+    "checklistTr": [
+      "feedback'e -s eklemedin, değil mi?",
+      "feedback isim olarak mı kullanıldı?",
+      "Tek bir yorum için 'a piece of feedback' mı dedin? (a feedback değil)"
+    ],
+    "noteTr": "Türkçede 'geri bildirimler' çoğul, ama feedback sayılamaz: feedbacks yok. Birden çok yorum için de 'the feedback' / 'some feedback'.",
+    "verifiedNote": "verifier (independent, 2026-10-21): Cambridge feedback [U] (fetched); Longman/Oxford uncountable; SkELL (skell_3_11, 2026-10-21) 'thanks for the feedback' 126; fixes: name Tom -> Mert (situationTr)",
+    "source": "curated",
+    "verified": true
+  },
+  {
+    "id": "information-uncountable",
+    "category": "word_form",
+    "level": 1,
+    "targetChunk": "information (uncountable)",
+    "patternSlots": "the missing ___",
+    "clozeTemplate": "Could you add the missing ___?",
+    "situationTr": "[Jira yorumu] Ticket'ı açan Mert'e: \"Eksik bilgileri ekleyebilir misin?\"",
+    "acceptedAnswers": [
+      "Could you add the missing information?",
+      "Can you add the missing information?",
+      "Could you please add the missing information?",
+      "Could you add the missing info?",
+      "Can you add the missing info?"
+    ],
+    "modelSentences": [
+      "Could you add the missing information?",
+      "Thanks for the information.",
+      "This information is out of date."
+    ],
+    "commonMistake": "Could you add the missing informations?",
+    "checklistTr": [
+      "information'a -s eklemedin, değil mi?",
+      "information isim olarak mı kullanıldı? (fiil inform)",
+      "could'dan sonra to koymadın, değil mi?"
+    ],
+    "noteTr": "Türkçede 'bilgiler' çoğul, ama information sayılamaz: informations yok. Tek bilgi için 'a piece of information'; 'info' gündelik kısa biçim.",
+    "verifiedNote": "verifier (independent, 2026-10-21): Longman information (fetched): 'Don't say: I need some informations'; Cambridge [U]; SkELL (skell_3_11, 2026-10-21) 'missing information' 227; fixes: noteTr shortened to 2 sentences",
+    "source": "curated",
+    "verified": true
+  },
+  {
+    "id": "software-uncountable",
+    "category": "word_form",
+    "level": 1,
+    "targetChunk": "software (uncountable)",
+    "patternSlots": "the ___",
+    "clozeTemplate": "We need to update the ___ on both machines.",
+    "situationTr": "[daily'de söylüyorsun] \"Her iki makinedeki yazılımları güncellememiz lazım.\"",
+    "acceptedAnswers": [
+      "We need to update the software on both machines.",
+      "We have to update the software on both machines.",
+      "We need to update the software on both of the machines.",
+      "We need to update the software on both test machines."
+    ],
+    "modelSentences": [
+      "We need to update the software on both machines.",
+      "Which software do you use for load testing?",
+      "The software is installed on the build agent."
+    ],
+    "commonMistake": "We need to update the softwares on both machines.",
+    "checklistTr": [
+      "software'e -s eklemedin, değil mi?",
+      "Birden çok ürün için 'software' tekil mi kaldı? (gerekirse 'software tools / applications')",
+      "need'den sonra to var mı?"
+    ],
+    "noteTr": "software sayılamaz: softwares yok. Birden fazla programı saymak gerekiyorsa 'applications' / 'tools' kullanılır.",
+    "verifiedNote": "verifier (independent, 2026-10-21): Cambridge software [U] (fetched); Longman uncountable; SkELL (skell_3_11, 2026-10-21) 'the software on' 242; fixes: none",
+    "source": "curated",
+    "verified": true
+  },
+  {
+    "id": "deployment-was-successful",
+    "category": "word_form",
+    "level": 1,
+    "targetChunk": "successful (adj) / success (noun) / succeed (verb)",
+    "patternSlots": "was ___",
+    "clozeTemplate": "The deployment was ___.",
+    "situationTr": "[Teams, ekibe] \"Deploy başarılı oldu.\" (geçmiş)",
+    "acceptedAnswers": [
+      "The deployment was successful.",
+      "The deployment has been successful.",
+      "The deployment succeeded.",
+      "The deployment was a success."
+    ],
+    "modelSentences": [
+      "The deployment was successful.",
+      "The migration was a big success.",
+      "The second run succeeded."
+    ],
+    "commonMistake": "The deployment was success.",
+    "checklistTr": [
+      "was'tan sonra sıfat (successful) mı kullandın? (success isimdir)",
+      "İsim kullandıysan 'a success' mi dedin?",
+      "Fiil kullandıysan 'succeeded' mi? (was succeed değil)"
+    ],
+    "noteTr": "başarı = success (isim), başarılı = successful (sıfat), başarılı olmak = succeed (fiil). Türkçede 'başarılı oldu' tek kalıp, İngilizcede üç biçim var.",
+    "verifiedNote": "verifier (independent, 2026-10-21): Cambridge success/successful; Longman success; SkELL (skell_3_11, 2026-10-21) 'was successful' 4593, 'was a success' 1680; 'was success' 35 hits are noun-subject uses ('my goal was success'), not adjective; fixes: none",
+    "source": "curated",
+    "verified": true
+  },
+  {
+    "id": "set-up-verb",
+    "category": "word_form",
+    "level": 2,
+    "targetChunk": "set up (verb) vs setup (noun)",
+    "patternSlots": "___ ___ the ...",
+    "clozeTemplate": "I'll ___ ___ the test environment today.",
+    "situationTr": "[daily'de söylüyorsun] \"Test ortamını bugün kuracağım.\"",
+    "acceptedAnswers": [
+      "I'll set up the test environment today.",
+      "I'm going to set up the test environment today.",
+      "I'll set the test environment up today.",
+      "I'm going to set the test environment up today."
+    ],
+    "modelSentences": [
+      "I'll set up the test environment today.",
+      "Can you help me set up the pipeline?",
+      "The setup takes about ten minutes."
+    ],
+    "commonMistake": "I'll setup the test environment today.",
+    "checklistTr": [
+      "Fiil olarak iki kelime mi yazdın? (set up, setup değil)",
+      "Fiil yerinde mi? (I'll + set up)",
+      "Nesneyi (the test environment) yazdın mı?"
+    ],
+    "noteTr": "Fiil iki kelime: set up; bitişik 'setup' (BrE 'set-up') isimdir: 'the setup'. Ana dili İngilizce olanlar da fiili 'setup' yazabiliyor, ama sözlüklerde standart değil.",
+    "verifiedNote": "verifier (independent, 2026-10-21): Cambridge setup noun + set sth up phrasal verb; Oxford set up phrasal verb / set-up noun; SkELL (skell_3_11, 2026-10-21) 'set up the' 7471 vs 'setup the' 266; fixes: noteTr shortened to 2 sentences",
+    "source": "curated",
+    "verified": true
+  },
+  {
+    "id": "log-in-to",
+    "category": "word_form",
+    "level": 2,
+    "targetChunk": "log in (to) (verb) vs login (noun)",
+    "patternSlots": "log ___ ___ ...",
+    "clozeTemplate": "I can't ___ ___ ___ staging.",
+    "situationTr": "[Teams] Mert'e yazıyorsun: \"Staging'e giriş yapamıyorum.\"",
+    "acceptedAnswers": [
+      "I can't log in to staging.",
+      "I can't log into staging.",
+      "I can't log in to the staging environment.",
+      "I can't log into the staging environment.",
+      "I'm unable to log in to staging.",
+      "I can't sign in to staging."
+    ],
+    "modelSentences": [
+      "I can't log in to staging.",
+      "Log in with your test account.",
+      "The login page doesn't load."
+    ],
+    "commonMistake": "I can't login the staging.",
+    "checklistTr": [
+      "Fiil olarak iki kelime mi yazdın? (log in, login değil)",
+      "Yerden önce to var mı? (log in to staging)",
+      "can't'ten sonra to koymadın, değil mi?"
+    ],
+    "noteTr": "Fiil 'log in (to)' iki kelime, 'login' isim/sıfat: 'the login page'; 'log into' da yaygın. 'Staging'e'deki -e eki to olur; 'sign in to' da doğru (bağlama göre).",
+    "verifiedNote": "verifier (independent, 2026-10-21): Oxford 'log in/on (to something)' + login noun (fetched); Cambridge 'log in/on to sth' (fetched), Longman log in/on; Merriam-Webster log on entry: 'often written log onto and log into' (via web search); SkELL (skell_3_11, 2026-10-21) 'log into' 1471, 'log in to' 772; fixes: added 'I can't sign in to staging.' (noteTr already called it correct; rule 9: context-dependent alternatives must be accepted); noteTr mentions 'log into', 2 sentences",
+    "source": "curated",
+    "verified": true
+  },
+  {
+    "id": "reminder-noun",
+    "category": "word_form",
+    "level": 2,
+    "targetChunk": "reminder (noun) vs remind (verb)",
+    "patternSlots": "a quick ___ that ...",
+    "clozeTemplate": "Just a quick ___ that the demo is at 2.",
+    "situationTr": "[Teams, ekibe] \"Küçük bir hatırlatma: demo saat 2'de.\"",
+    "acceptedAnswers": [
+      "Just a quick reminder that the demo is at 2.",
+      "Just a quick reminder that the demo is at 2 pm.",
+      "Just a quick reminder that the demo is at 2pm.",
+      "Just a reminder that the demo is at 2.",
+      "A quick reminder that the demo is at 2.",
+      "Quick reminder that the demo is at 2.",
+      "Just a quick reminder: the demo is at 2."
+    ],
+    "modelSentences": [
+      "Just a quick reminder that the demo is at 2.",
+      "I'll set a reminder for the release.",
+      "Thanks for the reminder!"
+    ],
+    "commonMistake": "Just a quick remind that the demo is at 2.",
+    "checklistTr": [
+      "'a quick ...'tan sonra isim (reminder) mi kullandın? (remind fiildir)",
+      "reminder'ı fiil gibi kullanmadın, değil mi?",
+      "'that' ile cümleyi bağladın mı?"
+    ],
+    "noteTr": "hatırlatma (isim) = reminder, hatırlatmak (fiil) = remind. 'a' ve sıfattan sonra isim gelir; iki nokta ile 'Just a quick reminder: ...' de doğal.",
+    "verifiedNote": "verifier (independent, 2026-10-21): Oxford reminder 'reminder that...'; Cambridge reminder noun (fetched); Longman reminder; SkELL (skell_3_11, 2026-10-21) 'just a reminder that' 65, 'quick reminder that' 9, 'a quick remind' 0; fixes: added colon variant 'Just a quick reminder: the demo is at 2.' (decision 19 normalizer now ignores inner ':'); noteTr 2 sentences",
+    "source": "curated",
+    "verified": true
+  },
+  {
+    "id": "waiting-for-approval",
+    "category": "word_form",
+    "level": 2,
+    "targetChunk": "approval (noun) vs approve (verb)",
+    "patternSlots": "waiting for ___",
+    "clozeTemplate": "The PR is waiting for ___.",
+    "situationTr": "[Teams] Ekibe yazıyorsun: \"PR onay bekliyor.\"",
+    "acceptedAnswers": [
+      "The PR is waiting for approval.",
+      "The PR is still waiting for approval.",
+      "The PR is awaiting approval.",
+      "The PR is pending approval.",
+      "The pull request is waiting for approval.",
+      "My PR is waiting for approval."
+    ],
+    "modelSentences": [
+      "The PR is waiting for approval.",
+      "Could you approve my PR?",
+      "We need approval from the team lead."
+    ],
+    "commonMistake": "The PR is waiting for approve.",
+    "checklistTr": [
+      "for'dan sonra isim (approval) mi kullandın? (approve fiildir)",
+      "'waiting for' kalıbını tam yazdın mı? (awaiting ise for yok)",
+      "is waiting mi? (Şu an süren durum)"
+    ],
+    "noteTr": "onay (isim) = approval, onaylamak (fiil) = approve; edattan (for) sonra isim gelir. 'awaiting approval' ve 'pending approval' daha resmî.",
+    "verifiedNote": "verifier (independent, 2026-10-21): Cambridge approval [U] + pending adjective (fetched); Oxford approval; SkELL (skell_3_11, 2026-10-21) 'pending approval' 157, 'awaiting approval' 99, 'waiting for approval' 33, 'waiting for approve' 0; fixes: noteTr shortened to 2 sentences",
+    "source": "curated",
+    "verified": true
+  },
+  {
+    "id": "failure-noun",
+    "category": "word_form",
+    "level": 2,
+    "targetChunk": "failure (noun) vs fail (verb)",
+    "patternSlots": "this ___ is caused by ...",
+    "clozeTemplate": "This ___ is caused by a timeout.",
+    "situationTr": "[Jira yorumu] \"Bu başarısızlığın nedeni bir timeout.\"",
+    "acceptedAnswers": [
+      "This failure is caused by a timeout.",
+      "The failure is caused by a timeout.",
+      "This failure was caused by a timeout.",
+      "The failure was caused by a timeout.",
+      "This test failure is caused by a timeout."
+    ],
+    "modelSentences": [
+      "This failure is caused by a timeout.",
+      "We had three failures in the nightly run.",
+      "The test fails on Firefox."
+    ],
+    "commonMistake": "This fail is caused by a timeout.",
+    "checklistTr": [
+      "Özne olarak isim (failure) mi kullandın? (fail fiildir)",
+      "Fiil gerekiyorsa 'fails / failed' mi? (failure değil)",
+      "'caused by' kalıbını kullandın mı?"
+    ],
+    "noteTr": "başarısızlık (isim) = failure, başarısız olmak (fiil) = fail. İsim olarak 'a fail' yalnızca sınav sonucu (BrE) ya da argo 'epic fail' için.",
+    "verifiedNote": "verifier (independent, 2026-10-21): Cambridge fail noun = UK exam result / informal (fetched), failure noun; Oxford fail noun; SkELL (skell_3_11, 2026-10-21) 'failure was caused by' 20, 'fail is caused' 0; fixes: none",
+    "source": "curated",
+    "verified": true
+  },
+  {
+    "id": "dependent-on",
+    "category": "word_form",
+    "level": 3,
+    "targetChunk": "be dependent on (adj) vs depend on (verb)",
+    "patternSlots": "is ___ on ...",
+    "clozeTemplate": "This test is ___ on the seed data.",
+    "situationTr": "[Jira yorumu] \"Bu test seed verisine bağımlı.\"",
+    "acceptedAnswers": [
+      "This test is dependent on the seed data.",
+      "This test depends on the seed data.",
+      "This test is dependent upon the seed data.",
+      "The test is dependent on the seed data.",
+      "The test depends on the seed data."
+    ],
+    "modelSentences": [
+      "This test is dependent on the seed data.",
+      "The result depends on the environment.",
+      "We should remove this dependency."
+    ],
+    "commonMistake": "This test is depend on the seed data.",
+    "checklistTr": [
+      "is'ten sonra sıfat (dependent) mı kullandın? (is depend değil)",
+      "Fiil kullandıysan is'i kaldırıp 'depends' mi yazdın?",
+      "Sonrasında on var mı?"
+    ],
+    "noteTr": "'bağımlı/bağlı' sıfatı = dependent (on), fiil = depend on, isim = dependency. 'is depend' Türkçe ek-fiil (-dir) etkisidir.",
+    "verifiedNote": "verifier (independent, 2026-10-21): Oxford 'dependent on/upon' (fetched); Longman dependent; Cambridge dependent on; SkELL (skell_3_11, 2026-10-21) 'dependent on the' 5531, 'dependent upon the' 1353; domain: Rails Guides (Active Record Migrations) uses 'seed data'; fixes: noteTr shortened to 2 sentences",
+    "source": "curated",
+    "verified": true
+  },
+  {
+    "id": "analysis-of",
+    "category": "word_form",
+    "level": 3,
+    "targetChunk": "analysis (noun) vs analyse/analyze (verb)",
+    "patternSlots": "a quick ___ of ...",
+    "clozeTemplate": "I did a quick ___ of the logs.",
+    "situationTr": "[daily'de söylüyorsun] \"Loglar üzerinde hızlı bir analiz yaptım.\"",
+    "acceptedAnswers": [
+      "I did a quick analysis of the logs.",
+      "I've done a quick analysis of the logs.",
+      "I quickly analyzed the logs.",
+      "I quickly analysed the logs.",
+      "I ran a quick analysis of the logs."
+    ],
+    "modelSentences": [
+      "I did a quick analysis of the logs.",
+      "We need to analyse the results first.",
+      "The analysis shows a memory leak."
+    ],
+    "commonMistake": "I did a quick analyse of the logs.",
+    "checklistTr": [
+      "'a quick ...'tan sonra isim (analysis) mi kullandın? (analyse/analyze fiildir)",
+      "Fiil olarak 'yapmak' için do / carry out mu kullandın?",
+      "Fiil kullandıysan analyzed / analysed mi?"
+    ],
+    "noteTr": "analiz (isim) = analysis, analiz etmek = analyse (BrE) / analyze (AmE). 'analiz yapmak' = do / carry out an analysis.",
+    "verifiedNote": "verifier (independent, 2026-10-21): Longman analysis collocations (fetched): 'do/carry out/perform/conduct an analysis', 'analysis of'; Cambridge 'carry out/perform/conduct an analysis'; Oxford analysis; SkELL (skell_3_11, 2026-10-21) 'did an analysis' 29, 'run/ran an analysis' 6/2 (data/tool context); fixes: commonMistake 'I made a quick analyse...' -> 'I did a quick analyse of the logs.' so it contains only the word-form error ('make an analysis' is marginal, not the target)",
+    "source": "curated",
+    "verified": true
+  },
+  {
+    "id": "judgmental-question",
+    "category": "word_form",
+    "level": 3,
+    "targetChunk": "judgmental (adjective)",
+    "patternSlots": "a ___ question",
+    "clozeTemplate": "That sounds like a ___ question.",
+    "situationTr": "[Teams, Deniz'e özel mesaj] Toplantıdaki bir soru için: \"Bu yargılayıcı bir soru gibi geliyor.\"",
+    "acceptedAnswers": [
+      "That sounds like a judgmental question.",
+      "That sounds like a judgemental question.",
+      "This sounds like a judgmental question.",
+      "This sounds like a judgemental question.",
+      "It sounds like a judgmental question.",
+      "It sounds like a judgemental question."
+    ],
+    "modelSentences": [
+      "That sounds like a judgmental question.",
+      "Let's keep the retro feedback constructive, not judgmental.",
+      "I didn't mean to sound judgmental."
+    ],
+    "commonMistake": "That sounds like a judging question.",
+    "checklistTr": [
+      "İsimden önce sıfat (judgmental) mı kullandın? (judging değil)",
+      "'sounds like a ...' kalıbını kullandın mı?",
+      "Yazım: judgmental (AmE) / judgemental (BrE) ikisi de doğru"
+    ],
+    "noteTr": "yargılayıcı = judgmental (sıfat; BrE yazımı judgemental). 'judging' fiilin -ing biçimidir, bu anlamda sıfat olarak kullanılmaz.",
+    "verifiedNote": "verifier (independent, 2026-10-21): Cambridge judgmental adj (also judgemental) (fetched); Oxford judgemental (also judgmental NAmE) (fetched); Longman judgmental; SkELL (skell_3_11, 2026-10-21) 'non-judgmental questions' attested, 'judgmental comments/tone' attested; exact 'judgmental question' low-frequency but grammatical; seed sentence from 00-brief; fixes: name Sarah -> Deniz; noteTr 2 sentences",
+    "source": "curated",
+    "verified": true
+  }
+]
