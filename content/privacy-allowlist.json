@@ -2,7 +2,7 @@
   "$comment": "C10 allowlist: fictional names and accepted capitalised terms. Real names belong in the gitignored content/privacy-denylist.local.txt, never here.",
   "names": ["Ayşe", "Mert", "Deniz", "Mehmet", "Sarah", "Tom"],
   "terms": [
-    "I", "Teams", "Jira", "Chrome", "Firefox", "Safari", "API", "PR", "PO", "QA", "CI", "CD", "UI", "DB", "S3", "Scrum",
+    "I", "EOD", "Teams", "Jira", "Chrome", "Firefox", "Safari", "API", "PR", "PO", "QA", "CI", "CD", "UI", "DB", "S3", "Scrum",
     "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
     "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma",
     "Takım", "Ekibe", "Toplantıdaki", "Yeni", "Görüşme", "Ticket"
