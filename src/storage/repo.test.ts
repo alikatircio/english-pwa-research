@@ -2,7 +2,8 @@ import 'fake-indexeddb/auto';
 import { afterEach, describe, expect, it } from 'vitest';
 import type { AnswerLog, DailyCounter, Progress } from '../domain/types.ts';
 import { DB_VERSION, openAppDb, STORE_NAMES, type AppDb } from './db.ts';
-import { commitGrade, loadAll } from './repo.ts';
+import { clearSession, commitGrade, loadAll, saveSession } from './repo.ts';
+import { newSession } from '../domain/session.ts';
 
 let n = 0;
 const opened: AppDb[] = [];
@@ -75,5 +76,18 @@ describe('commitGrade', () => {
     expect(data.progress).toEqual([progress]);
     expect(data.counter).toEqual(counter);
     expect(await db.count('answerLog')).toBe(1);
+  });
+});
+
+describe('saveSession / clearSession', () => {
+  it('stores the single current session and removes it', async () => {
+    const db = await freshDb();
+    const s = { ...newSession([{ itemId: 'a', kind: 'new' }], day, 1), draft: 'Could you' };
+    await saveSession(db, s);
+    await saveSession(db, { ...s, draft: 'Could you check' });
+    expect((await loadAll(db, day)).session?.draft).toBe('Could you check');
+    expect(await db.count('session')).toBe(1);
+    await clearSession(db);
+    expect((await loadAll(db, day)).session).toBeUndefined();
   });
 });

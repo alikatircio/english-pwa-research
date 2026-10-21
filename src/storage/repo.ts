@@ -58,3 +58,12 @@ export async function commitGrade(db: AppDb, c: GradeCommit): Promise<number> {
   const [id] = await Promise.all([logId, ...writes, tx.done]);
   return id;
 }
+
+/** Session only (draft, cursor, phase). Debounced by the caller (~300 ms). */
+export async function saveSession(db: AppDb, session: SessionState): Promise<void> {
+  await db.put('session', session);
+}
+
+export async function clearSession(db: AppDb): Promise<void> {
+  await db.delete('session', 'current');
+}

@@ -1,10 +1,11 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 import type { Actions } from '../../app/actions.ts';
 import type { ReadyState } from '../../app/state.ts';
 import { currentEntry } from '../../domain/session.ts';
 import { AnswerInput } from '../components/AnswerInput.tsx';
 import { GradeButtons } from '../components/GradeButtons.tsx';
+import { useDebouncedCallback } from '../hooks/useDebouncedCallback.ts';
 import { ResultPanel } from '../components/ResultPanel.tsx';
 import { t } from '../strings.tr.ts';
 
@@ -29,11 +30,27 @@ export function CardScreen({ state, actions }: Props) {
   const [draft, setDraft] = useState({ key: cardKey, text: session?.draft ?? '' });
   if (draft.key !== cardKey) setDraft({ key: cardKey, text: session?.draft ?? '' });
 
+  // Draft → IDB about 300 ms after typing stops (02 §3); flushed when the page is hidden.
+  const persistDraft = useDebouncedCallback(actions.saveDraft, 300);
+  useEffect(() => {
+    const onVisibility = () => {
+      if (document.visibilityState === 'hidden') persistDraft.flush();
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => document.removeEventListener('visibilitychange', onVisibility);
+  }, [persistDraft]);
+
   if (!session || !item) return null;
   const phase = session.phase;
   const { tag, text } = splitSituation(item.situationTr);
 
+  function onDraftChange(text: string) {
+    setDraft({ key: cardKey, text });
+    if (session) persistDraft.call(session.cursor, text);
+  }
+
   function submit() {
+    persistDraft.cancel(); // submitAnswer stores the text with the result
     void actions.submitAnswer(draft.text);
   }
 
@@ -53,7 +70,7 @@ export function CardScreen({ state, actions }: Props) {
         </section>
 
         {phase.tag === 'question' ? (
-          <AnswerInput ref={inputRef} value={draft.text} onChange={(v) => setDraft({ key: cardKey, text: v })} onSubmit={submit} disabled={state.busy} />
+          <AnswerInput ref={inputRef} value={draft.text} onChange={onDraftChange} onSubmit={submit} disabled={state.busy} />
         ) : (
           <ResultPanel item={item} answer={phase.answer} matched={phase.matched} grade={phase.matched ? undefined : phase.grade} />
         )}

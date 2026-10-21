@@ -4,7 +4,8 @@ import fixture from '../../content/fixtures/e2e-items.json';
 import { fixedClock } from '../domain/clock.ts';
 import type { ContentBundle } from '../domain/types.ts';
 import { openAppDb } from '../storage/db.ts';
-import { commitGrade } from '../storage/repo.ts';
+import { commitGrade, saveSession } from '../storage/repo.ts';
+import { newSession, SESSION_MAX_AGE_MS } from '../domain/session.ts';
 import { boot } from './boot.ts';
 
 const bundle = fixture as ContentBundle;
@@ -29,5 +30,51 @@ describe('boot', () => {
     expect(state.session?.queue.map((q) => q.itemId)).toEqual(bundle.items.slice(1).map((i) => i.id));
     expect(state.session?.day).toBe('2026-11-02');
     opened.close();
+  });
+});
+
+describe('boot — session resume', () => {
+  const t0 = new Date(2026, 10, 2, 8).getTime();
+  const stored = {
+    ...newSession(bundle.items.map((i) => ({ itemId: i.id, kind: 'new' as const })), '2026-11-02', t0),
+    cursor: 3,
+    draft: 'Could you expl',
+  };
+
+  async function bootAt(ms: number, session = stored) {
+    const name = `resume-${ms}-${Math.random()}`;
+    const db = await openAppDb({ name });
+    await saveSession(db, session);
+    db.close();
+    const r = await boot({ bundle, clock: fixedClock(ms), openDb: () => openAppDb({ name }) });
+    const left = await r.db.get('session', 'current');
+    r.db.close();
+    return { session: r.state.session, left };
+  }
+
+  it('resumes the same card and draft on the same day within 12 h', async () => {
+    const { session } = await bootAt(t0 + 60 * 60 * 1000);
+    expect(session?.cursor).toBe(3);
+    expect(session?.draft).toBe('Could you expl');
+  });
+
+  it('resumes a result phase as a result phase', async () => {
+    const result = { ...stored, phase: { tag: 'result' as const, answer: 'x', matched: false as const } };
+    const { session } = await bootAt(t0 + 1000, result);
+    expect(session?.phase).toEqual(result.phase);
+  });
+
+  it('drops a session older than 12 h and starts fresh', async () => {
+    const later = new Date(2026, 10, 2, 8).getTime() + SESSION_MAX_AGE_MS + 1;
+    const { session, left } = await bootAt(later);
+    expect(session?.cursor).toBe(0);
+    expect(session?.draft).toBe('');
+    expect(left).toBeUndefined();
+  });
+
+  it('drops a session from another day', async () => {
+    const { session } = await bootAt(new Date(2026, 10, 3, 0, 30).getTime());
+    expect(session?.day).toBe('2026-11-03');
+    expect(session?.cursor).toBe(0);
   });
 });

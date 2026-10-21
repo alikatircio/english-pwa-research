@@ -6,7 +6,7 @@ import { applyGrade } from '../domain/scheduler.ts';
 import { currentEntry } from '../domain/session.ts';
 import type { AnswerLog, CardPhase, DailyCounter, Grade, GradedBy, HintStage, SessionState } from '../domain/types.ts';
 import type { AppDb } from '../storage/db.ts';
-import { commitGrade } from '../storage/repo.ts';
+import { clearSession, commitGrade, saveSession } from '../storage/repo.ts';
 import type { Action, AppState, ReadyState } from './state.ts';
 
 export interface ActionDeps {
@@ -27,6 +27,20 @@ function hintStage(box: number | undefined): HintStage {
 }
 
 export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
+  /**
+   * Session-only writes (draft, cursor, phase) are write-behind: losing one costs
+   * at most a draft, never a grade, so a failure is not surfaced (grades are
+   * written atomically in commitGrade).
+   */
+  function persistSession(session: SessionState | undefined): void {
+    void (session ? saveSession(db, session) : clearSession(db)).catch(() => undefined);
+  }
+
+  function setSession(session: SessionState | undefined, screen?: 'card' | 'done'): void {
+    dispatch(screen ? { type: 'session', session, screen } : { type: 'session', session });
+    persistSession(session);
+  }
+
   /** Grade the current card: progress + counter + log + session in one transaction. */
   async function grade(g: Grade, gradedBy: GradedBy, answer: string, phase: CardPhase): Promise<void> {
     const s = ready(getState);
@@ -81,7 +95,7 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       if (matched) {
         await grade('correct', 'auto', answer, { tag: 'result', answer, matched: true });
       } else {
-        dispatch({ type: 'session', session: { ...session, draft: text, phase: { tag: 'result', answer, matched: false }, updatedAt: clock.now() } });
+        setSession({ ...session, draft: text, phase: { tag: 'result', answer, matched: false }, updatedAt: clock.now() });
       }
     },
 
@@ -106,10 +120,17 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
         cursor++;
       }
       if (cursor >= session.queue.length) {
-        dispatch({ type: 'session', session: undefined, screen: 'done' });
+        setSession(undefined, 'done');
         return;
       }
-      dispatch({ type: 'session', session: { ...session, cursor, phase: { tag: 'question' }, draft: '', updatedAt: clock.now() } });
+      setSession({ ...session, cursor, phase: { tag: 'question' }, draft: '', updatedAt: clock.now() });
+    },
+
+    /** Debounced by the caller. Ignored if the card moved on meanwhile. */
+    saveDraft(cursor: number, text: string): void {
+      const session = ready(getState)?.session;
+      if (!session || session.cursor !== cursor || session.phase.tag !== 'question' || session.draft === text) return;
+      setSession({ ...session, draft: text, updatedAt: clock.now() });
     },
 
     dismissError(): void {
