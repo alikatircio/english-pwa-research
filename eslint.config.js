@@ -11,6 +11,7 @@ const layer = (name) => [`**/${name}`, `**/${name}/**`];
 export default tseslint.config(
   {
     ignores: [
+      '.claude/', // agent tooling, incl. nested git worktrees
       'dist/',
       'coverage/',
       'test-results/',
