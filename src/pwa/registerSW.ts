@@ -1,0 +1,92 @@
+/// <reference types="vite-plugin-pwa/vanillajs" />
+// Service worker registration and the "update only on Home" rule (07 §6.2, 02 §3).
+//
+// Wiring (two calls, no React state needed):
+//   1. main.tsx, once at boot:            startServiceWorker();
+//   2. HomeScreen, while Home is shown:
+//        useEffect(() => applyUpdateOnHome({ hasSession: session !== undefined }), [session]);
+//      It tries once on mount and again on every `visibilitychange → visible`;
+//      the returned function removes the listener on unmount.
+//
+// A new version that arrives while the user is already on Home is NOT applied until the
+// next Home mount or the next return to the app, so a tap is never interrupted.
+import { registerSW } from 'virtual:pwa-register';
+import { mayReloadNow, shouldCheckForUpdate } from './updatePolicy.ts';
+
+let started = false;
+/** A new SW is waiting, or (via another tab) already controls this page. */
+let updateReady = false;
+/** The new SW already took control elsewhere; only a reload is left to do. */
+let controllerChanged = false;
+/** We asked the waiting SW to activate; the reload follows from `onNeedReload`. */
+let applying = false;
+let activateWaitingSW: (() => Promise<void>) | undefined;
+let registration: ServiceWorkerRegistration | undefined;
+let lastCheckAt: number | undefined;
+
+/** Registers the SW (production builds only). Safe to call more than once. */
+export function startServiceWorker(): void {
+  if (started || !import.meta.env.PROD || !('serviceWorker' in navigator)) return;
+  started = true;
+
+  activateWaitingSW = registerSW({
+    onNeedRefresh() {
+      updateReady = true;
+    },
+    onNeedReload() {
+      if (applying) {
+        window.location.reload();
+        return;
+      }
+      // Activated from another tab/window: defer the reload to the next safe Home moment.
+      controllerChanged = true;
+      updateReady = true;
+    },
+    onRegisteredSW(_swUrl, reg) {
+      registration = reg;
+      lastCheckAt = Date.now();
+    },
+    onRegisterError(error: unknown) {
+      console.warn('Service worker registration failed', error);
+    },
+  });
+
+  // iOS rarely checks for a new SW on its own: ask when the app comes back, at most hourly.
+  document.addEventListener('visibilitychange', checkForUpdate);
+}
+
+function checkForUpdate(): void {
+  if (document.visibilityState !== 'visible' || !registration) return;
+  const now = Date.now();
+  if (!shouldCheckForUpdate(lastCheckAt, now)) return;
+  lastCheckAt = now;
+  // Offline or a check already in flight: try again next time.
+  registration.update().catch(() => undefined);
+}
+
+function tryApplyOnHome(hasSession: boolean): void {
+  if (applying) return;
+  const visible = document.visibilityState === 'visible';
+  if (!mayReloadNow({ updateReady, screen: 'home', hasSession, visible })) return;
+  applying = true;
+  if (controllerChanged) {
+    window.location.reload();
+  } else {
+    // Sends SKIP_WAITING; the page reloads once the new SW controls it (`onNeedReload`).
+    void activateWaitingSW?.();
+  }
+}
+
+/**
+ * Call while the Home screen is mounted. Applies a waiting update now if it is safe, and
+ * again whenever the app becomes visible. Returns a cleanup function (use it as the
+ * `useEffect` return value).
+ */
+export function applyUpdateOnHome({ hasSession }: { hasSession: boolean }): () => void {
+  tryApplyOnHome(hasSession);
+  const onVisibility = () => {
+    if (document.visibilityState === 'visible') tryApplyOnHome(hasSession);
+  };
+  document.addEventListener('visibilitychange', onVisibility);
+  return () => document.removeEventListener('visibilitychange', onVisibility);
+}
