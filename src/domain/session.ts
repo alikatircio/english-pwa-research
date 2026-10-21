@@ -2,7 +2,7 @@
 // Pure: the caller injects `today` (from a Clock) and `now`.
 import { compareDays } from './dates.ts';
 import { isDue } from './scheduler.ts';
-import type { DailyCounter, DayKey, Item, Progress, QueueEntry, SessionState } from './types.ts';
+import type { DailyCounter, DayKey, Grade, Item, Progress, QueueEntry, QueueKind, SessionState } from './types.ts';
 
 /** Decision 1. */
 export const ROUND_SIZE = 8;
@@ -130,4 +130,83 @@ export function newSession(queue: readonly QueueEntry[], day: DayKey, now: numbe
 
 export function currentEntry(s: SessionState): QueueEntry | undefined {
   return s.queue[s.cursor];
+}
+
+/**
+ * Session effects of the first grade given to the current card.
+ * - Main card graded wrong/partial → appended once as `repeat` (decision 5).
+ * - `consecutiveWrong` counts wrong main-card answers; correct/partial reset it
+ *   (decision 25). On reaching BREATHER_AFTER, the highest-box remaining main
+ *   card (new = box 0; ties keep queue order) moves to cursor+1 and the
+ *   counter resets (decision 6).
+ * - A repeat answer changes none of that (and never touches the box).
+ * The card's targetChunk is recorded once for the round-end summary (05 §3).
+ */
+export function onFirstAnswer(s: SessionState, grade: Grade, pools: Pools): SessionState {
+  const entry = currentEntry(s);
+  if (!entry) return s;
+
+  const chunk = pools.items.get(entry.itemId)?.targetChunk;
+  const studiedChunks =
+    chunk !== undefined && !s.studiedChunks.includes(chunk) ? [...s.studiedChunks, chunk] : s.studiedChunks;
+  if (entry.kind === 'repeat') return { ...s, studiedChunks };
+
+  let queue = s.queue;
+  let repeatQueued = s.repeatQueued;
+  if (grade !== 'correct' && !repeatQueued.includes(entry.itemId)) {
+    queue = [...queue, { itemId: entry.itemId, kind: 'repeat' }];
+    repeatQueued = [...repeatQueued, entry.itemId];
+  }
+
+  let consecutiveWrong = grade === 'wrong' ? s.consecutiveWrong + 1 : 0;
+  if (consecutiveWrong >= BREATHER_AFTER) {
+    queue = pullBreather(queue, s.cursor, pools);
+    consecutiveWrong = 0;
+  }
+
+  return { ...s, queue, repeatQueued, consecutiveWrong, studiedChunks };
+}
+
+function pullBreather(queue: readonly QueueEntry[], cursor: number, pools: Pools): QueueEntry[] {
+  let pick = -1;
+  let best = -1;
+  for (let i = cursor + 1; i < queue.length; i++) {
+    const e = queue[i];
+    if (!e || e.kind === 'repeat') continue;
+    const box = pools.progress.get(e.itemId)?.box ?? 0;
+    if (box > best) {
+      best = box;
+      pick = i;
+    }
+  }
+  const next = [...queue];
+  if (pick > cursor + 1) next.splice(cursor + 1, 0, ...next.splice(pick, 1));
+  return next;
+}
+
+/** Next card, or 'round-end' after the last one. Resets phase and draft, drops the undo snapshot. */
+export function advance(s: SessionState): SessionState | 'round-end' {
+  const cursor = s.cursor + 1;
+  if (cursor >= s.queue.length) return 'round-end';
+  const next: SessionState = { ...s, cursor, phase: { tag: 'question' }, draft: '' };
+  delete next.undo;
+  return next;
+}
+
+export function emptyCounter(day: DayKey): DailyCounter {
+  return { day, newIntroduced: 0, reviewsAnswered: 0 };
+}
+
+/**
+ * Daily counter after a first answer of a `kind` card. Counts go to the day the
+ * queue was built (03 §4.5), so pass the counter for `sessionDay`; repeats are
+ * not counted.
+ */
+export function countFirstAnswer(counter: DailyCounter, kind: QueueKind, sessionDay: DayKey): DailyCounter {
+  if (counter.day !== sessionDay) {
+    throw new Error(`Counter day ${counter.day} does not match session day ${sessionDay}`);
+  }
+  if (kind === 'new') return { ...counter, newIntroduced: counter.newIntroduced + 1 };
+  if (kind === 'due') return { ...counter, reviewsAnswered: counter.reviewsAnswered + 1 };
+  return counter;
 }

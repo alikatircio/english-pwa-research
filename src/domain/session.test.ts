@@ -1,17 +1,25 @@
 import { describe, expect, it } from 'vitest';
 import { fixedClock } from './clock.ts';
 import { addDays } from './dates.ts';
+import { applyGrade } from './scheduler.ts';
 import {
+  advance,
+  BREATHER_AFTER,
   buildRound,
+  countFirstAnswer,
+  currentEntry,
   DAILY_DUE_CAP,
   DAILY_NEW_CAP,
   eligibleDue,
   eligibleNew,
+  emptyCounter,
+  newSession,
+  onFirstAnswer,
   ROUND_SIZE,
   todayCount,
   type Pools,
 } from './session.ts';
-import type { Box, DailyCounter, DayKey, Item, Progress } from './types.ts';
+import type { Box, DailyCounter, DayKey, Grade, Item, Progress, QueueEntry, SessionState } from './types.ts';
 
 const today = '2026-11-02';
 
@@ -232,5 +240,206 @@ describe('day boundary (injected clock)', () => {
     clock.advance(2 * 60_000);
     expect(clock.today()).toBe('2026-11-03');
     expect(buildRound(p, clock.today()).map((e) => e.itemId)).toEqual(['b', 'a']);
+  });
+});
+
+// --- T4.2: answering and advancing ------------------------------------------
+
+const q = (...spec: string[]): QueueEntry[] =>
+  spec.map((s) => {
+    const [kind, itemId] = s.split(':') as [QueueEntry['kind'], string];
+    return { itemId, kind };
+  });
+const order = (s: SessionState) => s.queue.map((e) => `${e.kind}:${e.itemId}`);
+
+/** Answer the current card with `grade`, then advance; returns the state on the next card. */
+function step(s: SessionState, grade: Grade, p: Pools): SessionState {
+  const next = advance(onFirstAnswer(s, grade, p));
+  if (next === 'round-end') throw new Error('unexpected round end');
+  return next;
+}
+
+describe('onFirstAnswer — end-of-round repeat', () => {
+  const p = pools({ due: [prog('a', 2), prog('b', 3)], newIds: ['n1'] });
+  const start = newSession(q('due:a', 'due:b', 'new:n1'), today, 0);
+
+  it.each(['wrong', 'partial'] as const)('%s → appended once as repeat', (grade) => {
+    const s = onFirstAnswer(start, grade, p);
+    expect(order(s)).toEqual(['due:a', 'due:b', 'new:n1', 'repeat:a']);
+    expect(s.repeatQueued).toEqual(['a']);
+  });
+
+  it('correct → nothing appended', () => {
+    const s = onFirstAnswer(start, 'correct', p);
+    expect(s.queue).toEqual(start.queue);
+    expect(s.repeatQueued).toEqual([]);
+  });
+
+  it('a wrong repeat is not appended a second time and does not touch the counter', () => {
+    let s = step(start, 'wrong', p);
+    s = step(s, 'correct', p);
+    s = step(s, 'correct', p);
+    expect(currentEntry(s)).toEqual({ itemId: 'a', kind: 'repeat' });
+    const after = onFirstAnswer(s, 'wrong', p);
+    expect(order(after)).toEqual(['due:a', 'due:b', 'new:n1', 'repeat:a']);
+    expect(after.consecutiveWrong).toBe(s.consecutiveWrong);
+    expect(advance(after)).toBe('round-end');
+  });
+
+  it('a repeat answer leaves the queue alone; the box is untouched because the caller skips applyGrade', () => {
+    const s = { ...start, cursor: 3, queue: [...start.queue, { itemId: 'a', kind: 'repeat' as const }] };
+    const after = onFirstAnswer(s, 'correct', p);
+    expect(after.queue).toEqual(s.queue);
+    expect(p.progress.get('a')?.box).toBe(2);
+    // Contrast: a first answer goes through the scheduler and would move the box.
+    expect(applyGrade(p.progress.get('a') ?? null, 'correct', 'a', today, 1).box).toBe(3);
+  });
+
+  it('does not mutate the input state', () => {
+    const snapshot = structuredClone(start);
+    onFirstAnswer(start, 'wrong', p);
+    expect(start).toEqual(snapshot);
+  });
+
+  it('is a no-op past the end of the queue', () => {
+    const s = { ...start, cursor: 9 };
+    expect(onFirstAnswer(s, 'wrong', p)).toBe(s);
+  });
+});
+
+describe('onFirstAnswer — studied chunks', () => {
+  it('records each targetChunk once, in answer order', () => {
+    const p = pools({ due: [prog('a', 2), prog('b', 2)] });
+    let s = newSession(q('due:a', 'due:b'), today, 0);
+    s = step(s, 'wrong', p);
+    s = onFirstAnswer(s, 'correct', p);
+    expect(s.studiedChunks).toEqual(['chunk-a', 'chunk-b']);
+    const r = advance(s);
+    if (r === 'round-end') throw new Error('expected repeat');
+    expect(onFirstAnswer(r, 'correct', p).studiedChunks).toEqual(['chunk-a', 'chunk-b']);
+  });
+});
+
+describe('onFirstAnswer — 3 wrongs in a row (decision 6)', () => {
+  const p = pools({
+    due: [prog('a', 1), prog('b', 1), prog('c', 1), prog('d', 2), prog('e', 4), prog('f', 4)],
+    newIds: ['n1'],
+  });
+  const start = newSession(q('due:a', 'due:b', 'due:c', 'new:n1', 'due:d', 'due:e', 'due:f'), today, 0);
+
+  it(`after ${BREATHER_AFTER} wrongs the next card is the highest-box remaining card; counter resets`, () => {
+    let s = step(start, 'wrong', p);
+    s = step(s, 'wrong', p);
+    expect(s.consecutiveWrong).toBe(2);
+    s = onFirstAnswer(s, 'wrong', p);
+    expect(s.consecutiveWrong).toBe(0);
+    expect(order(s)).toEqual([
+      'due:a',
+      'due:b',
+      'due:c',
+      'due:e',
+      'new:n1',
+      'due:d',
+      'due:f',
+      'repeat:a',
+      'repeat:b',
+      'repeat:c',
+    ]);
+    const next = advance(s);
+    expect(next !== 'round-end' && currentEntry(next)).toEqual({ itemId: 'e', kind: 'due' });
+  });
+
+  it('partial resets the streak (decision 25)', () => {
+    let s = step(start, 'wrong', p);
+    s = step(s, 'partial', p);
+    expect(s.consecutiveWrong).toBe(0);
+    s = step(s, 'wrong', p);
+    s = onFirstAnswer(s, 'wrong', p);
+    expect(s.consecutiveWrong).toBe(2);
+    expect(order(s).slice(0, 7)).toEqual(order(start));
+  });
+
+  it('correct resets the streak', () => {
+    let s = step(start, 'wrong', p);
+    s = step(s, 'wrong', p);
+    s = onFirstAnswer(s, 'correct', p);
+    expect(s.consecutiveWrong).toBe(0);
+  });
+
+  it('new cards count as box 0 and repeats are never pulled forward', () => {
+    const p2 = pools({ due: [prog('a', 1), prog('b', 1), prog('c', 1), prog('d', 1)], newIds: ['n1'] });
+    let s = newSession(q('due:a', 'due:b', 'due:c', 'new:n1', 'due:d'), today, 0);
+    s = step(s, 'wrong', p2);
+    s = step(s, 'wrong', p2);
+    s = onFirstAnswer(s, 'wrong', p2);
+    expect(order(s).slice(3, 5)).toEqual(['due:d', 'new:n1']);
+
+    // Only new cards left: repeat:a (box 1) still stays at the end.
+    let t = newSession(q('due:a', 'due:b', 'due:c', 'new:n1', 'new:n2'), today, 0);
+    t = step(t, 'wrong', p2);
+    t = step(t, 'wrong', p2);
+    t = onFirstAnswer(t, 'wrong', p2);
+    expect(order(t)).toEqual(['due:a', 'due:b', 'due:c', 'new:n1', 'new:n2', 'repeat:a', 'repeat:b', 'repeat:c']);
+  });
+
+  it('with no main cards left, the queue is unchanged and the counter still resets', () => {
+    const p3 = pools({ due: [prog('a', 1), prog('b', 1), prog('c', 1)] });
+    let s = newSession(q('due:a', 'due:b', 'due:c'), today, 0);
+    s = step(s, 'wrong', p3);
+    s = step(s, 'wrong', p3);
+    s = onFirstAnswer(s, 'wrong', p3);
+    expect(order(s)).toEqual(['due:a', 'due:b', 'due:c', 'repeat:a', 'repeat:b', 'repeat:c']);
+    expect(s.consecutiveWrong).toBe(0);
+  });
+});
+
+describe('advance', () => {
+  it('moves to the next card with a clean question phase, empty draft and no undo', () => {
+    const s: SessionState = {
+      ...newSession(q('due:a', 'due:b'), today, 0),
+      phase: { tag: 'result', answer: 'x', matched: false, grade: 'wrong' },
+      draft: 'typing',
+      undo: { itemId: 'a', prevProgress: null, prevCounter: emptyCounter(today), logId: 1, expiresAt: 4000 },
+    };
+    const next = advance(s);
+    if (next === 'round-end') throw new Error('expected next card');
+    expect(next.cursor).toBe(1);
+    expect(next.phase).toEqual({ tag: 'question' });
+    expect(next.draft).toBe('');
+    expect('undo' in next).toBe(false);
+    expect(s.undo).toBeDefined();
+  });
+
+  it("returns 'round-end' after the last card (including repeats)", () => {
+    expect(advance(newSession(q('due:a'), today, 0))).toBe('round-end');
+    expect(advance(newSession([], today, 0))).toBe('round-end');
+  });
+});
+
+describe('countFirstAnswer', () => {
+  it('new → newIntroduced++, due → reviewsAnswered++, repeat → unchanged', () => {
+    const c = emptyCounter(today);
+    expect(countFirstAnswer(c, 'new', today)).toEqual({ day: today, newIntroduced: 1, reviewsAnswered: 0 });
+    expect(countFirstAnswer(c, 'due', today)).toEqual({ day: today, newIntroduced: 0, reviewsAnswered: 1 });
+    expect(countFirstAnswer(c, 'repeat', today)).toBe(c);
+  });
+
+  it('counts across a round feed back into the next round', () => {
+    const p = pools({ due: dueCards(3), newIds: ids('n', 10) });
+    const round = buildRound(p, today);
+    const counter = round.reduce((c, e) => countFirstAnswer(c, e.kind, today), emptyCounter(today));
+    expect(counter).toEqual({ day: today, newIntroduced: 5, reviewsAnswered: 3 });
+    expect(buildRound({ ...pools({ newIds: ids('n', 10).slice(5) }), counter }, today)).toEqual([]);
+  });
+
+  it("midnight: the queue keeps its day and counts go to that day's counter", () => {
+    const clock = fixedClock(new Date(2026, 10, 2, 23, 58).getTime());
+    const s = newSession(q('new:n1', 'new:n2'), clock.today(), clock.now());
+    clock.advance(5 * 60_000);
+    expect(clock.today()).toBe('2026-11-03');
+    const next = advance(onFirstAnswer(s, 'correct', pools({ newIds: ['n1', 'n2'] })));
+    expect(next !== 'round-end' && next.day).toBe('2026-11-02');
+    expect(countFirstAnswer(emptyCounter(s.day), 'new', s.day).day).toBe('2026-11-02');
+    expect(() => countFirstAnswer(emptyCounter(clock.today()), 'new', s.day)).toThrow(/does not match/);
   });
 });
