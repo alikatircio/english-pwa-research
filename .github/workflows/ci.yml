@@ -29,9 +29,8 @@ jobs:
 
       - run: npm ci
 
-      # Content pipeline arrives in T1.3; --if-present keeps CI green until then.
       - name: Build content
-        run: npm run content:build --if-present
+        run: npm run content:build
         env:
           PRIVACY_DENYLIST: ${{ secrets.PRIVACY_DENYLIST }}
 

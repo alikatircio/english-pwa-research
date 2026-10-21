@@ -1,0 +1,318 @@
+{
+  "contentVersion": "e2e-fixture",
+  "generatedAt": "2026-10-21T00:00:00.000Z",
+  "items": [
+    {
+      "id": "e2e-will-send",
+      "category": "aux_to",
+      "targetChunk": "will + base verb",
+      "clozeTemplate": "I'll ___ the report today.",
+      "situationTr": "[e2e] Rapor bugün gönderilecek.",
+      "acceptedAnswers": [
+        "I'll send the report today.",
+        "I'll send you the report today.",
+        "I am going to send the report today."
+      ],
+      "modelSentences": [
+        "I'll send the report today.",
+        "I'll send you the report today."
+      ],
+      "commonMistake": "I will to send the report today.",
+      "checklistTr": [
+        "Kritik noktayı kontrol ettin mi?",
+        "Fiil biçimi doğru mu?"
+      ],
+      "noteTr": "E2E test kalemi (kurgusal).",
+      "source": "curated",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)",
+      "level": 1
+    },
+    {
+      "id": "e2e-could-you-check",
+      "category": "aux_to",
+      "targetChunk": "could + base verb",
+      "clozeTemplate": "Could you ___ the build?",
+      "situationTr": "[e2e] Build’i kontrol etmesini rica et.",
+      "acceptedAnswers": [
+        "Could you check the build?",
+        "Can you check the build?",
+        "Could you please check the build?"
+      ],
+      "modelSentences": [
+        "Could you check the build?",
+        "Can you check the build?"
+      ],
+      "commonMistake": "Could you to check the build?",
+      "checklistTr": [
+        "Kritik noktayı kontrol ettin mi?",
+        "Fiil biçimi doğru mu?"
+      ],
+      "noteTr": "E2E test kalemi (kurgusal).",
+      "source": "curated",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)",
+      "level": 1
+    },
+    {
+      "id": "e2e-explain-to",
+      "category": "object",
+      "targetChunk": "explain something to someone",
+      "clozeTemplate": "Could you explain ___ ___ me?",
+      "situationTr": "[e2e] Açıklamasını iste.",
+      "acceptedAnswers": [
+        "Could you explain it to me?",
+        "Can you explain it to me?",
+        "Could you please explain it to me?"
+      ],
+      "modelSentences": [
+        "Could you explain it to me?",
+        "Can you explain it to me?"
+      ],
+      "commonMistake": "Could you explain me?",
+      "checklistTr": [
+        "Kritik noktayı kontrol ettin mi?",
+        "Fiil biçimi doğru mu?"
+      ],
+      "noteTr": "E2E test kalemi (kurgusal).",
+      "source": "curated",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)",
+      "level": 1
+    },
+    {
+      "id": "e2e-discuss",
+      "category": "object",
+      "targetChunk": "discuss something",
+      "clozeTemplate": "Let's ___ it tomorrow.",
+      "situationTr": "[e2e] Yarın konuşalım.",
+      "acceptedAnswers": [
+        "Let's discuss it tomorrow.",
+        "Let us discuss it tomorrow.",
+        "We can discuss it tomorrow."
+      ],
+      "modelSentences": [
+        "Let's discuss it tomorrow.",
+        "Let us discuss it tomorrow."
+      ],
+      "commonMistake": "Let's discuss about it tomorrow.",
+      "checklistTr": [
+        "Kritik noktayı kontrol ettin mi?",
+        "Fiil biçimi doğru mu?"
+      ],
+      "noteTr": "E2E test kalemi (kurgusal).",
+      "source": "curated",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)",
+      "level": 1
+    },
+    {
+      "id": "e2e-depend-on",
+      "category": "preposition",
+      "targetChunk": "depend on something",
+      "clozeTemplate": "It depends ___ the browser.",
+      "situationTr": "[e2e] Tarayıcıya bağlı.",
+      "acceptedAnswers": [
+        "It depends on the browser.",
+        "That depends on the browser.",
+        "It all depends on the browser."
+      ],
+      "modelSentences": [
+        "It depends on the browser.",
+        "That depends on the browser."
+      ],
+      "commonMistake": "It depends to the browser.",
+      "checklistTr": [
+        "Kritik noktayı kontrol ettin mi?",
+        "Fiil biçimi doğru mu?"
+      ],
+      "noteTr": "E2E test kalemi (kurgusal).",
+      "source": "curated",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)",
+      "level": 1
+    },
+    {
+      "id": "e2e-wait-for",
+      "category": "preposition",
+      "targetChunk": "wait for something",
+      "clozeTemplate": "I'm waiting ___ the deploy.",
+      "situationTr": "[e2e] Deploy’u bekliyorsun.",
+      "acceptedAnswers": [
+        "I'm waiting for the deploy.",
+        "We're waiting for the deploy.",
+        "I'm still waiting for the deploy."
+      ],
+      "modelSentences": [
+        "I'm waiting for the deploy.",
+        "We're waiting for the deploy."
+      ],
+      "commonMistake": "I'm waiting the deploy.",
+      "checklistTr": [
+        "Kritik noktayı kontrol ettin mi?",
+        "Fiil biçimi doğru mu?"
+      ],
+      "noteTr": "E2E test kalemi (kurgusal).",
+      "source": "curated",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)",
+      "level": 1
+    },
+    {
+      "id": "e2e-responsible-for",
+      "category": "preposition",
+      "targetChunk": "be responsible for",
+      "clozeTemplate": "I'm responsible ___ the smoke tests.",
+      "situationTr": "[e2e] Smoke testlerden sorumlusun.",
+      "acceptedAnswers": [
+        "I'm responsible for the smoke tests.",
+        "I'm the one responsible for the smoke tests.",
+        "I'm in charge of the smoke tests."
+      ],
+      "modelSentences": [
+        "I'm responsible for the smoke tests.",
+        "I'm the one responsible for the smoke tests."
+      ],
+      "commonMistake": "I'm responsible from the smoke tests.",
+      "checklistTr": [
+        "Kritik noktayı kontrol ettin mi?",
+        "Fiil biçimi doğru mu?"
+      ],
+      "noteTr": "E2E test kalemi (kurgusal).",
+      "source": "curated",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)",
+      "level": 1
+    },
+    {
+      "id": "e2e-data",
+      "category": "word_form",
+      "targetChunk": "data (uncountable)",
+      "clozeTemplate": "Can you see the ___?",
+      "situationTr": "[e2e] Veriyi görüyor musun?",
+      "acceptedAnswers": [
+        "Can you see the data?",
+        "Could you see the data?",
+        "Do you see the data?"
+      ],
+      "modelSentences": [
+        "Can you see the data?",
+        "Could you see the data?"
+      ],
+      "commonMistake": "Can you see the datas?",
+      "checklistTr": [
+        "Kritik noktayı kontrol ettin mi?",
+        "Fiil biçimi doğru mu?"
+      ],
+      "noteTr": "E2E test kalemi (kurgusal).",
+      "source": "curated",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)",
+      "level": 1
+    },
+    {
+      "id": "e2e-feedback",
+      "category": "word_form",
+      "targetChunk": "feedback (uncountable)",
+      "clozeTemplate": "Thanks for the ___.",
+      "situationTr": "[e2e] Geri bildirim için teşekkür et.",
+      "acceptedAnswers": [
+        "Thanks for the feedback.",
+        "Thank you for the feedback.",
+        "Thanks a lot for the feedback."
+      ],
+      "modelSentences": [
+        "Thanks for the feedback.",
+        "Thank you for the feedback."
+      ],
+      "commonMistake": "Thanks for the feedbacks.",
+      "checklistTr": [
+        "Kritik noktayı kontrol ettin mi?",
+        "Fiil biçimi doğru mu?"
+      ],
+      "noteTr": "E2E test kalemi (kurgusal).",
+      "source": "curated",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)",
+      "level": 1
+    },
+    {
+      "id": "e2e-reproduce",
+      "category": "work_vocab",
+      "targetChunk": "reproduce the issue",
+      "clozeTemplate": "I can't ___ the issue.",
+      "situationTr": "[e2e] Sorunu tekrar oluşturamıyorsun.",
+      "acceptedAnswers": [
+        "I can't reproduce the issue.",
+        "We can't reproduce the issue.",
+        "I couldn't reproduce the issue."
+      ],
+      "modelSentences": [
+        "I can't reproduce the issue.",
+        "We can't reproduce the issue."
+      ],
+      "commonMistake": "I can't repeat the issue.",
+      "checklistTr": [
+        "Kritik noktayı kontrol ettin mi?",
+        "Fiil biçimi doğru mu?"
+      ],
+      "noteTr": "E2E test kalemi (kurgusal).",
+      "source": "curated",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)",
+      "level": 1
+    },
+    {
+      "id": "e2e-look-into",
+      "category": "work_vocab",
+      "targetChunk": "look into something",
+      "clozeTemplate": "I'll look ___ it today.",
+      "situationTr": "[e2e] Bugün inceleyeceksin.",
+      "acceptedAnswers": [
+        "I'll look into it today.",
+        "I'll look into it this afternoon.",
+        "I'm going to look into it today."
+      ],
+      "modelSentences": [
+        "I'll look into it today.",
+        "I'll look into it this afternoon."
+      ],
+      "commonMistake": "I'll look it today.",
+      "checklistTr": [
+        "Kritik noktayı kontrol ettin mi?",
+        "Fiil biçimi doğru mu?"
+      ],
+      "noteTr": "E2E test kalemi (kurgusal).",
+      "source": "curated",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)",
+      "level": 1
+    },
+    {
+      "id": "e2e-get-back",
+      "category": "work_vocab",
+      "targetChunk": "get back to someone",
+      "clozeTemplate": "I'll get back ___ you soon.",
+      "situationTr": "[e2e] Sana döneceksin.",
+      "acceptedAnswers": [
+        "I'll get back to you soon.",
+        "I'll get back to you later.",
+        "I'll get back to you shortly."
+      ],
+      "modelSentences": [
+        "I'll get back to you soon.",
+        "I'll get back to you later."
+      ],
+      "commonMistake": "I'll return to you soon.",
+      "checklistTr": [
+        "Kritik noktayı kontrol ettin mi?",
+        "Fiil biçimi doğru mu?"
+      ],
+      "noteTr": "E2E test kalemi (kurgusal).",
+      "source": "curated",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)",
+      "level": 1
+    }
+  ]
+}

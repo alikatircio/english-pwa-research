@@ -7,7 +7,10 @@
     "node": ">=24.12.0"
   },
   "scripts": {
+    "content:build": "node scripts/build-content.ts",
+    "predev": "npm run content:build",
     "dev": "vite",
+    "prebuild": "npm run content:build",
     "build": "vite build",
     "build:e2e": "vite build --mode e2e",
     "preview": "vite preview",
