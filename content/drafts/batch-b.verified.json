@@ -1,0 +1,1083 @@
+[
+  {
+    "id": "depend-on",
+    "category": "preposition",
+    "targetChunk": "depend on something",
+    "patternSlots": "depend ___ ___",
+    "clozeTemplate": "It depends ___ the environment.",
+    "situationTr": "[Teams, soruya cevap] Mert testin neden bazen geçtiğini soruyor. Sen: \"Bu, ortama bağlı.\"",
+    "acceptedAnswers": [
+      "It depends on the environment.",
+      "That depends on the environment.",
+      "It depends on the test environment.",
+      "That depends on the test environment.",
+      "It all depends on the environment.",
+      "It depends upon the environment."
+    ],
+    "modelSentences": [
+      "It depends on the environment.",
+      "The result depends on the test data.",
+      "Whether we release on Friday depends on the regression results."
+    ],
+    "commonMistake": "It depends to the environment.",
+    "checklistTr": [
+      "depend'den sonra on kullandın mı? (to değil)",
+      "depends yazdın mı? (is depend değil)",
+      "Türkçedeki '-e' ekini to diye mi çevirdin?"
+    ],
+    "noteTr": "'-e bağlı' Türkçede yönelme ekiyle kurulur, İngilizcede ise depend on olur. depend upon da doğrudur ama daha resmîdir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier (independent, 2026-10-21): Oxford Learner's 'depend on/upon sb/sth'; Cambridge 'depend on', 'it depends'; mistake 'depend to' = Turkish dative -e transfer (04 §1.4a); fixes: names Tom/Sarah/Mehmet -> Mert/Deniz (04 §2.1/4 fixed set)",
+    "level": 1
+  },
+  {
+    "id": "responsible-for",
+    "category": "preposition",
+    "targetChunk": "be responsible for something",
+    "patternSlots": "be responsible ___ ___",
+    "clozeTemplate": "I'm responsible ___ the regression tests.",
+    "situationTr": "[daily'de söylüyorsun] Yeni gelen Deniz'e kendini tanıtıyorsun: \"Ben regresyon testlerinden sorumluyum.\"",
+    "acceptedAnswers": [
+      "I'm responsible for the regression tests.",
+      "I'm responsible for regression tests.",
+      "I'm responsible for the regression testing.",
+      "I'm responsible for regression testing."
+    ],
+    "modelSentences": [
+      "I'm responsible for the regression tests.",
+      "Mert is responsible for the payment API tests.",
+      "Who is responsible for the staging environment?"
+    ],
+    "commonMistake": "I'm responsible from the regression tests.",
+    "checklistTr": [
+      "responsible'dan sonra for kullandın mı? (from değil)",
+      "Fiil olarak am/is koydun mu? (I'm responsible)",
+      "Türkçedeki '-den' ekini from diye mi çevirdin?"
+    ],
+    "noteTr": "'-den sorumlu' → responsible for. responsible to başka anlamdır: birine hesap vermek.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier (independent, 2026-10-21): Oxford Learner's + Cambridge 'responsible for', 'responsible to' (other sense); 'responsible from' = -den transfer (04 §1.4a); fixes: names Tom/Sarah/Mehmet -> Mert/Deniz (04 §2.1/4 fixed set)",
+    "level": 1
+  },
+  {
+    "id": "wait-for",
+    "category": "preposition",
+    "targetChunk": "wait for something (to do something)",
+    "patternSlots": "wait ___ ___ to ___",
+    "clozeTemplate": "I'm waiting ___ the build to finish.",
+    "situationTr": "[Teams, bilgi veriyorsun] Ayşe test sonuçlarını sordu. Sen: \"Build'in bitmesini bekliyorum.\"",
+    "acceptedAnswers": [
+      "I'm waiting for the build to finish.",
+      "I'm waiting for the build to complete.",
+      "I'm still waiting for the build to finish.",
+      "I'm still waiting for the build to complete."
+    ],
+    "modelSentences": [
+      "I'm waiting for the build to finish.",
+      "We're waiting for Mert's approval.",
+      "Sorry, I was waiting for the pipeline."
+    ],
+    "commonMistake": "I'm waiting the build to finish.",
+    "checklistTr": [
+      "wait'ten sonra for koydun mu?",
+      "Beklediğin şeyden sonra 'to + fiil' (to finish) var mı?",
+      "Türkçedeki '-i beklemek' yapısını edatsız mı çevirdin?"
+    ],
+    "noteTr": "Türkçede 'build'i beklemek' edatsızdır ama İngilizcede wait for gerekir. await edatsızdır ama resmîdir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier (independent, 2026-10-21): Oxford Learner's 'wait for sb/sth (to do sth)'; Cambridge 'wait for'; 'wait you/the build' = missing-preposition error (04 §1.4c); fixes: names Tom/Sarah/Mehmet -> Mert/Deniz (04 §2.1/4 fixed set)",
+    "level": 1
+  },
+  {
+    "id": "join-call-no-to",
+    "category": "preposition",
+    "targetChunk": "join a call / a meeting (no preposition)",
+    "patternSlots": "join ___",
+    "clozeTemplate": "I'll ___ the call in five minutes.",
+    "situationTr": "[Teams, bilgi veriyorsun] Görüşme başladı, sen geç kaldın. Sen: \"Beş dakika içinde görüşmeye katılacağım.\"",
+    "acceptedAnswers": [
+      "I'll join the call in five minutes.",
+      "I'll join the call in 5 minutes.",
+      "I'll join the meeting in five minutes.",
+      "I'll join the meeting in 5 minutes.",
+      "I'm going to join the call in five minutes."
+    ],
+    "modelSentences": [
+      "I'll join the call in five minutes.",
+      "Can Deniz join the meeting too?",
+      "Deniz joined the team last month."
+    ],
+    "commonMistake": "I'll join to the call in five minutes.",
+    "checklistTr": [
+      "join'den sonra to koymadın, değil mi? (join the call)",
+      "Görüşmeyi/toplantıyı (nesneyi) yazdın mı?",
+      "Türkçedeki '-e katılmak' ekini to diye mi çevirdin?"
+    ],
+    "noteTr": "'-e katılmak' → join something, edatsız. join in (bir etkinliğe dahil olmak) ayrı bir kalıptır.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier (independent, 2026-10-21): Oxford Learner's + Cambridge join [T] (no preposition); 'join a call/meeting' standard UI wording; 'join to' listed in 04 §1.4b; fixes: names Tom/Sarah/Mehmet -> Mert/Deniz (04 §2.1/4 fixed set)",
+    "level": 1
+  },
+  {
+    "id": "related-to",
+    "category": "preposition",
+    "targetChunk": "be related to something",
+    "patternSlots": "be related ___ ___",
+    "clozeTemplate": "This failure is related ___ the API change.",
+    "situationTr": "[Jira yorumu] Ticket'a yazıyorsun: \"Bu hata API değişikliğiyle ilgili.\"",
+    "acceptedAnswers": [
+      "This failure is related to the API change.",
+      "This bug is related to the API change.",
+      "This issue is related to the API change.",
+      "This error is related to the API change.",
+      "This is related to the API change."
+    ],
+    "modelSentences": [
+      "This failure is related to the API change.",
+      "Is this ticket related to QA-123?",
+      "The timeout is related to the new config."
+    ],
+    "commonMistake": "This failure is related with the API change.",
+    "checklistTr": [
+      "related'dan sonra to kullandın mı? (with değil)",
+      "is koydun mu? (This failure is related)",
+      "Türkçedeki 'ile' ekini with diye mi çevirdin?"
+    ],
+    "noteTr": "'ile ilgili' → related to, with değil. Buna karşılık connected with doğrudur.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier (independent, 2026-10-21): Oxford Learner's 'related (to sth/sb)'; Cambridge 'related to'; Oxford 'connected (with sth)' confirms noteTr; fixes: none",
+    "level": 1
+  },
+  {
+    "id": "during-the-daily",
+    "category": "preposition",
+    "targetChunk": "during + event (during the daily)",
+    "patternSlots": "during ___",
+    "clozeTemplate": "We can discuss it ___ the daily.",
+    "situationTr": "[Teams, öneri] Mert uzun bir soru sordu. Sen: \"Bunu daily sırasında konuşabiliriz.\"",
+    "acceptedAnswers": [
+      "We can discuss it during the daily.",
+      "We can discuss it in the daily.",
+      "We can discuss it at the daily.",
+      "We can discuss this during the daily.",
+      "We can discuss this in the daily.",
+      "We can talk about it during the daily.",
+      "We can talk about it in the daily."
+    ],
+    "modelSentences": [
+      "We can discuss it during the daily.",
+      "The build failed during the night.",
+      "Mert mentioned it during the retro."
+    ],
+    "commonMistake": "We can discuss it while the daily.",
+    "checklistTr": [
+      "İsmin (the daily) önüne during/in koydun mu? (while değil)",
+      "while'dan sonra özne + fiil gelir; ismin önüne while koymadın, değil mi?",
+      "discuss'tan sonra about koymadın, değil mi?"
+    ],
+    "noteTr": "Bağlama göre during / in / at the daily üçü de doğaldır. while bağlaçtır, ardından cümle gelir (while we're in the daily).",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier (independent, 2026-10-21): Oxford Learner's + Cambridge during (prep.) vs while (conj.); 'at/in/during the meeting' all standard, so 'at/in the daily' accepted with bağlama göre; seed from brief; fixes: names Tom/Sarah/Mehmet -> Mert/Deniz (04 §2.1/4 fixed set)",
+    "level": 1
+  },
+  {
+    "id": "ask-for-access",
+    "category": "preposition",
+    "targetChunk": "ask for something",
+    "patternSlots": "ask ___ ___",
+    "clozeTemplate": "I asked ___ access to the staging database.",
+    "situationTr": "[Teams, bilgi veriyorsun] Takım liderine yazıyorsun: \"Staging veritabanına erişim istedim.\"",
+    "acceptedAnswers": [
+      "I asked for access to the staging database.",
+      "I asked for access to the staging DB.",
+      "I've asked for access to the staging database.",
+      "I've asked for access to the staging DB."
+    ],
+    "modelSentences": [
+      "I asked for access to the staging database.",
+      "Ayşe asked for more time to finish the tests.",
+      "Don't be afraid to ask for help."
+    ],
+    "commonMistake": "I asked the access to the staging database.",
+    "checklistTr": [
+      "'bir şey istemek' anlamında ask'ten sonra for koydun mu?",
+      "access'ten sonra to var mı? (access to the database)",
+      "Türkçedeki '-i istemek' yapısını edatsız mı çevirdin?"
+    ],
+    "noteTr": "ask someone = birine sormak; ask for something = bir şey istemek. request access da doğrudur ama edatsızdır ve daha resmîdir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier (independent, 2026-10-21): Oxford Learner's 'ask for sth'; Cambridge 'ask for'; Oxford Learner's access [U] 'access to sth'; fixes: none",
+    "level": 1
+  },
+  {
+    "id": "comment-on",
+    "category": "preposition",
+    "targetChunk": "comment on something",
+    "patternSlots": "comment ___ ___",
+    "clozeTemplate": "I commented ___ the ticket.",
+    "situationTr": "[Teams, bilgi veriyorsun] Ayşe'ye: \"Ticket'a yorum yazdım.\"",
+    "acceptedAnswers": [
+      "I commented on the ticket.",
+      "I've commented on the ticket.",
+      "I left a comment on the ticket.",
+      "I've left a comment on the ticket.",
+      "I added a comment to the ticket.",
+      "I've added a comment to the ticket."
+    ],
+    "modelSentences": [
+      "I commented on the ticket.",
+      "Can you comment on my PR?",
+      "Mert left a comment on the test plan."
+    ],
+    "commonMistake": "I commented to the ticket.",
+    "checklistTr": [
+      "comment'ten sonra on kullandın mı? (to değil)",
+      "Ticket'ı (nesneyi) yazdın mı?",
+      "Türkçedeki '-e' ekini to diye mi çevirdin?"
+    ],
+    "noteTr": "'-e yorum yazmak' → comment on. add a comment to the ticket de doğrudur (bağlama göre), ama fiil olarak comment hep on alır.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier (independent, 2026-10-21): Oxford Learner's 'comment on/upon sth'; Cambridge 'comment on'; noun variants 'leave a comment on / add a comment to' marked bağlama göre; fixes: names Tom/Sarah/Mehmet -> Mert/Deniz (04 §2.1/4 fixed set)",
+    "level": 1
+  },
+  {
+    "id": "reply-to",
+    "category": "preposition",
+    "targetChunk": "reply to something / someone",
+    "patternSlots": "reply ___ ___",
+    "clozeTemplate": "Yes, I replied ___ your comment.",
+    "situationTr": "[Teams] Mert: \"Yorumuma baktın mı?\" Sen: \"Evet, yorumuna cevap verdim.\"",
+    "acceptedAnswers": [
+      "Yes, I replied to your comment.",
+      "Yes, I've replied to your comment.",
+      "I replied to your comment.",
+      "I've replied to your comment."
+    ],
+    "modelSentences": [
+      "Yes, I replied to your comment.",
+      "I'll reply to the email after the daily.",
+      "Mert hasn't replied to my message yet."
+    ],
+    "commonMistake": "Yes, I replied your comment.",
+    "checklistTr": [
+      "reply'dan sonra to koydun mu?",
+      "answer kullandıysan edatsız mı yazdın? (answered your question)",
+      "Yorumu (nesneyi) yazdın mı?"
+    ],
+    "noteTr": "reply to + şey/kişi; answer + şey/kişi (edatsız): I answered your question. İkisi ters çalışır, karıştırma.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier (independent, 2026-10-21): Oxford Learner's 'reply to sb/sth'; Cambridge 'reply to'; answer (no prep.) contrast correct; fixes: names Tom/Sarah/Mehmet -> Mert/Deniz (04 §2.1/4 fixed set)",
+    "level": 2
+  },
+  {
+    "id": "help-with",
+    "category": "preposition",
+    "targetChunk": "help someone with something",
+    "patternSlots": "help ___ ___ ___",
+    "clozeTemplate": "Could you help me ___ this test?",
+    "situationTr": "[Teams, nazik rica] Deniz'e: \"Bu testte bana yardım edebilir misin?\"",
+    "acceptedAnswers": [
+      "Could you help me with this test?",
+      "Can you help me with this test?",
+      "Could you help me with the test?",
+      "Can you help me with the test?"
+    ],
+    "modelSentences": [
+      "Could you help me with this test?",
+      "Deniz helped me with the pipeline config.",
+      "Let me know if you need help with the test data."
+    ],
+    "commonMistake": "Could you help me for this test?",
+    "checklistTr": [
+      "help me'den sonra with koydun mu? (for / about değil)",
+      "Kişiyi (me) help'ten hemen sonra yazdın mı?",
+      "Türkçedeki '-de' ekini in/on diye mi çevirdin?"
+    ],
+    "noteTr": "Bir konuda yardım → help someone with something. help me fix this test (help + kişi + fiil) de doğrudur ama farklı kalıptır.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier (independent, 2026-10-21): Oxford Learner's 'help sb with sth'; Cambridge 'help with'; fixes: names Tom/Sarah/Mehmet -> Mert/Deniz (04 §2.1/4 fixed set)",
+    "level": 2
+  },
+  {
+    "id": "attend-meeting-no-to",
+    "category": "preposition",
+    "targetChunk": "attend a meeting (no preposition)",
+    "patternSlots": "attend ___",
+    "clozeTemplate": "I can't ___ the retro today.",
+    "situationTr": "[Teams, mazeret] Scrum master'a: \"Bugün retroya katılamıyorum.\"",
+    "acceptedAnswers": [
+      "I can't attend the retro today.",
+      "I can't attend the retrospective today.",
+      "I can't join the retro today.",
+      "I can't join the retrospective today.",
+      "I won't be able to attend the retro today.",
+      "I won't be able to join the retro today."
+    ],
+    "modelSentences": [
+      "I can't attend the retro today.",
+      "Ten people attended the demo.",
+      "Will Mert attend the planning meeting?"
+    ],
+    "commonMistake": "I can't attend to the retro today.",
+    "checklistTr": [
+      "attend / join'den sonra to koymadın, değil mi?",
+      "Toplantıyı (nesneyi) yazdın mı?",
+      "can't'ten sonra fiili yalın mı yazdın?"
+    ],
+    "noteTr": "attend + toplantı, edatsız. attend to = bir işle ilgilenmek, başka anlam. join de doğrudur (bağlama göre); attend biraz daha resmîdir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier (independent, 2026-10-21): Oxford Learner's 'attend sth'; Cambridge attend [T] + 'attend to' (deal with) other sense; 'attend to the meeting' in 04 §1.4b; fixes: names Tom/Sarah/Mehmet -> Mert/Deniz (04 §2.1/4 fixed set)",
+    "level": 2
+  },
+  {
+    "id": "reach-out-to",
+    "category": "preposition",
+    "targetChunk": "reach out to someone",
+    "patternSlots": "reach out ___ ___",
+    "clozeTemplate": "I'll reach ___ ___ the backend team about this.",
+    "situationTr": "[Teams, bilgi veriyorsun] Ayşe'ye: \"Bu konuda backend ekibine ulaşacağım.\"",
+    "acceptedAnswers": [
+      "I'll reach out to the backend team about this.",
+      "I'll reach out to the backend team about it.",
+      "I'm going to reach out to the backend team about this.",
+      "I'm going to reach out to the backend team about it."
+    ],
+    "modelSentences": [
+      "I'll reach out to the backend team about this.",
+      "Feel free to reach out if you have any questions.",
+      "Deniz reached out to me about the flaky test."
+    ],
+    "commonMistake": "I'll reach to the backend team about this.",
+    "checklistTr": [
+      "reach'ten sonra out to koydun mu? (reach to değil)",
+      "Konuyu about ile mi bağladın?",
+      "Türkçedeki '-e ulaşmak' ekini doğrudan to diye mi çevirdin?"
+    ],
+    "noteTr": "İletişime geçmek → reach out to + kişi. reach someone (edatsız) = birine ulaşabilmek: I couldn't reach Mert. reach to yanlıştır.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier (independent, 2026-10-21): Oxford Learner's phrasal verb 'reach out (to sb)'; Cambridge 'reach out to' (try to communicate); 'reach to' wrong; fixes: names Tom/Sarah/Mehmet -> Mert/Deniz (04 §2.1/4 fixed set)",
+    "level": 2
+  },
+  {
+    "id": "by-deadline",
+    "category": "preposition",
+    "targetChunk": "by + deadline (not later than)",
+    "patternSlots": "by ___",
+    "clozeTemplate": "Could you fix it ___ Friday?",
+    "situationTr": "[Teams, nazik rica] Mert'e: \"Bunu Cuma'ya kadar düzeltebilir misin?\" (Son tarih: en geç Cuma.)",
+    "acceptedAnswers": [
+      "Could you fix it by Friday?",
+      "Can you fix it by Friday?",
+      "Could you fix this by Friday?",
+      "Can you fix this by Friday?"
+    ],
+    "modelSentences": [
+      "Could you fix it by Friday?",
+      "I'll send the test report by 5 pm.",
+      "We need to finish the regression by the end of the sprint."
+    ],
+    "commonMistake": "Could you fix it until Friday?",
+    "checklistTr": [
+      "Son tarih için by kullandın mı? (until değil)",
+      "until'i yalnızca bir durum o zamana kadar sürecekse mi kullanıyorsun?",
+      "Nesneyi (it / this) koydun mu?"
+    ],
+    "noteTr": "'-e kadar' iki anlam taşır: son tarih → by; o zamana kadar sürme → until. Burada iş en geç Cuma bitmeli: by.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier (independent, 2026-10-21): Oxford Learner's by 'not later than'; Cambridge by vs until; by/until confusion for '-e kadar' in 04 §1.4d; fixes: names Tom/Sarah/Mehmet -> Mert/Deniz (04 §2.1/4 fixed set)",
+    "level": 2
+  },
+  {
+    "id": "until-duration",
+    "category": "preposition",
+    "targetChunk": "until + time (continuing up to that time)",
+    "patternSlots": "until ___",
+    "clozeTemplate": "I'm off ___ Friday.",
+    "situationTr": "[Teams, bilgi veriyorsun] Ekibe: \"Cuma'ya kadar izindeyim.\" (Cuma'ya kadar hiç yokum.)",
+    "acceptedAnswers": [
+      "I'm off until Friday.",
+      "I'm off till Friday.",
+      "I'm on leave until Friday.",
+      "I'm out of the office until Friday.",
+      "I'm on holiday until Friday.",
+      "I'm on vacation until Friday.",
+      "I'm away until Friday."
+    ],
+    "modelSentences": [
+      "I'm off until Friday.",
+      "The staging environment is down until tomorrow morning.",
+      "Let's wait until the build finishes."
+    ],
+    "commonMistake": "I'm off by Friday.",
+    "checklistTr": [
+      "Süren bir durum için until kullandın mı? (by değil)",
+      "'izinli olmak' için be + off / on leave kurdun mu?",
+      "by'ı yalnızca son tarih için mi kullanıyorsun?"
+    ],
+    "noteTr": "Süreklilik → until (till daha gündelik); on holiday BrE, on vacation AmE. Cuma dahil mi belirsiz olabilir; netlik için 'back on Monday' eklenebilir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier (independent, 2026-10-21): Oxford Learner's + Cambridge until/till; on holiday (BrE) / on vacation (AmE); fixes: noteTr: added BrE/AmE note (checklist A4)",
+    "level": 2
+  },
+  {
+    "id": "agree-with-someone",
+    "category": "preposition",
+    "targetChunk": "agree with someone (on/about something)",
+    "patternSlots": "agree ___ ___ ___ ___",
+    "clozeTemplate": "I agree ___ you ___ this.",
+    "situationTr": "[PR yorumu] Deniz'in önerisine cevap: \"Bu konuda sana katılıyorum.\"",
+    "acceptedAnswers": [
+      "I agree with you on this.",
+      "I agree with you on that.",
+      "I agree with you about this.",
+      "I agree with you about that."
+    ],
+    "modelSentences": [
+      "I agree with you on this.",
+      "Mert agrees with Ayşe about the test scope.",
+      "We agreed on the release date."
+    ],
+    "commonMistake": "I agree to you on this.",
+    "checklistTr": [
+      "Kişiden önce with koydun mu? (agree with you)",
+      "Konudan önce on / about var mı?",
+      "I'm agree yazmadın, değil mi? (be yok)"
+    ],
+    "noteTr": "Kişiye katılmak → agree with; konu → on / about (ikisi de doğru, bağlama göre). agree to = bir öneriyi kabul etmek: agree to the plan.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier (independent, 2026-10-21): Cambridge example verbatim 'I agree with you on this issue.' + 'agree about/on'; Oxford Learner's 'agree with sb about/on sth', 'agree to sth' = accept a proposal; 'agree to you' = sana (-e) transfer; fixes: names Tom/Sarah/Mehmet -> Mert/Deniz (04 §2.1/4 fixed set)",
+    "level": 2
+  },
+  {
+    "id": "consist-of",
+    "category": "preposition",
+    "targetChunk": "consist of something",
+    "patternSlots": "consist ___ ___",
+    "clozeTemplate": "This test suite consists ___ 40 tests.",
+    "situationTr": "[Jira açıklaması] \"Bu test suite'i 40 testten oluşuyor.\"",
+    "acceptedAnswers": [
+      "This test suite consists of 40 tests.",
+      "This test suite consists of forty tests.",
+      "The test suite consists of 40 tests.",
+      "This suite consists of 40 tests.",
+      "The suite consists of 40 tests."
+    ],
+    "modelSentences": [
+      "This test suite consists of 40 tests.",
+      "The release consists of three main features.",
+      "Each test case consists of steps and expected results."
+    ],
+    "commonMistake": "This test suite consists from 40 tests.",
+    "checklistTr": [
+      "consist'ten sonra of koydun mu? (from değil)",
+      "is consist yazmadın, değil mi? (consists)",
+      "Türkçedeki '-den oluşmak' ekini from diye mi çevirdin?"
+    ],
+    "noteTr": "'-den oluşmak' → consist of. is made up of / contains da doğrudur ama farklı kalıptır. consist in başka anlamdır (bir şeyin özü olmak).",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier (independent, 2026-10-21): Oxford Learner's 'consist of sb/sth' ('The committee consists of ten members'); Cambridge consist of / consist in; fixes: none",
+    "level": 3
+  },
+  {
+    "id": "reproduce-the-issue",
+    "category": "work_vocab",
+    "targetChunk": "reproduce a bug / the issue",
+    "patternSlots": "reproduce ___",
+    "clozeTemplate": "I can't ___ the issue on my machine.",
+    "situationTr": "[Jira yorumu] \"Sorunu kendi makinemde tekrar oluşturamıyorum.\"",
+    "acceptedAnswers": [
+      "I can't reproduce the issue on my machine.",
+      "I can't reproduce the bug on my machine.",
+      "I can't reproduce it on my machine.",
+      "I can't reproduce the issue locally.",
+      "I can't reproduce the bug locally.",
+      "I'm not able to reproduce the issue on my machine.",
+      "I can't reproduce it locally."
+    ],
+    "modelSentences": [
+      "I can't reproduce the issue on my machine.",
+      "Could you add steps to reproduce?",
+      "Ayşe reproduced the bug on staging."
+    ],
+    "commonMistake": "I can't repeat the bug on my machine.",
+    "checklistTr": [
+      "'hatayı tekrar oluşturmak' için reproduce mu kullandın? (repeat değil)",
+      "Nesneyi (the issue / it) koydun mu?",
+      "Fiil reproduce mu? (reproduct değil)"
+    ],
+    "noteTr": "Hatayı yeniden oluşturmak → reproduce. Testi tekrar koşmak ise rerun the test; farklı anlam.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier (independent, 2026-10-21): Oxford Learner's reproduce 'I was able to reproduce the same results with subsequent tests'; Longman reproduce 'make something happen in the same way… SYN repeat'; Cambridge reproduce; 'steps to reproduce' bug-template standard; fixes: added variant 'I can't reproduce it locally.'; noteTr: 'repeat the test' -> 'rerun the test'",
+    "level": 1
+  },
+  {
+    "id": "assign-something-to-someone",
+    "category": "work_vocab",
+    "targetChunk": "assign something to someone",
+    "patternSlots": "assign ___ to ___",
+    "clozeTemplate": "Could you ___ QA-123 ___ Ayşe?",
+    "situationTr": "[Teams, nazik rica] Takım liderine yazıyorsun: \"QA-123 ticket'ını Ayşe'ye atayabilir misin?\"",
+    "acceptedAnswers": [
+      "Could you assign QA-123 to Ayşe?",
+      "Can you assign QA-123 to Ayşe?",
+      "Could you assign ticket QA-123 to Ayşe?",
+      "Can you assign ticket QA-123 to Ayşe?",
+      "Could you assign the QA-123 ticket to Ayşe?",
+      "Can you assign the QA-123 ticket to Ayşe?",
+      "Could you assign Ayşe QA-123?",
+      "Can you assign Ayşe QA-123?"
+    ],
+    "modelSentences": [
+      "Could you assign QA-123 to Ayşe?",
+      "I've assigned the bug to Mert.",
+      "This ticket is assigned to the backend team."
+    ],
+    "commonMistake": "Could you assign to Ayşe QA-123?",
+    "checklistTr": [
+      "'atamak' için assign mı kullandın? (give değil)",
+      "Kişiden önce to var mı?",
+      "Sıra doğru mu? (assign QA-123 to Ayşe ya da assign Ayşe QA-123; to Ayşe başa gelmez)"
+    ],
+    "noteTr": "assign + iş + to + kişi; Türkçedeki '-e' eki to olur. assign Ayşe QA-123 (to'suz, kişi önce) de doğrudur, ama assign to Ayşe QA-123 yanlıştır.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier (independent, 2026-10-21): Oxford Learner's 'assign sth (to sb)' AND 'assign sb sth' ('The teacher assigned each of the children a different task'); Cambridge 'assign sth to sb'; Jira Assignee; Google Books Ngram en-2019 'assigned me the' 8.9e-09 vs 'assigned it to me' 2.0e-09 (double object common) -> double-object variant accepted; 'assign to Ayşe QA-123' stays the mistake; fixes: names Tom/Sarah/Mehmet -> Mert/Deniz (04 §2.1/4 fixed set); accepted double-object 'assign Ayşe QA-123' (Could/Can); checklist 3 + noteTr rewritten accordingly",
+    "level": 1
+  },
+  {
+    "id": "get-back-to-someone",
+    "category": "work_vocab",
+    "targetChunk": "get back to someone",
+    "patternSlots": "get back to ___",
+    "clozeTemplate": "I'll ___ ___ ___ you by the end of the day.",
+    "situationTr": "[Teams, bilgi veriyorsun] Mert'e: \"Gün sonuna kadar sana dönüş yapacağım.\"",
+    "acceptedAnswers": [
+      "I'll get back to you by the end of the day.",
+      "I'll get back to you by end of day.",
+      "I'll get back to you before the end of the day.",
+      "I'm going to get back to you by the end of the day."
+    ],
+    "modelSentences": [
+      "I'll get back to you by the end of the day.",
+      "Let me check and get back to you.",
+      "Deniz hasn't got back to me yet."
+    ],
+    "commonMistake": "I'll return to you by the end of the day.",
+    "checklistTr": [
+      "'dönüş yapmak' için get back mi kullandın? (return değil)",
+      "get back'ten sonra to + kişi var mı?",
+      "Son tarih için by kullandın mı?"
+    ],
+    "noteTr": "'Dönüş yapmak' harfiyen çevrilmez: get back to someone. return to = bir yere ya da konuya geri dönmek.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier (independent, 2026-10-21): Oxford Learner's + Cambridge 'get back to sb' ('I'll get back to you later'); Google Books Ngram en-2019 'by end of day' attested; 'return to you' calque of 'dönüş yapmak' (04 §1.5); fixes: names Tom/Sarah/Mehmet -> Mert/Deniz (04 §2.1/4 fixed set)",
+    "level": 1
+  },
+  {
+    "id": "log-a-bug",
+    "category": "work_vocab",
+    "targetChunk": "log / raise / file a bug",
+    "patternSlots": "___ a bug",
+    "clozeTemplate": "I've ___ a bug for this.",
+    "situationTr": "[Teams, bilgi veriyorsun] Ayşe'ye: \"Bunun için bir bug kaydı açtım.\"",
+    "acceptedAnswers": [
+      "I've logged a bug for this.",
+      "I logged a bug for this.",
+      "I've raised a bug for this.",
+      "I raised a bug for this.",
+      "I've filed a bug for this.",
+      "I filed a bug for this.",
+      "I've reported a bug for this.",
+      "I reported a bug for this."
+    ],
+    "modelSentences": [
+      "I've logged a bug for this.",
+      "Could you raise a bug and assign it to me?",
+      "Mert filed a bug about the login timeout."
+    ],
+    "checklistTr": [
+      "'kayıt açmak' için bug ile kullanılan fiili (log / raise / file / report) mi seçtin?",
+      "Nesne (a bug) var mı?",
+      "for this ile neyle ilgili olduğunu bağladın mı?"
+    ],
+    "noteTr": "Bağlama göre log / raise / file / report a bug hepsi kullanılır; Jira'da create / open a bug da duyulur. Türkçedeki 'kayıt açmak' kelime kelime çevrilmez.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier (independent, 2026-10-21): Cambridge log 'officially record' + Cambridge Business 'log a call/claim/complaint', 'submit all bug reports'; Cambridge file 'officially record sth such as a complaint'; Cambridge raise 'raise a call' (technical help) + QA usage 'raise a bug' (qmetrysupport.atlassian.net, blog.devgenius.io 'How to raise a bug ticket'); 'logging a bug' Atlassian Community; Google Books Ngram en-2019 file/report/log/raise a bug all attested. commonMistake left empty deliberately (no confirmed typical error); fixes: names Tom/Sarah/Mehmet -> Mert/Deniz (04 §2.1/4 fixed set); removed 'I've created a bug for this.' (no dictionary basis; decision 21), added 'I reported a bug for this.'; noteTr reworded",
+    "level": 1
+  },
+  {
+    "id": "have-a-meeting",
+    "category": "work_vocab",
+    "targetChunk": "have / hold a meeting",
+    "patternSlots": "have a meeting with ___",
+    "clozeTemplate": "We're ___ a meeting with the dev team at 3.",
+    "situationTr": "[Teams, bilgi veriyorsun] \"Saat 3'te dev ekibiyle toplantı yapıyoruz.\"",
+    "acceptedAnswers": [
+      "We're having a meeting with the dev team at 3.",
+      "We're having a meeting with the dev team at three.",
+      "We're having a meeting with the dev team at 3 pm.",
+      "We have a meeting with the dev team at 3.",
+      "We have a meeting with the dev team at 3 pm.",
+      "We have a meeting with the dev team at three."
+    ],
+    "modelSentences": [
+      "We're having a meeting with the dev team at 3.",
+      "We hold a planning meeting every two weeks.",
+      "Can we have a quick meeting after the daily?"
+    ],
+    "commonMistake": "We're making a meeting with the dev team at 3.",
+    "checklistTr": [
+      "'toplantı yapmak' için have (ya da hold) mı kullandın? (make / do değil)",
+      "Kişilerden önce with koydun mu?",
+      "Saatten önce at var mı?"
+    ],
+    "noteTr": "'Toplantı yapmak' → have a meeting; düzenleyen açısından resmî dilde hold a meeting. make / do a meeting kullanılmaz.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier (independent, 2026-10-21): Cambridge 'hold a meeting'; Oxford Learner's meeting 'have a meeting'; 'make a meeting' = Turkish light-verb calque (04 §1.5); fixes: added variant 'We have a meeting with the dev team at three.'",
+    "level": 1
+  },
+  {
+    "id": "look-into-it",
+    "category": "work_vocab",
+    "targetChunk": "look into something",
+    "patternSlots": "look into ___",
+    "clozeTemplate": "I'll ___ ___ it today.",
+    "situationTr": "[Jira yorumu] \"Bugün bunu detaylıca araştıracağım.\"",
+    "acceptedAnswers": [
+      "I'll look into it today.",
+      "I'll look into this today.",
+      "I'm going to look into it today.",
+      "I'm going to look into this today."
+    ],
+    "modelSentences": [
+      "I'll look into it today.",
+      "Mert is looking into the timeout issue.",
+      "Could you look into why the build failed?"
+    ],
+    "commonMistake": "I'll look it today.",
+    "checklistTr": [
+      "'araştırmak / incelemek' için look into mu kullandın?",
+      "look'tan sonra edatı (into) koydun mu?",
+      "Nesneyi (it / this) koydun mu?"
+    ],
+    "noteTr": "look into = araştırmak; look at = göz atmak. Bağlama göre ikisi de olabilir, ama 'detaylıca araştırmak' için look into.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier (independent, 2026-10-21): Oxford Learner's 'look into sth'; Cambridge 'look into' 'examine the facts about a problem'; fixes: names Tom/Sarah/Mehmet -> Mert/Deniz (04 §2.1/4 fixed set)",
+    "level": 2
+  },
+  {
+    "id": "escalate-issue-to",
+    "category": "work_vocab",
+    "targetChunk": "escalate an issue to someone",
+    "patternSlots": "escalate ___ to ___",
+    "clozeTemplate": "I ___ the issue ___ the team lead.",
+    "situationTr": "[daily'de söylüyorsun] \"Sorunu takım liderine yükselttim.\"",
+    "acceptedAnswers": [
+      "I escalated the issue to the team lead.",
+      "I've escalated the issue to the team lead.",
+      "I escalated it to the team lead.",
+      "I've escalated it to the team lead.",
+      "I escalated the problem to the team lead.",
+      "I've escalated the problem to the team lead."
+    ],
+    "modelSentences": [
+      "I escalated the issue to the team lead.",
+      "If it's still blocked tomorrow, we should escalate it.",
+      "Mert escalated the bug to the backend team."
+    ],
+    "commonMistake": "I escalated to the team lead the issue.",
+    "checklistTr": [
+      "'sorunu yükseltmek' için escalate mi kullandın?",
+      "Kişiden önce to var mı?",
+      "Sıra doğru mu: önce sorun, sonra to + kişi?"
+    ],
+    "noteTr": "escalate + sorun + to + kişi. Türkçede kişi önce gelebilir, İngilizcede sorun fiilden hemen sonra yazılır.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier (independent, 2026-10-21): Oxford Learner's escalate [T] 'to involve a more senior person in dealing with a problem… I'm going to have to escalate this'; Cambridge 'escalate the issue to the next highest level'; fixes: names Tom/Sarah/Mehmet -> Mert/Deniz (04 §2.1/4 fixed set)",
+    "level": 2
+  },
+  {
+    "id": "follow-up-on",
+    "category": "work_vocab",
+    "targetChunk": "follow up on something",
+    "patternSlots": "follow up on ___",
+    "clozeTemplate": "I'll ___ ___ ___ this tomorrow.",
+    "situationTr": "[Teams, bilgi veriyorsun] Ayşe'ye: \"Yarın bu konunun takibini yapacağım.\"",
+    "acceptedAnswers": [
+      "I'll follow up on this tomorrow.",
+      "I'll follow up on it tomorrow.",
+      "I'm going to follow up on this tomorrow.",
+      "I'll follow this up tomorrow.",
+      "I'll follow it up tomorrow."
+    ],
+    "modelSentences": [
+      "I'll follow up on this tomorrow.",
+      "Did anyone follow up on the flaky test?",
+      "Deniz followed up on the ticket after the daily."
+    ],
+    "checklistTr": [
+      "'takibini yapmak' için follow up mı kullandın? (yalnız follow değil)",
+      "up'tan sonra on var mı (ya da follow this up)?",
+      "Nesneyi (this / it) koydun mu?"
+    ],
+    "noteTr": "Takibini yapmak → follow up on something. follow something up da doğrudur (bağlama göre, BrE'de daha sık). Yalnız follow 'peşinden gitmek' demektir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier (independent, 2026-10-21): Cambridge 'follow up on' + 'follow it up'; Oxford Learner's 'follow sth up'. commonMistake left empty deliberately: bare 'follow this' means 'monitor' (Oxford follow 'watch… carefully') so it is not a clear error; fixes: names Tom/Sarah/Mehmet -> Mert/Deniz (04 §2.1/4 fixed set)",
+    "level": 2
+  },
+  {
+    "id": "blocked-by",
+    "category": "work_vocab",
+    "targetChunk": "be blocked by something",
+    "patternSlots": "be blocked by ___",
+    "clozeTemplate": "I'm ___ ___ the API issue.",
+    "situationTr": "[daily'de söylüyorsun] \"API sorunu yüzünden işim tıkandı, ilerleyemiyorum.\"",
+    "acceptedAnswers": [
+      "I'm blocked by the API issue.",
+      "I'm currently blocked by the API issue.",
+      "I'm still blocked by the API issue.",
+      "I'm blocked by the API problem."
+    ],
+    "modelSentences": [
+      "I'm blocked by the API issue.",
+      "QA-124 is blocked by QA-123.",
+      "The release is blocked by two critical bugs."
+    ],
+    "checklistTr": [
+      "Edilgen yapı mı kurdun? (I'm blocked; I'm blocking değil)",
+      "Engelin önüne by koydun mu? (from değil)",
+      "am / is koydun mu? (I'm blocked)"
+    ],
+    "noteTr": "Jira'daki 'is blocked by' bağlantısıyla aynı kalıp. I'm blocking = ben engelliyorum, ters anlam.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier (independent, 2026-10-21): Jira link type 'is blocked by' (developer.atlassian.com issue-linking-model); Cambridge/Oxford Learner's block 'prevent progress' (passive); stand-up English guide llexi.com 'I am blocked by…'; Google Books Ngram en-2019 'blocked by the' 3.8e-07 >> 'blocked on the' 1.4e-08. 'blocked on' excluded per decision 21; fixes: removed unconfirmed commonMistake 'I'm blocking from the API issue.' (checklist 13)",
+    "level": 2
+  },
+  {
+    "id": "roll-back-release",
+    "category": "work_vocab",
+    "targetChunk": "roll back a release / a deployment",
+    "patternSlots": "roll back ___",
+    "clozeTemplate": "We ___ ___ the release.",
+    "situationTr": "[Teams, bilgi veriyorsun] Ekibe: \"Release'i önceki sürüme geri aldık.\"",
+    "acceptedAnswers": [
+      "We rolled back the release.",
+      "We've rolled back the release.",
+      "We rolled the release back.",
+      "We've rolled the release back."
+    ],
+    "modelSentences": [
+      "We rolled back the release.",
+      "If the smoke tests fail, we'll roll back the deployment.",
+      "The rollback took ten minutes."
+    ],
+    "commonMistake": "We took back the release.",
+    "checklistTr": [
+      "'geri almak' için roll back mi kullandın? (take back değil)",
+      "Fiil ayrı mı yazıldı? (roll back; isim: rollback)",
+      "Nesneyi (the release) koydun mu?"
+    ],
+    "noteTr": "Sürümü önceki hâline döndürmek → roll back (fiil, ayrı), a rollback (isim, bitişik). Tek bir commit'i geri almak için genelde revert denir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier (independent, 2026-10-21): Cambridge 'roll back' + noun 'rollback… to a previous version'; Kubernetes docs 'Rolling Back a Deployment / Rolling Back to a Previous Revision' (kubernetes.io deployment docs); 'take back' = literal calque of 'geri almak', plausible; fixes: none",
+    "level": 2
+  },
+  {
+    "id": "flaky-test",
+    "category": "work_vocab",
+    "targetChunk": "a flaky test / the test is flaky",
+    "patternSlots": "be flaky",
+    "clozeTemplate": "This test is ___ on CI.",
+    "situationTr": "[Jira yorumu] \"Bu test CI'da bazen geçiyor bazen kalıyor, güvenilmez.\"",
+    "acceptedAnswers": [
+      "This test is flaky on CI.",
+      "This test is flaky in CI.",
+      "The test is flaky on CI.",
+      "The test is flaky in CI."
+    ],
+    "modelSentences": [
+      "This test is flaky on CI.",
+      "We have three flaky tests in the login suite.",
+      "Is it a real bug or just a flaky test?"
+    ],
+    "checklistTr": [
+      "'güvenilmez, ara ara kalan test' için yerleşik terim flaky mi?",
+      "is koydun mu? (This test is flaky)",
+      "Yeri (on / in CI) ekledin mi?"
+    ],
+    "noteTr": "Nedensiz ara ara kalan test → flaky test (gayriresmî ama yerleşik terim). on CI / in CI bağlama göre ikisi de olur.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier (independent, 2026-10-21): Oxford Learner's flaky '(BrE, informal) that does not work well or often stops working: I found the software a bit flaky'; Playwright test-retries docs 'flaky'; commonMistake left empty deliberately ('unstable test' is understandable, not wrong); fixes: noteTr: added informal-tone note (Oxford labels sense 'British English, informal'); dropped redundant clause",
+    "level": 2
+  },
+  {
+    "id": "keep-me-in-the-loop",
+    "category": "work_vocab",
+    "targetChunk": "keep someone in the loop",
+    "patternSlots": "keep ___ in the loop",
+    "clozeTemplate": "Please keep me ___ ___ ___.",
+    "situationTr": "[Teams, nazik rica] Deniz'e: \"Lütfen beni de bilgi akışının içinde tut.\"",
+    "acceptedAnswers": [
+      "Please keep me in the loop.",
+      "Keep me in the loop.",
+      "Could you keep me in the loop?",
+      "Can you keep me in the loop?",
+      "Please loop me in."
+    ],
+    "modelSentences": [
+      "Please keep me in the loop.",
+      "I'll keep you in the loop.",
+      "Let's loop Mert in on this."
+    ],
+    "checklistTr": [
+      "'haberdar etmek' için in the loop kalıbını mı kullandın?",
+      "Kişiyi (me) keep'ten hemen sonra yazdın mı?",
+      "the yazdın mı? (in loop / in a loop değil)"
+    ],
+    "noteTr": "in the loop = bilgi akışının içinde olmak; gündelik iş dilidir. keep me updated / informed da doğrudur ama farklı kalıptır.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier (independent, 2026-10-21): Oxford Learner's idiom 'in the loop'; Cambridge 'be in the loop' (informal); Longman Business 'loop someone in', 'Keep me looped in'; Google Books Ngram en-2019 'keep me in the loop' 3.3e-08; article omission ('in loop') typical for Turkish L1 (no articles; Swan & Smith, Learner English); fixes: names Tom/Sarah/Mehmet -> Mert/Deniz (04 §2.1/4 fixed set); situationTr rewritten ('gelişmelerden haberdar et' led to 'keep me posted/updated'); commonMistake set to article omission 'in loop'; checklist 3 updated",
+    "level": 2,
+    "commonMistake": "Please keep me in loop."
+  },
+  {
+    "id": "works-on-my-end",
+    "category": "work_vocab",
+    "targetChunk": "on my end / at my end",
+    "patternSlots": "on my end",
+    "clozeTemplate": "It works ___ ___ ___.",
+    "situationTr": "[Teams, cevap] Ayşe \"Sayfa açılmıyor\" diyor. Sen: \"Benim tarafımda çalışıyor.\"",
+    "acceptedAnswers": [
+      "It works on my end.",
+      "It's working on my end.",
+      "It works at my end.",
+      "It's working at my end.",
+      "It works on my side.",
+      "It's working on my side."
+    ],
+    "modelSentences": [
+      "It works on my end.",
+      "Are there any problems at your end?",
+      "Everything looks fine on my end."
+    ],
+    "checklistTr": [
+      "'benim tarafımda' için on / at my end kalıbını mı kullandın?",
+      "Türkçedeki '-de' ekini in diye çevirmedin, değil mi? (in my end değil)",
+      "Fiil works / is working mi?"
+    ],
+    "noteTr": "Bağlama göre on my end / at my end / on my side kullanılır; telefonun 'iki ucu' fikrinden gelir.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "UNSURE: canonical 'on my end' has no learner-dictionary entry with 'on' — Oxford and Longman only give 'at your end' ('Are there any problems at your end?'), Cambridge/Collins/MW/dictionary.com nothing; corpus (Google Books Ngram 2010-19) shows 'on my end' 6.9e-08 > 'at my end' 2.3e-08 and 'problem on my end' > 'problem at my end', but 'on my side' in this sense has no dictionary or reliable corpus support (books 'on my side' is dominated by the 'support' sense). SkELL/COCA not reachable. Checklist A1 (same preposition in 2 dictionaries) fails for 'on'. Recommendation: either drop 'on my side' and ask the user whether 'on my end' is what the team uses, or make 'at my end' canonical. fixes: none",
+    "level": 2
+  },
+  {
+    "id": "a-heads-up",
+    "category": "work_vocab",
+    "targetChunk": "(just) a heads-up",
+    "patternSlots": "a heads-up",
+    "clozeTemplate": "Just a ___: staging will be down at 5.",
+    "situationTr": "[Teams, kanal mesajı] Ekibe önceden kısa bir uyarı geçiyorsun: \"Haberiniz olsun: staging saat 5'te kapalı olacak.\"",
+    "acceptedAnswers": [
+      "Just a heads-up: staging will be down at 5.",
+      "Just a heads-up that staging will be down at 5.",
+      "Just a heads-up: the staging environment will be down at 5.",
+      "Quick heads-up: staging will be down at 5.",
+      "Heads-up: staging will be down at 5."
+    ],
+    "modelSentences": [
+      "Just a heads-up: staging will be down at 5.",
+      "Thanks for the heads-up!",
+      "Could you give the team a heads-up about the release?"
+    ],
+    "commonMistake": "Just an information: staging will be down at 5.",
+    "checklistTr": [
+      "'haberiniz olsun / önceden uyarı' için a heads-up mı kullandın?",
+      "an information yazmadın, değil mi? (information sayılamaz)",
+      "'kapalı olmak' için be down kullandın mı?"
+    ],
+    "noteTr": "heads-up = önceden kısa uyarı; FYI daha genel bir bilgi notudur. information sayılamaz, an information denmez.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier (independent, 2026-10-21): Cambridge heads-up noun [C] 'a warning…', 'Thanks for the heads-up!'; Oxford Learner's 'heads-up (about sth)'; Oxford Learner's information [U] -> 'an information' wrong; decisions 19/20 make 'heads up'/comma/colon variants match; fixes: removed comma variant (identical to colon variant after normalizer, decision 19); situationTr: 'önceden kısa bir uyarı' to separate from FYI; noteTr shortened to 2 sentences, mentions FYI",
+    "level": 3
+  },
+  {
+    "id": "issue-has-come-up-again",
+    "category": "work_vocab",
+    "targetChunk": "come up (a problem appears / happens again)",
+    "patternSlots": "come up again",
+    "clozeTemplate": "The upload issue has ___ ___ again.",
+    "situationTr": "[daily'de söylüyorsun] \"Upload sorunu yine ortaya çıktı.\"",
+    "acceptedAnswers": [
+      "The upload issue has come up again.",
+      "The upload issue came up again.",
+      "The upload problem has come up again.",
+      "The upload problem came up again.",
+      "The same upload issue has come up again."
+    ],
+    "modelSentences": [
+      "The upload issue has come up again.",
+      "Something urgent has come up, can we move the call?",
+      "This question came up in the retro."
+    ],
+    "commonMistake": "The upload issue has come out again.",
+    "checklistTr": [
+      "'ortaya çıkmak / yeniden belirmek' için come up mı kullandın? (come out değil)",
+      "has + come (V3) mi yazdın? (has came değil)",
+      "again'i ekledin mi?"
+    ],
+    "noteTr": "Bir sorun (beklenmedik şekilde) yeniden belirmek → come up. come out = yayınlanmak / açığa çıkmak, başka anlam.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier (independent, 2026-10-21): Cambridge come up (HAPPEN) 'to happen, usually unexpectedly'; Oxford Learner's come up 'to happen: something urgent has come up'; Google Books Ngram en-2019 'come up again'/'came up again' ~1.3e-07; seed from brief with product name removed; fixes: none",
+    "level": 3
+  },
+  {
+    "id": "address-review-comments",
+    "category": "work_vocab",
+    "targetChunk": "address (review) comments",
+    "patternSlots": "address ___ comments",
+    "clozeTemplate": "I've ___ all your comments.",
+    "situationTr": "[PR yorumu] Mert'e: \"Yorumlarının hepsini ele aldım, gereken düzeltmeleri yaptım.\"",
+    "acceptedAnswers": [
+      "I've addressed all your comments.",
+      "I addressed all your comments.",
+      "I've addressed all of your comments.",
+      "I addressed all of your comments.",
+      "I've addressed all the comments."
+    ],
+    "modelSentences": [
+      "I've addressed all your comments.",
+      "Could you address Deniz's comments before we merge?",
+      "This PR addresses the timeout issue in QA-123."
+    ],
+    "checklistTr": [
+      "'yorumları ele almak' için address mi kullandın? (solve / fix değil)",
+      "Nesne (your comments) var mı?",
+      "address'ten sonra edat koymadın, değil mi?"
+    ],
+    "noteTr": "address = bir sorun ya da yorumla ilgilenip gereğini yapmak, edatsız. resolve ise PR'da konuşmayı kapatmak anlamında da kullanılır (bağlama göre).",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier (independent, 2026-10-21): Oxford Learner's address 'address a problem/concern/question'; Cambridge address 'deal with a matter'; domain: Microsoft vscode-pull-request-github skill 'address PR comments', OpenAI 'gh-address-comments', Ploomber contributor docs 'Address all review observations'. commonMistake left empty deliberately ('fixed/solved your comments' not confirmed as error); fixes: names Tom/Sarah/Mehmet -> Mert/Deniz (04 §2.1/4 fixed set)",
+    "level": 3
+  },
+  {
+    "id": "sign-off-on",
+    "category": "work_vocab",
+    "targetChunk": "sign off on something",
+    "patternSlots": "sign off on ___",
+    "clozeTemplate": "QA ___ ___ ___ the release.",
+    "situationTr": "[Teams, bilgi veriyorsun] \"QA, release'e resmî son onayını verdi.\"",
+    "acceptedAnswers": [
+      "QA signed off on the release.",
+      "QA has signed off on the release.",
+      "QA signed off on this release.",
+      "QA has signed off on this release.",
+      "QA signed the release off.",
+      "QA has signed the release off."
+    ],
+    "modelSentences": [
+      "QA signed off on the release.",
+      "We can't deploy until the product owner signs off on it.",
+      "Who needs to sign off on the test plan?"
+    ],
+    "checklistTr": [
+      "'resmî onay vermek' için sign off kullandın mı?",
+      "off'tan sonra on var mı? (ya da BrE: sign the release off)",
+      "Geçmiş zaman (signed / has signed) kullandın mı?"
+    ],
+    "noteTr": "sign off on something (AmE) / sign something off (BrE) = resmî son onay vermek. approve da doğrudur ama farklı kalıptır.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier (independent, 2026-10-21): Cambridge 'sign off on' 'approve officially'; Longman 'sign off on sth (AmE) / sign sth off (BrE)'; Oxford Learner's 'sign off' formal approval. commonMistake left empty deliberately; fixes: none",
+    "level": 3
+  },
+  {
+    "id": "edge-case",
+    "category": "work_vocab",
+    "targetChunk": "an edge case",
+    "patternSlots": "an edge case",
+    "clozeTemplate": "This is an ___ ___ we didn't test.",
+    "situationTr": "[PR yorumu] \"Bu, test etmediğimiz uç bir durum.\"",
+    "acceptedAnswers": [
+      "This is an edge case we didn't test.",
+      "This is an edge case that we didn't test.",
+      "This is an edge case we haven't tested.",
+      "This is an edge case that we haven't tested.",
+      "That's an edge case we didn't test."
+    ],
+    "modelSentences": [
+      "This is an edge case we didn't test.",
+      "Did you cover the edge cases?",
+      "An empty cart is an edge case for the checkout test."
+    ],
+    "checklistTr": [
+      "'uç durum' için yerleşik terim edge case mi?",
+      "an kullandın mı? (an edge case)",
+      "'test etmediğimiz' kısmını isimden sonra (we didn't test) mı yazdın?"
+    ],
+    "noteTr": "Sınır değerlerde ya da beklenmedik girdilerde ortaya çıkan durum → edge case. Türkçedeki sıfat sırası (test etmediğimiz uç durum) İngilizcede ters döner: an edge case we didn't test.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier (independent, 2026-10-21): Cambridge edge case (computer programming); Oxford Learner's edge case ('Consider error conditions and edge cases… develop a test'); 'corner case' excluded per decision 21; commonMistake left empty deliberately; fixes: none",
+    "level": 3
+  },
+  {
+    "id": "grant-someone-access-to",
+    "category": "work_vocab",
+    "targetChunk": "grant / give someone access to something",
+    "patternSlots": "grant ___ access to ___",
+    "clozeTemplate": "Could you ___ me access ___ the bucket?",
+    "situationTr": "[Teams, nazik rica] Mert'e: \"Bana bucket'a erişim verebilir misin?\"",
+    "acceptedAnswers": [
+      "Could you grant me access to the bucket?",
+      "Can you grant me access to the bucket?",
+      "Could you give me access to the bucket?",
+      "Can you give me access to the bucket?"
+    ],
+    "modelSentences": [
+      "Could you grant me access to the bucket?",
+      "I've given Ayşe access to the test repo.",
+      "Who can grant access to the staging environment?"
+    ],
+    "checklistTr": [
+      "grant / give + kişi + access kalıbını mı kurdun?",
+      "access'ten sonra to var mı? (access to the bucket)",
+      "an access yazmadın, değil mi? (access sayılamaz)"
+    ],
+    "noteTr": "grant daha resmî, give da doğru (bağlama göre). access burada sayılamaz: an access denmez; 'access to + şey'.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier (independent, 2026-10-21): Cambridge 'grant sb access'; Oxford Learner's 'grant sb sth'; Oxford Learner's access [U] 'access to sth'; seed from brief; fixes: names Tom/Sarah/Mehmet -> Mert/Deniz (04 §2.1/4 fixed set); removed unconfirmed commonMistake 'an access' (checklist 13); checklist item kept (Oxford: access [uncountable])",
+    "level": 2
+  }
+]
