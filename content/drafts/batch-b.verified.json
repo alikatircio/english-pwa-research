@@ -385,7 +385,7 @@
     ],
     "modelSentences": [
       "Could you fix it by Friday?",
-      "I'll send the test report by 5 pm.",
+      "I'll send the test report by EOD.",
       "We need to finish the regression by the end of the sprint."
     ],
     "commonMistake": "Could you fix it until Friday?",
@@ -394,10 +394,10 @@
       "until'i yalnızca bir durum o zamana kadar sürecekse mi kullanıyorsun?",
       "Nesneyi (it / this) koydun mu?"
     ],
-    "noteTr": "'-e kadar' iki anlam taşır: son tarih → by; o zamana kadar sürme → until. Burada iş en geç Cuma bitmeli: by.",
+    "noteTr": "'-e kadar' iki anlam taşır: son tarih → by; o zamana kadar sürme → until. Burada iş en geç Cuma bitmeli: by. EOD = end of day (gün sonuna kadar): by EOD.",
     "source": "curated",
     "verified": true,
-    "verifiedNote": "verifier (independent, 2026-10-21): Oxford Learner's by 'not later than'; Cambridge by vs until; by/until confusion for '-e kadar' in 04 §1.4d; fixes: names Tom/Sarah/Mehmet -> Mert/Deniz (04 §2.1/4 fixed set)",
+    "verifiedNote": "verifier (independent, 2026-10-21): Oxford Learner's by 'not later than'; Cambridge by vs until; by/until confusion for '-e kadar' in 04 §1.4d; fixes: names Tom/Sarah/Mehmet -> Mert/Deniz (04 §2.1/4 fixed set) | user-confirmed 2026-10-21: team uses EOD → model sentence",
     "level": 2
   },
   {
@@ -594,14 +594,14 @@
   {
     "id": "log-a-bug",
     "category": "work_vocab",
-    "targetChunk": "log / raise / file a bug",
+    "targetChunk": "raise / log / file a bug",
     "patternSlots": "___ a bug",
     "clozeTemplate": "I've ___ a bug for this.",
     "situationTr": "[Teams, bilgi veriyorsun] Ayşe'ye: \"Bunun için bir bug kaydı açtım.\"",
     "acceptedAnswers": [
+      "I've raised a bug for this.",
       "I've logged a bug for this.",
       "I logged a bug for this.",
-      "I've raised a bug for this.",
       "I raised a bug for this.",
       "I've filed a bug for this.",
       "I filed a bug for this.",
@@ -609,19 +609,19 @@
       "I reported a bug for this."
     ],
     "modelSentences": [
-      "I've logged a bug for this.",
+      "I've raised a bug for this.",
       "Could you raise a bug and assign it to me?",
-      "Mert filed a bug about the login timeout."
+      "Mert logged a bug about the login timeout."
     ],
     "checklistTr": [
       "'kayıt açmak' için bug ile kullanılan fiili (log / raise / file / report) mi seçtin?",
       "Nesne (a bug) var mı?",
       "for this ile neyle ilgili olduğunu bağladın mı?"
     ],
-    "noteTr": "Bağlama göre log / raise / file / report a bug hepsi kullanılır; Jira'da create / open a bug da duyulur. Türkçedeki 'kayıt açmak' kelime kelime çevrilmez.",
+    "noteTr": "Ekipte en çok \"raise a bug\" kullanılıyor; log / file / report a bug da doğru. Türkçedeki \"kayıt açmak\" kelime kelime çevrilmez.",
     "source": "curated",
     "verified": true,
-    "verifiedNote": "verifier (independent, 2026-10-21): Cambridge log 'officially record' + Cambridge Business 'log a call/claim/complaint', 'submit all bug reports'; Cambridge file 'officially record sth such as a complaint'; Cambridge raise 'raise a call' (technical help) + QA usage 'raise a bug' (qmetrysupport.atlassian.net, blog.devgenius.io 'How to raise a bug ticket'); 'logging a bug' Atlassian Community; Google Books Ngram en-2019 file/report/log/raise a bug all attested. commonMistake left empty deliberately (no confirmed typical error); fixes: names Tom/Sarah/Mehmet -> Mert/Deniz (04 §2.1/4 fixed set); removed 'I've created a bug for this.' (no dictionary basis; decision 21), added 'I reported a bug for this.'; noteTr reworded",
+    "verifiedNote": "verifier (independent, 2026-10-21): Cambridge log 'officially record' + Cambridge Business 'log a call/claim/complaint', 'submit all bug reports'; Cambridge file 'officially record sth such as a complaint'; Cambridge raise 'raise a call' (technical help) + QA usage 'raise a bug' (qmetrysupport.atlassian.net, blog.devgenius.io 'How to raise a bug ticket'); 'logging a bug' Atlassian Community; Google Books Ngram en-2019 file/report/log/raise a bug all attested. commonMistake left empty deliberately (no confirmed typical error); fixes: names Tom/Sarah/Mehmet -> Mert/Deniz (04 §2.1/4 fixed set); removed 'I've created a bug for this.' (no dictionary basis; decision 21), added 'I reported a bug for this.'; noteTr reworded | user-confirmed 2026-10-21: team uses \"raise a bug\" → made primary",
     "level": 1
   },
   {
@@ -759,7 +759,9 @@
       "I'm blocked by the API issue.",
       "I'm currently blocked by the API issue.",
       "I'm still blocked by the API issue.",
-      "I'm blocked by the API problem."
+      "I'm blocked by the API problem.",
+      "I'm blocked on the API issue.",
+      "I'm still blocked on the API issue."
     ],
     "modelSentences": [
       "I'm blocked by the API issue.",
@@ -771,10 +773,10 @@
       "Engelin önüne by koydun mu? (from değil)",
       "am / is koydun mu? (I'm blocked)"
     ],
-    "noteTr": "Jira'daki 'is blocked by' bağlantısıyla aynı kalıp. I'm blocking = ben engelliyorum, ters anlam.",
+    "noteTr": "Jira'daki \"is blocked by\" kalıbı; ekip içi konuşmada \"blocked on\" da kullanılır. I'm blocking = ben engelliyorum, ters anlam.",
     "source": "curated",
     "verified": true,
-    "verifiedNote": "verifier (independent, 2026-10-21): Jira link type 'is blocked by' (developer.atlassian.com issue-linking-model); Cambridge/Oxford Learner's block 'prevent progress' (passive); stand-up English guide llexi.com 'I am blocked by…'; Google Books Ngram en-2019 'blocked by the' 3.8e-07 >> 'blocked on the' 1.4e-08. 'blocked on' excluded per decision 21; fixes: removed unconfirmed commonMistake 'I'm blocking from the API issue.' (checklist 13)",
+    "verifiedNote": "verifier (independent, 2026-10-21): Jira link type 'is blocked by' (developer.atlassian.com issue-linking-model); Cambridge/Oxford Learner's block 'prevent progress' (passive); stand-up English guide llexi.com 'I am blocked by…'; Google Books Ngram en-2019 'blocked by the' 3.8e-07 >> 'blocked on the' 1.4e-08. 'blocked on' excluded per decision 21; fixes: removed unconfirmed commonMistake 'I'm blocking from the API issue.' (checklist 13) | user-confirmed 2026-10-21: team also says \"blocked on\" → accepted",
     "level": 2
   },
   {
@@ -1033,7 +1035,9 @@
       "This is an edge case that we didn't test.",
       "This is an edge case we haven't tested.",
       "This is an edge case that we haven't tested.",
-      "That's an edge case we didn't test."
+      "That's an edge case we didn't test.",
+      "This is a corner case we didn't test.",
+      "That's a corner case we didn't test."
     ],
     "modelSentences": [
       "This is an edge case we didn't test.",
@@ -1045,10 +1049,10 @@
       "an kullandın mı? (an edge case)",
       "'test etmediğimiz' kısmını isimden sonra (we didn't test) mı yazdın?"
     ],
-    "noteTr": "Sınır değerlerde ya da beklenmedik girdilerde ortaya çıkan durum → edge case. Türkçedeki sıfat sırası (test etmediğimiz uç durum) İngilizcede ters döner: an edge case we didn't test.",
+    "noteTr": "Sınır değerlerde ya da beklenmedik girdilerde ortaya çıkan durum → edge case. Türkçedeki sıfat sırası (test etmediğimiz uç durum) İngilizcede ters döner: an edge case we didn't test. Ekipte \"corner case\" da kullanılıyor, kabul edilir.",
     "source": "curated",
     "verified": true,
-    "verifiedNote": "verifier (independent, 2026-10-21): Cambridge edge case (computer programming); Oxford Learner's edge case ('Consider error conditions and edge cases… develop a test'); 'corner case' excluded per decision 21; commonMistake left empty deliberately; fixes: none",
+    "verifiedNote": "verifier (independent, 2026-10-21): Cambridge edge case (computer programming); Oxford Learner's edge case ('Consider error conditions and edge cases… develop a test'); 'corner case' excluded per decision 21; commonMistake left empty deliberately; fixes: none | user-confirmed 2026-10-21: team uses \"corner case\" → accepted",
     "level": 3
   },
   {
