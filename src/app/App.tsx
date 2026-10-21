@@ -1,21 +1,39 @@
+import '../ui/styles/global.css';
+import { CardScreen } from '../ui/screens/CardScreen.tsx';
+import { DoneScreen } from '../ui/screens/DoneScreen.tsx';
 import { t } from '../ui/strings.tr.ts';
 import { AppProvider, useApp } from './AppContext.tsx';
 
-function Screen() {
-  const { state } = useApp();
-  if (state.status === 'loading') return <p>{t.loading}</p>;
-  if (state.status === 'fatal') return <p role="alert">{t.bootFailed}</p>;
-  const entry = state.session?.queue[state.session.cursor];
-  const item = entry ? state.catalog.byId.get(entry.itemId) : undefined;
-  return <p>{item ? item.situationTr : t.allDone}</p>;
+function CurrentScreen() {
+  const { state, actions } = useApp();
+  if (state.status === 'fatal') {
+    return (
+      <div className="screen">
+        <div className="screen__body screen__body--center">
+          <p role="alert">{t.bootFailed}</p>
+        </div>
+      </div>
+    );
+  }
+  if (state.status === 'loading' || !actions) {
+    return (
+      <div className="screen">
+        <div className="screen__body screen__body--center">
+          <p className="muted">{t.loading}</p>
+        </div>
+      </div>
+    );
+  }
+  if (state.screen === 'done' || !state.session) return <DoneScreen />;
+  return <CardScreen state={state} actions={actions} />;
 }
 
 export function App() {
   return (
     <AppProvider>
       <main>
-        <h1>{t.appTitle}</h1>
-        <Screen />
+        <h1 className="visually-hidden">{t.appTitle}</h1>
+        <CurrentScreen />
       </main>
     </AppProvider>
   );

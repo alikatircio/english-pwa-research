@@ -1,0 +1,39 @@
+/* Design tokens. Light by default, dark via prefers-color-scheme. Calm, no gamification. */
+:root {
+  color-scheme: light dark;
+  --bg: #f6f5f1;
+  --surface: #ffffff;
+  --text: #1c1c1e;
+  --muted: #5c5f66;
+  --border: #d8d5cd;
+  --accent: #2d5b88;
+  --accent-text: #ffffff;
+  --ok: #1d6a40;
+  --ok-bg: #e6f2ea;
+  --miss: #7a5300;
+  --miss-bg: #f8eed9;
+  --danger: #a12a2a;
+  --tag-bg: #ebe8e1;
+
+  --radius: 14px;
+  --gap: 16px;
+  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #131315;
+    --surface: #1d1d20;
+    --text: #ececee;
+    --muted: #a3a6ad;
+    --border: #3a3a40;
+    --accent: #8fb6e3;
+    --accent-text: #0c1a29;
+    --ok: #86d3a6;
+    --ok-bg: #16301f;
+    --miss: #e9c47c;
+    --miss-bg: #33280f;
+    --danger: #f19191;
+    --tag-bg: #2a2a2f;
+  }
+}
