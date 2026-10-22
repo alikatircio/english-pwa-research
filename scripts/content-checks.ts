@@ -166,6 +166,22 @@ function escapeRegExp(s: string): string {
 }
 
 /** Parse a denylist (file or env): one term per line, '#' comments and blanks ignored. */
+/** True on CI runners (GitHub Actions sets CI=true). */
+export function isCi(env: Readonly<Record<string, string | undefined>>): boolean {
+  const v = env.CI?.trim().toLowerCase();
+  return v !== undefined && v !== '' && v !== 'false' && v !== '0';
+}
+
+/**
+ * C9 without any denylist: a warning locally, an error on CI, so a missing or
+ * misnamed PRIVACY_DENYLIST secret cannot skip the real-name check silently (09 #10).
+ */
+export function missingDenylistFinding(env: Readonly<Record<string, string | undefined>>): Finding {
+  return isCi(env)
+    ? { check: 'C9', severity: 'error', message: 'no privacy denylist on CI: set the PRIVACY_DENYLIST secret (real-name check cannot be skipped)' }
+    : { check: 'C9', severity: 'warning', message: 'no privacy denylist (local file or PRIVACY_DENYLIST); real-name check skipped' };
+}
+
 export function parseDenylist(text: string): string[] {
   return text
     .split(/\r?\n/)

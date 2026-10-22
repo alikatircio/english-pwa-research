@@ -19,6 +19,8 @@ jobs:
     timeout-minutes: 20
     env:
       CI: true
+      # Job level, so every content:build in the job sees it (C9 fails on CI without it).
+      PRIVACY_DENYLIST: ${{ secrets.PRIVACY_DENYLIST }}
     steps:
       - uses: actions/checkout@v7
 
@@ -31,8 +33,6 @@ jobs:
 
       - name: Build content
         run: npm run content:build
-        env:
-          PRIVACY_DENYLIST: ${{ secrets.PRIVACY_DENYLIST }}
 
       - run: npm run typecheck
       - run: npm run lint

@@ -21,6 +21,7 @@ import {
   hasErrors,
   makeDenylistCheck,
   makeProperNounCheck,
+  missingDenylistFinding,
   parseDenylist,
   runChecks,
   type Allowlist,
@@ -91,10 +92,7 @@ function readDenylist(file: string): { terms: string[]; findings: Finding[] } {
     terms.push(...parseDenylist(env));
     sources.push('env');
   }
-  const findings: Finding[] =
-    sources.length === 0
-      ? [{ check: 'C9', severity: 'warning', message: 'no privacy denylist (local file or PRIVACY_DENYLIST); real-name check skipped' }]
-      : [];
+  const findings: Finding[] = sources.length === 0 ? [missingDenylistFinding(process.env)] : [];
   return { terms, findings };
 }
 

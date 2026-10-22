@@ -205,7 +205,7 @@ describe('runChecks', () => {
 });
 
 describe('build-content CLI', () => {
-  function run(items: unknown[], lock?: string[], extra: string[] = []) {
+  function run(items: unknown[], lock?: string[], extra: string[] = [], { ci = false } = {}) {
     const dir = mkdtempSync(join(tmpdir(), 'content-'));
     writeFileSync(join(dir, 'x.verified.json'), JSON.stringify(items));
     writeFileSync(join(dir, 'ignored.json'), JSON.stringify([{ broken: true }]));
@@ -214,6 +214,9 @@ describe('build-content CLI', () => {
     const out = join(dir, 'out', 'items.json');
     const env = { ...process.env };
     delete env.PRIVACY_DENYLIST;
+    // The unit tests themselves run on CI: pin the mode each case expects.
+    if (ci) env.CI = 'true';
+    else delete env.CI;
     const r = spawnSync(
       process.execPath,
       ['scripts/build-content.ts', '--drafts', dir, '--out', out, '--lock', lockFile, '--denylist', join(dir, 'deny.txt'), ...extra],
@@ -247,6 +250,12 @@ describe('build-content CLI', () => {
     const noList = run([good]);
     expect(noList.code).toBe(0);
     expect(noList.stderr).toContain('no privacy denylist');
+  });
+
+  it('on CI a missing denylist is an error, not a warning (C9, review 09 #10)', () => {
+    const r = run([good], undefined, [], { ci: true });
+    expect(r.code).toBe(1);
+    expect(r.stderr).toContain('[C9] ERROR');
   });
 
   it('exits 0, writes only verified items and grows the lock', () => {

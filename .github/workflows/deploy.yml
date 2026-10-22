@@ -22,6 +22,8 @@ jobs:
     if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      PRIVACY_DENYLIST: ${{ secrets.PRIVACY_DENYLIST }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -34,10 +36,9 @@ jobs:
 
       - run: npm ci
 
+      # npm run build runs content:build again (prebuild); the job-level env covers both.
       - name: Build content
         run: npm run content:build
-        env:
-          PRIVACY_DENYLIST: ${{ secrets.PRIVACY_DENYLIST }}
 
       - run: npm run build
 
