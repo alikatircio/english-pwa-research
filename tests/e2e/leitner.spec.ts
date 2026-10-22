@@ -1,8 +1,7 @@
 import { expect, test } from '@playwright/test';
-import { DAILY_NEW_CAP } from '../../src/domain/session.ts';
 import type { Progress } from '../../src/domain/types.ts';
 import { t } from '../../src/ui/strings.tr.ts';
-import { App, canonical, items } from './helpers/app.ts';
+import { App, canonical, items, NEW_CAP } from './helpers/app.ts';
 import { at, day, reopenOnDay, setDay } from './helpers/clock.ts';
 import { readStore } from './helpers/db.ts';
 
@@ -15,9 +14,9 @@ test.describe('Leitner across days (decisions 2–4)', () => {
 
     // Day 1: five new cards, then "Bugün bitti" although 7 items are still unseen (decision 3).
     await app.open(at(0), { start: false });
-    await expect(app.startButton).toHaveText(t.start(DAILY_NEW_CAP));
+    await expect(app.startButton).toHaveText(t.start(NEW_CAP));
     await app.start();
-    for (let i = 0; i < DAILY_NEW_CAP; i++) {
+    for (let i = 0; i < NEW_CAP; i++) {
       await expect(app.situation).toHaveText(app.situationOf(i));
       await expect(hint).toHaveAttribute('data-stage', '1'); // new card = stage 1
       if (i === 1 || i === 2) {
@@ -41,7 +40,7 @@ test.describe('Leitner across days (decisions 2–4)', () => {
 
     // Day 2: the wrong and partial cards are due (box 1, +1 day), first, at stage 1; then 5 new again.
     await reopenOnDay(page, 1);
-    await expect(app.startButton).toHaveText(t.start(2 + DAILY_NEW_CAP));
+    await expect(app.startButton).toHaveText(t.start(2 + NEW_CAP));
     await app.start();
     for (const i of [1, 2]) {
       await expect(app.situation).toHaveText(app.situationOf(i));
@@ -49,14 +48,14 @@ test.describe('Leitner across days (decisions 2–4)', () => {
       await app.answer(canonical(i));
       await app.next.click();
     }
-    await expect(app.situation).toHaveText(app.situationOf(DAILY_NEW_CAP)); // first new card of day 2
+    await expect(app.situation).toHaveText(app.situationOf(NEW_CAP)); // first new card of day 2
     await expect(app.todayCount).toHaveCount(0); // still in the round
 
     // Day 3: the day-1 correct cards (box 2, +2 days) are due with the stage 2 initials;
     // yesterday's open round is stale, so Home offers "Başla", not "Devam et".
     await reopenOnDay(page, 2);
     await expect(app.resumeButton).toHaveCount(0);
-    await expect(app.startButton).toHaveText(t.start(3 + DAILY_NEW_CAP));
+    await expect(app.startButton).toHaveText(t.start(3 + NEW_CAP));
     await app.start();
     // Due order: dueOn, box, then id → e2e-depend-on (item 4) first.
     await expect(app.situation).toHaveText(app.situationOf(4));

@@ -15,10 +15,11 @@ const canonical = (id: string) => bundle.items.find((i) => i.id === id)?.accepte
 const T0 = new Date(2026, 10, 2, 8).getTime();
 
 let n = 0;
-async function setup({ progress = [] as Progress[], at = T0 } = {}) {
+async function setup({ progress = [] as Progress[], at = T0, newCap = 5 } = {}) {
   const name = `actions-${++n}-${Date.now()}`;
   const seed = await openAppDb({ name });
   for (const p of progress) await seed.put('progress', p);
+  await seed.put('meta', { key: 'dailyNewCap', value: newCap });
   seed.close();
   const clock = fixedClock(at);
   const { db, state } = await boot({ bundle, clock, openDb: () => openAppDb({ name }) });
@@ -277,6 +278,17 @@ describe('actions — stale round on the card screen (review 09 #5)', () => {
     expect(app.ready().screen).toBe('home');
     expect(app.ready().counter.day).toBe(app.clock.today());
     await expect.poll(() => app.db.count('session')).toBe(0);
+    app.db.close();
+  });
+});
+
+describe('actions — daily new-card cap (decision 29)', () => {
+  it('setDailyNewCap writes meta and the next round uses it', async () => {
+    const app = await setup({ newCap: 5 });
+    expect(app.ready().session?.queue.filter((e) => e.kind === 'new')).toHaveLength(5);
+    expect(await app.actions.setDailyNewCap(15)).toBe(true);
+    expect(app.ready().meta.dailyNewCap).toBe(15);
+    expect(await app.db.get('meta', 'dailyNewCap')).toEqual({ key: 'dailyNewCap', value: 15 });
     app.db.close();
   });
 });

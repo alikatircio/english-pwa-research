@@ -184,8 +184,8 @@ describe('items import', () => {
     db.close();
   });
 
-  it('imported items count toward the daily new-card cap (decision 3): cap used up → no round today', async () => {
-    const { db, actions, ready } = await setupAllAnswered(5);
+  it('imported items count toward the daily new-card cap (decision 29): cap used up → no round today', async () => {
+    const { db, actions, ready } = await setupAllAnswered(10);
     await actions.importItemsFile(itemsFile([solved('mine')]));
     expect(ready().catalog.byId.has('mine')).toBe(true);
     expect(ready().session).toBeUndefined();

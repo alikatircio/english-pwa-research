@@ -112,6 +112,11 @@ export const t = {
     'duplicate-in-file': 'dosyada iki kez geçiyor',
   },
 
+  // Daily new-card cap (decision 29).
+  capSection: 'Günlük yeni kart',
+  capHint: 'Her gün en fazla bu kadar yeni kart gelir. Değişiklik bir sonraki turdan itibaren geçerli.',
+  capLabel: 'Günlük yeni kart sayısı',
+
   // Full backup (Slice 5, T5.4). Error codes come from domain/backup.ts (ImportErrorCode).
   backupSection: 'Yedek',
   backupHint: 'Tüm ilerlemen, defterin ve item’ların tek bir dosyada. Dosyalar’a ya da iCloud Drive’a kaydet.',

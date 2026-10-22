@@ -5,6 +5,7 @@ import { BackupSection } from '../components/BackupSection.tsx';
 import { StorageSection } from '../components/StorageSection.tsx';
 import { ClaudePaste } from '../components/ClaudePaste.tsx';
 import { PasteImport } from '../components/PasteImport.tsx';
+import { DAILY_NEW_CAP, NEW_CAP_OPTIONS } from '../../domain/session.ts';
 import { shareOrDownload } from '../share.ts';
 import { t } from '../strings.tr.ts';
 
@@ -47,6 +48,27 @@ export function SettingsScreen({ state, actions }: Props) {
             {t.back}
           </button>
         </div>
+
+        <Section title={t.capSection}>
+          <p className="muted">{t.capHint}</p>
+          <div role="radiogroup" aria-label={t.capLabel} className="choice-buttons">
+            {NEW_CAP_OPTIONS.map((n) => {
+              const selected = (state.meta.dailyNewCap ?? DAILY_NEW_CAP) === n;
+              return (
+                <button
+                  key={n}
+                  type="button"
+                  role="radio"
+                  aria-checked={selected}
+                  className={selected ? 'btn btn--choice btn--primary' : 'btn btn--choice'}
+                  onClick={() => void actions.setDailyNewCap(n)}
+                >
+                  {n}
+                </button>
+              );
+            })}
+          </div>
+        </Section>
 
         <Section title={t.notebookSection}>
           <p className="muted">{hasOpenEntries ? t.notebookPending : t.notebookNothingPending}</p>

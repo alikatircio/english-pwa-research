@@ -1,5 +1,6 @@
 // The `meta` store as typed in-memory values. Rows with an unexpected value
 // type are ignored (treated as never set) instead of failing the boot.
+import { NEW_CAP_OPTIONS } from '../domain/session.ts';
 import type { MetaRecord } from '../domain/types.ts';
 
 export interface AppMeta {
@@ -13,10 +14,14 @@ export interface AppMeta {
   installHintDismissed?: boolean | undefined;
   /** Backup reminder closed at, epoch ms (hidden for 7 days). */
   backupReminderDismissedAt?: number | undefined;
+  /** Daily new-card cap chosen in Settings (decision 29); undefined = default. */
+  dailyNewCap?: number | undefined;
 }
 
 const num = (v: unknown): number | undefined => (typeof v === 'number' && Number.isFinite(v) ? v : undefined);
 const bool = (v: unknown): boolean | undefined => (typeof v === 'boolean' ? v : undefined);
+
+const newCap = (v: unknown): number | undefined => (NEW_CAP_OPTIONS as readonly unknown[]).includes(v) ? (v as number) : undefined;
 
 export function metaFromRecords(records: readonly MetaRecord[]): AppMeta {
   const byKey = new Map(records.map((r) => [r.key, r.value]));
@@ -26,5 +31,6 @@ export function metaFromRecords(records: readonly MetaRecord[]): AppMeta {
     persist: bool(byKey.get('persist')),
     installHintDismissed: bool(byKey.get('installHintDismissed')),
     backupReminderDismissedAt: num(byKey.get('backupReminderDismissedAt')),
+    dailyNewCap: newCap(byKey.get('dailyNewCap')),
   };
 }

@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { expect, type Locator, type Page } from '@playwright/test';
 import type { ContentBundle, Item } from '../../../src/domain/types.ts';
 import { t } from '../../../src/ui/strings.tr.ts';
+import { seedStores } from './seed.ts';
 
 /** The e2e build serves this fixture (vite --mode e2e), in file order. */
 export const fixture = JSON.parse(readFileSync('content/fixtures/e2e-items.json', 'utf8')) as ContentBundle;
@@ -9,6 +10,9 @@ export const items: readonly Item[] = fixture.items;
 export const canonical = (i: number): string => items[i]?.acceptedAnswers[0] ?? '';
 /** iOS keyboards type ’ instead of '. */
 export const smart = (s: string): string => s.replace(/'/g, '’');
+
+/** Daily new-card cap the specs run with: the pre-decision-29 value of 5, seeded into meta by `App.open` (the app default is 10). */
+export const NEW_CAP = 5;
 
 export class App {
   readonly input: Locator;
@@ -35,12 +39,18 @@ export class App {
 
   /**
    * Fixed clock (07 §7.3) so day keys are deterministic, then open the app on
-   * Home and (by default) tap "Başla".
+   * Home and (by default) tap "Başla". Seeds the daily new-card cap (`cap`,
+   * default NEW_CAP) first; pass `cap: null` to run with the app default.
    */
-  async open(time = '2026-11-02T08:00:00', { start = true } = {}): Promise<void> {
+  async open(time = '2026-11-02T08:00:00', { start = true, cap = NEW_CAP as number | null } = {}): Promise<void> {
     await this.page.clock.install({ time });
     await this.page.goto('./');
     await expect(this.todayCount).toBeVisible();
+    if (cap !== null) {
+      await seedStores(this.page, { put: { meta: [{ key: 'dailyNewCap', value: cap }] } });
+      await this.page.reload();
+      await expect(this.todayCount).toBeVisible();
+    }
     if (start) await this.start();
   }
 

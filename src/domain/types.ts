@@ -144,7 +144,9 @@ export type MetaKey =
   | 'installHintDismissed'
   | 'eveningPrompt'
   /** "Yedeğin 1 haftadan eski" dismissed at (epoch ms); hidden for 7 days (decision 27). */
-  | 'backupReminderDismissedAt';
+  | 'backupReminderDismissedAt'
+  /** Daily new-card cap, 5 / 10 / 15 / 20 (decision 29). */
+  | 'dailyNewCap';
 export interface MetaRecord {
   key: MetaKey;
   value: unknown;

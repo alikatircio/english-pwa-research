@@ -5,7 +5,7 @@ import type { DailyCounter, SessionState } from '../domain/types.ts';
 import { newOrder, type Catalog } from '../content/catalog.ts';
 import type { ReadyState } from './state.ts';
 
-type PoolSource = Pick<ReadyState, 'catalog' | 'progress' | 'flags'>;
+type PoolSource = Pick<ReadyState, 'catalog' | 'progress' | 'flags' | 'meta'>;
 type ShowSource = Pick<ReadyState, 'catalog' | 'flags'>;
 
 /** newOrder per catalog, computed once (a catalog only changes on import). */
@@ -21,7 +21,14 @@ function cachedOrder(catalog: Catalog): readonly string[] {
 
 /** Pools for the day `counter` belongs to. */
 export function poolsOf(s: PoolSource, counter: DailyCounter): Pools {
-  return { items: s.catalog.byId, progress: s.progress, flaggedIds: s.flags, counter, newOrder: cachedOrder(s.catalog) };
+  return {
+    items: s.catalog.byId,
+    progress: s.progress,
+    flaggedIds: s.flags,
+    counter,
+    newOrder: cachedOrder(s.catalog),
+    newCap: s.meta.dailyNewCap,
+  };
 }
 
 /** A new round for `counter.day` (today), or undefined when nothing is left today ("Bugün bitti"). */

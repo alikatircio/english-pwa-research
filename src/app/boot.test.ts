@@ -30,9 +30,9 @@ describe('boot', () => {
     expect(state.counter.newIntroduced).toBe(1);
     expect(state.screen).toBe('home'); // always opens on Home (05 §1)
     expect(state.session).toBeUndefined(); // the round starts from "Başla"
-    // One new card already introduced today → 4 of the daily 5 left (decision 3), file order.
+    // One new card already introduced today → 9 of the daily 10 left (decision 29), a round holds 8; file order.
     const round = freshRound(state, state.counter, clock);
-    expect(round?.queue).toEqual(bundle.items.slice(1, 5).map((i) => ({ itemId: i.id, kind: 'new' })));
+    expect(round?.queue).toEqual(bundle.items.slice(1, 9).map((i) => ({ itemId: i.id, kind: 'new' })));
     expect(round?.day).toBe('2026-11-02');
     opened.close();
   });

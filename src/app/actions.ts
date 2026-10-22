@@ -215,7 +215,7 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
     // An open round keeps its own day and counter (03 §4.5).
     const today = clock.today();
     const counter = s.session || s.counter.day === today ? s.counter : await run((d) => loadCounter(d, today)).catch(() => emptyCounter(today));
-    const session = s.session ?? freshRound({ catalog, progress: s.progress, flags: s.flags }, counter, clock);
+    const session = s.session ?? freshRound({ catalog, progress: s.progress, flags: s.flags, meta: s.meta }, counter, clock);
     dispatch({ type: 'itemsImported', catalog, notebook, session, counter });
     if (session && !s.session) persistSession(session);
     return { status: 'imported', importedIds: plan.items.map((i) => i.id), rejected: plan.rejected };
@@ -273,6 +273,11 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       dispatch({ type: 'meta', meta: { ...s.meta, firstRunAt: now } });
       void requestPersist();
       void run((d) => putMeta(d, [{ key: 'firstRunAt', value: now }])).catch(() => undefined);
+    },
+
+    /** Settings → daily new-card cap (decision 29). Applies to the next round; an open round keeps its queue. */
+    setDailyNewCap(cap: number): Promise<boolean> {
+      return saveMeta({ dailyNewCap: cap });
     },
 
     /** Settings → "Kalıcı depolama iste". */

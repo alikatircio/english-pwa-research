@@ -10,6 +10,7 @@ import {
   currentEntry,
   DAILY_DUE_CAP,
   DAILY_NEW_CAP,
+  NEW_CAP_OPTIONS,
   eligibleDue,
   eligibleNew,
   isSessionStale,
@@ -62,6 +63,7 @@ interface PoolSpec {
   flagged?: string[];
   counter?: Partial<DailyCounter>;
   extraItems?: Item[];
+  caps?: { newCap?: number; dueCap?: number };
 }
 
 function pools(spec: PoolSpec): Pools {
@@ -75,6 +77,10 @@ function pools(spec: PoolSpec): Pools {
     flaggedIds: new Set(spec.flagged ?? []),
     counter: { day: today, newIntroduced: 0, reviewsAnswered: 0, ...spec.counter },
     newOrder: spec.newIds ?? [],
+    // Explicit caps (the pre-decision-29 values), so the cap arithmetic below stays readable.
+    newCap: 5,
+    dueCap: 25,
+    ...spec.caps,
   };
 }
 
@@ -82,8 +88,42 @@ const ids = (prefix: string, n: number) => Array.from({ length: n }, (_, i) => `
 const dueCards = (n: number, box: Box = 1) => ids('d', n).map((id) => prog(id, box));
 
 describe('constants', () => {
-  it('match decisions 1–3', () => {
-    expect([ROUND_SIZE, DAILY_NEW_CAP, DAILY_DUE_CAP]).toEqual([8, 5, 25]);
+  it('match decisions 1 and 29 (defaults)', () => {
+    expect([ROUND_SIZE, DAILY_NEW_CAP, DAILY_DUE_CAP]).toEqual([8, 10, 40]);
+    expect(NEW_CAP_OPTIONS).toEqual([5, 10, 15, 20]);
+  });
+});
+
+describe('caps passed in (decision 29)', () => {
+  const noCaps = (spec: PoolSpec): Pools => {
+    const p = pools(spec);
+    delete p.newCap;
+    delete p.dueCap;
+    return p;
+  };
+
+  it('pools without caps fall back to the exported defaults (10 new, 40 due)', () => {
+    expect(todayCount(noCaps({ newIds: ids('n', 30) }), today)).toBe(DAILY_NEW_CAP);
+    expect(todayCount(noCaps({ due: dueCards(50) }), today)).toBe(DAILY_DUE_CAP);
+  });
+
+  it.each([5, 10, 15, 20])('newCap %i limits the new cards of the day', (cap) => {
+    const p = pools({ newIds: ids('n', 30), caps: { newCap: cap } });
+    expect(todayCount(p, today)).toBe(cap);
+    const used = pools({ newIds: ids('n', 30), caps: { newCap: cap }, counter: { newIntroduced: cap - 2 } });
+    expect(todayCount(used, today)).toBe(2);
+    expect(buildRound(used, today)).toHaveLength(2);
+  });
+
+  it('a larger cap still builds rounds of 8', () => {
+    expect(buildRound(pools({ newIds: ids('n', 30), caps: { newCap: 20 } }), today)).toHaveLength(ROUND_SIZE);
+  });
+
+  it('due cap 40: a backlog of 40 still lets new cards in, 41 blocks them', () => {
+    const fits = pools({ due: dueCards(40), newIds: ids('n', 5), caps: { newCap: 10, dueCap: 40 } });
+    expect(todayCount(fits, today)).toBe(45);
+    const over = pools({ due: dueCards(41), newIds: ids('n', 5), caps: { newCap: 10, dueCap: 40 } });
+    expect(todayCount(over, today)).toBe(40);
   });
 });
 
@@ -137,7 +177,7 @@ describe('eligibleNew', () => {
       counter: { newIntroduced: 0 },
     });
     const round = buildRound(p, today);
-    expect(round.map((e) => e.itemId)).toEqual(['u1', ...curated.slice(0, DAILY_NEW_CAP - 1)]);
+    expect(round.map((e) => e.itemId)).toEqual(['u1', ...curated.slice(0, 4)]);
   });
 });
 

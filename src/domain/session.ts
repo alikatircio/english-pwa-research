@@ -6,10 +6,12 @@ import type { DailyCounter, DayKey, Grade, Item, Progress, QueueEntry, QueueKind
 
 /** Decision 1. */
 export const ROUND_SIZE = 8;
-/** Decision 3. */
-export const DAILY_NEW_CAP = 5;
-/** Decision 2. */
-export const DAILY_DUE_CAP = 25;
+/** Decision 29: default daily new-card cap (Settings: 5 / 10 / 15 / 20). */
+export const DAILY_NEW_CAP = 10;
+/** Decision 29: due cap (was 25); also the backlog limit of decision 2. */
+export const DAILY_DUE_CAP = 40;
+/** Decision 29: the choices offered in Settings. */
+export const NEW_CAP_OPTIONS = [5, 10, 15, 20] as const;
 /** Decision 6: consecutive wrong first answers before a breather card. */
 export const BREATHER_AFTER = 3;
 
@@ -23,6 +25,10 @@ export interface Pools {
   counter: DailyCounter;
   /** Notebook (user-error) items first, then level ascending, then file order. */
   newOrder: readonly string[];
+  /** Daily new-card cap (decision 29); defaults to DAILY_NEW_CAP. */
+  newCap?: number | undefined;
+  /** Daily due cap (decision 29); defaults to DAILY_DUE_CAP. */
+  dueCap?: number | undefined;
 }
 
 /** A card can be shown if it is in the catalog and not flagged (decision 12). The one rule for rounds and Home counts. */
@@ -57,8 +63,8 @@ export function eligibleNew(p: Pools): string[] {
 
 function budgets(p: Pools): { due: number; new: number } {
   return {
-    due: Math.max(0, DAILY_DUE_CAP - p.counter.reviewsAnswered),
-    new: Math.max(0, DAILY_NEW_CAP - p.counter.newIntroduced),
+    due: Math.max(0, (p.dueCap ?? DAILY_DUE_CAP) - p.counter.reviewsAnswered),
+    new: Math.max(0, (p.newCap ?? DAILY_NEW_CAP) - p.counter.newIntroduced),
   };
 }
 

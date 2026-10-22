@@ -1,8 +1,7 @@
 import { expect, test } from '@playwright/test';
 import type { AnswerLog, Progress } from '../../src/domain/types.ts';
-import { DAILY_NEW_CAP } from '../../src/domain/session.ts';
 import { t } from '../../src/ui/strings.tr.ts';
-import { App, canonical, items, smart } from './helpers/app.ts';
+import { App, canonical, items, NEW_CAP, smart } from './helpers/app.ts';
 import { readStore } from './helpers/db.ts';
 
 test.describe('produce-first card', () => {
@@ -34,7 +33,7 @@ test.describe('produce-first card', () => {
 
     // After a reload Home counts one card less; "Devam et" reopens the answered card, Sonraki leads to the second item.
     await page.reload();
-    await expect(app.todayCount).toHaveText(t.todayCount(DAILY_NEW_CAP - 1));
+    await expect(app.todayCount).toHaveText(t.todayCount(NEW_CAP - 1));
     await app.resumeButton.click();
     await expect(page.locator('.verdict--ok')).toContainText(t.correct);
     await app.next.click();
@@ -71,10 +70,10 @@ test.describe('produce-first card', () => {
   test('the first day offers 5 new cards (decision 3); then round end and Home say "Bugün bitti"', async ({ page }) => {
     const app = new App(page);
     await app.open('2026-11-02T08:00:00', { start: false });
-    await expect(app.todayCount).toHaveText(t.todayCount(DAILY_NEW_CAP));
-    await expect(app.startButton).toHaveText(t.start(DAILY_NEW_CAP));
+    await expect(app.todayCount).toHaveText(t.todayCount(NEW_CAP));
+    await expect(app.startButton).toHaveText(t.start(NEW_CAP));
     await app.start();
-    for (let i = 0; i < DAILY_NEW_CAP; i++) {
+    for (let i = 0; i < NEW_CAP; i++) {
       await expect(app.situation).toHaveText(app.situationOf(i));
       await app.answer(canonical(i));
       await app.next.click();
