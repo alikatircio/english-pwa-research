@@ -1,0 +1,980 @@
+[
+  {
+    "id": "why-dont-we",
+    "category": "aux_to",
+    "level": 1,
+    "targetChunk": "Why don't we + base verb (suggestion)",
+    "patternSlots": "Why don't we ___ ...?",
+    "clozeTemplate": "___ ___ ___ ___ to the cinema on Saturday?",
+    "situationTr": "[Arkadaşına mesaj] Cumartesi için öneri yapıyorsun: \"Neden Cumartesi sinemaya gitmiyoruz?\"",
+    "acceptedAnswers": [
+      "Why don't we go to the cinema on Saturday?",
+      "Why don't we go to the movies on Saturday?",
+      "Shall we go to the cinema on Saturday?",
+      "Shall we go to the movies on Saturday?",
+      "Why not go to the cinema on Saturday?"
+    ],
+    "modelSentences": [
+      "Why don't we go to the cinema on Saturday?",
+      "Why don't we meet outside the station at six?",
+      "Why don't we ask Mert to come too?"
+    ],
+    "checklistTr": [
+      "Why don't we'den sonra yalın fiil var mı? (go, to go değil)",
+      "Soru sırası Why don't we mi? (Why we don't değil)",
+      "Gün ve yer bilgisini yazdın mı?"
+    ],
+    "noteTr": "Türkçe 'gitsek mi / gitmiyoruz' öneriyi tek ekle yapar; İngilizcede Why don't we + yalın fiil kullanılır. Bağlama göre Shall we go... de kabul edilir ama daha resmî ve BrE tadındadır.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Cambridge why lists the idioms \"why don't you...?\" and \"why not...?\" (suggestion); the 'we' form follows the same pattern but is not quoted by a dictionary, and the SkELL query for 'why don't we' returned no lines in this run (verifier: please check). 'Shall we' and 'Why not + base verb' are accepted as established suggestion forms. No commonMistake (no evidence). Sources: https://dictionary.cambridge.org/dictionary/english/why"
+  },
+  {
+    "id": "could-i-have",
+    "category": "aux_to",
+    "level": 1,
+    "targetChunk": "Could / Can I have + noun (ordering)",
+    "patternSlots": "Could I ___ ...?",
+    "clozeTemplate": "___ ___ ___ a coffee, please?",
+    "situationTr": "[Kafede] Garsona nazikçe sipariş veriyorsun: \"Bir kahve alabilir miyim, lütfen?\"",
+    "acceptedAnswers": [
+      "Could I have a coffee, please?",
+      "Can I have a coffee, please?",
+      "Could I have a coffee?",
+      "Can I have a coffee?",
+      "Could I please have a coffee?",
+      "Can I please have a coffee?",
+      "Could I get a coffee, please?",
+      "Can I get a coffee, please?"
+    ],
+    "modelSentences": [
+      "Could I have a coffee, please?",
+      "Could I have the bill, please?",
+      "Can I have a glass of water, please?"
+    ],
+    "checklistTr": [
+      "Could / Can I'dan sonra to koymadın, değil mi?",
+      "Fiil yalın mı? (have, having değil)",
+      "Ne istediğini (a coffee) yazdın mı?"
+    ],
+    "noteTr": "Türkçe '-abilir miyim' fiile ek olarak gelir; İngilizcede Could / Can I ayrı sözcüktür ve to almaz. Bağlama göre Can I get... özellikle AmE'de çok yaygındır.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Cambridge could (PERMISSION, B1: 'Could I speak to Mr Davis, please?', 'Could I borrow your pen?'), Oxford could; SkELL 'could I have' = 40 lines (e.g. 'Could I have the bill'); Oxford reservation/restaurant collocations. 'Can/Could I get' accepted as the common ordering variant. No commonMistake (no evidence). Sources: https://dictionary.cambridge.org/dictionary/english/could ; https://www.oxfordlearnersdictionaries.com/definition/english/could ; https://skell.sketchengine.eu/api/concordance?lang=English&query=could+I+have"
+  },
+  {
+    "id": "let-me-know",
+    "category": "aux_to",
+    "level": 2,
+    "targetChunk": "let someone know (no to)",
+    "patternSlots": "let ___ know when ...",
+    "clozeTemplate": "___ ___ ___ when you get to the station.",
+    "situationTr": "[Arkadaşına mesaj] İstasyona varınca haber vermesini istiyorsun: \"İstasyona varınca bana haber ver.\"",
+    "acceptedAnswers": [
+      "Let me know when you get to the station.",
+      "Let me know when you arrive at the station.",
+      "Please let me know when you get to the station.",
+      "Please let me know when you arrive at the station.",
+      "Just let me know when you get to the station."
+    ],
+    "modelSentences": [
+      "Let me know when you get to the station.",
+      "Let me know if you can't come.",
+      "Please let me know what time suits you."
+    ],
+    "checklistTr": [
+      "Let me'den sonra to koymadın, değil mi? (let me know)",
+      "'Haber ver' için let me know mı kullandın?",
+      "when'den sonra will koymadın, değil mi? (when you get)"
+    ],
+    "noteTr": "Türkçe 'haber ver' tek fiil, İngilizcede let + kişi + know olur ve let'ten sonra to gelmez. Bağlama göre arrive at / get to ikisi de doğrudur.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Cambridge let (idiom list: 'let someone know'); SkELL 'let me know when' = 40 lines ('Let me know when Halo 4 reaches…', 'Please let me know when ready to order'). 'let him to' appears in SkELL only in non-standard lines, so no commonMistake is claimed. Present tense after 'when' is standard time-clause grammar. Sources: https://dictionary.cambridge.org/dictionary/english/let ; https://skell.sketchengine.eu/api/concordance?lang=English&query=let+me+know+when"
+  },
+  {
+    "id": "would-rather",
+    "category": "aux_to",
+    "level": 3,
+    "targetChunk": "would rather + base verb (than + base verb)",
+    "patternSlots": "I would rather ___ than ___",
+    "clozeTemplate": "I ___ ___ ___ at home tonight than go out.",
+    "situationTr": "[Arkadaşına mesaj] Bu akşam dışarı çıkmak yerine evde kalmayı tercih ettiğini söylüyorsun: \"Bu akşam dışarı çıkmaktansa evde kalmayı tercih ederim.\"",
+    "acceptedAnswers": [
+      "I would rather stay at home tonight than go out.",
+      "I would rather stay home tonight than go out.",
+      "I would rather stay in tonight than go out.",
+      "I'd rather stay at home tonight than go out.",
+      "I'd rather stay home tonight than go out."
+    ],
+    "modelSentences": [
+      "I would rather stay at home tonight than go out.",
+      "I would rather walk than wait for the bus.",
+      "Would you rather meet at six or at seven?"
+    ],
+    "commonMistake": "I would rather to stay at home tonight than to go out.",
+    "checklistTr": [
+      "would rather'dan sonra to koymadın, değil mi?",
+      "than'den sonra da yalın fiil mi? (go out, to go out değil)",
+      "Kısaltma yazdıysan I'd rather = I would rather (had değil)."
+    ],
+    "noteTr": "Türkçe '-meyi tercih ederim' mastar ekiyle gelir; İngilizcede would rather'dan sonra to'suz yalın fiil gelir. Bağlama göre BrE'de at home, AmE'de çoğu zaman home denir.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Longman rather GRAMMAR: 'You say that you would rather do something: I would rather play than study. Don't say: I would rather to play than study' (commonMistake evidence); Cambridge rather; SkELL 'would rather' = 40 lines. Sources: https://www.ldoceonline.com/dictionary/rather ; https://dictionary.cambridge.org/dictionary/english/rather ; https://www.oxfordlearnersdictionaries.com/definition/english/rather ; https://skell.sketchengine.eu/api/concordance?lang=English&query=would+rather"
+  },
+  {
+    "id": "how-long-have-you-been",
+    "category": "aux_to",
+    "level": 3,
+    "targetChunk": "How long have you been + -ing",
+    "patternSlots": "How long have you been ___ing ...?",
+    "clozeTemplate": "How long ___ ___ ___ ___ in this city?",
+    "situationTr": "[Yeni tanıştığın biriyle sohbet] Bu şehirde ne zamandır yaşadığını soruyorsun: \"Ne zamandır bu şehirde yaşıyorsun?\"",
+    "acceptedAnswers": [
+      "How long have you been living in this city?",
+      "How long have you lived in this city?",
+      "How long have you been living in the city?",
+      "How long have you lived in the city?"
+    ],
+    "modelSentences": [
+      "How long have you been living in this city?",
+      "How long have you been learning English?",
+      "How long have you been waiting for the bus?"
+    ],
+    "checklistTr": [
+      "Süre sorusunda are you living değil, have you been living mi?",
+      "been'den sonra fiil -ing mi? (living)",
+      "Sıra: How long + have + you + been mi?"
+    ],
+    "noteTr": "Türkçe 'ne zamandır yaşıyorsun' şimdiki zamanla kurulur; İngilizcede süre sorusu için present perfect gerekir. Bağlama göre have you lived de aynı anlamda doğrudur.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. SkELL 'how long have you been' = 40 lines ('How long have you been driving taxis?'), 'how long have you been living' = 2 lines ('How long have you been living at this address?'); Cambridge long ('How long have you been in England?', 'So how long have you been married to Nicky?'). No commonMistake (no evidence). Sources: https://dictionary.cambridge.org/dictionary/english/long ; https://skell.sketchengine.eu/api/concordance?lang=English&query=how+long+have+you+been ; https://skell.sketchengine.eu/api/concordance?lang=English&query=how+long+have+you+been+living"
+  },
+  {
+    "id": "call-someone",
+    "category": "object",
+    "level": 1,
+    "targetChunk": "call someone (no 'to')",
+    "patternSlots": "call ___ ...",
+    "clozeTemplate": "I will ___ ___ tomorrow evening.",
+    "situationTr": "[Arkadaşına mesaj] Yarın akşam onu telefonla arayacağını söylüyorsun: \"Seni yarın akşam arayacağım.\"",
+    "acceptedAnswers": [
+      "I will call you tomorrow evening.",
+      "I am going to call you tomorrow evening.",
+      "I will phone you tomorrow evening.",
+      "I am going to phone you tomorrow evening.",
+      "I will ring you tomorrow evening."
+    ],
+    "modelSentences": [
+      "I will call you tomorrow evening.",
+      "Can you call me back in ten minutes?",
+      "Mert called Ayşe from the airport."
+    ],
+    "commonMistake": "I will call to you tomorrow evening.",
+    "checklistTr": [
+      "call'dan sonra to koymadın, değil mi? (call you)",
+      "Nesne (you) var mı?",
+      "Zaman ifadesi tomorrow evening yazılı mı?"
+    ],
+    "noteTr": "Türkçe '-i aramak' belirtme hâliyle gelir; İngilizcede call doğrudan nesne alır. Bağlama göre ring (BrE) ve phone da kabul edilir.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Longman call GRAMMAR: 'You call someone on the phone: Call me tomorrow. Don't say: Call to me tomorrow' (commonMistake evidence); Cambridge call; Oxford call; SkELL 'call someone' = 40 lines, 'call to him' lines are the 'shout to' sense. 'ring' (BrE) and 'phone' are standard synonyms. Sources: https://www.ldoceonline.com/dictionary/call ; https://dictionary.cambridge.org/dictionary/english/call ; https://www.oxfordlearnersdictionaries.com/definition/english/call ; https://skell.sketchengine.eu/api/concordance?lang=English&query=call+someone"
+  },
+  {
+    "id": "marry-someone",
+    "category": "object",
+    "level": 2,
+    "targetChunk": "marry someone (no 'with')",
+    "patternSlots": "marry ___",
+    "clozeTemplate": "Mert is going to ___ ___ next year.",
+    "situationTr": "[Sohbet] Bir arkadaşının planını anlatıyorsun: \"Mert gelecek yıl Deniz'le evlenecek.\"",
+    "acceptedAnswers": [
+      "Mert is going to marry Deniz next year.",
+      "Mert will marry Deniz next year.",
+      "Mert is marrying Deniz next year.",
+      "Mert is going to get married to Deniz next year.",
+      "Mert is getting married to Deniz next year."
+    ],
+    "modelSentences": [
+      "Mert is going to marry Deniz next year.",
+      "Deniz married Ayşe last year.",
+      "Did you know that Ayşe is getting married to Mert?"
+    ],
+    "commonMistake": "Mert is going to marry with Deniz next year.",
+    "checklistTr": [
+      "marry'den sonra with koymadın, değil mi?",
+      "Nesne (Deniz) fiilden hemen sonra mı?",
+      "get married kullandıysan to var mı? (get married to Deniz)"
+    ],
+    "noteTr": "Türkçe '-le evlenmek' ek içerir; İngilizcede marry doğrudan nesne alır, get married ise to ile gelir. Bağlama göre ikisi de doğrudur.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Longman marry: transitive 'He married Bea in 1925', 'marry her', no preposition; Oxford marry (transitive 'marry somebody'); Cambridge marry. SkELL 'married her' = 40 lines; 'got married with' = 12 lines of non-standard usage (weak evidence for the commonMistake: dictionaries show no 'with' but none labels it wrong). Sources: https://www.ldoceonline.com/dictionary/marry ; https://www.oxfordlearnersdictionaries.com/definition/english/marry ; https://dictionary.cambridge.org/dictionary/english/marry ; https://skell.sketchengine.eu/api/concordance?lang=English&query=married+her ; https://skell.sketchengine.eu/api/concordance?lang=English&query=got+married+with"
+  },
+  {
+    "id": "enter-the-room",
+    "category": "object",
+    "level": 2,
+    "targetChunk": "enter a room (no 'into')",
+    "patternSlots": "enter ___",
+    "clozeTemplate": "We can ___ the room after two.",
+    "situationTr": "[Otel resepsiyonu] Görevli odaların saat ikiden sonra hazır olacağını söyledi, arkadaşına aktarıyorsun: \"Saat ikiden sonra odaya girebiliriz.\"",
+    "acceptedAnswers": [
+      "We can enter the room after two.",
+      "We can enter the room after two o'clock.",
+      "We can go into the room after two.",
+      "We can go into the room after two o'clock.",
+      "We can get into the room after two."
+    ],
+    "modelSentences": [
+      "We can enter the room after two.",
+      "She entered the room and sat down.",
+      "Please enter the building through the main door."
+    ],
+    "commonMistake": "We can enter into the room after two.",
+    "checklistTr": [
+      "enter'dan sonra into / to koymadın, değil mi?",
+      "go into / get into yazdıysan into var mı?",
+      "Saat ifadesi after two yazılı mı?"
+    ],
+    "noteTr": "Türkçe '-e girmek' yönelme ekiyle gelir; İngilizcede enter doğrudan nesne alır. Bağlama göre go into / get into de kabul edilir ama enter into başka anlam taşır (anlaşma, görüşme başlatmak).",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Longman enter GRAMMAR: 'You enter a place: They entered the building through the front door. Don't say: They entered into the building. You usually use enter into when talking about starting agreements or discussions' (commonMistake evidence); Cambridge enter; Oxford enter; SkELL 'enter the room' = 40 lines. Sources: https://www.ldoceonline.com/dictionary/enter ; https://dictionary.cambridge.org/dictionary/english/enter ; https://www.oxfordlearnersdictionaries.com/definition/english/enter ; https://skell.sketchengine.eu/api/concordance?lang=English&query=enter+the+room"
+  },
+  {
+    "id": "ask-someone-for-directions",
+    "category": "object",
+    "level": 2,
+    "targetChunk": "ask (someone) for directions",
+    "patternSlots": "ask ___ for ___",
+    "clozeTemplate": "Excuse me, can I ___ ___ ___ directions?",
+    "situationTr": "[Sokakta, yabancıya] Müzenin yolunu nazikçe soruyorsun: \"Affedersiniz, size yol sorabilir miyim?\"",
+    "acceptedAnswers": [
+      "Excuse me, can I ask you for directions?",
+      "Excuse me, could I ask you for directions?",
+      "Excuse me, can I ask for directions?",
+      "Excuse me, could I ask for directions?",
+      "Excuse me, can I ask you for some directions?",
+      "Excuse me, could I ask you for some directions?"
+    ],
+    "modelSentences": [
+      "Excuse me, can I ask you for directions?",
+      "At the station he asked for directions to the museum.",
+      "I need to ask someone for directions."
+    ],
+    "commonMistake": "Excuse me, can I ask to you for directions?",
+    "checklistTr": [
+      "ask'ten sonra to koymadın, değil mi? (ask you)",
+      "Yol sormak için ask ... for directions mı yazdın?",
+      "Can / Could'dan sonra to yok, ask yalın mı?"
+    ],
+    "noteTr": "Türkçe 'sana yol sorabilir miyim' yönelme ekiyle gelir; İngilizcede kişi doğrudan nesne olur ve istenen şey for ile eklenir. Bağlama göre you atılabilir (ask for directions).",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Longman ask: collocation 'ask for directions' ('At the station he asked for directions to the museum'); GRAMMAR 'You ask someone something… Don't say: ask to someone' (commonMistake evidence); Cambridge ask ('ask someone for something'); SkELL 'ask for directions' = 40 lines. Sources: https://www.ldoceonline.com/dictionary/ask ; https://dictionary.cambridge.org/dictionary/english/ask ; https://www.oxfordlearnersdictionaries.com/definition/english/ask ; https://skell.sketchengine.eu/api/concordance?lang=English&query=ask+for+directions"
+  },
+  {
+    "id": "lend-someone-something",
+    "category": "object",
+    "level": 3,
+    "targetChunk": "lend someone something (vs borrow)",
+    "patternSlots": "lend ___ ___",
+    "clozeTemplate": "Could you ___ ___ your umbrella?",
+    "situationTr": "[Arkadaşına] Yağmur yağıyor, şemsiyesini ödünç vermesini rica ediyorsun: \"Şemsiyeni bana ödünç verebilir misin?\"",
+    "acceptedAnswers": [
+      "Could you lend me your umbrella?",
+      "Can you lend me your umbrella?",
+      "Could you lend your umbrella to me?",
+      "Can you lend your umbrella to me?",
+      "Could you please lend me your umbrella?",
+      "Can you please lend me your umbrella?"
+    ],
+    "modelSentences": [
+      "Could you lend me your umbrella?",
+      "The hospital agreed to lend us a wheelchair.",
+      "Can you lend me ten pounds until tomorrow?"
+    ],
+    "commonMistake": "Could you borrow me your umbrella?",
+    "checklistTr": [
+      "Ödünç verecek olan karşı taraf: lend mi kullandın? (borrow değil)",
+      "lend + kişi + şey sırası doğru mu? (lend me your umbrella)",
+      "Could'dan sonra yalın fiil mi?"
+    ],
+    "noteTr": "Türkçede 'ödünç' hem verme hem alma için kullanılır; İngilizcede veren lend, alan borrow der. Bağlama göre lend something to someone sırası da doğrudur.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Oxford borrow 'Which Word? borrow / lend: These two words are often confused. You borrow something from somebody else, while they lend it to you' (commonMistake evidence); Longman lend ('lend somebody something … Can you lend me £10') and borrow ('Do not confuse borrow and lend'); Cambridge lend; SkELL 'lend me' = 40 lines, 'borrow me' = 4 non-standard lines. Sources: https://www.oxfordlearnersdictionaries.com/definition/english/borrow ; https://www.ldoceonline.com/dictionary/lend ; https://www.ldoceonline.com/dictionary/borrow ; https://dictionary.cambridge.org/dictionary/english/lend ; https://skell.sketchengine.eu/api/concordance?lang=English&query=lend+me"
+  },
+  {
+    "id": "try-it-on",
+    "category": "object",
+    "level": 2,
+    "targetChunk": "try something on (pronoun between)",
+    "patternSlots": "try ___ on",
+    "clozeTemplate": "Can I ___ ___ ___?",
+    "situationTr": "[Mağazada] Elindeki ceketi göstererek satış görevlisine soruyorsun: \"Bunu deneyebilir miyim?\"",
+    "acceptedAnswers": [
+      "Can I try it on?",
+      "Could I try it on?",
+      "Can I try this on?",
+      "Could I try this on?",
+      "Can I try it on, please?",
+      "Could I try it on, please?",
+      "May I try it on?"
+    ],
+    "modelSentences": [
+      "Can I try it on?",
+      "Can I try this jacket on?",
+      "She tried the jacket on and bought it."
+    ],
+    "checklistTr": [
+      "Zamir (it / this) try ile on arasında mı? (try it on)",
+      "Can I'dan sonra to koymadın, değil mi?",
+      "Giysi için try on kalıbını mı kullandın? (test etmek değil)"
+    ],
+    "noteTr": "Türkçe 'denemek' tek fiildir; giysi için İngilizcede try on parçacıklı fiili gerekir ve zamir araya girer. Bağlama göre isimle try on the jacket da doğrudur.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Cambridge try on ('Try on the shoes… why don't you try it on for size', 'Can I try on your coat?'); Oxford try on (phrasal verb); SkELL 'try it on' = 40 lines ('Don't buy clothing without trying it on'). Pronoun-between rule is standard separable phrasal-verb grammar; no commonMistake (no source labels 'try on it' wrong). Sources: https://dictionary.cambridge.org/dictionary/english/try-on ; https://www.oxfordlearnersdictionaries.com/definition/english/try-on ; https://skell.sketchengine.eu/api/concordance?lang=English&query=try+it+on"
+  },
+  {
+    "id": "enjoy-something",
+    "category": "object",
+    "level": 2,
+    "targetChunk": "enjoy something (needs an object)",
+    "patternSlots": "enjoy ___",
+    "clozeTemplate": "I really ___ yesterday's film.",
+    "situationTr": "[Arkadaşına mesaj] Dün gittiğiniz filmden çok keyif aldığını söylüyorsun: \"Dünkü filmden gerçekten çok keyif aldım.\"",
+    "acceptedAnswers": [
+      "I really enjoyed yesterday's film.",
+      "I really enjoyed the film yesterday.",
+      "I really enjoyed yesterday's movie.",
+      "I really enjoyed the movie yesterday.",
+      "I enjoyed yesterday's film a lot."
+    ],
+    "modelSentences": [
+      "I really enjoyed yesterday's film.",
+      "Did you enjoy the concert?",
+      "I enjoyed watching the game on TV."
+    ],
+    "commonMistake": "I really enjoyed to watch yesterday's film.",
+    "checklistTr": [
+      "enjoy'dan sonra bir nesne var mı? (enjoyed the film)",
+      "'-den' karşılığı olarak from / of koymadın, değil mi?",
+      "Fiil enjoyed (geçmiş) mı?"
+    ],
+    "noteTr": "Türkçe '-den keyif almak' ayrılma ekiyle gelir; İngilizcede enjoy edat almadan doğrudan nesne ister. Bağlama göre enjoy + -ing de doğrudur (enjoyed watching) ama enjoy to watch hatalıdır.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Longman enjoy GRAMMAR: 'Enjoy is usually transitive… Did you enjoy it? Don't say: I enjoyed. … Enjoy is never followed by an infinitive. Don't say: I enjoyed to watch the game on TV' (commonMistake evidence); Cambridge enjoy; Oxford enjoy; SkELL 'enjoyed the' = 40 lines. Sources: https://www.ldoceonline.com/dictionary/enjoy ; https://dictionary.cambridge.org/dictionary/english/enjoy ; https://www.oxfordlearnersdictionaries.com/definition/english/enjoy ; https://skell.sketchengine.eu/api/concordance?lang=English&query=enjoyed+the"
+  },
+  {
+    "id": "luggage-uncountable",
+    "category": "word_form",
+    "level": 1,
+    "targetChunk": "luggage (uncountable)",
+    "patternSlots": "my luggage is ...",
+    "clozeTemplate": "My ___ ___ very heavy.",
+    "situationTr": "[Havaalanında, görevliye] Valizlerinin çok ağır olduğunu söylüyorsun: \"Bagajlarım çok ağır.\"",
+    "acceptedAnswers": [
+      "My luggage is very heavy.",
+      "My luggage is really heavy.",
+      "My luggage is too heavy.",
+      "My luggage is so heavy.",
+      "My baggage is very heavy.",
+      "My baggage is really heavy."
+    ],
+    "modelSentences": [
+      "My luggage is very heavy.",
+      "Two pieces of luggage have gone missing.",
+      "Do you have a lot of luggage?"
+    ],
+    "commonMistake": "My luggages are very heavy.",
+    "checklistTr": [
+      "luggage'a -s eklemedin, değil mi?",
+      "Fiil tekil mi? (luggage is, are değil)",
+      "Sayı için a piece of / two pieces of kullanıldı mı?"
+    ],
+    "noteTr": "Türkçede 'bagajlar / valizler' çoğul kurulur; İngilizcede luggage ve baggage sayılamaz, tekil fiil alır. Bağlama göre luggage BrE'de daha yaygındır, baggage havayolu dilinde sık geçer.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Longman luggage GRAMMAR: 'Luggage is not used in the plural. Don't say: He carried our luggages to our room. Luggage is always followed by a singular verb' (commonMistake evidence); Oxford luggage [uncountable] and 'luggage / baggage: both are uncountable'; Cambridge luggage; SkELL 'luggage' = 40 lines, 'luggages' lines are non-standard. Sources: https://www.ldoceonline.com/dictionary/luggage ; https://www.oxfordlearnersdictionaries.com/definition/english/luggage ; https://dictionary.cambridge.org/dictionary/english/luggage ; https://skell.sketchengine.eu/api/concordance?lang=English&query=luggage"
+  },
+  {
+    "id": "advice-uncountable",
+    "category": "word_form",
+    "level": 1,
+    "targetChunk": "advice (uncountable)",
+    "patternSlots": "give me some advice about ...",
+    "clozeTemplate": "Can you give me ___ ___ about where to stay?",
+    "situationTr": "[Arkadaşına mesaj] Nerede kalacağını bilmiyorsun, arkadaşından fikir istiyorsun: \"Nerede kalacağım konusunda bana biraz tavsiye verir misin?\"",
+    "acceptedAnswers": [
+      "Can you give me some advice about where to stay?",
+      "Could you give me some advice about where to stay?",
+      "Can you give me some advice on where to stay?",
+      "Could you give me some advice on where to stay?",
+      "Can you give me any advice about where to stay?"
+    ],
+    "modelSentences": [
+      "Can you give me some advice about where to stay?",
+      "She gave me a good piece of advice.",
+      "I need some advice on buying a phone."
+    ],
+    "commonMistake": "Can you give me some advices about where to stay?",
+    "checklistTr": [
+      "advice'a -s eklemedin, değil mi?",
+      "Miktar için some / any / a piece of kullandın mı? (an advice değil)",
+      "'Tavsiye vermek' için give advice mı?"
+    ],
+    "noteTr": "Türkçe 'tavsiyeler' çoğul olabilir; İngilizcede advice sayılamaz. Bağlama göre about ve on ikisi de uygundur.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Longman advice: 'Don't say: some advices. Advice is an uncountable noun and cannot be used in the plural'; Oxford advice [uncountable]: 'We say a piece of advice (not an advice) and some advice (not some advices)' (commonMistake evidence); Cambridge advice; SkELL 'some advice' = 40 lines. Sources: https://www.ldoceonline.com/dictionary/advice ; https://www.oxfordlearnersdictionaries.com/definition/english/advice ; https://dictionary.cambridge.org/dictionary/english/advice ; https://skell.sketchengine.eu/api/concordance?lang=English&query=some+advice"
+  },
+  {
+    "id": "bored-vs-boring",
+    "category": "word_form",
+    "level": 3,
+    "targetChunk": "bored (feeling) vs boring (causing it)",
+    "patternSlots": "The film was ___, so I was ___.",
+    "clozeTemplate": "The film was ___, so I was ___.",
+    "situationTr": "[Arkadaşına mesaj] Dünkü filmi anlatıyorsun: \"Film çok sıkıcıydı, bu yüzden ben sıkıldım.\"",
+    "acceptedAnswers": [
+      "The film was boring, so I was bored.",
+      "The film was very boring, so I was bored.",
+      "The movie was boring, so I was bored.",
+      "The movie was very boring, so I was bored.",
+      "The film was boring, so I got bored."
+    ],
+    "modelSentences": [
+      "The film was boring, so I was bored.",
+      "I was bored because the lecture was so boring.",
+      "Why are you bored? This book is not boring at all."
+    ],
+    "checklistTr": [
+      "Şey için -ing (boring), kişinin hissi için -ed (bored) mi?",
+      "Özne film mi, ben mi? Ona göre sıfatı seçtin mi?",
+      "Her iki boşluk farklı sıfat mı?"
+    ],
+    "noteTr": "Türkçede 'sıkıcı' ve 'sıkıldım' ayrı sözcüklerdir; İngilizcede aynı kökten -ing (neden) ve -ed (hisseden kişi) gelir. Bağlama göre film yerine movie da kullanılır.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Cambridge bored ('tired and uninterested… It was a cold, wet day and the children were bored') and boring (making you feel bored); Longman bored: word family 'bored / boring'; Oxford bored/boring; SkELL 'I was bored' and 'boring' = 40 lines each. No commonMistake: no source labels the swap wrong (only the definitions). Sources: https://dictionary.cambridge.org/dictionary/english/bored ; https://www.ldoceonline.com/dictionary/bored ; https://www.oxfordlearnersdictionaries.com/definition/english/bored ; https://skell.sketchengine.eu/api/concordance?lang=English&query=I+was+bored"
+  },
+  {
+    "id": "get-something-fixed",
+    "category": "word_form",
+    "level": 3,
+    "targetChunk": "get / have something fixed (past participle)",
+    "patternSlots": "get ___ fixed",
+    "clozeTemplate": "I need to ___ the boiler ___.",
+    "situationTr": "[Ev arkadaşına mesaj] Kombinin bozulduğunu ve bir tamirciye baktırman gerektiğini söylüyorsun: \"Kombiyi tamirciye baktırmam lazım.\"",
+    "acceptedAnswers": [
+      "I need to get the boiler fixed.",
+      "I need to have the boiler fixed.",
+      "I have to get the boiler fixed.",
+      "I have to have the boiler fixed.",
+      "I need the boiler fixed."
+    ],
+    "modelSentences": [
+      "I need to get the boiler fixed.",
+      "I had my phone repaired last week.",
+      "We should get the heating checked before winter."
+    ],
+    "checklistTr": [
+      "get / have + nesne + geçmiş ortaç (fixed) mi? (get it fix değil)",
+      "Nesne (the boiler) get ile fixed arasında mı?",
+      "Fixed'i -ed/üçüncü biçim olarak yazdın mı?"
+    ],
+    "noteTr": "Türkçe 'baktırmak' ettirgen ekle (-tır) kurulur; İngilizcede bunun karşılığı get / have + nesne + geçmiş ortaçtır. Bağlama göre have BrE'de resmî, get günlük dilde daha yaygındır.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Oxford fix lists the collocation 'get something fixed'; SkELL 'get it fixed' = 40 lines ('Hopefully I will get it fixed soon'), 'had it fixed' = 17 lines. No commonMistake (no source labels a specific error). Sources: https://www.oxfordlearnersdictionaries.com/definition/english/fix ; https://skell.sketchengine.eu/api/concordance?lang=English&query=get+it+fixed ; https://skell.sketchengine.eu/api/concordance?lang=English&query=had+it+fixed"
+  },
+  {
+    "id": "do-you-mind-doing",
+    "category": "word_form",
+    "level": 3,
+    "targetChunk": "Do / Would you mind + -ing",
+    "patternSlots": "Do you mind ___ing ...?",
+    "clozeTemplate": "Do you mind ___ the window?",
+    "situationTr": "[Kafede, yan masadaki kişiye] Nazikçe pencereyi açmasını rica ediyorsun: \"Pencereyi açmanızın bir sakıncası var mı?\"",
+    "acceptedAnswers": [
+      "Do you mind opening the window?",
+      "Would you mind opening the window?",
+      "Do you mind opening the window, please?",
+      "Would you mind opening the window, please?"
+    ],
+    "modelSentences": [
+      "Do you mind opening the window?",
+      "Would you mind waiting a few minutes?",
+      "Do you mind sitting somewhere else?"
+    ],
+    "commonMistake": "Do you mind to open the window?",
+    "checklistTr": [
+      "mind'dan sonra fiil -ing mi? (opening, to open değil)",
+      "Pencereyi (the window) yazdın mı?",
+      "Daha nazik için Would you mind mı kullandın?"
+    ],
+    "noteTr": "Türkçe 'açmanızın sakıncası var mı' isim-fiil (-me) ile kurulur; İngilizcede mind + -ing gerekir, to + fiil değil. Bağlama göre Would you mind Do you mind'dan daha nazik ve resmîdir.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Longman mind: 'mind doing something', and 'would/do you mind…?' listed under SPOKEN PHRASES; Cambridge mind 'typical errors: We don't use to-infinitive after would you mind or do you mind' (commonMistake evidence); Oxford mind; SkELL 'do you mind' = 40 lines ('Do you mind eating a bit later on?'). Note: 'Do you mind if I open…' is a different question (permission) and is not accepted. Sources: https://www.ldoceonline.com/dictionary/mind ; https://dictionary.cambridge.org/dictionary/english/mind ; https://www.oxfordlearnersdictionaries.com/definition/english/mind ; https://skell.sketchengine.eu/api/concordance?lang=English&query=do+you+mind"
+  },
+  {
+    "id": "listen-to-music",
+    "category": "preposition",
+    "level": 1,
+    "targetChunk": "listen to music (not 'listen music')",
+    "patternSlots": "listen ___ ...",
+    "clozeTemplate": "I usually ___ ___ music on the bus.",
+    "situationTr": "[Small talk, hobiler] Otobüste ne yaptığını anlatıyorsun: \"Otobüste genelde müzik dinlerim.\"",
+    "acceptedAnswers": [
+      "I usually listen to music on the bus.",
+      "I normally listen to music on the bus.",
+      "I generally listen to music on the bus.",
+      "Usually I listen to music on the bus."
+    ],
+    "modelSentences": [
+      "I usually listen to music on the bus.",
+      "Do you like listening to podcasts?",
+      "Mert listens to the radio every morning."
+    ],
+    "commonMistake": "I usually listen music on the bus.",
+    "checklistTr": [
+      "listen'dan sonra to koydun mu?",
+      "Fiil listen mı? (hear değil, bilerek dinlemek)",
+      "Yer bilgisi on the bus yazılı mı?"
+    ],
+    "noteTr": "Türkçede 'müzik dinlemek' edatsız nesneyle kurulur; İngilizcede listen daima to ister. Bağlama göre on the bus (araç içinde) edatı doğrudur.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Longman listen GRAMMAR: 'You listen to someone or something: I love listening to classical music. Don't say: I love listening classical music' (commonMistake evidence); Oxford listen ('listen to music/the radio'); Cambridge listen; SkELL 'listen to music' = 40 lines, 'listen music' = 20 lines of non-standard usage. Sources: https://www.ldoceonline.com/dictionary/listen ; https://www.oxfordlearnersdictionaries.com/definition/english/listen ; https://dictionary.cambridge.org/dictionary/english/listen ; https://skell.sketchengine.eu/api/concordance?lang=English&query=listen+to+music ; https://skell.sketchengine.eu/api/concordance?lang=English&query=listen+music"
+  },
+  {
+    "id": "wait-for-the-bus",
+    "category": "preposition",
+    "level": 1,
+    "targetChunk": "wait for something / someone",
+    "patternSlots": "wait ___ ...",
+    "clozeTemplate": "I'm ___ ___ the bus at the bus stop.",
+    "situationTr": "[Arkadaşına mesaj] Durakta olduğunu söylüyorsun: \"Durakta otobüsü bekliyorum.\"",
+    "acceptedAnswers": [
+      "I'm waiting for the bus at the bus stop.",
+      "I'm waiting for the bus at the stop.",
+      "I'm waiting at the bus stop for the bus."
+    ],
+    "modelSentences": [
+      "I'm waiting for the bus at the bus stop.",
+      "Everyone is waiting for Ayşe.",
+      "She waited for him to finish speaking."
+    ],
+    "commonMistake": "I'm waiting the bus at the bus stop.",
+    "checklistTr": [
+      "wait'ten sonra for koydun mu?",
+      "Şimdiki zaman I'm waiting mi?",
+      "Yer bilgisi (at the bus stop) yazılı mı?"
+    ],
+    "noteTr": "Türkçede 'otobüsü beklemek' belirtme hâliyle gelir, edat yoktur; İngilizcede wait for gerekir. Bağlama göre aynı cümle 'wait at the stop for the bus' diye de kurulabilir.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Longman wait GRAMMAR: 'You wait for something or someone: I waited for the next bus. Don't say: I waited the next bus' (commonMistake evidence); Longman 'wait for: a queue of people waiting for a bus'; Cambridge wait; Oxford wait; SkELL 'wait for the bus' = 40 lines, 'wait the bus' = 1 non-standard line. Sources: https://www.ldoceonline.com/dictionary/wait ; https://dictionary.cambridge.org/dictionary/english/wait ; https://www.oxfordlearnersdictionaries.com/definition/english/wait ; https://skell.sketchengine.eu/api/concordance?lang=English&query=wait+for+the+bus"
+  },
+  {
+    "id": "pay-for-something",
+    "category": "preposition",
+    "level": 1,
+    "targetChunk": "pay for something",
+    "patternSlots": "pay ___ ...",
+    "clozeTemplate": "I'll ___ ___ the coffees.",
+    "situationTr": "[Kafede, arkadaşına] Hesabı ödemeyi teklif ediyorsun: \"Kahveleri ben ödeyeyim.\"",
+    "acceptedAnswers": [
+      "I'll pay for the coffees.",
+      "Let me pay for the coffees.",
+      "I'll pay for the coffee.",
+      "I can pay for the coffees."
+    ],
+    "modelSentences": [
+      "I'll pay for the coffees.",
+      "Mum paid for my driving lessons.",
+      "Can I pay by credit card?"
+    ],
+    "commonMistake": "I'll pay the coffees.",
+    "checklistTr": [
+      "pay'den sonra for koydun mu? (satın aldığın şey için)",
+      "Ödenen şey (the coffees) edattan sonra mı?",
+      "Gelecek için I'll yazdın mı?"
+    ],
+    "noteTr": "Türkçede 'kahveleri ödemek' edatsız söylenir; İngilizcede satın alınan şey için pay for gerekir. Bağlama göre pay the bill / pay the waiter doğrudan nesneyle kurulur.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Longman pay GRAMMAR: 'You pay for something that you buy: I'll pay for the tickets. Don't say: I'll pay the tickets' (commonMistake evidence); Longman 'pay for: Mum paid for my driving lessons'; Cambridge pay; Oxford pay. Sources: https://www.ldoceonline.com/dictionary/pay ; https://dictionary.cambridge.org/dictionary/english/pay ; https://www.oxfordlearnersdictionaries.com/definition/english/pay"
+  },
+  {
+    "id": "be-interested-in",
+    "category": "preposition",
+    "level": 1,
+    "targetChunk": "be interested in something",
+    "patternSlots": "I'm interested ___ ...",
+    "clozeTemplate": "I'm ___ ___ photography.",
+    "situationTr": "[Small talk, hobiler] Fotoğrafçılıkla ilgilendiğini söylüyorsun: \"Fotoğrafçılıkla ilgileniyorum.\"",
+    "acceptedAnswers": [
+      "I'm interested in photography.",
+      "I'm very interested in photography.",
+      "I'm really interested in photography."
+    ],
+    "modelSentences": [
+      "I'm interested in photography.",
+      "Are you interested in working abroad?",
+      "Deniz is interested in learning the guitar."
+    ],
+    "commonMistake": "I'm interested on photography.",
+    "checklistTr": [
+      "interested'dan sonra in koydun mu?",
+      "Sıfat interested mı? (interesting değil, ilgilenen kişi)",
+      "in'den sonra isim ya da -ing mi?"
+    ],
+    "noteTr": "Türkçe '-le ilgilenmek' ile edatı karıştırılır; İngilizcede ilgi için be interested in gerekir. Bağlama göre in'den sonra isim ya da -ing gelir (interested in learning).",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Longman interested GRAMMAR: 'You are interested in something: She is interested in politics. Don't say: She is interested on politics. You are interested in doing something' (commonMistake evidence); Cambridge interested; Oxford interested; SkELL 'interested in' = 40 lines. Sources: https://www.ldoceonline.com/dictionary/interested ; https://dictionary.cambridge.org/dictionary/english/interested ; https://www.oxfordlearnersdictionaries.com/definition/english/interested ; https://skell.sketchengine.eu/api/concordance?lang=English&query=interested+in"
+  },
+  {
+    "id": "be-good-at",
+    "category": "preposition",
+    "level": 1,
+    "targetChunk": "be good at (doing) something",
+    "patternSlots": "I'm not very good ___ ...",
+    "clozeTemplate": "I'm not very ___ ___ cooking.",
+    "situationTr": "[Small talk] Yemek yapmakta pek iyi olmadığını söylüyorsun: \"Yemek yapmakta pek iyi değilim.\"",
+    "acceptedAnswers": [
+      "I'm not very good at cooking.",
+      "I'm not that good at cooking.",
+      "I'm not really good at cooking.",
+      "I'm not so good at cooking."
+    ],
+    "modelSentences": [
+      "I'm not very good at cooking.",
+      "Alex is very good at languages.",
+      "Ayşe is good at making things."
+    ],
+    "checklistTr": [
+      "good'dan sonra at koydun mu?",
+      "at'ten sonra isim ya da -ing mi? (cooking, to cook değil)",
+      "Olumsuz I'm not very good mu?"
+    ],
+    "noteTr": "Türkçe '-de iyi' bulunma ekiyle gelir ve in / on karışır; İngilizcede yetenek için good at gerekir. Bağlama göre good with (alet ya da insanlarla) başka anlam taşır.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Longman good: 'good at (doing) something: Alex is very good at languages. She's good at making things'; 'good with' is a separate sense; Cambridge good; Oxford good; SkELL 'good at' = 40 lines. No commonMistake (no explicit error note). Sources: https://www.ldoceonline.com/dictionary/good ; https://dictionary.cambridge.org/dictionary/english/good ; https://www.oxfordlearnersdictionaries.com/definition/english/good ; https://skell.sketchengine.eu/api/concordance?lang=English&query=good+at"
+  },
+  {
+    "id": "be-afraid-of",
+    "category": "preposition",
+    "level": 2,
+    "targetChunk": "be afraid of something / doing",
+    "patternSlots": "I'm afraid ___ ...",
+    "clozeTemplate": "I'm ___ ___ flying.",
+    "situationTr": "[Small talk] Uçmaktan korktuğunu söylüyorsun: \"Uçmaktan korkarım.\"",
+    "acceptedAnswers": [
+      "I'm afraid of flying.",
+      "I'm very afraid of flying.",
+      "I'm really afraid of flying.",
+      "I'm scared of flying.",
+      "I'm frightened of flying."
+    ],
+    "modelSentences": [
+      "I'm afraid of flying.",
+      "Many children are afraid of the dark.",
+      "Some old people are afraid of going out alone."
+    ],
+    "commonMistake": "I'm afraid about flying.",
+    "checklistTr": [
+      "afraid'den sonra of koydun mu?",
+      "of'tan sonra isim ya da -ing mi? (flying, to fly değil)",
+      "Sıfat afraid / scared mı?"
+    ],
+    "noteTr": "Türkçe '-den korkmak' ayrılma ekiyle gelir; İngilizcede afraid of kullanılır, from / about değil. Bağlama göre scared of ve frightened of aynı kalıbı izler.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Longman afraid GRAMMAR: 'You feel afraid of someone or something: A lot of people are afraid of snakes. Don't say: afraid about something… You can use the same patterns with frightened and scared' (commonMistake evidence); Longman 'afraid of doing something'; Cambridge afraid; Oxford afraid; SkELL 'afraid of' = 40 lines. Sources: https://www.ldoceonline.com/dictionary/afraid ; https://dictionary.cambridge.org/dictionary/english/afraid ; https://www.oxfordlearnersdictionaries.com/definition/english/afraid ; https://skell.sketchengine.eu/api/concordance?lang=English&query=afraid+of"
+  },
+  {
+    "id": "at-the-weekend",
+    "category": "preposition",
+    "level": 3,
+    "targetChunk": "at / on / over the weekend (BrE / AmE)",
+    "patternSlots": "What did you do ___ the weekend?",
+    "clozeTemplate": "What did you do ___ the weekend?",
+    "situationTr": "[Arkadaşına mesaj] Hafta sonu ne yaptığını soruyorsun: \"Hafta sonu ne yaptın?\"",
+    "acceptedAnswers": [
+      "What did you do at the weekend?",
+      "What did you do on the weekend?",
+      "What did you do over the weekend?",
+      "What did you do this weekend?"
+    ],
+    "modelSentences": [
+      "What did you do at the weekend?",
+      "What are you doing on the weekend?",
+      "I never work at the weekend."
+    ],
+    "checklistTr": [
+      "Hafta sonu için doğru edatı seçtin mi? (at / on / over)",
+      "Zaman edatından sonra the weekend yazdın mı?",
+      "Soru did you do ile mi kuruldu?"
+    ],
+    "noteTr": "Türkçe 'hafta sonu' edatsızdır; İngilizcede edat bölgeye göre değişir: at the weekend BrE, on the weekend AmE. Bağlama göre ikisi de doğrudur, over the weekend 'hafta sonu boyunca' anlamına gelir.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Longman weekend: 'at the weekend British English, on the weekend American English… over the weekend (= during the weekend)'; Cambridge weekend: 'at the weekend UK (US on the weekend)'; Oxford weekend; SkELL 'at the weekend' and 'on the weekend' = 40 lines each. No commonMistake: both forms are correct by region. Sources: https://www.ldoceonline.com/dictionary/weekend ; https://dictionary.cambridge.org/dictionary/english/weekend ; https://www.oxfordlearnersdictionaries.com/definition/english/weekend ; https://skell.sketchengine.eu/api/concordance?lang=English&query=at+the+weekend ; https://skell.sketchengine.eu/api/concordance?lang=English&query=on+the+weekend"
+  },
+  {
+    "id": "borrow-from-someone",
+    "category": "preposition",
+    "level": 3,
+    "targetChunk": "borrow something from someone",
+    "patternSlots": "borrow ___ from ___",
+    "clozeTemplate": "I ___ this book ___ Ayşe.",
+    "situationTr": "[Sohbet] Elindeki kitabın nereden geldiğini söylüyorsun: \"Bu kitabı Ayşe'den ödünç aldım.\"",
+    "acceptedAnswers": [
+      "I borrowed this book from Ayşe.",
+      "I have borrowed this book from Ayşe.",
+      "I borrowed this book off Ayşe.",
+      "I have borrowed this book off Ayşe."
+    ],
+    "modelSentences": [
+      "I borrowed this book from Ayşe.",
+      "You are allowed to borrow six books from the library.",
+      "Mert borrowed the tools he needed off his brother."
+    ],
+    "commonMistake": "I lent this book from Ayşe.",
+    "checklistTr": [
+      "Ödünç alan sensin: borrow mu kullandın? (lend değil)",
+      "Kişiden önce from koydun mu?",
+      "Geçmiş zaman borrowed mi?"
+    ],
+    "noteTr": "Türkçede 'ödünç almak' ve 'vermek' aynı sözcüğü kullanır; İngilizcede alan borrow ... from der, veren lend der. Bağlama göre off yalnız BrE günlük konuşmada from yerine geçer.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Oxford borrow 'Which Word? borrow / lend: You borrow something from somebody else, while they lend it to you' and 'borrow something off somebody (British English, informal)' (commonMistake evidence); Longman borrow ('borrow something from somebody … Do not confuse borrow and lend'); Cambridge borrow. Sources: https://www.oxfordlearnersdictionaries.com/definition/english/borrow ; https://www.ldoceonline.com/dictionary/borrow ; https://dictionary.cambridge.org/dictionary/english/borrow"
+  },
+  {
+    "id": "arrive-in-at",
+    "category": "preposition",
+    "level": 2,
+    "targetChunk": "arrive in a city / at a place (no 'to')",
+    "patternSlots": "arrive ___ ...",
+    "clozeTemplate": "My plane ___ ___ Berlin at five.",
+    "situationTr": "[Arkadaşına mesaj] Uçağının ne zaman varacağını söylüyorsun: \"Uçağım saat beşte Berlin'e varıyor.\"",
+    "acceptedAnswers": [
+      "My plane arrives in Berlin at five.",
+      "My flight arrives in Berlin at five.",
+      "My plane will arrive in Berlin at five.",
+      "My flight will arrive in Berlin at five."
+    ],
+    "modelSentences": [
+      "My plane arrives in Berlin at five.",
+      "The train arrived at the station twenty minutes late.",
+      "Call me when you arrive."
+    ],
+    "commonMistake": "My plane arrives to Berlin at five.",
+    "checklistTr": [
+      "arrive'dan sonra to koymadın, değil mi?",
+      "Şehir için in mi? (arrive in Berlin)",
+      "Küçük nokta için at mi? (arrive at the airport)"
+    ],
+    "noteTr": "Türkçe '-e varmak' yönelme ekiyle gelir; İngilizcede arrive to yoktur: şehir ve ülke için in, istasyon ve havalimanı gibi nokta için at kullanılır. Bağlama göre arrive here / there / home edatsızdır.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Longman arrive GRAMMAR: 'Don't say: arrive to a place | arrive to home | arrive to here/there'; Longman 'arrive in/at: What time does the plane arrive in New York?'; Oxford 'arrive in New York… arrive at the station'; Cambridge arrive; SkELL 'arrived in' / 'arrived at' = 40 lines each ('arrived to' lines are non-standard). Sources: https://www.ldoceonline.com/dictionary/arrive ; https://www.oxfordlearnersdictionaries.com/definition/english/arrive ; https://dictionary.cambridge.org/dictionary/english/arrive ; https://skell.sketchengine.eu/api/concordance?lang=English&query=arrived+in ; https://skell.sketchengine.eu/api/concordance?lang=English&query=arrived+at"
+  },
+  {
+    "id": "make-a-reservation",
+    "category": "work_vocab",
+    "level": 1,
+    "targetChunk": "make a reservation / book a table",
+    "patternSlots": "make a ___ for ...",
+    "clozeTemplate": "I would like to ___ a ___ for two at seven tonight.",
+    "situationTr": "[Telefonda, restoran] Bu akşam yedi için iki kişilik yer ayırtmak istiyorsun: \"Bu akşam saat yedi için iki kişilik rezervasyon yaptırmak istiyorum.\"",
+    "acceptedAnswers": [
+      "I would like to make a reservation for two at seven tonight.",
+      "I'd like to make a reservation for two at seven tonight.",
+      "I would like to book a table for two at seven tonight.",
+      "I'd like to book a table for two at seven tonight.",
+      "I would like to make a booking for two at seven tonight.",
+      "I'd like to make a booking for two at seven tonight."
+    ],
+    "modelSentences": [
+      "I would like to make a reservation for two at seven tonight.",
+      "I'll call the restaurant and make a reservation.",
+      "Do you have a reservation?"
+    ],
+    "checklistTr": [
+      "'Rezervasyon yapmak' için make a reservation mı yazdın? (do değil)",
+      "I would like to + yalın fiil mi?",
+      "Kişi sayısı ve saat (for two at seven) var mı?"
+    ],
+    "noteTr": "Türkçe 'yapmak' hafif fiili yüzünden do denir; İngilizcede reservation ile make kullanılır. Bağlama göre BrE'de make a booking / book a table de çok yaygındır.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Longman reservation collocations 'make a reservation: Didn't you make a reservation?'; Oxford reservation: 'I'd like to make a reservation for four people for Friday night, please' and 'compare booking'; Cambridge reservation. No commonMistake (no source labels 'do a reservation' wrong). Sources: https://www.ldoceonline.com/dictionary/reservation ; https://www.oxfordlearnersdictionaries.com/definition/english/reservation ; https://dictionary.cambridge.org/dictionary/english/reservation"
+  },
+  {
+    "id": "take-a-photo",
+    "category": "work_vocab",
+    "level": 1,
+    "targetChunk": "take a photo / picture of someone",
+    "patternSlots": "take a ___ of ...",
+    "clozeTemplate": "Could you ___ a ___ of us?",
+    "situationTr": "[Turistik bir yerde, yabancıya] Fotoğrafınızı çekmesini nazikçe rica ediyorsun: \"Bizim bir fotoğrafımızı çekebilir misiniz?\"",
+    "acceptedAnswers": [
+      "Could you take a photo of us?",
+      "Can you take a photo of us?",
+      "Could you take a picture of us?",
+      "Can you take a picture of us?",
+      "Could you take a photograph of us?",
+      "Could you please take a photo of us?",
+      "Would you mind taking a photo of us?"
+    ],
+    "modelSentences": [
+      "Could you take a photo of us?",
+      "She took lots of photos of the kids.",
+      "Mert took a picture of the sunset."
+    ],
+    "checklistTr": [
+      "'Fotoğraf çekmek' için take mi kullandın? (make / do değil)",
+      "photo ile of us arasında doğru edat of mu?",
+      "Could'dan sonra yalın fiil mi?"
+    ],
+    "noteTr": "Türkçe 'çekmek' fiili İngilizcede take olur; make veya do kullanılmaz. Bağlama göre photo, picture ve photograph aynı anlamdadır.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Cambridge photo: 'take a photo of — She took lots of photos of the kids'; Longman photograph collocation 'take a photograph'; Oxford photo; SkELL 'take a photo' = 40 lines ('I never took a photo'), 'photo of us' = 30 lines. No commonMistake (SkELL 'make a photo' lines are non-native, but no dictionary labels it wrong). Sources: https://dictionary.cambridge.org/dictionary/english/photo ; https://www.ldoceonline.com/dictionary/photograph ; https://www.oxfordlearnersdictionaries.com/definition/english/photo ; https://skell.sketchengine.eu/api/concordance?lang=English&query=take+a+photo"
+  },
+  {
+    "id": "have-breakfast",
+    "category": "work_vocab",
+    "level": 1,
+    "targetChunk": "have breakfast",
+    "patternSlots": "have ___",
+    "clozeTemplate": "What time can we ___ ___?",
+    "situationTr": "[Otelde, görevliye] Kahvaltı saatini soruyorsun: \"Kahvaltıyı saat kaçta yapabiliriz?\"",
+    "acceptedAnswers": [
+      "What time can we have breakfast?",
+      "What time can we eat breakfast?",
+      "What time can we have our breakfast?",
+      "What time can we get breakfast?",
+      "When can we have breakfast?"
+    ],
+    "modelSentences": [
+      "What time can we have breakfast?",
+      "We usually have breakfast at eight.",
+      "Why don't we have breakfast in bed?"
+    ],
+    "checklistTr": [
+      "'Kahvaltı yapmak' için have breakfast mı yazdın? (do / make değil)",
+      "can'den sonra yalın fiil mi? (have, to have değil)",
+      "Soru What time ile mi başladı?"
+    ],
+    "noteTr": "Türkçe 'kahvaltı yapmak' fiili 'yapmak' kullanır; İngilizcede öğün adıyla have (ya da eat) denir. Bağlama göre eat breakfast özellikle AmE'de yaygındır.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Oxford breakfast extra examples 'Why don't we have breakfast in bed?' and 'I always have a cooked breakfast'; Longman breakfast ('have breakfast'); Cambridge breakfast. No commonMistake (no explicit error note). Sources: https://www.oxfordlearnersdictionaries.com/definition/english/breakfast ; https://www.ldoceonline.com/dictionary/breakfast ; https://dictionary.cambridge.org/dictionary/english/breakfast"
+  },
+  {
+    "id": "do-the-shopping",
+    "category": "work_vocab",
+    "level": 2,
+    "targetChunk": "do the shopping / grocery shopping",
+    "patternSlots": "do the ___",
+    "clozeTemplate": "I usually ___ the ___ on Saturdays.",
+    "situationTr": "[Small talk, rutin] Market alışverişini ne zaman yaptığını anlatıyorsun: \"Market alışverişini genelde cumartesi günleri yaparım.\"",
+    "acceptedAnswers": [
+      "I usually do the shopping on Saturdays.",
+      "I normally do the shopping on Saturdays.",
+      "I usually do my shopping on Saturdays.",
+      "I usually do the grocery shopping on Saturdays.",
+      "I usually do the shopping on Saturday."
+    ],
+    "modelSentences": [
+      "I usually do the shopping on Saturdays.",
+      "When shall I do the shopping?",
+      "We do our shopping on Fridays."
+    ],
+    "checklistTr": [
+      "'Alışveriş yapmak' için do the shopping mi yazdın? (make değil)",
+      "shopping sayılamaz: a shopping yazmadın, değil mi?",
+      "Alışılmış zaman için on Saturdays mı?"
+    ],
+    "noteTr": "Türkçe 'alışveriş yapmak' yapmak fiilini kullanır, İngilizcede ev alışverişi için do the shopping denir. Bağlama göre do the shopping BrE'dir, AmE'de go grocery shopping / do the grocery shopping daha yaygındır.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Oxford shopping: '(British English) When shall I do the shopping? We do our shopping on Saturdays'; Longman shopping: 'We always do the shopping (= buy food and other things needed regularly) on Fridays'; Cambridge shopping. No commonMistake (no explicit error note). Sources: https://www.oxfordlearnersdictionaries.com/definition/english/shopping ; https://www.ldoceonline.com/dictionary/shopping ; https://dictionary.cambridge.org/dictionary/english/shopping"
+  },
+  {
+    "id": "miss-the-flight",
+    "category": "work_vocab",
+    "level": 1,
+    "targetChunk": "miss a flight / train / bus",
+    "patternSlots": "miss ___",
+    "clozeTemplate": "I ___ my flight because of the traffic.",
+    "situationTr": "[Havaalanında, arkadaşına anlatıyorsun] Trafik yüzünden uçağı kaçırdığını söylüyorsun: \"Trafik yüzünden uçağımı kaçırdım.\"",
+    "acceptedAnswers": [
+      "I missed my flight because of the traffic.",
+      "I missed my flight because of traffic.",
+      "I missed my plane because of the traffic.",
+      "I missed my plane because of traffic.",
+      "I missed my flight due to the traffic.",
+      "I missed my flight due to traffic."
+    ],
+    "modelSentences": [
+      "I missed my flight because of the traffic.",
+      "I overslept and missed the train.",
+      "You don't want to miss the bus."
+    ],
+    "checklistTr": [
+      "'Kaçırmak' için miss mi yazdın? (lose değil)",
+      "Geçmiş zaman missed mi?",
+      "Neden için because of + isim mi?"
+    ],
+    "noteTr": "Türkçe 'kaçırmak' sözcüğü İngilizcede ulaşım aracı ve etkinlik için miss olur. Bağlama göre because of ve due to ikisi de kabul edilir.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Longman miss: 'miss the train/bus etc: I overslept and missed the train'; Oxford miss: 'You don't want to miss the bus'; Cambridge miss; SkELL 'missed my flight' = 3 lines only, so the dictionary examples carry the evidence. No commonMistake (no explicit error note). Sources: https://www.ldoceonline.com/dictionary/miss ; https://www.oxfordlearnersdictionaries.com/definition/english/miss ; https://dictionary.cambridge.org/dictionary/english/miss ; https://skell.sketchengine.eu/api/concordance?lang=English&query=missed+my+flight"
+  },
+  {
+    "id": "take-medicine",
+    "category": "work_vocab",
+    "level": 2,
+    "targetChunk": "take medicine / a tablet (not 'drink')",
+    "patternSlots": "take ___",
+    "clozeTemplate": "I need to ___ this ___ twice a day.",
+    "situationTr": "[Eczanede] Eczacı ilacı nasıl kullanacağını anlattı, sen tekrar ediyorsun: \"Bu ilacı günde iki kez almam gerekiyor.\"",
+    "acceptedAnswers": [
+      "I need to take this medicine twice a day.",
+      "I have to take this medicine twice a day.",
+      "I should take this medicine twice a day.",
+      "I need to take this medicine two times a day.",
+      "I must take this medicine twice a day."
+    ],
+    "modelSentences": [
+      "I need to take this medicine twice a day.",
+      "Did you take your medicine?",
+      "Take one tablet after breakfast."
+    ],
+    "commonMistake": "I need to drink this medicine twice a day.",
+    "checklistTr": [
+      "İlaç için take mi kullandın? (drink / eat değil)",
+      "need to'dan sonra yalın fiil mi?",
+      "Sıklık twice a day yazılı mı?"
+    ],
+    "noteTr": "Türkçe 'ilaç içmek' dendiği için drink denir; İngilizcede ilaç ve tablet için take kullanılır. Bağlama göre sıvı ilaç için drink/swallow ayrıca gelir ama genel fiil take'tir.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Longman medicine: 'Do not say that you drink medicine. Say that you take medicine' (commonMistake evidence); Oxford medicine: 'Did you take your medicine?'; Cambridge medicine; SkELL 'take medicine' = 40 lines. Sources: https://www.ldoceonline.com/dictionary/medicine ; https://www.oxfordlearnersdictionaries.com/definition/english/medicine ; https://dictionary.cambridge.org/dictionary/english/medicine ; https://skell.sketchengine.eu/api/concordance?lang=English&query=take+medicine"
+  }
+]
