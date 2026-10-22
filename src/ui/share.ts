@@ -33,3 +33,31 @@ export async function shareOrDownload({ filename, text }: ExportFile): Promise<S
   download(file);
   return 'downloaded';
 }
+
+export type CopyOutcome = 'copied' | 'shared' | 'cancelled' | 'failed';
+
+/**
+ * Put text on the clipboard; where that is missing or refused, offer it via
+ * the Web Share text sheet (iOS: "Kopyala" or straight into the Claude app).
+ * Call inside the tap: both APIs need a user gesture.
+ */
+export async function copyOrShareText(text: string): Promise<CopyOutcome> {
+  if (typeof navigator.clipboard?.writeText === 'function') {
+    try {
+      await navigator.clipboard.writeText(text);
+      return 'copied';
+    } catch {
+      // Permission denied or no focus: try the share sheet.
+    }
+  }
+  const data = { text };
+  if (typeof navigator.share === 'function' && (typeof navigator.canShare !== 'function' || navigator.canShare(data))) {
+    try {
+      await navigator.share(data);
+      return 'shared';
+    } catch (e) {
+      if (e instanceof DOMException && e.name === 'AbortError') return 'cancelled';
+    }
+  }
+  return 'failed';
+}

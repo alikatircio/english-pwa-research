@@ -1,6 +1,7 @@
 import { useRef, useState, type ChangeEvent, type ReactNode } from 'react';
 import type { Actions, ExportFile, ImportItemsResult } from '../../app/actions.ts';
 import type { ReadyState } from '../../app/state.ts';
+import { ClaudePaste } from '../components/ClaudePaste.tsx';
 import { shareOrDownload } from '../share.ts';
 import { t } from '../strings.tr.ts';
 
@@ -49,6 +50,7 @@ export function SettingsScreen({ state, actions }: Props) {
           <button type="button" className="btn" disabled={!hasOpenEntries} onClick={() => void hand(actions.exportNotebook())}>
             {t.notebookExport}
           </button>
+          {hasOpenEntries && <ClaudePaste getPrompt={() => actions.claudePrompt()} />}
         </Section>
 
         <Section title={t.flagsSection}>

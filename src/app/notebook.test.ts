@@ -59,6 +59,23 @@ describe('notebook capture', () => {
   });
 });
 
+describe("Claude'a yapıştır prompt", () => {
+  it('undefined with nothing open; after a capture it lists the entry with its context', async () => {
+    const { db, actions, ready } = await setup();
+    expect(actions.claudePrompt()).toBeUndefined();
+
+    actions.openNotebook('card');
+    await actions.saveNotebook('sorunu ekibe yükseltmek');
+    const entry = ready().notebook[0];
+    const prompt = actions.claudePrompt() ?? '';
+    expect(prompt).toContain(`id: ${entry?.id}`);
+    expect(prompt).toContain('textTr: "sorunu ekibe yükseltmek"');
+    expect(prompt).toContain(`contextTr: ${JSON.stringify(bundle.items[0]?.situationTr)}`);
+    expect(prompt).toContain(`Exported at: ${new Date(clock.now()).toISOString()}`);
+    db.close();
+  });
+});
+
 describe('items import', () => {
   it('invalid file: errors with paths, nothing written', async () => {
     const { db, actions, ready } = await setup();

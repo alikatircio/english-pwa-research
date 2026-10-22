@@ -1,6 +1,7 @@
 // The only side-effecting layer: domain → storage transaction → dispatch.
 // Write first, then change the screen: what is shown is what is on disk.
 import { buildNotebookExport, FORMATS, parseFile, planItemsImport, type ImportError, type RejectedItem } from '../domain/backup.ts';
+import { buildClaudePrompt } from '../domain/claudePrompt.ts';
 import type { Clock } from '../domain/clock.ts';
 import { hintStageFor } from '../domain/hints.ts';
 import { isAccepted } from '../domain/normalize.ts';
@@ -344,6 +345,17 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       if (!s) return undefined;
       const file = buildNotebookExport(s.notebook, clock.now());
       return { filename: exportFilename('notebook', clock.today()), text: toJson(file) };
+    },
+
+    /**
+     * "Claude'a yapıştır": the notebook export as a prompt for claude.ai.
+     * Synchronous like exportNotebook, so the clipboard write stays inside the tap.
+     * undefined when nothing is open.
+     */
+    claudePrompt(): string | undefined {
+      const s = ready(getState);
+      if (!s || !s.notebook.some((e) => e.status === 'open')) return undefined;
+      return buildClaudePrompt(s.notebook, new Date(clock.now()).toISOString());
     },
 
     /** Flags report for content review (decision 12). */

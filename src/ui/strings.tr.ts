@@ -71,6 +71,17 @@ export const t = {
   notebookPending: 'Çözülmeyi bekleyen ifadeler var → dışa aktar',
   notebookNothingPending: 'Çözülmeyi bekleyen ifade yok.',
   notebookExport: 'Defteri dışa aktar',
+  // "Claude'a yapıştır" (no API: the user pastes the prompt into claude.ai).
+  claudeCopy: 'Claude’a yapıştır (kopyala)',
+  claudeHelpTitle: 'Claude ile çözmek için:',
+  claudeHelpSteps: [
+    'Butona bas: defter notların hazır bir istemle kopyalanır.',
+    'claude.ai’de yeni bir sohbet aç, yapıştır ve gönder.',
+    'Gelen JSON’u .json dosyası olarak kaydet ve aşağıda “Item dosyası seç” ile içe aktar.',
+  ],
+  claudeCopied: 'Kopyalandı. claude.ai’de yapıştır, gelen JSON’u buraya içe aktar.',
+  claudeShared: 'Metin paylaşıldı. claude.ai’de yapıştır, gelen JSON’u buraya içe aktar.',
+  claudeCopyFailed: 'Kopyalanamadı. Defteri dışa aktarıp dosyayı Claude’a yükleyebilirsin.',
   flagsSection: 'Yanlış olabilir işaretleri',
   flagsHint: 'İşaretlediğin kartlar inceleme için dosyaya çıkar.',
   flagsNone: 'İşaretli kart yok.',
