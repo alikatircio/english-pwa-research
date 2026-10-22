@@ -27,6 +27,8 @@ async function openSettings(page: Page, notebook: NotebookEntry[]): Promise<void
 }
 
 const copyButton = (page: Page) => page.getByRole('button', { name: t.claudeCopy });
+/** The copy outcome next to the button; Settings has other status lines (e.g. persistent storage). */
+const copyStatus = (page: Page) => page.locator('.claude-paste').getByRole('status');
 
 test.describe("Claude'a yapıştır (Settings)", () => {
   test('copies the prompt with the open entries to the clipboard (Chromium)', async ({ page, context, browserName }) => {
@@ -36,7 +38,7 @@ test.describe("Claude'a yapıştır (Settings)", () => {
 
     for (const step of t.claudeHelpSteps) await expect(page.getByText(step)).toBeVisible();
     await copyButton(page).click();
-    await expect(page.getByRole('status')).toHaveText(t.claudeCopied);
+    await expect(copyStatus(page)).toHaveText(t.claudeCopied);
 
     const text = await page.evaluate(() => navigator.clipboard.readText());
     expect(text).toContain('Return ONLY one JSON code block');
@@ -68,7 +70,7 @@ test.describe("Claude'a yapıştır (Settings)", () => {
 
     await expect(copyButton(page)).toBeVisible();
     await copyButton(page).click();
-    await expect(page.getByRole('status')).toHaveText(t.claudeShared);
+    await expect(copyStatus(page)).toHaveText(t.claudeShared);
     const shared = await page.evaluate(() => (window as unknown as { sharedText?: string }).sharedText);
     expect(shared).toContain('1. id: nb-entry-1');
   });

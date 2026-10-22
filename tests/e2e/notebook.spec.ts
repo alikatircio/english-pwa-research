@@ -242,7 +242,7 @@ test.describe('items import (Settings)', () => {
     const entries = await readStore<NotebookEntry>(page, 'notebook');
     expect(entries).toEqual([expect.objectContaining({ id: 'nb-escalate', status: 'converted', convertedItemId: imported.id })]);
 
-    await page.getByRole('button', { name: t.back }).click();
+    await page.getByRole('button', { name: t.back, exact: true }).click();
     await app.resumeButton.click();
     await expect(page.getByText(t.userErrorHeading)).toBeVisible();
     await expect(app.situation).toHaveText(imported.situationTr.replace(/^\[[^\]]+\]\s*/, ''));
