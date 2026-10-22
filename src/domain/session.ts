@@ -90,10 +90,16 @@ function select(p: Pools, today: DayKey): Selection {
 
 /**
  * Decision 40: first `limit` new cards (in order) such that no category exceeds
- * DAILY_NEW_PER_CATEGORY_CAP, counting today's introductions (progress records
+ * perCategoryCap (at least DAILY_NEW_PER_CATEGORY_CAP, scaled up so a 15/20
+ * daily cap is reachable over 5 categories), counting today's introductions (progress records
  * with introducedOn === today) plus the cards already chosen. Skipped cards are
  * simply not offered today.
  */
+/** New cards allowed per category per day for a given daily new-card cap. */
+export function perCategoryCap(newCap: number): number {
+  return Math.max(DAILY_NEW_PER_CATEGORY_CAP, Math.ceil(newCap / 5));
+}
+
 function capNewByCategory(p: Pools, candidates: readonly string[], limit: number, today: DayKey): string[] {
   const counts = new Map<string, number>();
   for (const prog of p.progress.values()) {
@@ -101,13 +107,14 @@ function capNewByCategory(p: Pools, candidates: readonly string[], limit: number
     const cat = p.items.get(prog.itemId)?.category;
     if (cat !== undefined) counts.set(cat, (counts.get(cat) ?? 0) + 1);
   }
+  const perCategory = perCategoryCap(p.newCap ?? DAILY_NEW_CAP);
   const out: string[] = [];
   for (const id of candidates) {
     if (out.length >= limit) break;
     const cat = p.items.get(id)?.category;
     if (cat === undefined) continue;
     const n = counts.get(cat) ?? 0;
-    if (n >= DAILY_NEW_PER_CATEGORY_CAP) continue;
+    if (n >= perCategory) continue;
     counts.set(cat, n + 1);
     out.push(id);
   }

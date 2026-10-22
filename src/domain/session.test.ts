@@ -10,7 +10,7 @@ import {
   currentEntry,
   DAILY_DUE_CAP,
   DAILY_NEW_CAP,
-  DAILY_NEW_PER_CATEGORY_CAP,
+  perCategoryCap,
   NEW_CAP_OPTIONS,
   eligibleDue,
   eligibleNew,
@@ -116,8 +116,9 @@ describe('caps passed in (decision 29)', () => {
 
   it.each([5, 10, 15, 20])('newCap %i limits the new cards of the day', (cap) => {
     const p = pools({ newIds: ids('n', 30), caps: { newCap: cap } });
-    // Decision 40: 5 categories × 2 new each bound the day at 10, whatever the cap.
-    expect(todayCount(p, today)).toBe(Math.min(cap, CATS.length * DAILY_NEW_PER_CATEGORY_CAP));
+    // Decision 40: the per-category cap scales with the daily cap, so every option is reachable.
+    expect(todayCount(p, today)).toBe(Math.min(cap, CATS.length * perCategoryCap(cap)));
+    expect(todayCount(p, today)).toBe(cap);
     const used = pools({ newIds: ids('n', 30), caps: { newCap: cap }, counter: { newIntroduced: cap - 2 } });
     expect(todayCount(used, today)).toBe(2);
     expect(buildRound(used, today)).toHaveLength(2);
