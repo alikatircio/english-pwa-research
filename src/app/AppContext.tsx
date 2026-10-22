@@ -1,10 +1,10 @@
 import { createContext, useContext, useEffect, useMemo, useState, useSyncExternalStore, type ReactNode } from 'react';
 import bundle from '@content';
 import { systemClock } from '../domain/clock.ts';
-import { openAppDb, type AppDb } from '../storage/db.ts';
+import { createConnection, openAppDb, type DbConnection } from '../storage/db.ts';
 import { createActions, type Actions } from './actions.ts';
 import { boot } from './boot.ts';
-import type { AppState } from './state.ts';
+import { mayReloadForDb, type AppState } from './state.ts';
 import { createStore } from './store.ts';
 
 interface AppContextValue {
@@ -17,14 +17,30 @@ const AppContext = createContext<AppContextValue | null>(null);
 export function AppProvider({ children }: { children: ReactNode }) {
   const [store] = useState(createStore);
   const state = useSyncExternalStore(store.subscribe, store.getState);
-  const [db, setDb] = useState<AppDb | null>(null);
+  const [db, setDb] = useState<DbConnection | null>(null);
 
   useEffect(() => {
     let cancelled = false;
-    boot({ bundle, clock: systemClock, openDb: () => openAppDb({ onBlocking: () => location.reload() }) })
+    let conn: DbConnection | undefined;
+    let unsubscribe: (() => void) | undefined;
+    // A newer version in another tab waits for us (09 #3): close and reload only once no round is open.
+    const onBlocking = (close: () => void) => {
+      if (unsubscribe) return;
+      const tryReload = () => {
+        if (!mayReloadForDb(store.getState())) return;
+        unsubscribe?.();
+        close();
+        location.reload();
+      };
+      unsubscribe = store.subscribe(tryReload);
+      tryReload();
+    };
+    const open = () => openAppDb({ onBlocking, onTerminated: () => conn?.markLost() });
+    boot({ bundle, clock: systemClock, openDb: open })
       .then(({ db: opened, state: booted }) => {
         if (cancelled) return opened.close();
-        setDb(opened);
+        conn = createConnection(opened, open);
+        setDb(conn);
         store.dispatch({ type: 'booted', state: booted });
       })
       .catch((e: unknown) => {
@@ -32,6 +48,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       });
     return () => {
       cancelled = true;
+      unsubscribe?.();
     };
   }, [store]);
 

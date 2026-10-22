@@ -27,7 +27,7 @@ import { countFirstAnswer, currentEntry, emptyCounter, isSessionStale, onFirstAn
 import type { AnswerLog, CardPhase, DailyCounter, DayKey, Flag, Grade, GradedBy, MetaKey, MetaRecord, SessionState, UndoSnapshot } from '../domain/types.ts';
 import { createCatalog, withImported, type Catalog } from '../content/catalog.ts';
 import { exportFlagsReport, importItems, readBackupData, writeRestore } from '../storage/backupIO.ts';
-import type { AppDb, ImportedItem } from '../storage/db.ts';
+import { fixedConnection, type AppDb, type DbConnection, type ImportedItem } from '../storage/db.ts';
 import { addNotebookEntry, clearSession, commitGrade, loadCounter, putMeta, saveSession, toggleFlag, undoGrade } from '../storage/repo.ts';
 import { loadReadyState } from './boot.ts';
 import type { AppMeta } from './meta.ts';
@@ -67,7 +67,8 @@ function catalogWith(catalog: Catalog, imported: readonly ImportedItem[]): Catal
 }
 
 export interface ActionDeps {
-  db: AppDb;
+  /** A plain connection, or a reconnecting handle (the app, review 09 #3). */
+  db: AppDb | DbConnection;
   clock: Clock;
   getState: () => AppState;
   dispatch: (a: Action) => void;
@@ -82,13 +83,16 @@ function ready(getState: () => AppState): ReadyState | undefined {
 export const UNDO_WINDOW_MS = 4000;
 
 export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
+  const conn = 'run' in db ? db : fixedConnection(db);
+  const run = <T>(fn: (d: AppDb) => Promise<T>): Promise<T> => conn.run(fn);
+
   /**
    * Session-only writes (draft, cursor, phase) are write-behind: losing one costs
    * at most a draft, never a grade, so a failure is not surfaced (grades are
    * written atomically in commitGrade).
    */
   function persistSession(session: SessionState | undefined): void {
-    void (session ? saveSession(db, session) : clearSession(db)).catch(() => undefined);
+    void run((d) => (session ? saveSession(d, session) : clearSession(d))).catch(() => undefined);
   }
 
   function setSession(session: SessionState | undefined, screen?: Screen): void {
@@ -116,7 +120,7 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       const isRepeat = entry.kind === 'repeat';
       const prev = s.progress.get(entry.itemId) ?? null;
       const progress = isRepeat ? undefined : applyGrade(prev, g, entry.itemId, answerDay, now);
-      const base = s.counter.day === session.day ? s.counter : await loadCounter(db, session.day);
+      const base = s.counter.day === session.day ? s.counter : await run((d) => loadCounter(d, session.day));
       const counter = countFirstAnswer(base, entry.kind, session.day);
       const log: AnswerLog = {
         at: now,
@@ -146,7 +150,7 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
           }
         : undefined;
       const commit = { counter, log, session: next, ...(progress ? { progress } : {}) };
-      const logId = await commitGrade(db, undo ? { ...commit, undo } : commit);
+      const logId = await run((d) => commitGrade(d, undo ? { ...commit, undo } : commit));
       const stored: SessionState = undo ? { ...next, undo: { ...undo, logId } } : next;
       dispatch(progress ? { type: 'graded', progress, counter, session: stored } : { type: 'graded', counter, session: stored });
     } catch {
@@ -196,7 +200,7 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
 
     dispatch({ type: 'busy' });
     try {
-      await importItems(db, plan);
+      await run((d) => importItems(d, plan));
     } catch {
       dispatch({ type: 'error', error: 'save-failed' });
       return { status: 'save-failed' };
@@ -207,7 +211,7 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
     // No open round: build today's round so the new cards come first ("Devam et" on Home); the new-card cap still applies (decision 3).
     // An open round keeps its own day and counter (03 §4.5).
     const today = clock.today();
-    const counter = s.session || s.counter.day === today ? s.counter : await loadCounter(db, today).catch(() => emptyCounter(today));
+    const counter = s.session || s.counter.day === today ? s.counter : await run((d) => loadCounter(d, today)).catch(() => emptyCounter(today));
     const session = s.session ?? freshRound({ catalog, progress: s.progress, flags: s.flags }, counter, clock);
     dispatch({ type: 'itemsImported', catalog, notebook, session, counter });
     if (session && !s.session) persistSession(session);
@@ -222,7 +226,7 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
     if (!ready(getState)) return false;
     const records = Object.entries(patch).map(([key, value]) => ({ key: key as MetaKey, value }));
     try {
-      await putMeta(db, records);
+      await run((d) => putMeta(d, records));
     } catch {
       return false;
     }
@@ -262,7 +266,7 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       const now = clock.now();
       dispatch({ type: 'meta', meta: { ...s.meta, firstRunAt: now } });
       void requestPersist();
-      void putMeta(db, [{ key: 'firstRunAt', value: now }]).catch(() => undefined);
+      void run((d) => putMeta(d, [{ key: 'firstRunAt', value: now }])).catch(() => undefined);
     },
 
     /** Settings → "Kalıcı depolama iste". */
@@ -317,7 +321,7 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       const today = clock.today();
       const stale = s.session !== undefined && isSessionStale(s.session, today, clock.now());
       if (!stale && s.counter.day === today) return;
-      const counter = s.counter.day === today ? s.counter : await loadCounter(db, today).catch(() => emptyCounter(today));
+      const counter = s.counter.day === today ? s.counter : await run((d) => loadCounter(d, today)).catch(() => emptyCounter(today));
       const now = ready(getState);
       if (!now || now.screen !== 'home' || now.session !== s.session) return; // the user moved on meanwhile
       if (stale) persistSession(undefined);
@@ -340,7 +344,7 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       const session = s?.session;
       const today = clock.today();
       if (!s || !session || s.screen !== 'card' || !isSessionStale(session, today, clock.now())) return;
-      const counter = s.counter.day === today ? s.counter : await loadCounter(db, today).catch(() => emptyCounter(today));
+      const counter = s.counter.day === today ? s.counter : await run((d) => loadCounter(d, today)).catch(() => emptyCounter(today));
       const now = ready(getState);
       if (!now || now.session !== session || now.busy) return; // the user moved on meanwhile
       persistSession(undefined);
@@ -392,7 +396,7 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       delete restored.undo;
       dispatch({ type: 'busy' });
       try {
-        await undoGrade(db, snapshot, restored);
+        await run((d) => undoGrade(d, snapshot, restored));
         dispatch({ type: 'undone', itemId: snapshot.itemId, progress: snapshot.prevProgress, counter: snapshot.prevCounter, session: restored });
       } catch {
         dispatch({ type: 'error', error: 'save-failed' });
@@ -441,7 +445,7 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       };
       dispatch({ type: 'busy' });
       try {
-        const flagged = await toggleFlag(db, flag);
+        const flagged = await run((d) => toggleFlag(d, flag));
         const flags = new Set(s.flags);
         if (flagged) flags.add(entry.itemId);
         else flags.delete(entry.itemId);
@@ -484,7 +488,7 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       const duplicate = isDuplicateEntry(entry.textTr, s.notebook);
       dispatch({ type: 'busy' });
       try {
-        await addNotebookEntry(db, entry);
+        await run((d) => addNotebookEntry(d, entry));
         dispatch({ type: 'notebookAdded', entry, notice: { kind: 'notebook-saved', duplicate, at: now } });
         return true;
       } catch {
@@ -530,7 +534,7 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
     async exportFlags(): Promise<ExportFile | undefined> {
       const s = ready(getState);
       if (!s) return undefined;
-      const report = await exportFlagsReport(db, s.catalog.byId, s.catalog.contentVersion, clock.now());
+      const report = await run((d) => exportFlagsReport(d, s.catalog.byId, s.catalog.contentVersion, clock.now()));
       return { filename: exportFilename('flags', clock.today()), text: toJson(report) };
     },
 
@@ -555,7 +559,7 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
     async prepareBackup(): Promise<ExportFile | undefined> {
       const s = ready(getState);
       if (!s) return undefined;
-      const data = await readBackupData(db);
+      const data = await run(readBackupData);
       const file = buildBackupFile(data, { now: clock.now(), appVersion: APP_VERSION, contentVersion: s.catalog.contentVersion });
       return { filename: exportFilename('backup', clock.today()), text: toJson(file) };
     },
@@ -586,7 +590,7 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
         let data: BackupData;
         let rejected: RejectedItem[];
         if (mode === 'merge') {
-          const merged = mergeBackup(await readBackupData(db), file.data, s.catalog.builtinIds);
+          const merged = mergeBackup(await run(readBackupData), file.data, s.catalog.builtinIds);
           data = merged.data;
           rejected = merged.rejectedImportedItems;
         } else {
@@ -596,9 +600,9 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
         }
         // A restore counts as the first run: the welcome is not shown again.
         const meta: MetaRecord[] = s.meta.firstRunAt === undefined ? [{ key: 'firstRunAt', value: clock.now() }] : [];
-        await writeRestore(db, { data, clearSession: mode === 'replace', meta });
+        await run((d) => writeRestore(d, { data, clearSession: mode === 'replace', meta }));
         const latest = ready(getState) ?? s;
-        const state = await loadReadyState(db, (imported) => catalogWith(s.catalog, imported), clock, latest.screen);
+        const state = await run((d) => loadReadyState(d, (imported) => catalogWith(s.catalog, imported), clock, latest.screen));
         dispatch({ type: 'restored', state });
         return { status: 'restored', rejected };
       } catch {

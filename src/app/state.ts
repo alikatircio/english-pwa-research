@@ -76,6 +76,14 @@ function sameDay(current: DailyCounter, written: DailyCounter): DailyCounter {
 
 export const initialState: AppState = { status: 'loading' };
 
+/**
+ * Whether a reload interrupts nothing (07 §6.2, review 09 #3): still loading or
+ * failed, or Home with no open round and no write in flight.
+ */
+export function mayReloadForDb(state: AppState): boolean {
+  return state.status !== 'ready' || (state.screen === 'home' && state.session === undefined && !state.busy);
+}
+
 export function appReducer(state: AppState, action: Action): AppState {
   if (action.type === 'booted') return { status: 'ready', busy: false, ...action.state };
   if (action.type === 'fatal') return { status: 'fatal', message: action.message };
