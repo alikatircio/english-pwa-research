@@ -5,9 +5,9 @@ import { hintStageFor } from '../domain/hints.ts';
 import { isAccepted } from '../domain/normalize.ts';
 import { applyGrade } from '../domain/scheduler.ts';
 import { currentEntry } from '../domain/session.ts';
-import type { AnswerLog, CardPhase, DailyCounter, Grade, GradedBy, SessionState } from '../domain/types.ts';
+import type { AnswerLog, CardPhase, DailyCounter, Grade, GradedBy, SessionState, UndoSnapshot } from '../domain/types.ts';
 import type { AppDb } from '../storage/db.ts';
-import { clearSession, commitGrade, saveSession } from '../storage/repo.ts';
+import { clearSession, commitGrade, saveSession, undoGrade } from '../storage/repo.ts';
 import type { Action, AppState, ReadyState } from './state.ts';
 
 export interface ActionDeps {
@@ -21,6 +21,9 @@ function ready(getState: () => AppState): ReadyState | undefined {
   const s = getState();
   return s.status === 'ready' ? s : undefined;
 }
+
+/** Decision 10: "Geri al" stays for 4 s after a self-grade. */
+export const UNDO_WINDOW_MS = 4000;
 
 export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
   /**
@@ -38,7 +41,7 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
   }
 
   /** Grade the current card: progress + counter + log + session in one transaction. */
-  async function grade(g: Grade, gradedBy: GradedBy, answer: string, phase: CardPhase): Promise<void> {
+  async function grade(g: Grade, gradedBy: GradedBy, answer: string, phase: CardPhase, undoable = false): Promise<void> {
     const s = ready(getState);
     const session = s?.session;
     const entry = session && currentEntry(session);
@@ -67,11 +70,15 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       boxAfter: progress.box,
     };
     const next: SessionState = { ...session, phase, draft: answer, updatedAt: now };
+    const undo: Omit<UndoSnapshot, 'logId'> | undefined = undoable
+      ? { itemId: entry.itemId, prevProgress: prev, prevCounter: base, expiresAt: now + UNDO_WINDOW_MS }
+      : undefined;
 
     dispatch({ type: 'busy' });
     try {
-      await commitGrade(db, { progress, counter, log, session: next });
-      dispatch({ type: 'graded', progress, counter, session: next });
+      const logId = await commitGrade(db, undo ? { progress, counter, log, session: next, undo } : { progress, counter, log, session: next });
+      const stored: SessionState = undo ? { ...next, undo: { ...undo, logId } } : next;
+      dispatch({ type: 'graded', progress, counter, session: stored });
     } catch {
       dispatch({ type: 'error', error: 'save-failed' });
     }
@@ -99,7 +106,26 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
     async selfGrade(g: Grade): Promise<void> {
       const phase = ready(getState)?.session?.phase;
       if (!phase || phase.tag !== 'result' || phase.matched || phase.grade) return;
-      await grade(g, 'self', phase.answer, { ...phase, grade: g });
+      await grade(g, 'self', phase.answer, { ...phase, grade: g }, true);
+    },
+
+    /** "Geri al" within 4 s of a self-grade: progress, counter and log back as before, result screen ungraded. */
+    async undo(): Promise<void> {
+      const s = ready(getState);
+      const session = s?.session;
+      const snapshot = session?.undo;
+      const phase = session?.phase;
+      if (!s || !session || !snapshot || s.busy || !phase || phase.tag !== 'result' || phase.matched || !phase.grade) return;
+      if (clock.now() > snapshot.expiresAt) return;
+      const restored: SessionState = { ...session, phase: { tag: 'result', answer: phase.answer, matched: false }, updatedAt: clock.now() };
+      delete restored.undo;
+      dispatch({ type: 'busy' });
+      try {
+        await undoGrade(db, snapshot, restored);
+        dispatch({ type: 'undone', itemId: snapshot.itemId, progress: snapshot.prevProgress, counter: snapshot.prevCounter, session: restored });
+      } catch {
+        dispatch({ type: 'error', error: 'save-failed' });
+      }
     },
 
     /** "Sonraki": move to the next unanswered card, or finish. Synchronous so the caller can focus in the same gesture. */
@@ -119,7 +145,9 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
         setSession(undefined, 'done');
         return;
       }
-      setSession({ ...session, cursor, phase: { tag: 'question' }, draft: '', updatedAt: clock.now() });
+      const moved: SessionState = { ...session, cursor, phase: { tag: 'question' }, draft: '', updatedAt: clock.now() };
+      delete moved.undo; // the undo window ends with the card
+      setSession(moved);
     },
 
     /** Debounced by the caller. Ignored if the card moved on meanwhile. */

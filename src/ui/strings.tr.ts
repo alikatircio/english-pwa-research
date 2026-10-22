@@ -27,6 +27,7 @@ export const t = {
   gradePartial: 'Kısmen',
   gradeCorrect: 'Doğru',
   gradedAs: (label: string) => `Kaydedildi: ${label}`,
+  undo: 'Geri al',
 
   saveFailed: 'Kaydedilemedi. Tekrar dene.',
   allDone: 'Şimdilik bu kadar.',

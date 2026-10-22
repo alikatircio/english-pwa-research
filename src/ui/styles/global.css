@@ -336,3 +336,9 @@ body {
 .pattern-card__mistake {
   color: var(--miss);
 }
+
+.btn--undo {
+  width: 100%;
+  margin-bottom: 10px;
+  background: transparent;
+}

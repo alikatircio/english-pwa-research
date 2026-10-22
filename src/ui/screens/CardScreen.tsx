@@ -10,6 +10,7 @@ import { HintLine } from '../components/HintLine.tsx';
 import { useDebouncedCallback } from '../hooks/useDebouncedCallback.ts';
 import { useVisualViewportHeight } from '../hooks/useVisualViewportHeight.ts';
 import { ResultPanel } from '../components/ResultPanel.tsx';
+import { UndoBar } from '../components/UndoBar.tsx';
 import { t } from '../strings.tr.ts';
 
 /** "[Teams, nazik rica] Mert'e yazıyorsun…" → tag + text. */
@@ -96,9 +97,14 @@ export function CardScreen({ state, actions }: Props) {
           // No "Sonraki" until the user grades an unmatched answer (T1.9).
           <GradeButtons onGrade={(g) => void actions.selfGrade(g)} disabled={state.busy} />
         ) : (
-          <button type="button" className="btn btn--primary" onClick={next} disabled={state.busy}>
-            {t.next}
-          </button>
+          <>
+            {session.undo && (
+              <UndoBar key={session.undo.logId} expiresAt={session.undo.expiresAt} onUndo={() => void actions.undo()} disabled={state.busy} />
+            )}
+            <button type="button" className="btn btn--primary" onClick={next} disabled={state.busy}>
+              {t.next}
+            </button>
+          </>
         )}
       </div>
     </div>

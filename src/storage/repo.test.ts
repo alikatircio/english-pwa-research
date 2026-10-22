@@ -2,7 +2,7 @@ import 'fake-indexeddb/auto';
 import { afterEach, describe, expect, it } from 'vitest';
 import type { AnswerLog, DailyCounter, Progress } from '../domain/types.ts';
 import { DB_VERSION, openAppDb, STORE_NAMES, type AppDb } from './db.ts';
-import { clearSession, commitGrade, loadAll, saveSession } from './repo.ts';
+import { clearSession, commitGrade, loadAll, saveSession, undoGrade } from './repo.ts';
 import { newSession } from '../domain/session.ts';
 
 let n = 0;
@@ -89,5 +89,40 @@ describe('saveSession / clearSession', () => {
     expect(await db.count('session')).toBe(1);
     await clearSession(db);
     expect((await loadAll(db, day)).session).toBeUndefined();
+  });
+});
+
+describe('undoGrade (T2.4)', () => {
+  const session = newSession([{ itemId: 'a', kind: 'new' }], day, 1);
+  const zero: DailyCounter = { day, newIntroduced: 0, reviewsAnswered: 0 };
+
+  it('commitGrade stores the undo snapshot in the session with the new log id', async () => {
+    const db = await freshDb();
+    await commitGrade(db, { progress, counter, log: { ...log, id: 41 }, session, undo: { itemId: 'a', prevProgress: null, prevCounter: zero, expiresAt: 5 } });
+    expect((await loadAll(db, day)).session?.undo).toEqual({ itemId: 'a', prevProgress: null, prevCounter: zero, expiresAt: 5, logId: 41 });
+  });
+
+  it('restores a new card: progress deleted, counter back, log row removed, session written', async () => {
+    const db = await freshDb();
+    const id = await commitGrade(db, { progress, counter, log, session });
+    const restored = { ...session, draft: 'back' };
+    await undoGrade(db, { itemId: 'a', prevProgress: null, prevCounter: zero, logId: id, expiresAt: 5 }, restored);
+    const data = await loadAll(db, day);
+    expect(data.progress).toEqual([]);
+    expect(data.counter).toEqual(zero);
+    expect(await db.count('answerLog')).toBe(0);
+    expect(data.session).toEqual(restored);
+  });
+
+  it('restores the previous progress of a reviewed card and keeps other log rows', async () => {
+    const db = await freshDb();
+    const first = await commitGrade(db, { progress, counter, log });
+    const changed: Progress = { ...progress, box: 1, dueOn: '2026-11-03', lastGrade: 'wrong', updatedAt: 2 };
+    const second = await commitGrade(db, { progress: changed, counter: { ...counter, reviewsAnswered: 1 }, log: { ...log, grade: 'wrong' } });
+    await undoGrade(db, { itemId: 'a', prevProgress: progress, prevCounter: counter, logId: second, expiresAt: 5 }, session);
+    const data = await loadAll(db, day);
+    expect(data.progress).toEqual([progress]);
+    expect(data.counter).toEqual(counter);
+    expect(await db.getAllKeys('answerLog')).toEqual([first]);
   });
 });

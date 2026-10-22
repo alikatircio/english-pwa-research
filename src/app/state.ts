@@ -28,6 +28,7 @@ export type Action =
   | { type: 'busy' }
   | { type: 'session'; session: SessionState | undefined; screen?: Screen }
   | { type: 'graded'; progress: Progress; counter: DailyCounter; session: SessionState }
+  | { type: 'undone'; itemId: string; progress: Progress | null; counter: DailyCounter; session: SessionState }
   | { type: 'error'; error: AppError }
   | { type: 'clearError' };
 
@@ -45,6 +46,12 @@ export function appReducer(state: AppState, action: Action): AppState {
     case 'graded': {
       const progress = new Map(state.progress);
       progress.set(action.progress.itemId, action.progress);
+      return { ...state, busy: false, error: undefined, progress, counter: action.counter, session: action.session };
+    }
+    case 'undone': {
+      const progress = new Map(state.progress);
+      if (action.progress) progress.set(action.itemId, action.progress);
+      else progress.delete(action.itemId);
       return { ...state, busy: false, error: undefined, progress, counter: action.counter, session: action.session };
     }
     case 'error':

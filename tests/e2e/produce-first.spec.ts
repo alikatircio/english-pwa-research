@@ -97,4 +97,39 @@ test.describe('produce-first card', () => {
     await app.grade(t.gradeWrong);
     await expect(card).toHaveAttribute('open', '');
   });
+
+  test('Geri al within 4 s restores the ungraded result and the stored data (decision 10)', async ({ page }) => {
+    const app = new App(page);
+    await app.open();
+    const undo = page.getByRole('button', { name: t.undo });
+    await app.answer('I will to send the report');
+    await app.grade(t.gradePartial);
+    await expect(undo).toBeVisible();
+    expect(await readStore(page, 'answerLog')).toHaveLength(1);
+
+    await undo.click();
+    await expect(page.getByRole('group', { name: t.howWasIt })).toBeVisible();
+    await expect(app.next).toHaveCount(0);
+    await expect(page.locator('.answers__mine')).toHaveText('I will to send the report');
+    expect(await readStore(page, 'progress')).toEqual([]);
+    expect(await readStore(page, 'answerLog')).toEqual([]);
+    expect(await readStore(page, 'dailyCounters')).toEqual([expect.objectContaining({ newIntroduced: 0, reviewsAnswered: 0 })]);
+
+    // Grade again; after 4 s the undo is gone and the grade stays.
+    await app.grade(t.gradeWrong);
+    await expect(undo).toBeVisible();
+    await page.clock.runFor(4100);
+    await expect(undo).toHaveCount(0);
+    await expect(app.next).toBeVisible();
+    const progress = await readStore<Progress>(page, 'progress');
+    expect(progress).toEqual([expect.objectContaining({ itemId: items[0]?.id, lastGrade: 'wrong' })]);
+  });
+
+  test('an auto match offers no undo', async ({ page }) => {
+    const app = new App(page);
+    await app.open();
+    await app.answer(canonical(0));
+    await expect(app.next).toBeVisible();
+    await expect(page.getByRole('button', { name: t.undo })).toHaveCount(0);
+  });
 });
