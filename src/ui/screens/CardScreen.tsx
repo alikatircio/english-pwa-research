@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 import type { Actions } from '../../app/actions.ts';
 import type { ReadyState } from '../../app/state.ts';
@@ -30,6 +30,21 @@ export function CardScreen({ state, actions }: Props) {
   const entry = session && currentEntry(session);
   const item = entry && state.catalog.byId.get(entry.itemId);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const verdictRef = useRef<HTMLHeadingElement>(null);
+  const nextRef = useRef<HTMLButtonElement>(null);
+  const ids = useId();
+  const headingId = `${ids}-heading`;
+  const tagId = `${ids}-tag`;
+  const situationId = `${ids}-situation`;
+  /** Where focus goes once the next render lands (a11y audit 08 #2, #3): the removed control would drop it to <body>. */
+  const pendingFocus = useRef<'verdict' | 'next' | null>(null);
+  useEffect(() => {
+    const target = pendingFocus.current === 'verdict' ? verdictRef.current : pendingFocus.current === 'next' ? nextRef.current : null;
+    if (target) {
+      target.focus();
+      pendingFocus.current = null;
+    }
+  });
   useVisualViewportHeight();
   // Draft lives locally while typing; keyed per card so it resets on "Sonraki".
   const cardKey = `${session?.cursor ?? 0}:${entry?.itemId ?? ''}`;
@@ -57,6 +72,7 @@ export function CardScreen({ state, actions }: Props) {
 
   function submit() {
     persistDraft.cancel(); // submitAnswer stores the text with the result
+    pendingFocus.current = 'verdict';
     void actions.submitAnswer(draft.text);
   }
 
@@ -70,17 +86,41 @@ export function CardScreen({ state, actions }: Props) {
     <div className="screen card-screen">
       <div className="screen__body">
         <section className="question">
-          <p className="label">{t.questionHeading}</p>
-          {tag && <p className="context-tag">{tag}</p>}
-          <p className="situation">{text}</p>
+          <h2 id={headingId} className="label">
+            {t.questionHeading}
+          </h2>
+          {tag && (
+            <p id={tagId} className="context-tag">
+              <span className="visually-hidden">{t.contextPrefix} </span>
+              {tag}
+            </p>
+          )}
+          <p id={situationId} className="situation">
+            {text}
+          </p>
           {phase.tag === 'question' && <HintLine item={item} stage={hintStageFor(state.progress.get(item.id) ?? null)} />}
         </section>
 
         {phase.tag === 'question' ? (
-          <AnswerInput ref={inputRef} value={draft.text} onChange={onDraftChange} onSubmit={submit} disabled={state.busy} />
+          <AnswerInput
+            ref={inputRef}
+            value={draft.text}
+            onChange={onDraftChange}
+            onSubmit={submit}
+            disabled={state.busy}
+            labelledBy={headingId}
+            describedBy={tag ? `${tagId} ${situationId}` : situationId}
+          />
         ) : (
-          <ResultPanel item={item} answer={phase.answer} matched={phase.matched} grade={phase.matched ? undefined : phase.grade} />
+          <ResultPanel
+            ref={verdictRef}
+            item={item} answer={phase.answer} matched={phase.matched} grade={phase.matched ? undefined : phase.grade} />
         )}
+
+        {/* Always in the DOM so the verdict is announced (08 #1); only the short verdict goes here. */}
+        <p className="visually-hidden" role="status">
+          {phase.tag === 'result' ? (phase.matched ? t.correct : t.notMatched) : ''}
+        </p>
 
         <FlagButton flagged={state.flags.has(item.id)} onToggle={() => void actions.toggleFlag()} disabled={state.busy} />
 
@@ -98,13 +138,22 @@ export function CardScreen({ state, actions }: Props) {
           </button>
         ) : !phase.matched && !phase.grade ? (
           // No "Sonraki" until the user grades an unmatched answer (T1.9).
-          <GradeButtons onGrade={(g) => void actions.selfGrade(g)} disabled={state.busy} />
+          <GradeButtons
+            onGrade={(g) => {
+              pendingFocus.current = 'next';
+              void actions.selfGrade(g);
+            }}
+            disabled={state.busy}
+          />
         ) : (
           <>
             {session.undo && (
-              <UndoBar key={session.undo.logId} expiresAt={session.undo.expiresAt} onUndo={() => void actions.undo()} disabled={state.busy} />
+              <UndoBar key={session.undo.logId} expiresAt={session.undo.expiresAt} onUndo={() => {
+                  pendingFocus.current = 'verdict';
+                  void actions.undo();
+                }} disabled={state.busy} />
             )}
-            <button type="button" className="btn btn--primary" onClick={next} disabled={state.busy}>
+            <button ref={nextRef} type="button" className="btn btn--primary" onClick={next} disabled={state.busy}>
               {t.next}
             </button>
           </>

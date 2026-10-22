@@ -112,7 +112,7 @@ body {
   width: 100%;
   min-height: 5.5rem;
   padding: 14px;
-  border: 1.5px solid var(--border);
+  border: 1.5px solid var(--field-border);
   border-radius: 12px;
   background: var(--surface);
   color: var(--text);
@@ -120,6 +120,11 @@ body {
   font-size: 1.125rem; /* 18px: above iOS's 16px zoom threshold */
   line-height: 1.4;
   resize: none;
+}
+
+.answer-input::placeholder {
+  color: var(--muted);
+  opacity: 1;
 }
 
 .answer-input:focus {
@@ -367,4 +372,10 @@ body {
 .flag__state {
   color: var(--miss);
   font-weight: 600;
+}
+
+/* Headings that receive focus programmatically (not interactive): no ring. */
+.verdict:focus,
+.done__title:focus {
+  outline: none;
 }

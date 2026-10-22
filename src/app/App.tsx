@@ -19,7 +19,9 @@ function CurrentScreen() {
     return (
       <div className="screen">
         <div className="screen__body screen__body--center">
-          <p className="muted">{t.loading}</p>
+          <p className="muted" role="status">
+            {t.loading}
+          </p>
         </div>
       </div>
     );

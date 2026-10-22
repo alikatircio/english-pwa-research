@@ -4,7 +4,7 @@ import { t } from '../../src/ui/strings.tr.ts';
 
 test('answer textarea has the iOS keyboard attributes and a ≥16px font', async ({ page }) => {
   await page.goto('./');
-  const input = page.getByRole('textbox', { name: t.answerLabel });
+  const input = page.getByRole('textbox', { name: t.questionHeading });
   await expect(input).toBeVisible();
   await expect(input).toHaveAttribute('autocorrect', 'off');
   await expect(input).toHaveAttribute('autocapitalize', 'sentences');
@@ -12,6 +12,8 @@ test('answer textarea has the iOS keyboard attributes and a ≥16px font', async
   await expect(input).toHaveAttribute('spellcheck', 'false');
   await expect(input).toHaveAttribute('enterkeyhint', 'go');
   await expect(input).toHaveAttribute('lang', 'en');
+  // Named by the visible Turkish heading, described by the situation (a11y audit 08 #6, #7).
+  await expect(input).toHaveAccessibleDescription(/\S/);
   const fontSize = await input.evaluate((el) => parseFloat(getComputedStyle(el).fontSize));
   expect(fontSize).toBeGreaterThanOrEqual(16);
 });

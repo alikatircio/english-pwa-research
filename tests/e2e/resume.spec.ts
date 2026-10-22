@@ -28,11 +28,11 @@ test.describe('resume after reload', () => {
     const app = new App(page);
     await app.open();
     await app.answer('Totally different');
-    await expect(page.getByText(t.notMatched)).toBeVisible();
+    await expect(page.getByRole('heading', { name: t.notMatched })).toBeVisible();
     await expect.poll(async () => (await readStore<SessionState>(page, 'session'))[0]?.phase.tag).toBe('result');
 
     await page.reload();
-    await expect(page.getByText(t.notMatched)).toBeVisible();
+    await expect(page.getByRole('heading', { name: t.notMatched })).toBeVisible();
     await expect(page.locator('.answers__mine')).toHaveText('Totally different');
     await expect(page.getByRole('group', { name: t.howWasIt })).toBeVisible();
   });

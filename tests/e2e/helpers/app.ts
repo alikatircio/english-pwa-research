@@ -19,7 +19,7 @@ export class App {
 
   constructor(page: Page) {
     this.page = page;
-    this.input = page.getByRole('textbox', { name: t.answerLabel });
+    this.input = page.getByRole('textbox', { name: t.questionHeading });
     this.check = page.getByRole('button', { name: t.check });
     this.next = page.getByRole('button', { name: t.next });
     this.situation = page.locator('.situation');

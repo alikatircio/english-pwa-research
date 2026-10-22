@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import type { Grade, Item } from '../../domain/types.ts';
 import { t } from '../strings.tr.ts';
 import { gradeLabel } from './GradeButtons.tsx';
@@ -11,19 +12,20 @@ interface Props {
   grade?: Grade | undefined;
 }
 
-export function ResultPanel({ item, answer, matched, grade }: Props) {
+/** The verdict heading takes focus after submit (ref; a11y audit 08 #2). */
+export const ResultPanel = forwardRef<HTMLHeadingElement, Props>(function ResultPanel({ item, answer, matched, grade }, verdictRef) {
   const canonical = item.acceptedAnswers[0] ?? '';
   const others = item.modelSentences.filter((s) => s !== canonical);
   return (
-    <section className="result" aria-live="polite">
+    <section className="result">
       {matched ? (
-        <p className="verdict verdict--ok">
+        <h2 ref={verdictRef} tabIndex={-1} className="verdict verdict--ok">
           <span aria-hidden="true">✓</span> {t.correct}
-        </p>
+        </h2>
       ) : (
-        <p className="verdict verdict--miss">
+        <h2 ref={verdictRef} tabIndex={-1} className="verdict verdict--miss">
           <span aria-hidden="true">≠</span> {t.notMatched}
-        </p>
+        </h2>
       )}
 
       <dl className="answers">
@@ -70,4 +72,4 @@ export function ResultPanel({ item, answer, matched, grade }: Props) {
       <PatternCard key={`${item.id}:${String(matched)}`} item={item} defaultOpen={!matched} showSentences={!matched} />
     </section>
   );
-}
+});

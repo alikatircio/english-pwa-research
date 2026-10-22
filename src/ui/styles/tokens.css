@@ -6,6 +6,7 @@
   --text: #1c1c1e;
   --muted: #5c5f66;
   --border: #d8d5cd;
+  --field-border: #8a877f; /* ≥3:1 on --surface (1.4.11) */
   --accent: #2d5b88;
   --accent-text: #ffffff;
   --ok: #1d6a40;
@@ -27,6 +28,7 @@
     --text: #ececee;
     --muted: #a3a6ad;
     --border: #3a3a40;
+    --field-border: #6b6b73;
     --accent: #8fb6e3;
     --accent-text: #0c1a29;
     --ok: #86d3a6;

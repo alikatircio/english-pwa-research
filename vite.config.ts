@@ -31,7 +31,6 @@ const pwa = VitePWA({
     start_url: base,
     scope: base,
     display: 'standalone',
-    orientation: 'portrait',
     theme_color: BG_COLOR,
     background_color: BG_COLOR,
     icons: [

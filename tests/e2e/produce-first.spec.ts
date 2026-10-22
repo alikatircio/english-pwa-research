@@ -18,6 +18,9 @@ test.describe('produce-first card', () => {
     await app.answer(typed, 'enter');
 
     await expect(page.locator('.verdict--ok')).toContainText(t.correct);
+    // Focus moves to the verdict heading and the short verdict is announced (a11y audit 08 #1, #2).
+    await expect(page.getByRole('heading', { name: t.correct })).toBeFocused();
+    await expect(page.getByRole('status')).toHaveText(t.correct);
     await expect(page.getByText(t.modelSentences)).toBeVisible();
     await expect(app.next).toBeVisible();
     await expect(page.getByRole('group', { name: t.howWasIt })).toHaveCount(0); // no self-grading
@@ -41,7 +44,11 @@ test.describe('produce-first card', () => {
     await app.open();
     await app.answer('I will to send the report', 'button');
 
-    await expect(page.getByText(t.notMatched)).toBeVisible();
+    const verdict = page.getByRole('heading', { name: t.notMatched });
+    await expect(verdict).toBeVisible();
+    await expect(verdict).toBeFocused();
+    await expect(page.locator('.result [role="status"]')).toHaveCount(0);
+    await expect(page.locator('.card-screen > .screen__body > [role="status"]')).toHaveText(t.notMatched);
     await expect(page.locator('.answers__mine')).toHaveText('I will to send the report');
     await expect(page.locator('.answers__canonical')).toHaveText(canonical(0));
     for (const c of items[0]?.checklistTr ?? []) await expect(page.getByText(c)).toBeVisible();
@@ -49,8 +56,9 @@ test.describe('produce-first card', () => {
     expect(await readStore(page, 'progress')).toEqual([]);
 
     await app.grade(t.gradePartial);
-    await expect(page.getByRole('status')).toHaveText(t.gradedAs(t.gradePartial));
+    await expect(page.locator('.graded')).toHaveText(t.gradedAs(t.gradePartial));
     await expect(app.next).toBeVisible();
+    await expect(app.next).toBeFocused(); // 08 #3
     const progress = await readStore<Progress>(page, 'progress');
     expect(progress).toEqual([expect.objectContaining({ itemId: items[0]?.id, box: 1, lastGrade: 'partial', dueOn: '2026-11-03' })]);
     const log = await readStore<AnswerLog>(page, 'answerLog');
@@ -66,6 +74,7 @@ test.describe('produce-first card', () => {
       await app.next.click();
     }
     await expect(page.getByText(t.allDone)).toBeVisible();
+    await expect(page.getByRole('heading', { name: t.allDone })).toBeFocused(); // 08 #8
     // Session writes are write-behind (only grades are awaited); wait for the clear before reloading.
     await expect.poll(() => readStore(page, 'session')).toEqual([]);
     await page.reload();
@@ -109,6 +118,7 @@ test.describe('produce-first card', () => {
 
     await undo.click();
     await expect(page.getByRole('group', { name: t.howWasIt })).toBeVisible();
+    await expect(page.getByRole('heading', { name: t.notMatched })).toBeFocused();
     await expect(app.next).toHaveCount(0);
     await expect(page.locator('.answers__mine')).toHaveText('I will to send the report');
     expect(await readStore(page, 'progress')).toEqual([]);

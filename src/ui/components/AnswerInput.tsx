@@ -6,6 +6,10 @@ interface Props {
   onChange: (value: string) => void;
   onSubmit: () => void;
   disabled?: boolean;
+  /** Visible Turkish heading that names the field (a11y audit 08 #6, #11). */
+  labelledBy: string;
+  /** The situation, read when the field gets focus (08 #7). */
+  describedBy: string;
 }
 
 /**
@@ -13,7 +17,7 @@ interface Props {
  * see their own mistakes), sentence capitalisation, ≥16px so iOS does not zoom,
  * Enter submits (Shift+Enter and IME composition excluded).
  */
-export const AnswerInput = forwardRef<HTMLTextAreaElement, Props>(function AnswerInput({ value, onChange, onSubmit, disabled }, ref) {
+export const AnswerInput = forwardRef<HTMLTextAreaElement, Props>(function AnswerInput({ value, onChange, onSubmit, disabled, labelledBy, describedBy }, ref) {
   function onKeyDown(e: KeyboardEvent<HTMLTextAreaElement>) {
     if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) {
       e.preventDefault();
@@ -29,7 +33,8 @@ export const AnswerInput = forwardRef<HTMLTextAreaElement, Props>(function Answe
       onChange={(e) => onChange(e.target.value)}
       onKeyDown={onKeyDown}
       disabled={disabled}
-      aria-label={t.answerLabel}
+      aria-labelledby={labelledBy}
+      aria-describedby={describedBy}
       placeholder={t.answerPlaceholder}
       autoCorrect="off"
       autoCapitalize="sentences"
