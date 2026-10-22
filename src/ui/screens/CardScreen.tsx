@@ -87,7 +87,7 @@ export function CardScreen({ state, actions }: Props) {
       <div className="screen__body">
         <section className="question">
           <h2 id={headingId} className="label">
-            {t.questionHeading}
+            {item.source === 'user-error' ? t.userErrorHeading : t.questionHeading}
           </h2>
           {tag && (
             <p id={tagId} className="context-tag">

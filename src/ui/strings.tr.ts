@@ -6,6 +6,8 @@ export const t = {
   storageUnavailable: 'Bu tarayıcıda kayıt alanı açılamadı (özel sekme olabilir).',
 
   questionHeading: 'Bunu İngilizce yaz',
+  /** Heading for notebook (user-error) items (03 H3.3). */
+  userErrorHeading: 'İngilizcesi neydi?',
   contextPrefix: 'Bağlam:',
   hint: 'İpucu:',
   answerLabel: 'İngilizce cevabın',

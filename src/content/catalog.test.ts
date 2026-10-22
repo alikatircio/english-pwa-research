@@ -50,3 +50,12 @@ describe('imported items', () => {
     expect(c.accepted.get('n2')).toEqual(new Set(['i will go']));
   });
 });
+
+describe('imported notebook items come first (T3.5, decision 3)', () => {
+  const mine = (id: string, level: 1 | 2 | 3): Item => ({ ...base, id, source: 'user-error', verifiedNote: 'user-import', level });
+  it('newOrder puts imported user-error items before curated ones, even at a higher level', () => {
+    const c = createCatalog(bundle([{ ...base, id: 'x', level: 2 }, { ...base, id: 'y', level: 1 }]), [mine('n1', 3)]);
+    expect(newOrder(c)).toEqual(['n1', 'y', 'x']);
+    expect(newOrder(withImported(c, [mine('n2', 1)]))).toEqual(['n2', 'n1', 'y', 'x']);
+  });
+});
