@@ -2,6 +2,7 @@
 // Callers update in-memory state only after the returned promise resolves.
 import type { AnswerLog, DailyCounter, DayKey, Flag, MetaRecord, NotebookEntry, Progress, SessionState, UndoSnapshot } from '../domain/types.ts';
 import type { AppDb, ImportedItem } from './db.ts';
+import { writeAll } from './tx.ts';
 
 export interface LoadedData {
   progress: Progress[];
@@ -53,39 +54,42 @@ export async function loadCounter(db: AppDb, day: DayKey): Promise<DailyCounter>
 
 /**
  * Atomic grade write: progress + daily counter + answer log (+ session).
- * If any request fails the whole transaction aborts and nothing changes.
- * Resolves with the new answer-log id.
+ * If any request fails, synchronously or not, the whole transaction aborts and
+ * nothing changes (writeAll). Resolves with the new answer-log id.
  */
 export async function commitGrade(db: AppDb, c: GradeCommit): Promise<number> {
   const tx = db.transaction(['progress', 'dailyCounters', 'answerLog', 'session'], 'readwrite');
-  const writes: Promise<unknown>[] = [tx.objectStore('dailyCounters').put(c.counter)];
-  if (c.progress) writes.push(tx.objectStore('progress').put(c.progress));
-  const logId = tx.objectStore('answerLog').add(c.log);
-  const { session, undo } = c;
-  if (session && undo) {
-    // Same transaction: the session write waits for the log id it points at.
-    writes.push(logId.then((id) => tx.objectStore('session').put({ ...session, undo: { ...undo, logId: id } })));
-  } else if (session) {
-    writes.push(tx.objectStore('session').put(session));
-  }
-  const [id] = await Promise.all([logId, ...writes, tx.done]);
-  return id;
+  let logId: Promise<number> | undefined;
+  await writeAll(tx, (track) => {
+    track(tx.objectStore('dailyCounters').put(c.counter));
+    if (c.progress) track(tx.objectStore('progress').put(c.progress));
+    const added = track(tx.objectStore('answerLog').add(c.log));
+    logId = added;
+    const { session, undo } = c;
+    if (session && undo) {
+      // Same transaction: the session write waits for the log id it points at.
+      track(added.then((id) => tx.objectStore('session').put({ ...session, undo: { ...undo, logId: id } })));
+    } else if (session) {
+      track(tx.objectStore('session').put(session));
+    }
+  });
+  // writeAll resolved, so the add was queued and succeeded.
+  return (await logId) as number;
 }
 
 /**
  * Undo a grade (decision 10): restore or delete progress, restore the counter,
- * delete the answer-log row and store the session, in one transaction.
+ * delete the answer-log row and store the session, in one transaction (all or nothing).
  */
 export async function undoGrade(db: AppDb, undo: UndoSnapshot, session: SessionState): Promise<void> {
   const tx = db.transaction(['progress', 'dailyCounters', 'answerLog', 'session'], 'readwrite');
   const progress = tx.objectStore('progress');
-  await Promise.all([
-    undo.prevProgress ? progress.put(undo.prevProgress) : progress.delete(undo.itemId),
-    tx.objectStore('dailyCounters').put(undo.prevCounter),
-    tx.objectStore('answerLog').delete(undo.logId),
-    tx.objectStore('session').put(session),
-    tx.done,
-  ]);
+  await writeAll(tx, (track) => {
+    track<unknown>(undo.prevProgress ? progress.put(undo.prevProgress) : progress.delete(undo.itemId));
+    track(tx.objectStore('dailyCounters').put(undo.prevCounter));
+    track(tx.objectStore('answerLog').delete(undo.logId));
+    track(tx.objectStore('session').put(session));
+  });
 }
 
 /**

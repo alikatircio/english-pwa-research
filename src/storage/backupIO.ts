@@ -3,6 +3,7 @@
 import { buildFlagsReport, type BackupData, type FlagsReportV1, type ItemsImportPlan } from '../domain/backup.ts';
 import type { Item, MetaRecord } from '../domain/types.ts';
 import type { AppDb } from './db.ts';
+import { writeAll } from './tx.ts';
 
 /** Flags report for review (decision 12): every flag joined with its item. */
 export async function exportFlagsReport(
@@ -21,18 +22,10 @@ export async function exportFlagsReport(
  */
 export async function importItems(db: AppDb, plan: Pick<ItemsImportPlan, 'items' | 'notebookUpdates'>): Promise<void> {
   const tx = db.transaction(['importedItems', 'notebook'], 'readwrite');
-  const requests: Promise<unknown>[] = [];
-  try {
-    for (const i of plan.items) requests.push(tx.objectStore('importedItems').put(i));
-    for (const e of plan.notebookUpdates) requests.push(tx.objectStore('notebook').put(e));
-  } catch (e) {
-    // A request threw synchronously (e.g. DataError): roll back the puts already queued.
-    for (const r of requests) r.catch(() => undefined);
-    tx.abort();
-    await tx.done.catch(() => undefined);
-    throw e;
-  }
-  await Promise.all([...requests, tx.done]);
+  await writeAll(tx, (track) => {
+    for (const i of plan.items) track(tx.objectStore('importedItems').put(i));
+    for (const e of plan.notebookUpdates) track(tx.objectStore('notebook').put(e));
+  });
 }
 
 // --- Full backup (T5.4) -------------------------------------------------------
@@ -71,32 +64,16 @@ export interface RestoreWrite {
  */
 export async function writeRestore(db: AppDb, { data, clearSession, meta = [] }: RestoreWrite): Promise<void> {
   const tx = db.transaction([...BACKUP_STORES, 'session', 'meta'], 'readwrite');
-  const requests: Promise<unknown>[] = [];
-  const settle = () => {
-    for (const r of requests) r.catch(() => undefined);
-  };
-  try {
-    for (const name of BACKUP_STORES) requests.push(tx.objectStore(name).clear());
-    for (const r of data.progress) requests.push(tx.objectStore('progress').put(r));
-    for (const r of data.dailyCounters) requests.push(tx.objectStore('dailyCounters').put(r));
-    for (const r of data.notebook) requests.push(tx.objectStore('notebook').put(r));
-    for (const r of data.flags) requests.push(tx.objectStore('flags').put(r));
-    for (const r of data.answerLog) requests.push(tx.objectStore('answerLog').put(r));
-    for (const r of data.importedItems) requests.push(tx.objectStore('importedItems').put(r));
-    if (clearSession) requests.push(tx.objectStore('session').delete('current'));
-    for (const r of meta) requests.push(tx.objectStore('meta').put(r));
-  } catch (e) {
-    // A request threw synchronously (e.g. DataError): roll back everything queued, including the clears.
-    settle();
-    tx.abort();
-    await tx.done.catch(() => undefined);
-    throw e;
-  }
-  try {
-    await Promise.all([...requests, tx.done]);
-  } catch (e) {
-    settle();
-    await tx.done.catch(() => undefined);
-    throw e;
-  }
+  // A synchronous throw (e.g. DataError) rolls back everything queued, including the clears.
+  await writeAll(tx, (track) => {
+    for (const name of BACKUP_STORES) track(tx.objectStore(name).clear());
+    for (const r of data.progress) track(tx.objectStore('progress').put(r));
+    for (const r of data.dailyCounters) track(tx.objectStore('dailyCounters').put(r));
+    for (const r of data.notebook) track(tx.objectStore('notebook').put(r));
+    for (const r of data.flags) track(tx.objectStore('flags').put(r));
+    for (const r of data.answerLog) track(tx.objectStore('answerLog').put(r));
+    for (const r of data.importedItems) track(tx.objectStore('importedItems').put(r));
+    if (clearSession) track(tx.objectStore('session').delete('current'));
+    for (const r of meta) track(tx.objectStore('meta').put(r));
+  });
 }

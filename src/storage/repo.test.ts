@@ -78,6 +78,30 @@ describe('commitGrade', () => {
     expect(await db.count('answerLog')).toBe(1);
   });
 
+  it('is atomic on a synchronous throw: a progress without a key writes no counter (review 09 #4)', async () => {
+    const db = await freshDb();
+    // No itemId → put() throws DataError synchronously, after the counter put was queued.
+    const keyless = { ...progress, itemId: undefined } as unknown as Progress;
+    await expect(commitGrade(db, { progress: keyless, counter, log })).rejects.toThrow();
+    const data = await loadAll(db, day);
+    expect(data.counter).toEqual({ day, newIntroduced: 0, reviewsAnswered: 0 });
+    expect(data.progress).toEqual([]);
+    expect(await db.count('answerLog')).toBe(0);
+  });
+
+  it('is atomic when the session write after the log id throws: nothing is kept', async () => {
+    const db = await freshDb();
+    const session = newSession([{ itemId: 'a', kind: 'new' }], day, 1);
+    // A function is not cloneable → DataCloneError inside the log-id callback.
+    const undo = { itemId: 'a', prevProgress: null, prevCounter: counter, prevRound: { queue: [], repeatQueued: [], consecutiveWrong: 0, studiedChunks: [] }, expiresAt: () => 5 } as unknown as Parameters<typeof commitGrade>[1]['undo'];
+    await expect(commitGrade(db, { progress, counter, log, session, ...(undo ? { undo } : {}) })).rejects.toThrow();
+    const data = await loadAll(db, day);
+    expect(data.progress).toEqual([]);
+    expect(data.counter).toEqual({ day, newIntroduced: 0, reviewsAnswered: 0 });
+    expect(await db.count('answerLog')).toBe(0);
+    expect(data.session).toBeUndefined();
+  });
+
   it('a repeat answer (no progress) writes the log and counter but leaves progress alone (decision 5)', async () => {
     const db = await freshDb();
     await commitGrade(db, { progress, counter, log });
@@ -130,6 +154,17 @@ describe('undoGrade (T2.4)', () => {
     expect(data.counter).toEqual(zero);
     expect(await db.count('answerLog')).toBe(0);
     expect(data.session).toEqual(restored);
+  });
+
+  it('is atomic on a synchronous throw: a keyless counter leaves the graded progress and log in place (review 09 #4)', async () => {
+    const db = await freshDb();
+    const id = await commitGrade(db, { progress, counter, log, session });
+    const keyless = { newIntroduced: 0, reviewsAnswered: 0 } as unknown as DailyCounter;
+    await expect(undoGrade(db, { itemId: 'a', prevProgress: null, prevCounter: keyless, prevRound, logId: id, expiresAt: 5 }, session)).rejects.toThrow();
+    const data = await loadAll(db, day);
+    expect(data.progress).toEqual([progress]);
+    expect(data.counter).toEqual(counter);
+    expect(await db.count('answerLog')).toBe(1);
   });
 
   it('restores the previous progress of a reviewed card and keeps other log rows', async () => {
