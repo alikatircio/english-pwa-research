@@ -422,3 +422,100 @@ body {
   background: var(--accent);
   border-color: var(--accent);
 }
+
+/* --- Notebook (Slice 3) --------------------------------------------------- */
+
+.btn--text {
+  min-height: 44px;
+  border: 0;
+  background: transparent;
+  color: var(--accent);
+  font-weight: 600;
+  padding: 0 8px;
+}
+
+.btn--wide {
+  width: 100%;
+}
+
+.notebook-link {
+  align-self: flex-start;
+  margin-left: -8px;
+}
+
+.sheet__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.sheet__title {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.notebook-sheet__context {
+  font-size: 0.9375rem;
+}
+
+/* Notice overlays the top of the screen (absolute, never fixed: 02 §3). */
+main {
+  position: relative;
+}
+
+.notice-host {
+  position: absolute;
+  top: max(8px, env(safe-area-inset-top));
+  left: 16px;
+  right: 16px;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.notice {
+  margin: 0 auto;
+  max-width: 38rem;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: var(--ok-bg);
+  color: var(--ok);
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.12);
+}
+
+.notice--warn {
+  background: var(--miss-bg);
+  color: var(--miss);
+}
+
+.settings-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.import-errors p,
+.import-errors ul {
+  margin: 0;
+}
+
+.import-errors ul {
+  padding-left: 1.2em;
+}
+
+.import-errors code,
+.import-rejected code {
+  font-size: 0.9375rem;
+  overflow-wrap: anywhere;
+}
+
+.home__links {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}

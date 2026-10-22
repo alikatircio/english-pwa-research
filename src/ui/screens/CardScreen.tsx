@@ -89,7 +89,7 @@ export function CardScreen({ state, actions }: Props) {
         <RoundDots total={session.queue.length} cursor={session.cursor} label={t.roundProgress(session.cursor + 1, session.queue.length)} />
         <section className="question">
           <h2 id={headingId} className="label">
-            {t.questionHeading}
+            {item.source === 'user-error' ? t.userErrorHeading : t.questionHeading}
           </h2>
           {tag && (
             <p id={tagId} className="context-tag">
@@ -119,6 +119,19 @@ export function CardScreen({ state, actions }: Props) {
             item={item} answer={phase.answer} matched={phase.matched} grade={phase.matched ? undefined : phase.grade} />
         )}
 
+        {phase.tag === 'question' && (
+          // Keeps the typed draft: it is saved first, the sheet replaces the view, closing brings the card back (02, 03 H3.1).
+          <button
+            type="button"
+            className="btn btn--text notebook-link"
+            onClick={() => {
+              persistDraft.flush();
+              flushSync(() => actions.openNotebook('card'));
+            }}
+          >
+            {t.notebookFromCard}
+          </button>
+        )}
         {/* Always in the DOM so the verdict is announced (08 #1); only the short verdict goes here. */}
         <p className="visually-hidden" role="status">
           {phase.tag === 'result' ? (phase.matched ? t.correct : t.notMatched) : ''}

@@ -47,7 +47,8 @@ export class App {
   /** Tap "Başla · bugün N" on Home; the first card opens with the keyboard (focus). */
   async start(): Promise<void> {
     await this.startButton.click();
-    await expect(this.input).toBeFocused();
+    // By class: a notebook item's field is named "İngilizcesi neydi?", not the usual heading.
+    await expect(this.page.locator('.answer-input')).toBeFocused();
   }
 
   /** Reload, then "Devam et" on Home back into the open round. */

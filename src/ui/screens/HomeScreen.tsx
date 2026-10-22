@@ -51,19 +51,26 @@ export function HomeScreen({ state, actions }: Props) {
         {done && <p className="muted">{t.todayDoneDetail}</p>}
         {session && <p className="muted">{t.resumeDetail}</p>}
       </div>
-      {!done && (
-        <div className="screen__footer">
-          {session ? (
-            <button type="button" className="btn btn--primary" onClick={() => go(actions.resume)} disabled={state.busy}>
-              {t.resume}
-            </button>
-          ) : (
-            <button type="button" className="btn btn--primary" onClick={() => go(actions.startRound)} disabled={state.busy}>
-              {t.start(count)}
-            </button>
-          )}
+      <div className="screen__footer">
+        {/* Notebook and Settings: text buttons, one tap away (07 §5.1). */}
+        <div className="home__links">
+          <button type="button" className="btn btn--text" onClick={() => flushSync(() => actions.openNotebook('home'))}>
+            {t.notebookAdd}
+          </button>
+          <button type="button" className="btn btn--text" onClick={() => actions.openSettings()}>
+            {t.settings}
+          </button>
         </div>
-      )}
+        {done ? null : session ? (
+          <button type="button" className="btn btn--primary" onClick={() => go(actions.resume)} disabled={state.busy}>
+            {t.resume}
+          </button>
+        ) : (
+          <button type="button" className="btn btn--primary" onClick={() => go(actions.startRound)} disabled={state.busy}>
+            {t.start(count)}
+          </button>
+        )}
+      </div>
     </div>
   );
 }

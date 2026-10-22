@@ -1,8 +1,13 @@
-import type { DailyCounter, Progress, SessionState } from '../domain/types.ts';
+import type { NotebookContext } from '../domain/notebook.ts';
+import type { DailyCounter, NotebookEntry, Progress, SessionState } from '../domain/types.ts';
 import type { Catalog } from '../content/catalog.ts';
 
-export type Screen = 'home' | 'card' | 'roundEnd';
+export type Screen = 'home' | 'card' | 'roundEnd' | 'settings';
 export type AppError = 'save-failed';
+/** Overlay drawn over the current screen; the screen's state (session, draft) is kept. */
+export type Overlay = { kind: 'notebook'; context?: NotebookContext | undefined };
+/** Short confirmation shown after an overlay closes. */
+export type Notice = { kind: 'notebook-saved'; duplicate: boolean; at: number };
 
 /** What the round-end screen shows (05 §3). Kept in memory only, never saved. */
 export interface RoundSummary {
@@ -30,6 +35,10 @@ export interface ReadyState {
   session: SessionState | undefined;
   /** Set when a round ends; cleared when the next round starts. */
   lastRound?: RoundSummary | undefined;
+  /** Notebook entries, oldest first (Slice 3). */
+  notebook: readonly NotebookEntry[];
+  overlay?: Overlay | undefined;
+  notice?: Notice | undefined;
   /** A write is in flight; buttons that write are disabled. */
   busy: boolean;
   error?: AppError;
@@ -48,6 +57,10 @@ export type Action =
   | { type: 'roundEnded'; summary: RoundSummary }
   | { type: 'screen'; screen: Screen }
   | { type: 'error'; error: AppError }
+  | { type: 'overlay'; overlay: Overlay | undefined }
+  | { type: 'notebookAdded'; entry: NotebookEntry; notice: Notice }
+  | { type: 'notice'; notice: Notice | undefined }
+  | { type: 'itemsImported'; catalog: Catalog; notebook: readonly NotebookEntry[]; session: SessionState | undefined; counter: DailyCounter }
   | { type: 'clearError' };
 
 /** A grade only updates the in-memory counter of the day it belongs to. */
@@ -93,5 +106,20 @@ export function appReducer(state: AppState, action: Action): AppState {
       return { ...state, busy: false, error: action.error };
     case 'clearError':
       return { ...state, error: undefined };
+    case 'overlay':
+      return { ...state, error: undefined, overlay: action.overlay };
+    case 'notebookAdded':
+      return {
+        ...state,
+        busy: false,
+        error: undefined,
+        overlay: undefined,
+        notebook: [...state.notebook, action.entry],
+        notice: action.notice,
+      };
+    case 'notice':
+      return { ...state, notice: action.notice };
+    case 'itemsImported':
+      return { ...state, busy: false, error: undefined, catalog: action.catalog, notebook: action.notebook, session: action.session, counter: action.counter };
   }
 }

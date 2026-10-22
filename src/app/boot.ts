@@ -49,6 +49,6 @@ export async function boot({ bundle, clock, openDb }: BootDeps): Promise<BootRes
   return {
     db,
     // Always open on Home (05 §1): "Başla · bugün N", "Devam et" or "Bugün bitti".
-    state: { screen: 'home', catalog, progress, flags, counter: data.counter, session: resumed },
+    state: { screen: 'home', catalog, progress, flags, counter: data.counter, session: resumed, notebook: data.notebook },
   };
 }

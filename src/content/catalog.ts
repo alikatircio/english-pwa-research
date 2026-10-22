@@ -1,25 +1,43 @@
-// Catalog = bundled content (+ imported items later, Slice 3), verified only.
+// Catalog = bundled content + imported items (Slice 3), verified only.
 import { acceptedSet } from '../domain/normalize.ts';
 import type { ContentBundle, Item } from '../domain/types.ts';
 
 export interface Catalog {
   contentVersion: string;
-  /** Display order = file order. */
+  /** Display order = file order (bundled), then imported items. */
   items: readonly Item[];
   byId: ReadonlyMap<string, Item>;
   /** Normalised accepted answers, computed once per item. */
   accepted: ReadonlyMap<string, ReadonlySet<string>>;
+  /** Ids of bundled content: an imported item may never reuse one (07 §3.8). */
+  builtinIds: ReadonlySet<string>;
+  bundled: readonly Item[];
+  imported: readonly Item[];
 }
 
 export function createCatalog(bundle: ContentBundle, imported: readonly Item[] = []): Catalog {
-  // Defence in depth: the build already ships verified items only.
-  const items = [...bundle.items, ...imported].filter((i) => i.verified === true);
+  const builtinIds = new Set(bundle.items.map((i) => i.id));
+  // Defence in depth: the build ships verified items only, and an imported item never shadows bundled content.
+  const bundled = bundle.items.filter((i) => i.verified === true);
+  const own = imported.filter((i) => i.verified === true && !builtinIds.has(i.id));
+  const items = [...bundled, ...own];
   return {
     contentVersion: bundle.contentVersion,
     items,
     byId: new Map(items.map((i) => [i.id, i])),
     accepted: new Map(items.map((i) => [i.id, acceptedSet(i.acceptedAnswers)])),
+    builtinIds,
+    bundled,
+    imported: own,
   };
+}
+
+/** Catalog after an items import: same id → the new item replaces the old one. */
+export function withImported(catalog: Catalog, incoming: readonly Item[]): Catalog {
+  const byId = new Map(catalog.imported.map((i) => [i.id, i]));
+  for (const i of incoming) byId.set(i.id, i);
+  const c = createCatalog({ contentVersion: catalog.contentVersion, generatedAt: '', items: [...catalog.bundled] }, [...byId.values()]);
+  return { ...c, builtinIds: catalog.builtinIds };
 }
 
 /**

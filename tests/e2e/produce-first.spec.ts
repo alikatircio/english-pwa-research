@@ -85,7 +85,8 @@ test.describe('produce-first card', () => {
     await page.getByRole('button', { name: t.enough }).click();
     await expect(page.getByRole('heading', { name: t.todayDone })).toBeFocused();
     await expect(page.getByText(t.todayDoneDetail)).toBeVisible();
-    await expect(page.getByRole('button')).toHaveCount(0); // no bottom button on a finished day
+    await expect(app.startButton).toHaveCount(0); // no bottom button on a finished day
+    await expect(app.resumeButton).toHaveCount(0);
     // Session writes are write-behind (only grades are awaited); wait for the clear before reloading.
     await expect.poll(() => readStore(page, 'session')).toEqual([]);
     await page.reload();

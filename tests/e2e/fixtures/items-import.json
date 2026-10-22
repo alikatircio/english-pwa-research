@@ -1,0 +1,42 @@
+{
+  "format": "english-pwa-items",
+  "schemaVersion": 1,
+  "items": [
+    {
+      "id": "e2e-escalate-the-issue",
+      "category": "work_vocab",
+      "targetChunk": "escalate the issue",
+      "clozeTemplate": "We need to ___ the issue to the team.",
+      "situationTr": "[Defter] Sorunu ekibe yükseltmemiz gerekiyor.",
+      "acceptedAnswers": [
+        "We need to escalate the issue to the team.",
+        "We should escalate the issue to the team.",
+        "We have to escalate the issue to the team."
+      ],
+      "modelSentences": [
+        "We need to escalate the issue to the team.",
+        "I'll escalate the issue to the team lead."
+      ],
+      "checklistTr": ["Fiil: escalate (yükseltmek)."],
+      "noteTr": "E2E test kalemi (kurgusal), defterden.",
+      "level": 1,
+      "notebookId": "nb-escalate"
+    },
+    {
+      "id": "e2e-will-send",
+      "category": "aux_to",
+      "targetChunk": "will + base verb",
+      "clozeTemplate": "I'll ___ the report today.",
+      "situationTr": "[e2e] Gömülü içerikle aynı id: reddedilmeli.",
+      "acceptedAnswers": [
+        "I'll send the report today.",
+        "I'll send you the report today.",
+        "I am going to send the report today."
+      ],
+      "modelSentences": ["I'll send the report today.", "I'll send you the report today."],
+      "checklistTr": ["Kritik noktayı kontrol ettin mi?"],
+      "noteTr": "E2E: çakışan id.",
+      "level": 1
+    }
+  ]
+}

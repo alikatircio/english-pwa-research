@@ -1,15 +1,37 @@
 // The only side-effecting layer: domain → storage transaction → dispatch.
 // Write first, then change the screen: what is shown is what is on disk.
+import { buildNotebookExport, FORMATS, parseFile, planItemsImport, type ImportError, type RejectedItem } from '../domain/backup.ts';
 import type { Clock } from '../domain/clock.ts';
 import { hintStageFor } from '../domain/hints.ts';
 import { isAccepted } from '../domain/normalize.ts';
 import { applyGrade } from '../domain/scheduler.ts';
+import { cleanNotebookText, createNotebookEntry, isDuplicateEntry } from '../domain/notebook.ts';
 import { countFirstAnswer, currentEntry, emptyCounter, isSessionStale, onFirstAnswer, todayCount } from '../domain/session.ts';
 import type { AnswerLog, CardPhase, DailyCounter, DayKey, Flag, Grade, GradedBy, SessionState, UndoSnapshot } from '../domain/types.ts';
+import { withImported } from '../content/catalog.ts';
+import { exportFlagsReport, importItems } from '../storage/backupIO.ts';
 import type { AppDb } from '../storage/db.ts';
-import { clearSession, commitGrade, loadCounter, saveSession, toggleFlag, undoGrade } from '../storage/repo.ts';
+import { addNotebookEntry, clearSession, commitGrade, loadCounter, saveSession, toggleFlag, undoGrade } from '../storage/repo.ts';
 import { freshRound, nextCard, poolsOf } from './round.ts';
 import type { Action, AppState, ReadyState, Screen } from './state.ts';
+
+/** A file ready to share or download (ui/share.ts). */
+export interface ExportFile {
+  filename: string;
+  text: string;
+}
+
+/** `english-pwa-<kind>-YYYY-MM-DD.json` (07 §3.8). */
+export function exportFilename(kind: 'backup' | 'notebook' | 'flags', day: string): string {
+  return `english-pwa-${kind}-${day}.json`;
+}
+
+const toJson = (v: unknown): string => `${JSON.stringify(v, null, 2)}\n`;
+
+export type ImportItemsResult =
+  | { status: 'imported'; importedIds: string[]; rejected: RejectedItem[] }
+  | { status: 'invalid'; errors: ImportError[] }
+  | { status: 'save-failed' };
 
 export interface ActionDeps {
   db: AppDb;
@@ -258,6 +280,124 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       } catch {
         dispatch({ type: 'error', error: 'save-failed' });
       }
+    },
+
+    // --- Notebook (Slice 3) -------------------------------------------------
+
+    /**
+     * Open the capture sheet. From a card the card's situation becomes the
+     * context; the session (incl. draft) is untouched, so closing returns to
+     * the same card. Synchronous so the caller can focus in the same tap.
+     */
+    openNotebook(from: 'card' | 'home'): void {
+      const s = ready(getState);
+      if (!s) return;
+      const entry = from === 'card' && s.session ? currentEntry(s.session) : undefined;
+      const item = entry && s.catalog.byId.get(entry.itemId);
+      const context = item ? { contextTr: item.situationTr, contextItemId: item.id } : undefined;
+      dispatch({ type: 'overlay', overlay: { kind: 'notebook', context } });
+    },
+
+    closeNotebook(): void {
+      dispatch({ type: 'overlay', overlay: undefined });
+    },
+
+    /**
+     * Save one entry (IndexedDB only, works offline). A text already in the
+     * notebook is saved anyway and flagged in the notice (03 H3.1: never block).
+     * Resolves false when the write failed; the sheet then stays open.
+     */
+    async saveNotebook(text: string): Promise<boolean> {
+      const s = ready(getState);
+      if (!s || s.busy || s.overlay?.kind !== 'notebook' || cleanNotebookText(text) === '') return false;
+      const now = clock.now();
+      const entry = createNotebookEntry(text, s.overlay.context, crypto.randomUUID(), now);
+      const duplicate = isDuplicateEntry(entry.textTr, s.notebook);
+      dispatch({ type: 'busy' });
+      try {
+        await addNotebookEntry(db, entry);
+        dispatch({ type: 'notebookAdded', entry, notice: { kind: 'notebook-saved', duplicate, at: now } });
+        return true;
+      } catch {
+        dispatch({ type: 'error', error: 'save-failed' });
+        return false;
+      }
+    },
+
+    // --- Settings: export (Slice 3, T3.3) ------------------------------------
+
+    openSettings(): void {
+      dispatch({ type: 'screen', screen: 'settings' });
+    },
+
+    /** Back from Settings: Settings opens from Home only, so back to Home ("Devam et" if a round is open). */
+    closeSettings(): void {
+      dispatch({ type: 'screen', screen: 'home' });
+    },
+
+    /**
+     * Notebook export for solving in Claude: open entries only. Built from
+     * memory without awaiting, so the share sheet still opens inside the tap.
+     */
+    exportNotebook(): ExportFile | undefined {
+      const s = ready(getState);
+      if (!s) return undefined;
+      const file = buildNotebookExport(s.notebook, clock.now());
+      return { filename: exportFilename('notebook', clock.today()), text: toJson(file) };
+    },
+
+    /** Flags report for content review (decision 12). */
+    async exportFlags(): Promise<ExportFile | undefined> {
+      const s = ready(getState);
+      if (!s) return undefined;
+      const report = await exportFlagsReport(db, s.catalog.byId, s.catalog.contentVersion, clock.now());
+      return { filename: exportFilename('flags', clock.today()), text: toJson(report) };
+    },
+
+    // --- Settings: items import (Slice 3, T3.4) -------------------------------
+
+    /**
+     * Import items solved in Claude (english-pwa-items). The whole file is
+     * validated first; if invalid nothing is written. Bundled-content ids are
+     * rejected and listed; a matching notebookId converts that entry. Items and
+     * entries are written in one transaction, then the catalog is updated.
+     * With no open round, today's round is rebuilt so the new cards are reachable.
+     */
+    async importItemsFile(text: string): Promise<ImportItemsResult> {
+      const s = ready(getState);
+      if (!s || s.busy) return { status: 'save-failed' };
+      const parsed = parseFile(text, [FORMATS.items]);
+      if (!parsed.ok) return { status: 'invalid', errors: parsed.errors };
+
+      const plan = planItemsImport(parsed.value.file.items, {
+        builtinIds: s.catalog.builtinIds,
+        notebook: s.notebook,
+        now: clock.now(),
+      });
+      if (plan.items.length === 0) return { status: 'imported', importedIds: [], rejected: plan.rejected };
+
+      dispatch({ type: 'busy' });
+      try {
+        await importItems(db, plan);
+      } catch {
+        dispatch({ type: 'error', error: 'save-failed' });
+        return { status: 'save-failed' };
+      }
+      const catalog = withImported(s.catalog, plan.items);
+      const updates = new Map(plan.notebookUpdates.map((e) => [e.id, e]));
+      const notebook = s.notebook.map((e) => updates.get(e.id) ?? e);
+      // No open round: build today's round so the new cards come first ("Devam et" on Home); the new-card cap still applies (decision 3).
+      // An open round keeps its own day and counter (03 §4.5).
+      const today = clock.today();
+      const counter = s.session || s.counter.day === today ? s.counter : await loadCounter(db, today).catch(() => emptyCounter(today));
+      const session = s.session ?? freshRound({ catalog, progress: s.progress, flags: s.flags }, counter, clock);
+      dispatch({ type: 'itemsImported', catalog, notebook, session, counter });
+      if (session && !s.session) persistSession(session);
+      return { status: 'imported', importedIds: plan.items.map((i) => i.id), rejected: plan.rejected };
+    },
+
+    dismissNotice(): void {
+      dispatch({ type: 'notice', notice: undefined });
     },
 
     dismissError(): void {
