@@ -134,7 +134,14 @@ export interface SessionState {
   undo?: UndoSnapshot;
 }
 
-export type MetaKey = 'firstRunAt' | 'lastExportAt' | 'persist' | 'installHintDismissed' | 'eveningPrompt';
+export type MetaKey =
+  | 'firstRunAt'
+  | 'lastExportAt'
+  | 'persist'
+  | 'installHintDismissed'
+  | 'eveningPrompt'
+  /** "Yedeğin 1 haftadan eski" dismissed at (epoch ms); hidden for 7 days (decision 27). */
+  | 'backupReminderDismissedAt';
 export interface MetaRecord {
   key: MetaKey;
   value: unknown;

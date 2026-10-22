@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type ChangeEvent } from 'react';
 import type { Actions, ExportFile, RestoreMode } from '../../app/actions.ts';
 import type { ReadyState } from '../../app/state.ts';
 import type { BackupFileV1, ImportError, RejectedItem } from '../../domain/backup.ts';
+import { formatDate } from '../format.ts';
 import { shareOrDownload } from '../share.ts';
 import { t } from '../strings.tr.ts';
 
@@ -53,6 +54,7 @@ export function BackupSection({ state, actions }: { state: ReadyState; actions: 
       <h3 className="label" id="backup-title">
         {t.backupSection}
       </h3>
+      <p data-testid="last-backup">{state.meta.lastExportAt === undefined ? t.lastBackupNever : t.lastBackup(formatDate(state.meta.lastExportAt))}</p>
       <p className="muted">{t.backupHint}</p>
       <button type="button" className="btn" disabled={!prepared} onClick={() => void onExport()}>
         {t.backupExport}
@@ -114,7 +116,8 @@ export function BackupRestore({ actions, busy, buttonClass = 'btn' }: { actions:
         accept="application/json,.json"
         className="visually-hidden"
         tabIndex={-1}
-        aria-label={t.backupRestore}
+        // The visible button opens it; keep the hidden input out of the accessibility tree.
+        aria-hidden="true"
         data-testid="backup-file"
         onChange={(e) => void onFile(e)}
       />

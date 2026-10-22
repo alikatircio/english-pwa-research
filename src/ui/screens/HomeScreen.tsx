@@ -1,10 +1,13 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 import type { Actions } from '../../app/actions.ts';
 import { poolsOf } from '../../app/round.ts';
 import type { ReadyState } from '../../app/state.ts';
 import { todayCount } from '../../domain/session.ts';
+import { isFirstRun } from '../../domain/reminders.ts';
 import { applyUpdateOnHome } from '../../pwa/registerSW.ts';
+import { isStandalone } from '../../pwa/standalone.ts';
+import { BackupRestore } from '../components/BackupSection.tsx';
 import { focusCard } from '../focusCard.ts';
 import { t } from '../strings.tr.ts';
 
@@ -17,6 +20,8 @@ interface Props {
  * Home (05 §1): one number and one bottom button: "Başla · bugün N", "Devam et"
  * or none ("Bugün bitti. Yarın görüşürüz."). The only screen where a waiting
  * service worker update is applied (07 §6.2).
+ * Slice 5 (T5.5): first-run welcome with "Yedekten geri yükle", the install
+ * hint outside standalone mode and the weekly backup reminder: text only.
  */
 export function HomeScreen({ state, actions }: Props) {
   const { session } = state;
@@ -36,15 +41,43 @@ export function HomeScreen({ state, actions }: Props) {
   useEffect(() => headingRef.current?.focus(), []); // focus would otherwise stay on <body> (a11y audit 08 #8)
 
   const done = !session && count === 0;
+  const firstRun = isFirstRun({
+    firstRunAt: state.meta.firstRunAt,
+    progress: state.progress.size,
+    notebook: state.notebook.length,
+    imported: state.catalog.imported.length,
+  });
+  const [standalone] = useState(isStandalone);
+  const showInstallHint = !standalone && state.meta.installHintDismissed !== true;
+  const showBackupReminder = !firstRun && actions.isBackupReminderDue();
 
   function go(action: () => void) {
     flushSync(action);
     focusCard();
   }
 
+  function start() {
+    // The first "Başla" also asks for persistent storage, inside this tap (T5.5).
+    actions.beginFirstRun();
+    actions.startRound();
+  }
+
   return (
     <div className="screen home">
       <div className="screen__body screen__body--center">
+        {firstRun && (
+          <div className="home-note home-note--welcome" data-testid="welcome">
+            <p>{t.welcome}</p>
+            <p className="muted">{t.welcomeRestore}</p>
+            <BackupRestore actions={actions} busy={state.busy} buttonClass="btn btn--text" />
+          </div>
+        )}
+        {showInstallHint && (
+          <Note id="install-hint" text={t.installHint} onDismiss={() => void actions.dismissInstallHint()} />
+        )}
+        {showBackupReminder && (
+          <Note id="backup-reminder" text={t.backupReminder} onDismiss={() => void actions.dismissBackupReminder()} />
+        )}
         <h2 ref={headingRef} tabIndex={-1} className="done__title" data-testid="today-count">
           {count > 0 ? t.todayCount(count) : done ? t.todayDone : t.resume}
         </h2>
@@ -66,11 +99,23 @@ export function HomeScreen({ state, actions }: Props) {
             {t.resume}
           </button>
         ) : (
-          <button type="button" className="btn btn--primary" onClick={() => go(actions.startRound)} disabled={state.busy}>
+          <button type="button" className="btn btn--primary" onClick={() => go(start)} disabled={state.busy}>
             {t.start(count)}
           </button>
         )}
       </div>
+    </div>
+  );
+}
+
+/** A plain dismissible line on Home (install hint, backup reminder). No counts (05 §1). */
+function Note({ id, text, onDismiss }: { id: string; text: string; onDismiss: () => void }) {
+  return (
+    <div className="home-note" data-testid={id}>
+      <p id={`${id}-text`}>{text}</p>
+      <button type="button" className="btn btn--text" aria-describedby={`${id}-text`} onClick={onDismiss}>
+        {t.dismiss}
+      </button>
     </div>
   );
 }

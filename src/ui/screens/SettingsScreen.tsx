@@ -2,6 +2,7 @@ import { useRef, useState, type ChangeEvent, type ReactNode } from 'react';
 import type { Actions, ExportFile, ImportItemsResult } from '../../app/actions.ts';
 import type { ReadyState } from '../../app/state.ts';
 import { BackupSection } from '../components/BackupSection.tsx';
+import { StorageSection } from '../components/StorageSection.tsx';
 import { shareOrDownload } from '../share.ts';
 import { t } from '../strings.tr.ts';
 
@@ -61,8 +62,9 @@ export function SettingsScreen({ state, actions }: Props) {
 
         <ItemsImport actions={actions} busy={state.busy} />
 
-        {/* Slice 5: full backup (T5.4), in its own component. */}
+        {/* Slice 5: full backup (T5.4) and persistent storage (T5.5), in their own components. */}
         <BackupSection state={state} actions={actions} />
+        <StorageSection state={state} actions={actions} />
 
         {status && (
           <p className={status.tone === 'error' ? 'error' : 'graded'} role={status.tone === 'error' ? 'alert' : 'status'}>

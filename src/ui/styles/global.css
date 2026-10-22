@@ -528,3 +528,29 @@ main {
 .backup-choice p {
   margin: 0;
 }
+
+/* Slice 5: plain lines on Home (welcome, install hint, backup reminder). Normal flow, no fixed positioning. */
+.home-note {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.home-note p {
+  margin: 0;
+  flex: 1 1 14rem;
+}
+
+.home-note--welcome {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.home-note--welcome p {
+  flex: none;
+}

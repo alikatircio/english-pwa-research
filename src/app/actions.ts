@@ -17,15 +17,17 @@ import {
 import type { Clock } from '../domain/clock.ts';
 import { hintStageFor } from '../domain/hints.ts';
 import { isAccepted } from '../domain/normalize.ts';
+import { backupReminderDue, firstAnswerDay } from '../domain/reminders.ts';
 import { applyGrade } from '../domain/scheduler.ts';
 import { cleanNotebookText, createNotebookEntry, isDuplicateEntry } from '../domain/notebook.ts';
 import { countFirstAnswer, currentEntry, emptyCounter, isSessionStale, onFirstAnswer, todayCount } from '../domain/session.ts';
-import type { AnswerLog, CardPhase, DailyCounter, DayKey, Flag, Grade, GradedBy, MetaRecord, SessionState, UndoSnapshot } from '../domain/types.ts';
+import type { AnswerLog, CardPhase, DailyCounter, DayKey, Flag, Grade, GradedBy, MetaKey, MetaRecord, SessionState, UndoSnapshot } from '../domain/types.ts';
 import { createCatalog, withImported, type Catalog } from '../content/catalog.ts';
 import { exportFlagsReport, importItems, readBackupData, writeRestore } from '../storage/backupIO.ts';
 import type { AppDb, ImportedItem } from '../storage/db.ts';
 import { addNotebookEntry, clearSession, commitGrade, loadCounter, putMeta, saveSession, toggleFlag, undoGrade } from '../storage/repo.ts';
 import { loadReadyState } from './boot.ts';
+import type { AppMeta } from './meta.ts';
 import { freshRound, nextCard, poolsOf } from './round.ts';
 import type { Action, AppState, ReadyState, Screen } from './state.ts';
 
@@ -168,8 +170,80 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
     if (session) persistSession(session);
   }
 
+  /**
+   * Write meta rows, then update the in-memory copy. Meta only drives hints and
+   * reminders, so a failed write is not surfaced; resolves false then.
+   */
+  async function saveMeta(patch: Partial<AppMeta>): Promise<boolean> {
+    if (!ready(getState)) return false;
+    const records = Object.entries(patch).map(([key, value]) => ({ key: key as MetaKey, value }));
+    try {
+      await putMeta(db, records);
+    } catch {
+      return false;
+    }
+    const latest = ready(getState);
+    if (latest) dispatch({ type: 'meta', meta: { ...latest.meta, ...patch } });
+    return true;
+  }
+
+  /**
+   * navigator.storage.persist() (T5.5). Must run inside a user tap: the request
+   * starts synchronously, the result is stored in meta `persist` when it resolves.
+   */
+  function requestPersist(): Promise<boolean> {
+    const storage = typeof navigator === 'undefined' ? undefined : navigator.storage;
+    const ask: Promise<boolean> = storage && typeof storage.persist === 'function' ? storage.persist() : Promise.resolve(false);
+    return ask
+      .catch(() => false)
+      .then(async (granted) => {
+        await saveMeta({ persist: granted });
+        return granted;
+      });
+  }
+
   return {
     startRound,
+
+    // --- First run, persistent storage, hints (Slice 5, T5.5) -----------------
+
+    /**
+     * The first "Başla" on this device: ask for persistent storage (inside the
+     * tap) and record `firstRunAt`, so the welcome is not shown again. Call
+     * before startRound, in the same tap. Does nothing after the first time.
+     */
+    beginFirstRun(): void {
+      const s = ready(getState);
+      if (!s || s.meta.firstRunAt !== undefined) return;
+      const now = clock.now();
+      dispatch({ type: 'meta', meta: { ...s.meta, firstRunAt: now } });
+      void requestPersist();
+      void putMeta(db, [{ key: 'firstRunAt', value: now }]).catch(() => undefined);
+    },
+
+    /** Settings → "Kalıcı depolama iste". */
+    requestPersist,
+
+    dismissInstallHint(): Promise<boolean> {
+      return saveMeta({ installHintDismissed: true });
+    },
+
+    /** Home's "Yedeğin 1 haftadan eski" line (decision 27). */
+    isBackupReminderDue(): boolean {
+      const s = ready(getState);
+      if (!s) return false;
+      return backupReminderDue({
+        now: clock.now(),
+        today: clock.today(),
+        lastExportAt: s.meta.lastExportAt,
+        firstAnswerDay: firstAnswerDay(s.progress.values()),
+        dismissedAt: s.meta.backupReminderDismissedAt,
+      });
+    },
+
+    dismissBackupReminder(): Promise<boolean> {
+      return saveMeta({ backupReminderDismissedAt: clock.now() });
+    },
 
     /** "Devam et": back to the open round where it was left; a stale one (other day, > 12 h) is replaced by a new round. */
     resume(): void {
@@ -440,16 +514,8 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
 
     /** The backup reached the share sheet or a download: remember when (meta `lastExportAt`). */
     async markBackupExported(): Promise<void> {
-      const s = ready(getState);
-      if (!s) return;
-      const now = clock.now();
-      try {
-        await putMeta(db, [{ key: 'lastExportAt', value: now }]);
-      } catch {
-        return; // the file itself was handed over; only the reminder date is lost
-      }
-      const latest = ready(getState);
-      if (latest) dispatch({ type: 'meta', meta: { ...latest.meta, lastExportAt: now } });
+      // On failure the file itself was still handed over; only the reminder date is lost.
+      await saveMeta({ lastExportAt: clock.now() });
     },
 
     /** Validate a chosen backup file; nothing is written here. */

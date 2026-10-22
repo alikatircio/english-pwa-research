@@ -123,4 +123,18 @@ export const t = {
     'unsupported-version': 'Yedek bu uygulamanın desteklediğinden daha yeni bir sürümde. Önce uygulamayı güncelle.',
     invalid: 'Geçersiz veya eksik alan',
   },
+  lastBackup: (date: string) => `Son yedek: ${date}`,
+  lastBackupNever: 'Son yedek: hiç',
+
+  // First run, storage and hints (Slice 5, T5.5).
+  welcome: 'Hoş geldin. Her gün birkaç Türkçe durum göreceksin; her birini İngilizce tam bir cümleyle yaz.',
+  welcomeRestore: 'Başka bir cihazdan yedeğin varsa önce onu yükle.',
+  installHint: 'Safari → Paylaş → Ana Ekrana Ekle. Ana ekrana eklemezsen iOS verilerini silebilir.',
+  backupReminder: 'Yedeğin 1 haftadan eski',
+  dismiss: 'Kapat',
+  storageSection: 'Depolama',
+  persistOn: 'Kalıcı depolama: açık',
+  persistOff: 'Kalıcı depolama: kapalı',
+  persistHint: 'Açıkken tarayıcı yer açmak için verilerini kendiliğinden silmez.',
+  persistRequest: 'Kalıcı depolamayı iste',
 } as const;
