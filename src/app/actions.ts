@@ -1,6 +1,6 @@
 // The only side-effecting layer: domain → storage transaction → dispatch.
 // Write first, then change the screen: what is shown is what is on disk.
-import { buildNotebookExport } from '../domain/backup.ts';
+import { buildNotebookExport, FORMATS, parseFile, planItemsImport, type ImportError, type RejectedItem } from '../domain/backup.ts';
 import type { Clock } from '../domain/clock.ts';
 import { hintStageFor } from '../domain/hints.ts';
 import { isAccepted } from '../domain/normalize.ts';
@@ -8,10 +8,11 @@ import { applyGrade } from '../domain/scheduler.ts';
 import { cleanNotebookText, createNotebookEntry, isDuplicateEntry } from '../domain/notebook.ts';
 import { countFirstAnswer, currentEntry, onFirstAnswer } from '../domain/session.ts';
 import type { AnswerLog, CardPhase, Flag, Grade, GradedBy, SessionState, UndoSnapshot } from '../domain/types.ts';
-import { exportFlagsReport } from '../storage/backupIO.ts';
+import { withImported } from '../content/catalog.ts';
+import { exportFlagsReport, importItems } from '../storage/backupIO.ts';
 import type { AppDb } from '../storage/db.ts';
 import { addNotebookEntry, clearSession, commitGrade, loadCounter, saveSession, toggleFlag, undoGrade } from '../storage/repo.ts';
-import { nextCard, poolsOf } from './round.ts';
+import { freshRound, nextCard, poolsOf } from './round.ts';
 import type { Action, AppState, ReadyState } from './state.ts';
 
 /** A file ready to share or download (ui/share.ts). */
@@ -26,6 +27,11 @@ export function exportFilename(kind: 'backup' | 'notebook' | 'flags', day: strin
 }
 
 const toJson = (v: unknown): string => `${JSON.stringify(v, null, 2)}\n`;
+
+export type ImportItemsResult =
+  | { status: 'imported'; importedIds: string[]; rejected: RejectedItem[] }
+  | { status: 'invalid'; errors: ImportError[] }
+  | { status: 'save-failed' };
 
 export interface ActionDeps {
   db: AppDb;
@@ -288,6 +294,47 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       if (!s) return undefined;
       const report = await exportFlagsReport(db, s.catalog.byId, s.catalog.contentVersion, clock.now());
       return { filename: exportFilename('flags', clock.today()), text: toJson(report) };
+    },
+
+    // --- Settings: items import (Slice 3, T3.4) -------------------------------
+
+    /**
+     * Import items solved in Claude (english-pwa-items). The whole file is
+     * validated first; if invalid nothing is written. Bundled-content ids are
+     * rejected and listed; a matching notebookId converts that entry. Items and
+     * entries are written in one transaction, then the catalog is updated.
+     * With no open round, today's round is rebuilt so the new cards are reachable.
+     */
+    async importItemsFile(text: string): Promise<ImportItemsResult> {
+      const s = ready(getState);
+      if (!s || s.busy) return { status: 'save-failed' };
+      const parsed = parseFile(text, [FORMATS.items]);
+      if (!parsed.ok) return { status: 'invalid', errors: parsed.errors };
+
+      const plan = planItemsImport(parsed.value.file.items, {
+        builtinIds: s.catalog.builtinIds,
+        notebook: s.notebook,
+        now: clock.now(),
+      });
+      if (plan.items.length === 0) return { status: 'imported', importedIds: [], rejected: plan.rejected };
+
+      dispatch({ type: 'busy' });
+      try {
+        await importItems(db, plan);
+      } catch {
+        dispatch({ type: 'error', error: 'save-failed' });
+        return { status: 'save-failed' };
+      }
+      const catalog = withImported(s.catalog, plan.items);
+      const updates = new Map(plan.notebookUpdates.map((e) => [e.id, e]));
+      const notebook = s.notebook.map((e) => updates.get(e.id) ?? e);
+      // No open round (done screen): build today's round so the new cards are reachable; the new-card cap still applies (decision 3).
+      const today = clock.today();
+      const counter = s.counter.day === today ? s.counter : await loadCounter(db, today).catch(() => s.counter);
+      const session = s.session ?? freshRound({ catalog, progress: s.progress, flags: s.flags }, counter, clock);
+      dispatch({ type: 'itemsImported', catalog, notebook, session });
+      if (session && !s.session) persistSession(session);
+      return { status: 'imported', importedIds: plan.items.map((i) => i.id), rejected: plan.rejected };
     },
 
     dismissNotice(): void {

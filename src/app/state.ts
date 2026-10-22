@@ -48,6 +48,7 @@ export type Action =
   | { type: 'notebookAdded'; entry: NotebookEntry; notice: Notice }
   | { type: 'notice'; notice: Notice | undefined }
   | { type: 'screen'; screen: Screen }
+  | { type: 'itemsImported'; catalog: Catalog; notebook: readonly NotebookEntry[]; session: SessionState | undefined }
   | { type: 'clearError' };
 
 /** A grade only updates the in-memory counter of the day it belongs to. */
@@ -102,5 +103,7 @@ export function appReducer(state: AppState, action: Action): AppState {
       return { ...state, notice: action.notice };
     case 'screen':
       return { ...state, error: undefined, screen: action.screen };
+    case 'itemsImported':
+      return { ...state, busy: false, error: undefined, catalog: action.catalog, notebook: action.notebook, session: action.session };
   }
 }

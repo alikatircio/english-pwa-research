@@ -63,4 +63,25 @@ export const t = {
   exportShared: 'Dosya paylaşıldı.',
   exportDownloaded: 'Dosya indirildi.',
   exportFailed: 'Dosya hazırlanamadı. Tekrar dene.',
+
+  // Items import (T3.4). Codes come from domain/backup.ts (ImportErrorCode, RejectedItemReason).
+  itemsSection: 'Item içe aktar',
+  itemsHint: 'Claude’da çözdürdüğün item dosyasını (JSON) seç. Yeni kartlar sıranın başına gelir.',
+  itemsChoose: 'Item dosyası seç',
+  itemsImported: 'İçe aktarıldı. Yeni kartlar sıraya eklendi.',
+  itemsNoneImported: 'Hiçbir item alınmadı.',
+  itemsInvalid: 'Dosya içe aktarılmadı, hiçbir şey kaydedilmedi:',
+  itemsRejected: 'Alınmayan item’lar:',
+  itemsMoreErrors: (n: number) => `… ve ${n} hata daha`,
+  importErrors: {
+    'invalid-json': 'Dosya okunamadı: geçerli bir JSON değil.',
+    'unknown-format': 'Bu dosya bu uygulamaya ait değil.',
+    'wrong-format': 'Bu bir item dosyası değil (format "english-pwa-items" olmalı).',
+    'unsupported-version': 'Dosya bu uygulamanın desteklediğinden daha yeni bir sürümde.',
+    invalid: 'Geçersiz veya eksik alan',
+  },
+  rejectReasons: {
+    'builtin-id': 'uygulamadaki bir kartla aynı id',
+    'duplicate-in-file': 'dosyada iki kez geçiyor',
+  },
 } as const;
