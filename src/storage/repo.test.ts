@@ -2,7 +2,7 @@ import 'fake-indexeddb/auto';
 import { afterEach, describe, expect, it } from 'vitest';
 import type { AnswerLog, DailyCounter, Progress } from '../domain/types.ts';
 import { DB_VERSION, openAppDb, STORE_NAMES, type AppDb } from './db.ts';
-import { clearSession, commitGrade, loadAll, saveSession, toggleFlag, undoGrade } from './repo.ts';
+import { clearSession, commitGrade, loadAll, loadCounter, saveSession, toggleFlag, undoGrade } from './repo.ts';
 import { newSession } from '../domain/session.ts';
 
 let n = 0;
@@ -76,6 +76,23 @@ describe('commitGrade', () => {
     expect(data.progress).toEqual([progress]);
     expect(data.counter).toEqual(counter);
     expect(await db.count('answerLog')).toBe(1);
+  });
+
+  it('a repeat answer (no progress) writes the log and counter but leaves progress alone (decision 5)', async () => {
+    const db = await freshDb();
+    await commitGrade(db, { progress, counter, log });
+    await commitGrade(db, { counter, log: { ...log, isRepeat: true, boxBefore: 2, boxAfter: 2 } });
+    expect((await loadAll(db, day)).progress).toEqual([progress]);
+    expect(await db.count('answerLog')).toBe(2);
+  });
+});
+
+describe('loadCounter', () => {
+  it('returns the stored counter of a day, or zeroes', async () => {
+    const db = await freshDb();
+    await commitGrade(db, { progress, counter, log });
+    expect(await loadCounter(db, day)).toEqual(counter);
+    expect(await loadCounter(db, '2026-11-03')).toEqual({ day: '2026-11-03', newIntroduced: 0, reviewsAnswered: 0 });
   });
 });
 

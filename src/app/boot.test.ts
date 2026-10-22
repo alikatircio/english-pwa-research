@@ -13,7 +13,7 @@ const bundle = fixture as ContentBundle;
 const clock = fixedClock(new Date(2026, 10, 2, 8).getTime());
 
 describe('boot', () => {
-  it('loads catalog and progress into memory and queues unanswered items in file order', async () => {
+  it('loads catalog, progress and counter, and builds the round from buildRound', async () => {
     const name = `boot-${Date.now()}`;
     const db = await openAppDb({ name });
     await commitGrade(db, {
@@ -28,7 +28,8 @@ describe('boot', () => {
     expect(state.progress.get('e2e-will-send')?.box).toBe(2);
     expect(state.counter.newIntroduced).toBe(1);
     expect(state.screen).toBe('card');
-    expect(state.session?.queue.map((q) => q.itemId)).toEqual(bundle.items.slice(1).map((i) => i.id));
+    // One new card already introduced today → 4 of the daily 5 left (decision 3), file order.
+    expect(state.session?.queue).toEqual(bundle.items.slice(1, 5).map((i) => ({ itemId: i.id, kind: 'new' })));
     expect(state.session?.day).toBe('2026-11-02');
     opened.close();
   });
@@ -81,6 +82,27 @@ describe('boot — session resume', () => {
 });
 
 describe('resumableSession — flags (T2.5)', () => {
+  it('skips a flagged current card and keeps the rest of the queue', () => {
+    const catalog = createCatalog(bundle);
+    const t0 = new Date(2026, 10, 2, 8).getTime();
+    const s = {
+      ...newSession(
+        [
+          { itemId: 'e2e-will-send', kind: 'new' as const },
+          { itemId: 'e2e-discuss', kind: 'new' as const },
+          { itemId: 'e2e-will-send', kind: 'repeat' as const },
+        ],
+        '2026-11-02',
+        t0,
+      ),
+      draft: 'half',
+    };
+    const r = resumableSession(s, catalog, fixedClock(t0), new Set(['e2e-will-send']));
+    expect(r?.cursor).toBe(1);
+    expect(r?.draft).toBe('');
+    expect(r?.queue).toHaveLength(3);
+  });
+
   it('does not resume onto a flagged card', () => {
     const catalog = createCatalog(bundle);
     const t0 = new Date(2026, 10, 2, 8).getTime();

@@ -4,10 +4,11 @@ import type { Clock } from '../domain/clock.ts';
 import { hintStageFor } from '../domain/hints.ts';
 import { isAccepted } from '../domain/normalize.ts';
 import { applyGrade } from '../domain/scheduler.ts';
-import { currentEntry } from '../domain/session.ts';
-import type { AnswerLog, CardPhase, DailyCounter, Flag, Grade, GradedBy, SessionState, UndoSnapshot } from '../domain/types.ts';
+import { countFirstAnswer, currentEntry, onFirstAnswer } from '../domain/session.ts';
+import type { AnswerLog, CardPhase, Flag, Grade, GradedBy, SessionState, UndoSnapshot } from '../domain/types.ts';
 import type { AppDb } from '../storage/db.ts';
-import { clearSession, commitGrade, saveSession, toggleFlag, undoGrade } from '../storage/repo.ts';
+import { clearSession, commitGrade, loadCounter, saveSession, toggleFlag, undoGrade } from '../storage/repo.ts';
+import { nextCard, poolsOf } from './round.ts';
 import type { Action, AppState, ReadyState } from './state.ts';
 
 export interface ActionDeps {
@@ -40,45 +41,48 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
     persistSession(session);
   }
 
-  /** Grade the current card: progress + counter + log + session in one transaction. */
+  /**
+   * Grade the current card: progress + counter + log + session in one transaction.
+   * - First answer of a main card: Leitner (applyGrade) on the day of the answer,
+   *   the counter of the day the round was built (03 §4.5), session effects
+   *   (repeat, 3-wrong breather) from onFirstAnswer.
+   * - End-of-round repeat: log only; the box and the counter stay (decision 5).
+   */
   async function grade(g: Grade, gradedBy: GradedBy, answer: string, phase: CardPhase, undoable = false): Promise<void> {
     const s = ready(getState);
     const session = s?.session;
     const entry = session && currentEntry(session);
     if (!s || !session || !entry || s.busy) return;
 
-    const now = clock.now();
-    const prev = s.progress.get(entry.itemId) ?? null;
-    const progress = applyGrade(prev, g, entry.itemId, session.day, now);
-    // The counter belongs to the day the queue was built (03 §4.5).
-    const base: DailyCounter = s.counter.day === session.day ? s.counter : { day: session.day, newIntroduced: 0, reviewsAnswered: 0 };
-    const counter: DailyCounter = {
-      ...base,
-      newIntroduced: base.newIntroduced + (entry.kind === 'new' ? 1 : 0),
-      reviewsAnswered: base.reviewsAnswered + (entry.kind === 'due' ? 1 : 0),
-    };
-    const log: AnswerLog = {
-      at: now,
-      day: session.day,
-      itemId: entry.itemId,
-      answer,
-      grade: g,
-      gradedBy,
-      hintStage: hintStageFor(prev),
-      isRepeat: false,
-      boxBefore: prev?.box ?? null,
-      boxAfter: progress.box,
-    };
-    const next: SessionState = { ...session, phase, draft: answer, updatedAt: now };
-    const undo: Omit<UndoSnapshot, 'logId'> | undefined = undoable
-      ? { itemId: entry.itemId, prevProgress: prev, prevCounter: base, expiresAt: now + UNDO_WINDOW_MS }
-      : undefined;
-
     dispatch({ type: 'busy' });
     try {
-      const logId = await commitGrade(db, undo ? { progress, counter, log, session: next, undo } : { progress, counter, log, session: next });
+      const now = clock.now();
+      const answerDay = clock.today();
+      const isRepeat = entry.kind === 'repeat';
+      const prev = s.progress.get(entry.itemId) ?? null;
+      const progress = isRepeat ? undefined : applyGrade(prev, g, entry.itemId, answerDay, now);
+      const base = s.counter.day === session.day ? s.counter : await loadCounter(db, session.day);
+      const counter = countFirstAnswer(base, entry.kind, session.day);
+      const log: AnswerLog = {
+        at: now,
+        day: answerDay,
+        itemId: entry.itemId,
+        answer,
+        grade: g,
+        gradedBy,
+        hintStage: hintStageFor(prev),
+        isRepeat,
+        boxBefore: prev?.box ?? null,
+        boxAfter: progress ? progress.box : (prev?.box ?? null),
+      };
+      const next: SessionState = { ...onFirstAnswer(session, g, poolsOf(s, base)), phase, draft: answer, updatedAt: now };
+      const undo: Omit<UndoSnapshot, 'logId'> | undefined = undoable
+        ? { itemId: entry.itemId, prevProgress: prev, prevCounter: base, expiresAt: now + UNDO_WINDOW_MS }
+        : undefined;
+      const commit = { counter, log, session: next, ...(progress ? { progress } : {}) };
+      const logId = await commitGrade(db, undo ? { ...commit, undo } : commit);
       const stored: SessionState = undo ? { ...next, undo: { ...undo, logId } } : next;
-      dispatch({ type: 'graded', progress, counter, session: stored });
+      dispatch(progress ? { type: 'graded', progress, counter, session: stored } : { type: 'graded', counter, session: stored });
     } catch {
       dispatch({ type: 'error', error: 'save-failed' });
     }
@@ -128,26 +132,19 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       }
     },
 
-    /** "Sonraki": move to the next unanswered card, or finish. Synchronous so the caller can focus in the same gesture. */
+    /** "Sonraki": next card of the round (skipping flagged ones), or the round end. Synchronous so the caller can focus in the same gesture. */
     next(): void {
       const s = ready(getState);
       const session = s?.session;
       const phase = session?.phase;
       if (!s || !session || !phase || phase.tag !== 'result' || s.busy) return;
       if (!phase.matched && !phase.grade) return; // must self-grade first
-      let cursor = session.cursor + 1;
-      while (cursor < session.queue.length) {
-        const e = session.queue[cursor];
-        if (e && s.catalog.byId.has(e.itemId) && !s.flags.has(e.itemId) && !(e.kind === 'new' && s.progress.has(e.itemId))) break;
-        cursor++;
-      }
-      if (cursor >= session.queue.length) {
+      const moved = nextCard(session, s);
+      if (moved === 'round-end') {
         setSession(undefined, 'done');
         return;
       }
-      const moved: SessionState = { ...session, cursor, phase: { tag: 'question' }, draft: '', updatedAt: clock.now() };
-      delete moved.undo; // the undo window ends with the card
-      setSession(moved);
+      setSession({ ...moved, updatedAt: clock.now() });
     },
 
     /** Debounced by the caller. Ignored if the card moved on meanwhile. */

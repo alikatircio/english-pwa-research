@@ -1,6 +1,6 @@
 // Catalog = bundled content (+ imported items later, Slice 3), verified only.
 import { acceptedSet } from '../domain/normalize.ts';
-import type { ContentBundle, Item, Progress } from '../domain/types.ts';
+import type { ContentBundle, Item } from '../domain/types.ts';
 
 export interface Catalog {
   contentVersion: string;
@@ -23,36 +23,11 @@ export function createCatalog(bundle: ContentBundle, imported: readonly Item[] =
 }
 
 /**
- * Slice 1 first-ten selection: the ten items 04-learning-design §4 recommends
- * for the first slice (#1, #5, #7, #8, #9, #15, #16, #17, #23, #29), all
- * verified. Ids missing from the catalog (e.g. the e2e fixture) are skipped.
- * Replaced by the real round builder in Slice 4 (T4.4).
+ * New-card order (07 §3.6, decision 3): notebook (user-error) items first,
+ * then level ascending, then catalog order. Pools filter answered/flagged ids.
  */
-export const SLICE1_FIRST_IDS: readonly string[] = [
-  'could-you-base-verb',
-  'i-agree-with-you',
-  'explain-something-to-someone',
-  'discuss-something',
-  'remind-someone-to',
-  'depend-on',
-  'responsible-for',
-  'wait-for',
-  'reproduce-the-issue',
-  'data-uncountable',
-];
-
-/**
- * Temporary Slice 1 order (T1.7): not-yet-answered items, the Slice 1 ten
- * first, then the rest in file order. Flagged items are left out.
- */
-export function temporaryOrder(
-  catalog: Catalog,
-  progress: ReadonlyMap<string, Progress>,
-  flagged: ReadonlySet<string> = new Set(),
-): string[] {
-  const open = (id: string) => catalog.byId.has(id) && !progress.has(id) && !flagged.has(id);
-  const first = SLICE1_FIRST_IDS.filter(open);
-  const firstSet = new Set(first);
-  const rest = catalog.items.map((i) => i.id).filter((id) => open(id) && !firstSet.has(id));
-  return [...first, ...rest];
+export function newOrder(catalog: Catalog): string[] {
+  const rank = (i: Item) => (i.source === 'user-error' ? 0 : 1);
+  // Array.prototype.sort is stable, so equal keys keep catalog order.
+  return [...catalog.items].sort((a, b) => rank(a) - rank(b) || a.level - b.level).map((i) => i.id);
 }

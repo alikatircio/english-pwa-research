@@ -35,13 +35,20 @@ export async function loadAll(db: AppDb, today: DayKey): Promise<LoadedData> {
 }
 
 export interface GradeCommit {
-  progress: Progress;
+  /** Omitted for an end-of-round repeat: it never changes the box (decision 5). */
+  progress?: Progress;
+  /** Counter of the day the round was built (03 §4.5). */
   counter: DailyCounter;
   log: AnswerLog;
   /** Session after the grade; omitted → session store untouched. */
   session?: SessionState;
   /** Stored as `session.undo` with the new log id filled in (decision 10, T2.4). Needs `session`. */
   undo?: Omit<UndoSnapshot, 'logId'>;
+}
+
+/** Stored counter of `day`, zeroes if none. */
+export async function loadCounter(db: AppDb, day: DayKey): Promise<DailyCounter> {
+  return (await db.get('dailyCounters', day)) ?? emptyCounter(day);
 }
 
 /**
@@ -51,10 +58,8 @@ export interface GradeCommit {
  */
 export async function commitGrade(db: AppDb, c: GradeCommit): Promise<number> {
   const tx = db.transaction(['progress', 'dailyCounters', 'answerLog', 'session'], 'readwrite');
-  const writes: Promise<unknown>[] = [
-    tx.objectStore('progress').put(c.progress),
-    tx.objectStore('dailyCounters').put(c.counter),
-  ];
+  const writes: Promise<unknown>[] = [tx.objectStore('dailyCounters').put(c.counter)];
+  if (c.progress) writes.push(tx.objectStore('progress').put(c.progress));
   const logId = tx.objectStore('answerLog').add(c.log);
   const { session, undo } = c;
   if (session && undo) {

@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
 import type { AnswerLog, Progress } from '../../src/domain/types.ts';
+import { DAILY_NEW_CAP } from '../../src/domain/session.ts';
 import { t } from '../../src/ui/strings.tr.ts';
 import { App, canonical, items, smart } from './helpers/app.ts';
 import { readStore } from './helpers/db.ts';
@@ -65,10 +66,10 @@ test.describe('produce-first card', () => {
     expect(log).toEqual([expect.objectContaining({ grade: 'partial', gradedBy: 'self', boxBefore: null, boxAfter: 1 })]);
   });
 
-  test('answering every item ends on the "all done" screen', async ({ page }) => {
+  test('the first day offers 5 new cards (decision 3), then the "all done" screen', async ({ page }) => {
     const app = new App(page);
     await app.open();
-    for (let i = 0; i < items.length; i++) {
+    for (let i = 0; i < DAILY_NEW_CAP; i++) {
       await expect(app.situation).toHaveText(app.situationOf(i));
       await app.answer(canonical(i));
       await app.next.click();

@@ -1,8 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import type { ContentBundle, Item, Progress } from '../domain/types.ts';
-import { createCatalog, SLICE1_FIRST_IDS, temporaryOrder } from './catalog.ts';
-import batchA from '../../content/drafts/batch-a.verified.json';
-import batchB from '../../content/drafts/batch-b.verified.json';
+import type { ContentBundle, Item } from '../domain/types.ts';
+import { createCatalog, newOrder } from './catalog.ts';
 
 const base: Item = {
   id: 'a', category: 'aux_to', level: 1, targetChunk: 't', clozeTemplate: '___', situationTr: 's',
@@ -10,7 +8,6 @@ const base: Item = {
   source: 'curated', verified: true, verifiedNote: 'v',
 };
 const bundle = (items: Item[]): ContentBundle => ({ contentVersion: 'v1', generatedAt: '', items });
-const prog = (itemId: string): Progress => ({ itemId, box: 1, dueOn: '2026-11-03', introducedOn: '2026-11-02', lastAnsweredOn: '2026-11-02', lastGrade: 'wrong', updatedAt: 0 });
 
 describe('createCatalog', () => {
   it('keeps verified items only and precomputes normalised answers', () => {
@@ -20,16 +17,17 @@ describe('createCatalog', () => {
   });
 });
 
-describe('temporaryOrder', () => {
-  const ids = ['x', 'remind-someone-to', 'y', 'could-you-base-verb', 'z'];
-  const c = createCatalog(bundle(ids.map((id) => ({ ...base, id }))));
-  it('puts the Slice 1 ten first, then file order, skipping answered and flagged', () => {
-    expect(temporaryOrder(c, new Map())).toEqual(['could-you-base-verb', 'remind-someone-to', 'x', 'y', 'z']);
-    expect(temporaryOrder(c, new Map([['x', prog('x')], ['could-you-base-verb', prog('could-you-base-verb')]]), new Set(['z']))).toEqual(['remind-someone-to', 'y']);
-  });
-  it('the Slice 1 ten all exist and are verified in the real drafts', () => {
-    const verified = new Set(([...batchA, ...batchB] as Item[]).filter((i) => i.verified).map((i) => i.id));
-    expect(SLICE1_FIRST_IDS).toHaveLength(10);
-    for (const id of SLICE1_FIRST_IDS) expect(verified.has(id), id).toBe(true);
+describe('newOrder (07 §3.6)', () => {
+  it('puts notebook (user-error) items first, then level ascending, then catalog order', () => {
+    const c = createCatalog(
+      bundle([
+        { ...base, id: 'l2', level: 2 },
+        { ...base, id: 'l1a', level: 1 },
+        { ...base, id: 'mine', level: 3, source: 'user-error' },
+        { ...base, id: 'l1b', level: 1 },
+        { ...base, id: 'l3', level: 3 },
+      ]),
+    );
+    expect(newOrder(c)).toEqual(['mine', 'l1a', 'l1b', 'l2', 'l3']);
   });
 });
