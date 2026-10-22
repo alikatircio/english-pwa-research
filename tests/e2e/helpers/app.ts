@@ -37,7 +37,18 @@ export class App {
    * Fixed clock (07 §7.3) so day keys are deterministic, then open the app on
    * Home and (by default) tap "Başla".
    */
-  async open(time = '2026-11-02T08:00:00', { start = true } = {}): Promise<void> {
+  async open(time = '2026-11-02T08:00:00', { start = true, mode = 'write' }: { start?: boolean; mode?: 'write' | 'auto' } = {}): Promise<void> {
+    // The e2e build lets localStorage 'e2e-mode' pin the exercise shape (src/app/mode.ts). Specs that type
+    // answers keep 'write'; the mode specs pass 'auto' to get the real rotation (decision 31).
+    if (mode === 'write') {
+      await this.page.addInitScript(() => {
+        try {
+          localStorage.setItem('e2e-mode', 'write');
+        } catch {
+          /* storage blocked: the app falls back to the real rotation */
+        }
+      });
+    }
     await this.page.clock.install({ time });
     await this.page.goto('./');
     await expect(this.todayCount).toBeVisible();

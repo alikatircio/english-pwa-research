@@ -10,6 +10,8 @@ interface Props {
   labelledBy: string;
   /** The situation, read when the field gets focus (08 #7). */
   describedBy: string;
+  /** Defaults to the write-mode placeholder. */
+  placeholder?: string;
 }
 
 /**
@@ -17,7 +19,7 @@ interface Props {
  * see their own mistakes), sentence capitalisation, ≥16px so iOS does not zoom,
  * Enter submits (Shift+Enter and IME composition excluded).
  */
-export const AnswerInput = forwardRef<HTMLTextAreaElement, Props>(function AnswerInput({ value, onChange, onSubmit, disabled, labelledBy, describedBy }, ref) {
+export const AnswerInput = forwardRef<HTMLTextAreaElement, Props>(function AnswerInput({ value, onChange, onSubmit, disabled, labelledBy, describedBy, placeholder }, ref) {
   function onKeyDown(e: KeyboardEvent<HTMLTextAreaElement>) {
     if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) {
       e.preventDefault();
@@ -35,7 +37,7 @@ export const AnswerInput = forwardRef<HTMLTextAreaElement, Props>(function Answe
       disabled={disabled}
       aria-labelledby={labelledBy}
       aria-describedby={describedBy}
-      placeholder={t.answerPlaceholder}
+      placeholder={placeholder ?? t.answerPlaceholder}
       autoCorrect="off"
       autoCapitalize="sentences"
       autoComplete="off"
