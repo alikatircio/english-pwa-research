@@ -93,8 +93,9 @@ export function todayCount(p: Pools, today: DayKey): number {
 }
 
 /**
- * Decision 30: cards seen before but not due, for free practice. Lowest box
- * first, then oldest last answer, then id. Uncapped.
+ * Decisions 30, 41: cards seen before but not due, for free practice. Least
+ * recently practiced first (never practiced = first), then lowest box, then
+ * oldest last answer, then id. Uncapped.
  */
 export function practicePool(p: Pools, today: DayKey): string[] {
   const seen: Progress[] = [];
@@ -103,6 +104,7 @@ export function practicePool(p: Pools, today: DayKey): string[] {
   }
   seen.sort(
     (a, b) =>
+      (a.lastPracticedAt ?? -1) - (b.lastPracticedAt ?? -1) ||
       a.box - b.box ||
       compareDays(a.lastAnsweredOn, b.lastAnsweredOn) ||
       (a.itemId < b.itemId ? -1 : a.itemId > b.itemId ? 1 : 0),

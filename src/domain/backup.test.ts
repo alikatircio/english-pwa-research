@@ -161,6 +161,15 @@ describe('parseFile', () => {
     expect(r).toEqual({ ok: false, errors: [expect.objectContaining({ code: 'invalid', path: 'schemaVersion' })] });
   });
 
+  it('accepts boxes 6 and 7 and lastPracticedAt on progress (decisions 39, 41); rejects box 8', () => {
+    const ok = backupFile() as unknown as { data: { progress: unknown[] } };
+    ok.data.progress = [progress('a', { box: 6 }), progress('b', { box: 7, lastPracticedAt: 12345 })];
+    const r = parseFile(ok, ['english-pwa-backup']);
+    expect(r.ok && (r.value.file as { data: { progress: Progress[] } }).data.progress.map((p) => [p.box, p.lastPracticedAt])).toEqual([[6, undefined], [7, 12345]]);
+    ok.data.progress = [{ ...progress('a'), box: 8 }];
+    expect(parseFile(ok, ['english-pwa-backup']).ok).toBe(false);
+  });
+
   it('lists every problem with its path', () => {
     const file = backupFile() as unknown as { data: Record<string, unknown[]> };
     const bad = structuredClone(file) as { data: Record<string, Record<string, unknown>[]> };

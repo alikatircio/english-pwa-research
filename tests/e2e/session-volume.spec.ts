@@ -58,8 +58,14 @@ test.describe('free practice (decision 30)', () => {
     await page.getByRole('button', { name: t.enough }).click();
     await expect(page.getByRole('heading', { name: t.todayDone })).toBeVisible();
 
-    expect(await readStore<Progress>(page, 'progress')).toEqual(expect.arrayContaining(seeded));
-    expect(await readStore<Progress>(page, 'progress')).toHaveLength(seeded.length);
+    // Decision 41: only lastPracticedAt is added; box, due day and the rest stay as seeded.
+    const after = await readStore<Progress>(page, 'progress');
+    expect(after).toHaveLength(seeded.length);
+    const core = (p: Progress) => ({ itemId: p.itemId, box: p.box, dueOn: p.dueOn, lastAnsweredOn: p.lastAnsweredOn, lastGrade: p.lastGrade });
+    const stripped = after.map(core);
+    const original = seeded.map(core);
+    expect(stripped).toEqual(expect.arrayContaining(original));
+    expect(after.filter((p) => p.lastPracticedAt !== undefined)).toHaveLength(8);
     expect(await readStore(page, 'dailyCounters')).toEqual([]);
     const logs = await readStore<AnswerLog>(page, 'answerLog');
     expect(logs).toHaveLength(8);

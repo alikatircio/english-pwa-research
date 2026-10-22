@@ -526,6 +526,19 @@ describe('free practice (decision 30)', () => {
     expect(practicePool(p, today)).toEqual(['c', 'a', 'b', 'e']);
   });
 
+  it('pool: least recently practiced first (never practiced first), then lowest box (decision 41)', () => {
+    const p = pools({
+      due: [
+        seen('a', 1, '2026-10-01'),
+        { ...seen('b', 1, '2026-10-01'), lastPracticedAt: 500 },
+        { ...seen('c', 3, '2026-10-01'), lastPracticedAt: 100 },
+        seen('d', 4, '2026-10-01'),
+        { ...seen('e', 1, '2026-10-01'), lastPracticedAt: 100 },
+      ],
+    });
+    expect(practicePool(p, today)).toEqual(['a', 'd', 'e', 'c', 'b']);
+  });
+
   it('excludes flagged cards and progress for cards gone from the catalog', () => {
     const p = pools({ due: [seen('a', 1, '2026-10-01'), seen('b', 1, '2026-10-01')], flagged: ['a'] });
     const orphan = new Map(p.progress).set('gone', seen('gone', 1, '2026-10-01'));

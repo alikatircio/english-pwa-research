@@ -82,7 +82,7 @@ const text = z.string().trim().min(1);
 const epochMs = z.number().int().nonnegative();
 const dayKey = z.string().refine(isDayKey, 'expected a calendar day YYYY-MM-DD');
 const isoTimestamp = z.iso.datetime({ offset: true });
-const box: z.ZodType<Box> = z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5)]);
+const box: z.ZodType<Box> = z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7)]);
 const grade = z.enum(['correct', 'partial', 'wrong']);
 const count = z.number().int().nonnegative();
 const version1 = z.literal(SCHEMA_VERSION);
@@ -96,6 +96,7 @@ export const ProgressSchema: z.ZodType<Progress> = z.object({
   lastGrade: grade,
   updatedAt: epochMs,
   shows: count.optional(),
+  lastPracticedAt: epochMs.optional(),
 });
 
 export const DailyCounterSchema: z.ZodType<DailyCounter> = z.object({

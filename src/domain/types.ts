@@ -3,7 +3,7 @@
 export type Category = 'aux_to' | 'object' | 'word_form' | 'preposition' | 'work_vocab';
 export type Grade = 'correct' | 'partial' | 'wrong';
 export type GradedBy = 'auto' | 'self';
-export type Box = 1 | 2 | 3 | 4 | 5;
+export type Box = 1 | 2 | 3 | 4 | 5 | 6 | 7;
 export type HintStage = 1 | 2 | 3;
 /** Device-local calendar day, 'YYYY-MM-DD'. No time component (03 §4.5). */
 export type DayKey = string;
@@ -54,6 +54,8 @@ export interface Progress {
   updatedAt: number;
   /** Graded main showings so far (decision 31 mode rotation). Absent on older records: counts as 1. */
   shows?: number;
+  /** Epoch ms of the last free-practice answer (decision 41). Practice never touches the box or counters. */
+  lastPracticedAt?: number;
 }
 
 export interface DailyCounter {

@@ -324,10 +324,13 @@ describe('actions — free practice (decision 30)', () => {
     app.actions.startPractice();
     const first = app.current()?.itemId ?? '';
     const before = await app.db.get('progress', first);
+    const t = app.clock.now();
     await app.answer('wrong');
     app.clock.advance(1000);
-    expect(await app.db.get('progress', first)).toEqual(before);
-    expect(app.ready().progress.get(first)).toEqual(before);
+    // Decision 41: only lastPracticedAt (and the merge stamp) change; box and due day stay.
+    const after = await app.db.get('progress', first);
+    expect(after).toEqual({ ...before, lastPracticedAt: t, updatedAt: t });
+    expect(app.ready().progress.get(first)).toEqual(after);
     expect(await app.db.count('dailyCounters')).toBe(0);
     expect(app.ready().counter).toEqual({ day: '2026-11-02', newIntroduced: 0, reviewsAnswered: 0 });
     const logs = await app.db.getAll('answerLog');

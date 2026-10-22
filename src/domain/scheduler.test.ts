@@ -8,7 +8,7 @@ const at = (box: Box, extra: Partial<Progress> = {}): Progress => ({
 });
 
 describe('INTERVALS', () => {
-  it('doubles from 1 to 16 days', () => expect(INTERVALS).toEqual({ 1: 1, 2: 2, 3: 4, 4: 8, 5: 16 }));
+  it('doubles from 1 to 16 days, then 35 and 80 (decision 39)', () => expect(INTERVALS).toEqual({ 1: 1, 2: 2, 3: 4, 4: 8, 5: 16, 6: 35, 7: 80 }));
 });
 
 describe('applyGrade — new card', () => {
@@ -34,7 +34,11 @@ describe('applyGrade — known card', () => {
     [2, 'correct', 3, '2026-11-06'],
     [3, 'correct', 4, '2026-11-10'],
     [4, 'correct', 5, '2026-11-18'],
-    [5, 'correct', 5, '2026-11-18'],
+    [5, 'correct', 6, '2026-12-07'],
+    [6, 'correct', 7, '2027-01-21'],
+    [7, 'correct', 7, '2027-01-21'],
+    [6, 'partial', 6, '2026-11-03'],
+    [7, 'wrong', 1, '2026-11-03'],
     [4, 'partial', 4, '2026-11-03'],
     [1, 'partial', 1, '2026-11-03'],
     [4, 'wrong', 1, '2026-11-03'],

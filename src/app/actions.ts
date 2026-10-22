@@ -124,7 +124,8 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       // Free practice (decision 30) is log-only, like a repeat, and also leaves the counters alone.
       const isPractice = entry.kind === 'practice';
       const prev = s.progress.get(entry.itemId) ?? null;
-      const progress = isRepeat || isPractice ? undefined : applyGrade(prev, g, entry.itemId, answerDay, now);
+      // Decision 41: practice only stamps lastPracticedAt; box, due day and counters stay.
+      const progress = isRepeat ? undefined : isPractice ? (prev ? { ...prev, lastPracticedAt: now, updatedAt: now } : undefined) : applyGrade(prev, g, entry.itemId, answerDay, now);
       const base = s.counter.day === session.day ? s.counter : await run((d) => loadCounter(d, session.day));
       const counter = countFirstAnswer(base, entry.kind, session.day);
       const log: AnswerLog = {
