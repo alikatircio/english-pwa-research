@@ -329,6 +329,24 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       return msUntilNextDay(clock.now());
     },
 
+    /**
+     * Card screen, on return to the app (09 #5): a round left open for more than
+     * 12 h or built on another day is dropped silently, as on Home, so it never
+     * keeps writing into an old day's counter. Continuous use across midnight is
+     * not interrupted: this only runs on visibilitychange → visible.
+     */
+    async dropStaleSession(): Promise<void> {
+      const s = ready(getState);
+      const session = s?.session;
+      const today = clock.today();
+      if (!s || !session || s.screen !== 'card' || !isSessionStale(session, today, clock.now())) return;
+      const counter = s.counter.day === today ? s.counter : await loadCounter(db, today).catch(() => emptyCounter(today));
+      const now = ready(getState);
+      if (!now || now.session !== session || now.busy) return; // the user moved on meanwhile
+      persistSession(undefined);
+      dispatch({ type: 'day', counter, session: undefined, screen: 'home' });
+    },
+
     /** "Kontrol et": exact match after normalisation → auto "correct", saved immediately. */
     async submitAnswer(text: string): Promise<void> {
       const s = ready(getState);

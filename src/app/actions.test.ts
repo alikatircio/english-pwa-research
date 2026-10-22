@@ -253,3 +253,21 @@ describe('actions — busy gate (review 09 #6)', () => {
     app.db.close();
   });
 });
+
+describe('actions — stale round on the card screen (review 09 #5)', () => {
+  it('keeps a fresh round and drops one left for more than 12 hours', async () => {
+    const app = await setup();
+    app.clock.advance(60 * 60 * 1000);
+    await app.actions.dropStaleSession();
+    expect(app.ready().session).toBeDefined();
+    expect(app.ready().screen).toBe('card');
+
+    app.clock.advance(12 * 60 * 60 * 1000);
+    await app.actions.dropStaleSession();
+    expect(app.ready().session).toBeUndefined();
+    expect(app.ready().screen).toBe('home');
+    expect(app.ready().counter.day).toBe(app.clock.today());
+    await expect.poll(() => app.db.count('session')).toBe(0);
+    app.db.close();
+  });
+});

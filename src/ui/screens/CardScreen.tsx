@@ -57,10 +57,12 @@ export function CardScreen({ state, actions }: Props) {
   useEffect(() => {
     const onVisibility = () => {
       if (document.visibilityState === 'hidden') persistDraft.flush();
+      // Back after hours or on another day: drop the old round, as Home does (09 #5).
+      else void actions.dropStaleSession();
     };
     document.addEventListener('visibilitychange', onVisibility);
     return () => document.removeEventListener('visibilitychange', onVisibility);
-  }, [persistDraft]);
+  }, [persistDraft, actions]);
 
   if (!session || !item) return null;
   const phase = session.phase;

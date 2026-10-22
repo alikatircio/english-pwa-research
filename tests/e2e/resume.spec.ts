@@ -52,4 +52,21 @@ test.describe('resume after reload', () => {
     await expect(app.situation).toHaveText(app.situationOf(0));
     await expect(app.input).toHaveValue('');
   });
+
+  test('a round left open on the card screen is dropped when the app comes back days later (09 #5)', async ({ page }) => {
+    const app = new App(page);
+    await app.open('2026-11-02T22:00:00');
+    await app.input.fill('half written');
+    await page.clock.runFor(400);
+    await expect.poll(() => storedDraft(app)).toBe('half written');
+
+    // The phone was locked on the card; iOS kept the page in memory until Wednesday morning.
+    await page.clock.setSystemTime(new Date('2026-11-04T08:00:00'));
+    await page.evaluate(() => document.dispatchEvent(new Event('visibilitychange')));
+    await expect(app.startButton).toBeVisible();
+    await expect(app.resumeButton).toHaveCount(0);
+    await expect.poll(() => readStore(page, 'session')).toEqual([]);
+    await app.start();
+    await expect(app.input).toHaveValue('');
+  });
 });
