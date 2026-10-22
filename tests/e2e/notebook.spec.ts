@@ -207,6 +207,48 @@ test.describe('items import (Settings)', () => {
     await expect(page.locator('.verdict--ok')).toHaveText(new RegExp(t.correct));
   });
 
+  test('pasting Claude’s reply (```json block with prose around it) imports like a file and clears the box', async ({ page }) => {
+    const app = new App(page);
+    await openDone(app, { notebook: [pendingEntry] });
+    await page.getByRole('button', { name: t.settings }).click();
+    await expect(page.getByText(t.claudeHelpSteps[2])).toBeVisible();
+
+    const box = page.getByRole('textbox', { name: t.itemsPasteLabel });
+    const submit = page.getByRole('button', { name: t.itemsPasteImport, exact: true });
+    await expect(submit).toBeDisabled();
+
+    await box.fill('Bunu henüz çözemedim.');
+    await submit.click();
+    await expect(page.getByRole('alert')).toContainText(t.importErrors['invalid-json']);
+    await expect(box).toHaveValue('Bunu henüz çözemedim.'); // kept for another try
+    expect(await readStore(page, 'importedItems')).toEqual([]);
+
+    const reply = [
+      'İşte defterindeki ifade için item dosyası:',
+      '',
+      '```json',
+      readFileSync(IMPORT_FIXTURE, 'utf8').trimEnd(),
+      '```',
+      '',
+      'Emin olmadıklarım:',
+      '- "escalate" yerine "raise" da kullanılabilir.',
+    ].join('\n');
+    await box.fill(reply);
+    await submit.click();
+
+    await expect(page.getByText(t.itemsImported)).toBeVisible();
+    await expect(page.locator('.import-rejected')).toContainText('e2e-will-send');
+    await expect(box).toHaveValue('');
+    const entries = await readStore<NotebookEntry>(page, 'notebook');
+    expect(entries).toEqual([expect.objectContaining({ id: 'nb-escalate', status: 'converted', convertedItemId: imported.id })]);
+
+    await page.getByRole('button', { name: t.back }).click();
+    await app.resumeButton.click();
+    await expect(page.getByText(t.userErrorHeading)).toBeVisible();
+    await expect(app.situation).toHaveText(imported.situationTr.replace(/^\[[^\]]+\]\s*/, ''));
+    await expect(page.getByRole('textbox', { name: t.userErrorHeading })).toBeVisible();
+  });
+
   test('a new round puts the imported item before curated new cards', async ({ page }) => {
     const app = new App(page);
     await app.open('2026-11-02T08:00:00');

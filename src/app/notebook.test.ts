@@ -121,6 +121,43 @@ describe('items import', () => {
     db.close();
   });
 
+  it('paste: a ```json block with prose around it takes the same path as a file', async () => {
+    const { db, actions, ready } = await setup();
+    actions.openNotebook('home');
+    await actions.saveNotebook('sorunu ekibe yükseltmek');
+    const entryId = ready().notebook[0]?.id ?? '';
+    const builtin = bundle.items[1]?.id ?? '';
+    const file = JSON.stringify(JSON.parse(itemsFile([solved('escalate-the-issue', entryId), solved(builtin)])), null, 2);
+    const reply = `İşte item dosyan:\n\n\`\`\`json\n${file}\n\`\`\`\n\nEmin olmadıklarım:\n- "escalate" yerine "raise" da olabilir.`;
+
+    const r = await actions.importItemsPaste(reply);
+    expect(r).toEqual({ status: 'imported', importedIds: ['escalate-the-issue'], rejected: [{ id: builtin, reason: 'builtin-id' }] });
+    expect(ready().catalog.byId.get('escalate-the-issue')).toMatchObject({ source: 'user-error', notebookId: entryId });
+    expect(ready().notebook[0]).toMatchObject({ status: 'converted', convertedItemId: 'escalate-the-issue' });
+    const stored = await loadAll(db, '2026-11-02');
+    expect(stored.importedItems.map((i) => i.id)).toEqual(['escalate-the-issue']);
+    expect(stored.notebook[0]).toMatchObject({ status: 'converted' });
+    db.close();
+  });
+
+  it('paste: raw JSON works; prose only or a broken block is invalid and writes nothing', async () => {
+    const { db, actions, ready } = await setup();
+    expect(await actions.importItemsPaste('Tabii, hemen hazırlıyorum.')).toMatchObject({ status: 'invalid', errors: [{ code: 'invalid-json' }] });
+    expect(await actions.importItemsPaste('```json\n{"format": "english-pwa-items",\n```')).toMatchObject({
+      status: 'invalid',
+      errors: [{ code: 'invalid-json' }],
+    });
+    expect(await actions.importItemsPaste(`\`\`\`json\n${itemsFile([{ ...solved('x'), level: 9 }])}\n\`\`\``)).toMatchObject({
+      status: 'invalid',
+      errors: [{ code: 'invalid', path: 'items[0].level' }],
+    });
+    expect((await loadAll(db, '2026-11-02')).importedItems).toEqual([]);
+
+    expect(await actions.importItemsPaste(`  ${itemsFile([solved('raw')])}\n`)).toMatchObject({ status: 'imported', importedIds: ['raw'] });
+    expect(ready().catalog.byId.has('raw')).toBe(true);
+    db.close();
+  });
+
   async function setupAllAnswered(newIntroduced: number) {
     const name = `answered-${Math.random()}`;
     const db0 = await openAppDb({ name });

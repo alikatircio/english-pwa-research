@@ -514,6 +514,15 @@ main {
   overflow-wrap: anywhere;
 }
 
+/* Pasted JSON: monospace, 16px so iOS does not zoom on focus. */
+.paste-import__field {
+  min-height: 8rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 1rem;
+  line-height: 1.35;
+  resize: vertical;
+}
+
 .home__links {
   display: flex;
   justify-content: space-between;

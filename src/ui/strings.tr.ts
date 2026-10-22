@@ -77,7 +77,7 @@ export const t = {
   claudeHelpSteps: [
     'Butona bas: defter notların hazır bir istemle kopyalanır.',
     'claude.ai’de yeni bir sohbet aç, yapıştır ve gönder.',
-    'Gelen JSON’u .json dosyası olarak kaydet ve aşağıda “Item dosyası seç” ile içe aktar.',
+    'Claude’un cevabını kopyala, aşağıdaki kutuya yapıştır, İçe aktar’a bas.',
   ],
   claudeCopied: 'Kopyalandı. claude.ai’de yapıştır, gelen JSON’u buraya içe aktar.',
   claudeShared: 'Metin paylaşıldı. claude.ai’de yapıştır, gelen JSON’u buraya içe aktar.',
@@ -94,6 +94,10 @@ export const t = {
   itemsSection: 'Item içe aktar',
   itemsHint: 'Claude’da çözdürdüğün item dosyasını (JSON) seç. Yeni kartlar sıranın başına gelir.',
   itemsChoose: 'Item dosyası seç',
+  // Paste import: Claude's reply copied from claude.ai (the first ```json block is taken).
+  itemsPasteLabel: 'JSON’u yapıştır',
+  itemsPastePlaceholder: 'Claude’un cevabını buraya yapıştır',
+  itemsPasteImport: 'İçe aktar',
   itemsImported: 'İçe aktarıldı. Yeni kartlar sıraya eklendi.',
   itemsNoneImported: 'Hiçbir item alınmadı.',
   itemsInvalid: 'Dosya içe aktarılmadı, hiçbir şey kaydedilmedi:',

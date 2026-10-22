@@ -2,6 +2,7 @@ import { useRef, useState, type ChangeEvent, type ReactNode } from 'react';
 import type { Actions, ExportFile, ImportItemsResult } from '../../app/actions.ts';
 import type { ReadyState } from '../../app/state.ts';
 import { ClaudePaste } from '../components/ClaudePaste.tsx';
+import { PasteImport } from '../components/PasteImport.tsx';
 import { shareOrDownload } from '../share.ts';
 import { t } from '../strings.tr.ts';
 
@@ -118,6 +119,7 @@ function ItemsImport({ actions, busy }: { actions: Actions; busy: boolean }) {
       <button type="button" className="btn" disabled={busy} onClick={() => input.current?.click()}>
         {t.itemsChoose}
       </button>
+      <PasteImport actions={actions} busy={busy} onResult={setResult} />
       {result && <ImportOutcome result={result} />}
     </Section>
   );

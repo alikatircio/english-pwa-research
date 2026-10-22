@@ -3,6 +3,7 @@
 import { buildNotebookExport, FORMATS, parseFile, planItemsImport, type ImportError, type RejectedItem } from '../domain/backup.ts';
 import { buildClaudePrompt } from '../domain/claudePrompt.ts';
 import type { Clock } from '../domain/clock.ts';
+import { extractJson } from '../domain/extractJson.ts';
 import { hintStageFor } from '../domain/hints.ts';
 import { isAccepted } from '../domain/normalize.ts';
 import { applyGrade } from '../domain/scheduler.ts';
@@ -139,6 +140,47 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
     const session = freshRound(s, counter, clock);
     dispatch({ type: 'day', counter, session, screen: session ? 'card' : 'home' });
     if (session) persistSession(session);
+  }
+
+  /**
+   * Import items solved in Claude (english-pwa-items), shared by the file
+   * picker and the paste box. The whole file is
+   * validated first; if invalid nothing is written. Bundled-content ids are
+   * rejected and listed; a matching notebookId converts that entry. Items and
+   * entries are written in one transaction, then the catalog is updated.
+   * With no open round, today's round is rebuilt so the new cards are reachable.
+   */
+  async function importItemsJson(text: string): Promise<ImportItemsResult> {
+    const s = ready(getState);
+    if (!s || s.busy) return { status: 'save-failed' };
+    const parsed = parseFile(text, [FORMATS.items]);
+    if (!parsed.ok) return { status: 'invalid', errors: parsed.errors };
+
+    const plan = planItemsImport(parsed.value.file.items, {
+      builtinIds: s.catalog.builtinIds,
+      notebook: s.notebook,
+      now: clock.now(),
+    });
+    if (plan.items.length === 0) return { status: 'imported', importedIds: [], rejected: plan.rejected };
+
+    dispatch({ type: 'busy' });
+    try {
+      await importItems(db, plan);
+    } catch {
+      dispatch({ type: 'error', error: 'save-failed' });
+      return { status: 'save-failed' };
+    }
+    const catalog = withImported(s.catalog, plan.items);
+    const updates = new Map(plan.notebookUpdates.map((e) => [e.id, e]));
+    const notebook = s.notebook.map((e) => updates.get(e.id) ?? e);
+    // No open round: build today's round so the new cards come first ("Devam et" on Home); the new-card cap still applies (decision 3).
+    // An open round keeps its own day and counter (03 §4.5).
+    const today = clock.today();
+    const counter = s.session || s.counter.day === today ? s.counter : await loadCounter(db, today).catch(() => emptyCounter(today));
+    const session = s.session ?? freshRound({ catalog, progress: s.progress, flags: s.flags }, counter, clock);
+    dispatch({ type: 'itemsImported', catalog, notebook, session, counter });
+    if (session && !s.session) persistSession(session);
+    return { status: 'imported', importedIds: plan.items.map((i) => i.id), rejected: plan.rejected };
   }
 
   return {
@@ -368,44 +410,14 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
 
     // --- Settings: items import (Slice 3, T3.4) -------------------------------
 
-    /**
-     * Import items solved in Claude (english-pwa-items). The whole file is
-     * validated first; if invalid nothing is written. Bundled-content ids are
-     * rejected and listed; a matching notebookId converts that entry. Items and
-     * entries are written in one transaction, then the catalog is updated.
-     * With no open round, today's round is rebuilt so the new cards are reachable.
-     */
-    async importItemsFile(text: string): Promise<ImportItemsResult> {
-      const s = ready(getState);
-      if (!s || s.busy) return { status: 'save-failed' };
-      const parsed = parseFile(text, [FORMATS.items]);
-      if (!parsed.ok) return { status: 'invalid', errors: parsed.errors };
+    /** "Item dosyası seç": the picked file's text. */
+    importItemsFile(text: string): Promise<ImportItemsResult> {
+      return importItemsJson(text);
+    },
 
-      const plan = planItemsImport(parsed.value.file.items, {
-        builtinIds: s.catalog.builtinIds,
-        notebook: s.notebook,
-        now: clock.now(),
-      });
-      if (plan.items.length === 0) return { status: 'imported', importedIds: [], rejected: plan.rejected };
-
-      dispatch({ type: 'busy' });
-      try {
-        await importItems(db, plan);
-      } catch {
-        dispatch({ type: 'error', error: 'save-failed' });
-        return { status: 'save-failed' };
-      }
-      const catalog = withImported(s.catalog, plan.items);
-      const updates = new Map(plan.notebookUpdates.map((e) => [e.id, e]));
-      const notebook = s.notebook.map((e) => updates.get(e.id) ?? e);
-      // No open round: build today's round so the new cards come first ("Devam et" on Home); the new-card cap still applies (decision 3).
-      // An open round keeps its own day and counter (03 §4.5).
-      const today = clock.today();
-      const counter = s.session || s.counter.day === today ? s.counter : await loadCounter(db, today).catch(() => emptyCounter(today));
-      const session = s.session ?? freshRound({ catalog, progress: s.progress, flags: s.flags }, counter, clock);
-      dispatch({ type: 'itemsImported', catalog, notebook, session, counter });
-      if (session && !s.session) persistSession(session);
-      return { status: 'imported', importedIds: plan.items.map((i) => i.id), rejected: plan.rejected };
+    /** "JSON'u yapıştır": Claude's reply as copied from claude.ai; the first ```json block is taken (extractJson). */
+    importItemsPaste(text: string): Promise<ImportItemsResult> {
+      return importItemsJson(extractJson(text));
     },
 
     dismissNotice(): void {
