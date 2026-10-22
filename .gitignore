@@ -13,3 +13,4 @@ src/content/items.json
 # Real names for privacy checks; never commit
 content/privacy-denylist.local.txt
 .claude/
+research_notes/
