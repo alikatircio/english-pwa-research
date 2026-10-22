@@ -1,7 +1,7 @@
 // Export/import IO (07 §3.8): domain/backup.ts builds and validates the files;
 // this module only reads and writes IndexedDB.
-import { buildFlagsReport, type FlagsReportV1, type ItemsImportPlan } from '../domain/backup.ts';
-import type { Item } from '../domain/types.ts';
+import { buildFlagsReport, type BackupData, type FlagsReportV1, type ItemsImportPlan } from '../domain/backup.ts';
+import type { Item, MetaRecord } from '../domain/types.ts';
 import type { AppDb } from './db.ts';
 
 /** Flags report for review (decision 12): every flag joined with its item. */
@@ -33,4 +33,70 @@ export async function importItems(db: AppDb, plan: Pick<ItemsImportPlan, 'items'
     throw e;
   }
   await Promise.all([...requests, tx.done]);
+}
+
+// --- Full backup (T5.4) -------------------------------------------------------
+
+/** Stores a full backup carries; the session and meta are never exported (07 §3.8). */
+export const BACKUP_STORES = ['progress', 'dailyCounters', 'notebook', 'flags', 'answerLog', 'importedItems'] as const;
+
+/** Everything a full backup holds, read in one transaction. */
+export async function readBackupData(db: AppDb): Promise<BackupData> {
+  const tx = db.transaction(BACKUP_STORES, 'readonly');
+  const [progress, dailyCounters, notebook, flags, answerLog, importedItems] = await Promise.all([
+    tx.objectStore('progress').getAll(),
+    tx.objectStore('dailyCounters').getAll(),
+    tx.objectStore('notebook').index('by-createdAt').getAll(),
+    tx.objectStore('flags').getAll(),
+    tx.objectStore('answerLog').getAll(),
+    tx.objectStore('importedItems').getAll(),
+    tx.done,
+  ]);
+  return { progress, dailyCounters, notebook, flags, answerLog, importedItems };
+}
+
+export interface RestoreWrite {
+  /** The complete new contents of every backup store (merged, or the file's own data). */
+  data: BackupData;
+  /** Drop the stored round too ("Tümünü değiştir"). */
+  clearSession: boolean;
+  /** Meta rows written in the same transaction. */
+  meta?: readonly MetaRecord[];
+}
+
+/**
+ * Restore (T5.4): clear every backup store and write `data` in ONE transaction,
+ * so a failure anywhere leaves the database exactly as it was. Answer-log rows
+ * without an id get a fresh one from the store's autoIncrement.
+ */
+export async function writeRestore(db: AppDb, { data, clearSession, meta = [] }: RestoreWrite): Promise<void> {
+  const tx = db.transaction([...BACKUP_STORES, 'session', 'meta'], 'readwrite');
+  const requests: Promise<unknown>[] = [];
+  const settle = () => {
+    for (const r of requests) r.catch(() => undefined);
+  };
+  try {
+    for (const name of BACKUP_STORES) requests.push(tx.objectStore(name).clear());
+    for (const r of data.progress) requests.push(tx.objectStore('progress').put(r));
+    for (const r of data.dailyCounters) requests.push(tx.objectStore('dailyCounters').put(r));
+    for (const r of data.notebook) requests.push(tx.objectStore('notebook').put(r));
+    for (const r of data.flags) requests.push(tx.objectStore('flags').put(r));
+    for (const r of data.answerLog) requests.push(tx.objectStore('answerLog').put(r));
+    for (const r of data.importedItems) requests.push(tx.objectStore('importedItems').put(r));
+    if (clearSession) requests.push(tx.objectStore('session').delete('current'));
+    for (const r of meta) requests.push(tx.objectStore('meta').put(r));
+  } catch (e) {
+    // A request threw synchronously (e.g. DataError): roll back everything queued, including the clears.
+    settle();
+    tx.abort();
+    await tx.done.catch(() => undefined);
+    throw e;
+  }
+  try {
+    await Promise.all([...requests, tx.done]);
+  } catch (e) {
+    settle();
+    await tx.done.catch(() => undefined);
+    throw e;
+  }
 }

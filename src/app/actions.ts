@@ -1,17 +1,31 @@
 // The only side-effecting layer: domain → storage transaction → dispatch.
 // Write first, then change the screen: what is shown is what is on disk.
-import { buildNotebookExport, FORMATS, parseFile, planItemsImport, type ImportError, type RejectedItem } from '../domain/backup.ts';
+import { version as APP_VERSION } from '../../package.json';
+import {
+  buildBackupFile,
+  buildNotebookExport,
+  FORMATS,
+  mergeBackup,
+  parseFile,
+  planItemsImport,
+  rejectBuiltinImportedItems,
+  type BackupData,
+  type BackupFileV1,
+  type ImportError,
+  type RejectedItem,
+} from '../domain/backup.ts';
 import type { Clock } from '../domain/clock.ts';
 import { hintStageFor } from '../domain/hints.ts';
 import { isAccepted } from '../domain/normalize.ts';
 import { applyGrade } from '../domain/scheduler.ts';
 import { cleanNotebookText, createNotebookEntry, isDuplicateEntry } from '../domain/notebook.ts';
 import { countFirstAnswer, currentEntry, emptyCounter, isSessionStale, onFirstAnswer, todayCount } from '../domain/session.ts';
-import type { AnswerLog, CardPhase, DailyCounter, DayKey, Flag, Grade, GradedBy, SessionState, UndoSnapshot } from '../domain/types.ts';
-import { withImported } from '../content/catalog.ts';
-import { exportFlagsReport, importItems } from '../storage/backupIO.ts';
-import type { AppDb } from '../storage/db.ts';
-import { addNotebookEntry, clearSession, commitGrade, loadCounter, saveSession, toggleFlag, undoGrade } from '../storage/repo.ts';
+import type { AnswerLog, CardPhase, DailyCounter, DayKey, Flag, Grade, GradedBy, MetaRecord, SessionState, UndoSnapshot } from '../domain/types.ts';
+import { createCatalog, withImported, type Catalog } from '../content/catalog.ts';
+import { exportFlagsReport, importItems, readBackupData, writeRestore } from '../storage/backupIO.ts';
+import type { AppDb, ImportedItem } from '../storage/db.ts';
+import { addNotebookEntry, clearSession, commitGrade, loadCounter, putMeta, saveSession, toggleFlag, undoGrade } from '../storage/repo.ts';
+import { loadReadyState } from './boot.ts';
 import { freshRound, nextCard, poolsOf } from './round.ts';
 import type { Action, AppState, ReadyState, Screen } from './state.ts';
 
@@ -32,6 +46,20 @@ export type ImportItemsResult =
   | { status: 'imported'; importedIds: string[]; rejected: RejectedItem[] }
   | { status: 'invalid'; errors: ImportError[] }
   | { status: 'save-failed' };
+
+/** "Birleştir" (merge, 07 §3.8) or "Tümünü değiştir" (replace, after a second confirmation). */
+export type RestoreMode = 'merge' | 'replace';
+
+/** A chosen backup file, validated as a whole before anything is written. */
+export type BackupFileCheck = { status: 'valid'; file: BackupFileV1 } | { status: 'invalid'; errors: ImportError[] };
+
+export type RestoreResult = { status: 'restored'; rejected: RejectedItem[] } | { status: 'save-failed' };
+
+/** Catalog with exactly `imported` as the user's items (after a restore); bundled ids stay reserved. */
+function catalogWith(catalog: Catalog, imported: readonly ImportedItem[]): Catalog {
+  const c = createCatalog({ contentVersion: catalog.contentVersion, generatedAt: '', items: [...catalog.bundled] }, imported);
+  return { ...c, builtinIds: catalog.builtinIds };
+}
 
 export interface ActionDeps {
   db: AppDb;
@@ -394,6 +422,75 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       dispatch({ type: 'itemsImported', catalog, notebook, session, counter });
       if (session && !s.session) persistSession(session);
       return { status: 'imported', importedIds: plan.items.map((i) => i.id), rejected: plan.rejected };
+    },
+
+    // --- Settings: full backup (Slice 5, T5.4) --------------------------------
+
+    /**
+     * The full backup file, read from IndexedDB. Settings prepares it ahead of
+     * the tap so the share sheet opens inside the user gesture (iOS).
+     */
+    async prepareBackup(): Promise<ExportFile | undefined> {
+      const s = ready(getState);
+      if (!s) return undefined;
+      const data = await readBackupData(db);
+      const file = buildBackupFile(data, { now: clock.now(), appVersion: APP_VERSION, contentVersion: s.catalog.contentVersion });
+      return { filename: exportFilename('backup', clock.today()), text: toJson(file) };
+    },
+
+    /** The backup reached the share sheet or a download: remember when (meta `lastExportAt`). */
+    async markBackupExported(): Promise<void> {
+      const s = ready(getState);
+      if (!s) return;
+      const now = clock.now();
+      try {
+        await putMeta(db, [{ key: 'lastExportAt', value: now }]);
+      } catch {
+        return; // the file itself was handed over; only the reminder date is lost
+      }
+      const latest = ready(getState);
+      if (latest) dispatch({ type: 'meta', meta: { ...latest.meta, lastExportAt: now } });
+    },
+
+    /** Validate a chosen backup file; nothing is written here. */
+    checkBackupFile(text: string): BackupFileCheck {
+      const parsed = parseFile(text, [FORMATS.backup]);
+      return parsed.ok ? { status: 'valid', file: parsed.value.file } : { status: 'invalid', errors: parsed.errors };
+    },
+
+    /**
+     * Restore a validated backup. "Birleştir" merges per store (mergeBackup);
+     * "Tümünü değiştir" makes the file's data the whole data and drops the open
+     * round. Imported items with a bundled id are rejected either way. One
+     * transaction; afterwards the whole in-memory state is reloaded from disk.
+     */
+    async restoreBackup(file: BackupFileV1, mode: RestoreMode): Promise<RestoreResult> {
+      const s = ready(getState);
+      if (!s || s.busy) return { status: 'save-failed' };
+      dispatch({ type: 'busy' });
+      try {
+        let data: BackupData;
+        let rejected: RejectedItem[];
+        if (mode === 'merge') {
+          const merged = mergeBackup(await readBackupData(db), file.data, s.catalog.builtinIds);
+          data = merged.data;
+          rejected = merged.rejectedImportedItems;
+        } else {
+          const allowed = rejectBuiltinImportedItems(file.data.importedItems, s.catalog.builtinIds);
+          data = { ...file.data, importedItems: allowed.items };
+          rejected = allowed.rejected;
+        }
+        // A restore counts as the first run: the welcome is not shown again.
+        const meta: MetaRecord[] = s.meta.firstRunAt === undefined ? [{ key: 'firstRunAt', value: clock.now() }] : [];
+        await writeRestore(db, { data, clearSession: mode === 'replace', meta });
+        const latest = ready(getState) ?? s;
+        const state = await loadReadyState(db, (imported) => catalogWith(s.catalog, imported), clock, latest.screen);
+        dispatch({ type: 'restored', state });
+        return { status: 'restored', rejected };
+      } catch {
+        dispatch({ type: 'error', error: 'save-failed' });
+        return { status: 'save-failed' };
+      }
     },
 
     dismissNotice(): void {

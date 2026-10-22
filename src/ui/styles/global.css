@@ -519,3 +519,12 @@ main {
   justify-content: space-between;
   margin-bottom: 8px;
 }
+
+/* Slice 5: backup restore choice (T5.4). */
+.backup-choice {
+  gap: 8px;
+}
+
+.backup-choice p {
+  margin: 0;
+}

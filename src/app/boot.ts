@@ -5,9 +5,10 @@ import { isSessionStale } from '../domain/session.ts';
 import type { ContentBundle, SessionState } from '../domain/types.ts';
 import { createCatalog, type Catalog } from '../content/catalog.ts';
 import type { AppDb } from '../storage/db.ts';
-import { clearSession, loadAll } from '../storage/repo.ts';
+import { clearSession, loadAll, type LoadedData } from '../storage/repo.ts';
+import { metaFromRecords } from './meta.ts';
 import { onShowableCard } from './round.ts';
-import type { ReadyState } from './state.ts';
+import type { ReadyState, Screen } from './state.ts';
 
 export interface BootDeps {
   bundle: ContentBundle;
@@ -37,18 +38,37 @@ export function resumableSession(
   return s === 'round-end' ? undefined : s;
 }
 
-export async function boot({ bundle, clock, openDb }: BootDeps): Promise<BootResult> {
-  const db = await openDb();
-  const today = clock.today();
-  const data = await loadAll(db, today);
-  const catalog = createCatalog(bundle, data.importedItems);
+/**
+ * In-memory state from what is on disk (boot, and again after a backup
+ * restore). A stored round that can no longer be resumed is cleared.
+ */
+export async function loadReadyState(
+  db: AppDb,
+  catalogOf: (imported: LoadedData['importedItems']) => Catalog,
+  clock: Clock,
+  screen: Screen,
+): Promise<BootResult['state']> {
+  const data = await loadAll(db, clock.today());
+  const catalog = catalogOf(data.importedItems);
   const progress = new Map(data.progress.map((p) => [p.itemId, p]));
   const flags = new Set(data.flags.map((f) => f.itemId));
   const resumed = resumableSession(data.session, catalog, clock, flags);
   if (data.session && !resumed) await clearSession(db); // dropped silently (02 §3)
   return {
-    db,
-    // Always open on Home (05 §1): "Başla · bugün N", "Devam et" or "Bugün bitti".
-    state: { screen: 'home', catalog, progress, flags, counter: data.counter, session: resumed, notebook: data.notebook },
+    screen,
+    catalog,
+    progress,
+    flags,
+    counter: data.counter,
+    session: resumed,
+    notebook: data.notebook,
+    meta: metaFromRecords(data.meta),
   };
+}
+
+export async function boot({ bundle, clock, openDb }: BootDeps): Promise<BootResult> {
+  const db = await openDb();
+  // Always open on Home (05 §1): "Başla · bugün N", "Devam et" or "Bugün bitti".
+  const state = await loadReadyState(db, (imported) => createCatalog(bundle, imported), clock, 'home');
+  return { db, state };
 }

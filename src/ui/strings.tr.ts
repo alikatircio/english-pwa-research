@@ -99,4 +99,28 @@ export const t = {
     'builtin-id': 'uygulamadaki bir kartla aynı id',
     'duplicate-in-file': 'dosyada iki kez geçiyor',
   },
+
+  // Full backup (Slice 5, T5.4). Error codes come from domain/backup.ts (ImportErrorCode).
+  backupSection: 'Yedek',
+  backupHint: 'Tüm ilerlemen, defterin ve item’ların tek bir dosyada. Dosyalar’a ya da iCloud Drive’a kaydet.',
+  backupExport: 'Yedeği dışa aktar',
+  backupRestore: 'Yedekten geri yükle',
+  backupChooseMode: 'Yedek dosyası geçerli. Nasıl yükleyelim?',
+  backupMerge: 'Birleştir',
+  backupMergeHint: 'Bu cihazdaki ilerleme kalır; yedekteki yeni ve daha güncel kayıtlar eklenir.',
+  backupReplace: 'Tümünü değiştir',
+  backupReplaceHint: 'Bu cihazdaki ilerleme silinir, yerine yedektekiler gelir.',
+  backupReplaceConfirm: 'Emin misin? Bu cihazdaki tüm ilerleme, defter ve item’lar yedektekilerle değiştirilecek. Geri alınamaz.',
+  backupReplaceYes: 'Evet, tümünü değiştir',
+  backupCancel: 'Vazgeç',
+  backupRestored: 'Yedek yüklendi.',
+  backupInvalid: 'Yedek yüklenmedi, hiçbir şey değişmedi:',
+  backupRejected: 'Alınmayan item’lar:',
+  backupImportErrors: {
+    'invalid-json': 'Dosya okunamadı: geçerli bir JSON değil.',
+    'unknown-format': 'Bu dosya bu uygulamaya ait değil.',
+    'wrong-format': 'Bu bir yedek dosyası değil (format "english-pwa-backup" olmalı).',
+    'unsupported-version': 'Yedek bu uygulamanın desteklediğinden daha yeni bir sürümde. Önce uygulamayı güncelle.',
+    invalid: 'Geçersiz veya eksik alan',
+  },
 } as const;
