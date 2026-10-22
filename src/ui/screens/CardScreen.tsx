@@ -137,7 +137,15 @@ export function CardScreen({ state, actions }: Props) {
           {phase.tag === 'result' ? (phase.matched ? t.correct : t.notMatched) : ''}
         </p>
 
-        <FlagButton flagged={state.flags.has(item.id)} onToggle={() => void actions.toggleFlag()} disabled={state.busy} />
+        <FlagButton
+          flagged={state.flags.has(item.id)}
+          onToggle={() => {
+            // The flag records the typed answer: land the pending draft first (09 #6).
+            persistDraft.flush();
+            void actions.toggleFlag();
+          }}
+          disabled={state.busy}
+        />
 
         {state.error === 'save-failed' && (
           <p className="error" role="alert">

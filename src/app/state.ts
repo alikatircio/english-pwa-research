@@ -84,7 +84,8 @@ export function appReducer(state: AppState, action: Action): AppState {
     case 'busy':
       return { ...state, busy: true };
     case 'session':
-      return { ...state, busy: false, session: action.session, screen: action.screen ?? state.screen };
+      // Session-only (write-behind) updates never end a write in flight: busy is left to its result.
+      return { ...state, session: action.session, screen: action.screen ?? state.screen };
     case 'graded': {
       let progress = state.progress;
       if (action.progress) {

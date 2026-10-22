@@ -18,7 +18,8 @@ test.describe('flag ⚑ (decision 12)', () => {
     await expect(flag).toHaveAttribute('aria-pressed', 'true');
     await expect(page.getByText(t.flagged)).toBeVisible();
     expect(await readStore<Flag>(page, 'flags')).toEqual([
-      expect.objectContaining({ itemId: items[0]?.id, screen: 'question', contentVersion: fixture.contentVersion }),
+      // Tapped within the 300 ms draft debounce: the draft is flushed first, so the flag keeps it (09 #6).
+      expect.objectContaining({ itemId: items[0]?.id, screen: 'question', contentVersion: fixture.contentVersion, userAnswer: 'I will' }),
     ]);
 
     await app.reloadAndResume();

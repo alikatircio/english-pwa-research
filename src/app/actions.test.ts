@@ -239,3 +239,17 @@ describe('actions — Home and round end (T4.3)', () => {
     app.db.close();
   });
 });
+
+describe('actions — busy gate (review 09 #6)', () => {
+  it('a draft save that lands while a flag write is in flight keeps the buttons disabled', async () => {
+    const app = await setup();
+    const flagging = app.actions.toggleFlag();
+    expect(app.ready().busy).toBe(true);
+    app.actions.saveDraft(app.ready().session?.cursor ?? 0, 'Could you');
+    expect(app.ready().session?.draft).toBe('Could you');
+    expect(app.ready().busy).toBe(true); // a session-only write does not end the flag write
+    await flagging;
+    expect(app.ready().busy).toBe(false);
+    app.db.close();
+  });
+});
