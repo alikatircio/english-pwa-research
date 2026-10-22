@@ -5,6 +5,7 @@ import type { ReadyState } from '../../app/state.ts';
 import { hintStageFor } from '../../domain/hints.ts';
 import { currentEntry } from '../../domain/session.ts';
 import { AnswerInput } from '../components/AnswerInput.tsx';
+import { FlagButton } from '../components/FlagButton.tsx';
 import { GradeButtons } from '../components/GradeButtons.tsx';
 import { HintLine } from '../components/HintLine.tsx';
 import { useDebouncedCallback } from '../hooks/useDebouncedCallback.ts';
@@ -80,6 +81,8 @@ export function CardScreen({ state, actions }: Props) {
         ) : (
           <ResultPanel item={item} answer={phase.answer} matched={phase.matched} grade={phase.matched ? undefined : phase.grade} />
         )}
+
+        <FlagButton flagged={state.flags.has(item.id)} onToggle={() => void actions.toggleFlag()} disabled={state.busy} />
 
         {state.error === 'save-failed' && (
           <p className="error" role="alert">

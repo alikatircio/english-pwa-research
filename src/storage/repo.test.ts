@@ -2,7 +2,7 @@ import 'fake-indexeddb/auto';
 import { afterEach, describe, expect, it } from 'vitest';
 import type { AnswerLog, DailyCounter, Progress } from '../domain/types.ts';
 import { DB_VERSION, openAppDb, STORE_NAMES, type AppDb } from './db.ts';
-import { clearSession, commitGrade, loadAll, saveSession, undoGrade } from './repo.ts';
+import { clearSession, commitGrade, loadAll, saveSession, toggleFlag, undoGrade } from './repo.ts';
 import { newSession } from '../domain/session.ts';
 
 let n = 0;
@@ -124,5 +124,16 @@ describe('undoGrade (T2.4)', () => {
     expect(data.progress).toEqual([progress]);
     expect(data.counter).toEqual(counter);
     expect(await db.getAllKeys('answerLog')).toEqual([first]);
+  });
+});
+
+describe('toggleFlag (T2.5)', () => {
+  it('adds the flag, then removes it on the second press', async () => {
+    const db = await freshDb();
+    const flag = { itemId: 'a', flaggedAt: 1, screen: 'question' as const, contentVersion: 'v1' };
+    expect(await toggleFlag(db, flag)).toBe(true);
+    expect((await loadAll(db, day)).flags).toEqual([flag]);
+    expect(await toggleFlag(db, { ...flag, flaggedAt: 2 })).toBe(false);
+    expect((await loadAll(db, day)).flags).toEqual([]);
   });
 });

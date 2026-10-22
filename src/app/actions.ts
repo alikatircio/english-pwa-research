@@ -5,9 +5,9 @@ import { hintStageFor } from '../domain/hints.ts';
 import { isAccepted } from '../domain/normalize.ts';
 import { applyGrade } from '../domain/scheduler.ts';
 import { currentEntry } from '../domain/session.ts';
-import type { AnswerLog, CardPhase, DailyCounter, Grade, GradedBy, SessionState, UndoSnapshot } from '../domain/types.ts';
+import type { AnswerLog, CardPhase, DailyCounter, Flag, Grade, GradedBy, SessionState, UndoSnapshot } from '../domain/types.ts';
 import type { AppDb } from '../storage/db.ts';
-import { clearSession, commitGrade, saveSession, undoGrade } from '../storage/repo.ts';
+import { clearSession, commitGrade, saveSession, toggleFlag, undoGrade } from '../storage/repo.ts';
 import type { Action, AppState, ReadyState } from './state.ts';
 
 export interface ActionDeps {
@@ -138,7 +138,7 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       let cursor = session.cursor + 1;
       while (cursor < session.queue.length) {
         const e = session.queue[cursor];
-        if (e && s.catalog.byId.has(e.itemId) && !(e.kind === 'new' && s.progress.has(e.itemId))) break;
+        if (e && s.catalog.byId.has(e.itemId) && !s.flags.has(e.itemId) && !(e.kind === 'new' && s.progress.has(e.itemId))) break;
         cursor++;
       }
       if (cursor >= session.queue.length) {
@@ -155,6 +155,33 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       const session = ready(getState)?.session;
       if (!session || session.cursor !== cursor || session.phase.tag !== 'question' || session.draft === text) return;
       setSession({ ...session, draft: text, updatedAt: clock.now() });
+    },
+
+    /** ⚑ "Bu yanlış olabilir" (decision 12): flag/unflag the current card; flagged cards are not queued again. */
+    async toggleFlag(): Promise<void> {
+      const s = ready(getState);
+      const session = s?.session;
+      const entry = session && currentEntry(session);
+      if (!s || !session || !entry || s.busy) return;
+      const phase = session.phase;
+      const userAnswer = phase.tag === 'result' ? phase.answer : session.draft.trim();
+      const flag: Flag = {
+        itemId: entry.itemId,
+        flaggedAt: clock.now(),
+        screen: phase.tag,
+        contentVersion: s.catalog.contentVersion,
+        ...(userAnswer ? { userAnswer } : {}),
+      };
+      dispatch({ type: 'busy' });
+      try {
+        const flagged = await toggleFlag(db, flag);
+        const flags = new Set(s.flags);
+        if (flagged) flags.add(entry.itemId);
+        else flags.delete(entry.itemId);
+        dispatch({ type: 'flags', flags });
+      } catch {
+        dispatch({ type: 'error', error: 'save-failed' });
+      }
     },
 
     dismissError(): void {

@@ -6,7 +6,8 @@ import type { ContentBundle } from '../domain/types.ts';
 import { openAppDb } from '../storage/db.ts';
 import { commitGrade, saveSession } from '../storage/repo.ts';
 import { newSession, SESSION_MAX_AGE_MS } from '../domain/session.ts';
-import { boot } from './boot.ts';
+import { createCatalog } from '../content/catalog.ts';
+import { boot, resumableSession } from './boot.ts';
 
 const bundle = fixture as ContentBundle;
 const clock = fixedClock(new Date(2026, 10, 2, 8).getTime());
@@ -76,5 +77,15 @@ describe('boot — session resume', () => {
     const { session } = await bootAt(new Date(2026, 10, 3, 0, 30).getTime());
     expect(session?.day).toBe('2026-11-03');
     expect(session?.cursor).toBe(0);
+  });
+});
+
+describe('resumableSession — flags (T2.5)', () => {
+  it('does not resume onto a flagged card', () => {
+    const catalog = createCatalog(bundle);
+    const t0 = new Date(2026, 10, 2, 8).getTime();
+    const s = newSession([{ itemId: 'e2e-will-send', kind: 'new' }], '2026-11-02', t0);
+    expect(resumableSession(s, catalog, fixedClock(t0))).toBe(s);
+    expect(resumableSession(s, catalog, fixedClock(t0), new Set(['e2e-will-send']))).toBeUndefined();
   });
 });

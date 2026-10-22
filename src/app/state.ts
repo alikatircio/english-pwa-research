@@ -29,6 +29,7 @@ export type Action =
   | { type: 'session'; session: SessionState | undefined; screen?: Screen }
   | { type: 'graded'; progress: Progress; counter: DailyCounter; session: SessionState }
   | { type: 'undone'; itemId: string; progress: Progress | null; counter: DailyCounter; session: SessionState }
+  | { type: 'flags'; flags: ReadonlySet<string> }
   | { type: 'error'; error: AppError }
   | { type: 'clearError' };
 
@@ -54,6 +55,8 @@ export function appReducer(state: AppState, action: Action): AppState {
       else progress.delete(action.itemId);
       return { ...state, busy: false, error: undefined, progress, counter: action.counter, session: action.session };
     }
+    case 'flags':
+      return { ...state, busy: false, error: undefined, flags: action.flags };
     case 'error':
       return { ...state, busy: false, error: action.error };
     case 'clearError':

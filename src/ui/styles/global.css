@@ -342,3 +342,29 @@ body {
   margin-bottom: 10px;
   background: transparent;
 }
+
+.flag {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.btn--text {
+  min-height: 44px;
+  padding: 0 12px;
+  border-color: transparent;
+  background: transparent;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.flag__button[aria-pressed='true'] {
+  border-color: var(--miss);
+  color: var(--miss);
+}
+
+.flag__state {
+  color: var(--miss);
+  font-weight: 600;
+}

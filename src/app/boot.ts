@@ -28,12 +28,18 @@ export function freshSession(catalog: Catalog, progress: ReadonlyMap<string, Pro
 
 /**
  * Resume the stored session as-is (same card, phase and draft) unless it is
- * stale (other day / > 12 h) or points at an item no longer in the catalog.
+ * stale (other day / > 12 h) or points at an item no longer in the catalog
+ * or flagged (decision 12: a flagged card is not shown again).
  */
-export function resumableSession(stored: SessionState | undefined, catalog: Catalog, clock: Clock): SessionState | undefined {
+export function resumableSession(
+  stored: SessionState | undefined,
+  catalog: Catalog,
+  clock: Clock,
+  flags: ReadonlySet<string> = new Set(),
+): SessionState | undefined {
   if (!stored || isSessionStale(stored, clock.today(), clock.now())) return undefined;
   const entry = currentEntry(stored);
-  return entry && catalog.byId.has(entry.itemId) ? stored : undefined;
+  return entry && catalog.byId.has(entry.itemId) && !flags.has(entry.itemId) ? stored : undefined;
 }
 
 export async function boot({ bundle, clock, openDb }: BootDeps): Promise<BootResult> {
@@ -43,7 +49,7 @@ export async function boot({ bundle, clock, openDb }: BootDeps): Promise<BootRes
   const catalog = createCatalog(bundle, data.importedItems);
   const progress = new Map(data.progress.map((p) => [p.itemId, p]));
   const flags = new Set(data.flags.map((f) => f.itemId));
-  const resumed = resumableSession(data.session, catalog, clock);
+  const resumed = resumableSession(data.session, catalog, clock, flags);
   if (data.session && !resumed) await clearSession(db); // dropped silently (02 §3)
   const session = resumed ?? freshSession(catalog, progress, flags, clock);
   return {

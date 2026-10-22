@@ -83,6 +83,20 @@ export async function undoGrade(db: AppDb, undo: UndoSnapshot, session: SessionS
   ]);
 }
 
+/**
+ * Decision 12: one flag per item; pressing again removes it. Read and write in
+ * one transaction. Resolves with whether the item is flagged afterwards.
+ */
+export async function toggleFlag(db: AppDb, flag: Flag): Promise<boolean> {
+  const tx = db.transaction('flags', 'readwrite');
+  const store = tx.objectStore('flags');
+  const existing = await store.get(flag.itemId);
+  if (existing) await store.delete(flag.itemId);
+  else await store.put(flag);
+  await tx.done;
+  return !existing;
+}
+
 /** Session only (draft, cursor, phase). Debounced by the caller (~300 ms). */
 export async function saveSession(db: AppDb, session: SessionState): Promise<void> {
   await db.put('session', session);

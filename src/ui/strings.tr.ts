@@ -29,6 +29,9 @@ export const t = {
   gradedAs: (label: string) => `Kaydedildi: ${label}`,
   undo: 'Geri al',
 
+  flag: 'Bu yanlış olabilir',
+  flagged: 'İşaretlendi',
+
   saveFailed: 'Kaydedilemedi. Tekrar dene.',
   allDone: 'Şimdilik bu kadar.',
   allDoneDetail: 'Tüm kartları cevapladın. Yeni kartlar sonraki sürümde.',
