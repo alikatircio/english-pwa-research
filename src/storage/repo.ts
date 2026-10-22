@@ -35,8 +35,8 @@ export async function loadAll(db: AppDb, today: DayKey): Promise<LoadedData> {
 export interface GradeCommit {
   /** Omitted for an end-of-round repeat: it never changes the box (decision 5). */
   progress?: Progress;
-  /** Counter of the day the round was built (03 §4.5). */
-  counter: DailyCounter;
+  /** Counter of the day the round was built (03 §4.5). Omitted for free practice: no counter changes (decision 30). */
+  counter?: DailyCounter;
   log: AnswerLog;
   /** Session after the grade; omitted → session store untouched. */
   session?: SessionState;
@@ -58,7 +58,7 @@ export async function commitGrade(db: AppDb, c: GradeCommit): Promise<number> {
   const tx = db.transaction(['progress', 'dailyCounters', 'answerLog', 'session'], 'readwrite');
   let logId: Promise<number> | undefined;
   await writeAll(tx, (track) => {
-    track(tx.objectStore('dailyCounters').put(c.counter));
+    if (c.counter) track(tx.objectStore('dailyCounters').put(c.counter));
     if (c.progress) track(tx.objectStore('progress').put(c.progress));
     const added = track(tx.objectStore('answerLog').add(c.log));
     logId = added;

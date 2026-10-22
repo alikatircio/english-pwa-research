@@ -3,7 +3,7 @@ import { flushSync } from 'react-dom';
 import type { Actions } from '../../app/actions.ts';
 import { poolsOf } from '../../app/round.ts';
 import type { ReadyState } from '../../app/state.ts';
-import { todayCount } from '../../domain/session.ts';
+import { canPractice, todayCount } from '../../domain/session.ts';
 import { isFirstRun } from '../../domain/reminders.ts';
 import { applyUpdateOnHome } from '../../pwa/registerSW.ts';
 import { isStandalone } from '../../pwa/standalone.ts';
@@ -25,7 +25,8 @@ interface Props {
  */
 export function HomeScreen({ state, actions }: Props) {
   const { session } = state;
-  const count = todayCount(poolsOf(state, state.counter), state.counter.day);
+  const pools = poolsOf(state, state.counter);
+  const count = todayCount(pools, state.counter.day);
 
   useEffect(() => applyUpdateOnHome({ hasSession: session !== undefined }), [session]);
   useEffect(() => {
@@ -54,6 +55,7 @@ export function HomeScreen({ state, actions }: Props) {
   useEffect(() => headingRef.current?.focus(), []); // focus would otherwise stay on <body> (a11y audit 08 #8)
 
   const done = !session && count === 0;
+  const practiceOffered = done && canPractice(pools, state.counter.day);
   const firstRun = isFirstRun({
     firstRunAt: state.meta.firstRunAt,
     progress: state.progress.size,
@@ -73,6 +75,10 @@ export function HomeScreen({ state, actions }: Props) {
     // The first "Başla" also asks for persistent storage, inside this tap (T5.5).
     actions.beginFirstRun();
     actions.startRound();
+  }
+
+  function practice() {
+    actions.startPractice();
   }
 
   return (
@@ -95,6 +101,7 @@ export function HomeScreen({ state, actions }: Props) {
           {count > 0 ? t.todayCount(count) : done ? t.todayDone : t.resume}
         </h2>
         {done && <p className="muted">{t.todayDoneDetail}</p>}
+        {practiceOffered && <p className="muted">{t.practiceDetail}</p>}
         {session && <p className="muted">{t.resumeDetail}</p>}
       </div>
       <div className="screen__footer">
@@ -107,7 +114,13 @@ export function HomeScreen({ state, actions }: Props) {
             {t.settings}
           </button>
         </div>
-        {done ? null : session ? (
+        {done ? (
+          practiceOffered ? (
+            <button type="button" className="btn btn--primary" onClick={() => go(practice)} disabled={state.busy}>
+              {t.practice}
+            </button>
+          ) : null
+        ) : session ? (
           <button type="button" className="btn btn--primary" onClick={() => go(actions.resume)} disabled={state.busy}>
             {t.resume}
           </button>

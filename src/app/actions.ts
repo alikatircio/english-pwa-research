@@ -31,7 +31,7 @@ import { fixedConnection, type AppDb, type DbConnection, type ImportedItem } fro
 import { addNotebookEntry, clearSession, commitGrade, loadCounter, putMeta, saveSession, toggleFlag, undoGrade } from '../storage/repo.ts';
 import { loadReadyState } from './boot.ts';
 import type { AppMeta } from './meta.ts';
-import { freshRound, nextCard, poolsOf } from './round.ts';
+import { freshRound, nextCard, poolsOf, practiceRound } from './round.ts';
 import type { Action, AppState, ReadyState, Screen } from './state.ts';
 
 /** A file ready to share or download (ui/share.ts). */
@@ -120,8 +120,10 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       const now = clock.now();
       const answerDay = clock.today();
       const isRepeat = entry.kind === 'repeat';
+      // Free practice (decision 30) is log-only, like a repeat, and also leaves the counters alone.
+      const isPractice = entry.kind === 'practice';
       const prev = s.progress.get(entry.itemId) ?? null;
-      const progress = isRepeat ? undefined : applyGrade(prev, g, entry.itemId, answerDay, now);
+      const progress = isRepeat || isPractice ? undefined : applyGrade(prev, g, entry.itemId, answerDay, now);
       const base = s.counter.day === session.day ? s.counter : await run((d) => loadCounter(d, session.day));
       const counter = countFirstAnswer(base, entry.kind, session.day);
       const log: AnswerLog = {
@@ -133,6 +135,7 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
         gradedBy,
         hintStage: hintStageFor(prev),
         isRepeat,
+        ...(isPractice ? { mode: 'practice' as const } : {}),
         boxBefore: prev?.box ?? null,
         boxAfter: progress ? progress.box : (prev?.box ?? null),
       };
@@ -151,7 +154,7 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
             expiresAt: now + UNDO_WINDOW_MS,
           }
         : undefined;
-      const commit = { counter, log, session: next, ...(progress ? { progress } : {}) };
+      const commit = { log, session: next, ...(isPractice ? {} : { counter }), ...(progress ? { progress } : {}) };
       const logId = await run((d) => commitGrade(d, undo ? { ...commit, undo } : commit));
       const stored: SessionState = undo ? { ...next, undo: { ...undo, logId } } : next;
       dispatch(progress ? { type: 'graded', progress, counter, session: stored } : { type: 'graded', counter, session: stored });
@@ -177,6 +180,18 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
     const session = freshRound(s, counter, clock);
     dispatch({ type: 'day', counter, session, screen: session ? 'card' : 'home' });
     if (session) persistSession(session);
+  }
+
+  /** "Serbest pratik" (decision 30): an 8-card round of seen, not-due cards; nothing in it changes progress or counters. Synchronous for iOS focus. */
+  function startPractice(): void {
+    const s = ready(getState);
+    if (!s || s.busy || s.session) return;
+    const counter = todayCounter(s, clock.today());
+    if (todayCount(poolsOf(s, counter), counter.day) > 0) return; // only when today is done
+    const session = practiceRound(s, counter, clock);
+    if (!session) return;
+    dispatch({ type: 'day', counter, session, screen: 'card' });
+    persistSession(session);
   }
 
   /**
@@ -255,6 +270,7 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
 
   return {
     startRound,
+    startPractice,
 
     /** The injected clock, for UI timers that must agree with the actions (UndoBar, 09 #14). */
     now: (): number => clock.now(),

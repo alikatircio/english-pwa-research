@@ -42,6 +42,10 @@ export const t = {
   todayDone: 'Bugün bitti.',
   todayDoneDetail: 'Yarın görüşürüz.',
 
+  // Free practice (decision 30): offered when today is done.
+  practice: 'Serbest pratik',
+  practiceDetail: 'Daha önce gördüğün kartlardan; ilerlemeni etkilemez.',
+
   // Round (05 §2–3): no counts, no percentages.
   roundProgress: (at: number, of: number) => `Turda kart ${at} / ${of}`,
   roundDone: 'Tur bitti.',

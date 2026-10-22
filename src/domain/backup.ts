@@ -131,6 +131,7 @@ export const AnswerLogSchema: z.ZodType<AnswerLog> = z.object({
   gradedBy: z.enum(['auto', 'self']),
   hintStage: z.union([z.literal(1), z.literal(2), z.literal(3)]),
   isRepeat: z.boolean(),
+  mode: z.literal('practice').optional(),
   boxBefore: box.nullable(),
   boxAfter: box.nullable(),
 });

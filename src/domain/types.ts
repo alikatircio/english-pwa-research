@@ -91,12 +91,15 @@ export interface AnswerLog {
   hintStage: HintStage;
   /** End-of-round repeat (decision 5: does not change the box). */
   isRepeat: boolean;
+  /** 'practice' = decision 30 free practice (no box change); absent on normal answers. */
+  mode?: 'practice';
   /** null = new card. */
   boxBefore: Box | null;
   boxAfter: Box | null;
 }
 
-export type QueueKind = 'due' | 'new' | 'repeat';
+/** 'practice' = decision 30 free practice: never touches progress or the daily counters. */
+export type QueueKind = 'due' | 'new' | 'repeat' | 'practice';
 export interface QueueEntry {
   itemId: string;
   kind: QueueKind;

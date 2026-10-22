@@ -13,6 +13,9 @@ import {
   NEW_CAP_OPTIONS,
   eligibleDue,
   eligibleNew,
+  buildPracticeRound,
+  canPractice,
+  practicePool,
   isSessionStale,
   emptyCounter,
   newSession,
@@ -502,5 +505,55 @@ describe('isSessionStale', () => {
   });
   it('is stale on another day even within 12 hours', () => {
     expect(isSessionStale(s, '2026-11-03', t0 + 60_000)).toBe(true);
+  });
+});
+
+describe('free practice (decision 30)', () => {
+  const later = addDays(today, 3);
+  const seen = (id: string, box: Box, lastAnsweredOn: DayKey) => prog(id, box, later, { lastAnsweredOn });
+
+  it('pool: seen, not due, lowest box first, then oldest last answer, then id', () => {
+    const p = pools({
+      due: [
+        seen('e', 3, '2026-10-01'),
+        seen('b', 1, '2026-10-05'),
+        seen('a', 1, '2026-10-05'),
+        seen('c', 1, '2026-09-20'),
+        prog('due1', 1, today), // due: excluded
+      ],
+      newIds: ['n1'], // never answered: excluded
+    });
+    expect(practicePool(p, today)).toEqual(['c', 'a', 'b', 'e']);
+  });
+
+  it('excludes flagged cards and progress for cards gone from the catalog', () => {
+    const p = pools({ due: [seen('a', 1, '2026-10-01'), seen('b', 1, '2026-10-01')], flagged: ['a'] });
+    const orphan = new Map(p.progress).set('gone', seen('gone', 1, '2026-10-01'));
+    expect(practicePool({ ...p, progress: orphan }, today)).toEqual(['b']);
+  });
+
+  it('round: 8 practice entries at most', () => {
+    const p = pools({ due: ids('s', 12).map((id) => seen(id, 2, '2026-10-01')) });
+    const round = buildPracticeRound(p, today);
+    expect(round).toHaveLength(ROUND_SIZE);
+    expect(round.every((e) => e.kind === 'practice')).toBe(true);
+  });
+
+  it('is offered only when today has nothing left and something was seen', () => {
+    const seenOnly = pools({ due: [seen('a', 1, '2026-10-01')] });
+    expect(canPractice(seenOnly, today)).toBe(true);
+    expect(canPractice(pools({ due: [seen('a', 1, '2026-10-01')], newIds: ['n1'] }), today)).toBe(false); // a new card is left
+    expect(canPractice(pools({ due: [prog('a', 1, today)] }), today)).toBe(false); // due today
+    expect(canPractice(pools({}), today)).toBe(false); // nothing seen yet
+  });
+
+  it('a practice answer changes no round fields and no counter', () => {
+    const p = pools({ due: [seen('a', 1, '2026-10-01'), seen('b', 1, '2026-10-02')] });
+    const s = newSession(buildPracticeRound(p, today), today, 0);
+    const after = onFirstAnswer(s, 'wrong', p);
+    expect(after.queue).toEqual(s.queue); // no repeat
+    expect(after.consecutiveWrong).toBe(0);
+    const c = emptyCounter(today);
+    expect(countFirstAnswer(c, 'practice', today)).toBe(c);
   });
 });

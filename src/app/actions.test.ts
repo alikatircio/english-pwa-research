@@ -5,7 +5,7 @@ import { fixedClock } from '../domain/clock.ts';
 import type { ContentBundle, Grade, Progress } from '../domain/types.ts';
 import { openAppDb } from '../storage/db.ts';
 import { createActions } from './actions.ts';
-import { boot } from './boot.ts';
+import { boot, resumableSession } from './boot.ts';
 import type { ReadyState } from './state.ts';
 import { createStore } from './store.ts';
 
@@ -289,6 +289,90 @@ describe('actions — daily new-card cap (decision 29)', () => {
     expect(await app.actions.setDailyNewCap(15)).toBe(true);
     expect(app.ready().meta.dailyNewCap).toBe(15);
     expect(await app.db.get('meta', 'dailyNewCap')).toEqual({ key: 'dailyNewCap', value: 15 });
+    app.db.close();
+  });
+});
+
+describe('actions — free practice (decision 30)', () => {
+  const seenCard = (itemId: string, box: Progress['box']): Progress => ({
+    itemId, box, dueOn: '2026-11-05', introducedOn: '2026-11-01', lastAnsweredOn: '2026-11-01', lastGrade: 'correct', updatedAt: 1,
+  });
+  const allSeen = ids.map((id, i) => seenCard(id, i % 2 === 0 ? 2 : 1));
+
+  it('nothing is started while cards are left today, or before anything was seen', async () => {
+    const fresh = await setup(); // a normal round is open
+    fresh.actions.startPractice();
+    expect(fresh.current()?.kind).toBe('new');
+    fresh.db.close();
+  });
+
+  it('builds an 8-card practice round from seen cards, lowest box first', async () => {
+    const app = await setup({ progress: allSeen });
+    expect(app.ready().session).toBeUndefined(); // "Bugün bitti"
+    app.actions.startPractice();
+    const queue = app.ready().session?.queue ?? [];
+    expect(queue).toHaveLength(8);
+    expect(queue.every((e) => e.kind === 'practice')).toBe(true);
+    const boxes = queue.map((e) => allSeen.find((p) => p.itemId === e.itemId)?.box);
+    expect(boxes).toEqual([...boxes].sort());
+    expect(app.ready().screen).toBe('card');
+    app.db.close();
+  });
+
+  it('grading never calls applyGrade or touches counters; the log row is mode practice; no repeat is queued', async () => {
+    const app = await setup({ progress: allSeen });
+    app.actions.startPractice();
+    const first = app.current()?.itemId ?? '';
+    const before = await app.db.get('progress', first);
+    await app.answer('wrong');
+    app.clock.advance(1000);
+    expect(await app.db.get('progress', first)).toEqual(before);
+    expect(app.ready().progress.get(first)).toEqual(before);
+    expect(await app.db.count('dailyCounters')).toBe(0);
+    expect(app.ready().counter).toEqual({ day: '2026-11-02', newIntroduced: 0, reviewsAnswered: 0 });
+    const logs = await app.db.getAll('answerLog');
+    expect(logs).toHaveLength(1);
+    expect(logs[0]).toMatchObject({ itemId: first, mode: 'practice', isRepeat: false, grade: 'wrong', boxBefore: before?.box, boxAfter: before?.box });
+    expect(app.ready().session?.queue).toHaveLength(8);
+
+    app.actions.next();
+    await app.answer('correct');
+    expect(await app.db.count('dailyCounters')).toBe(0);
+    expect((await app.db.getAll('progress')).map((p) => p.box).sort()).toEqual(allSeen.map((p) => p.box).sort());
+    app.db.close();
+  });
+
+  it('undo restores the same progress and counters and removes the log row', async () => {
+    const app = await setup({ progress: allSeen });
+    app.actions.startPractice();
+    const first = app.current()?.itemId ?? '';
+    const before = await app.db.get('progress', first);
+    await app.answer('partial');
+    expect(await app.db.count('answerLog')).toBe(1);
+    await app.actions.undo();
+    expect(await app.db.count('answerLog')).toBe(0);
+    expect(await app.db.get('progress', first)).toEqual(before);
+    expect(app.ready().counter).toEqual({ day: '2026-11-02', newIntroduced: 0, reviewsAnswered: 0 });
+    expect(app.ready().session?.phase).toMatchObject({ tag: 'result', matched: false });
+    app.db.close();
+  });
+
+  it('the open practice round is saved and resumable; finishing it ends on the round end', async () => {
+    const app = await setup({ progress: allSeen });
+    app.actions.startPractice();
+    await app.answer('correct');
+    await expect.poll(async () => (await app.db.get('session', 'current'))?.queue.length).toBe(8);
+    const stored = await app.db.get('session', 'current');
+    const catalog = app.ready().catalog;
+    expect(resumableSession(stored, catalog, app.clock)?.queue.every((e) => e.kind === 'practice')).toBe(true);
+
+    for (let i = 0; i < 7; i++) {
+      app.actions.next();
+      await app.answer('correct');
+    }
+    app.actions.next();
+    expect(app.ready().screen).toBe('roundEnd');
+    expect(app.ready().lastRound?.moreToday).toBe(false);
     app.db.close();
   });
 });

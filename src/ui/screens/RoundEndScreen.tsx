@@ -1,7 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { flushSync } from 'react-dom';
 import type { Actions } from '../../app/actions.ts';
+import { poolsOf } from '../../app/round.ts';
 import type { ReadyState } from '../../app/state.ts';
+import { canPractice } from '../../domain/session.ts';
 import { focusCard } from '../focusCard.ts';
 import { t } from '../strings.tr.ts';
 
@@ -21,9 +23,15 @@ export function RoundEndScreen({ state, actions }: Props) {
   useEffect(() => headingRef.current?.focus(), []);
   const chunks = summary?.studiedChunks ?? [];
   const more = summary?.moreToday ?? false;
+  const practiceOffered = !more && canPractice(poolsOf(state, state.counter), state.counter.day);
 
   function another() {
     flushSync(actions.startRound);
+    focusCard();
+  }
+
+  function practice() {
+    flushSync(actions.startPractice);
     focusCard();
   }
 
@@ -41,10 +49,15 @@ export function RoundEndScreen({ state, actions }: Props) {
         )}
       </div>
       <div className="screen__footer">
-        <div className={more ? 'choice-buttons' : undefined}>
+        <div className={more || practiceOffered ? 'choice-buttons' : undefined}>
           {more && (
             <button type="button" className="btn btn--choice" onClick={another} disabled={state.busy}>
               {t.anotherRound}
+            </button>
+          )}
+          {practiceOffered && (
+            <button type="button" className="btn btn--choice" onClick={practice} disabled={state.busy}>
+              {t.practice}
             </button>
           )}
           <button type="button" className="btn btn--choice" onClick={actions.finish} disabled={state.busy}>

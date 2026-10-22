@@ -93,6 +93,36 @@ export function todayCount(p: Pools, today: DayKey): number {
 }
 
 /**
+ * Decision 30: cards seen before but not due, for free practice. Lowest box
+ * first, then oldest last answer, then id. Uncapped.
+ */
+export function practicePool(p: Pools, today: DayKey): string[] {
+  const seen: Progress[] = [];
+  for (const prog of p.progress.values()) {
+    if (isShowable(p, prog.itemId) && !isDue(prog, today)) seen.push(prog);
+  }
+  seen.sort(
+    (a, b) =>
+      a.box - b.box ||
+      compareDays(a.lastAnsweredOn, b.lastAnsweredOn) ||
+      (a.itemId < b.itemId ? -1 : a.itemId > b.itemId ? 1 : 0),
+  );
+  return seen.map((s) => s.itemId);
+}
+
+/** Decision 30: a free-practice round of up to ROUND_SIZE cards, all `practice`. */
+export function buildPracticeRound(p: Pools, today: DayKey): QueueEntry[] {
+  return practicePool(p, today)
+    .slice(0, ROUND_SIZE)
+    .map((itemId): QueueEntry => ({ itemId, kind: 'practice' }));
+}
+
+/** "Serbest pratik" is offered when today has nothing left and something was seen before (decision 30). */
+export function canPractice(p: Pools, today: DayKey): boolean {
+  return todayCount(p, today) === 0 && practicePool(p, today).length > 0;
+}
+
+/**
  * Up to ROUND_SIZE cards: due first, then new. The opening card is the
  * highest-box due card (05 §1: likely correct); ties keep due order.
  * Empty → "Bugün bitti".
@@ -164,7 +194,8 @@ export function onFirstAnswer(s: SessionState, grade: Grade, pools: Pools): Sess
   const chunk = pools.items.get(entry.itemId)?.targetChunk;
   const studiedChunks =
     chunk !== undefined && !s.studiedChunks.includes(chunk) ? [...s.studiedChunks, chunk] : s.studiedChunks;
-  if (entry.kind === 'repeat') return { ...s, studiedChunks };
+  // Repeats and free practice (decision 30) change nothing but the summary.
+  if (entry.kind === 'repeat' || entry.kind === 'practice') return { ...s, studiedChunks };
 
   let queue = s.queue;
   let repeatQueued = s.repeatQueued;
@@ -223,5 +254,5 @@ export function countFirstAnswer(counter: DailyCounter, kind: QueueKind, session
   }
   if (kind === 'new') return { ...counter, newIntroduced: counter.newIntroduced + 1 };
   if (kind === 'due') return { ...counter, reviewsAnswered: counter.reviewsAnswered + 1 };
-  return counter;
+  return counter; // repeat and practice never count
 }

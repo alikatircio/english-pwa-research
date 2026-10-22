@@ -1,6 +1,6 @@
 // Glue between in-memory app state and the pure round builder (07 §3.6).
 import type { Clock } from '../domain/clock.ts';
-import { advance, buildRound, currentEntry, isShowable as isShowableIn, newSession, type Pools } from '../domain/session.ts';
+import { advance, buildPracticeRound, buildRound, currentEntry, isShowable as isShowableIn, newSession, type Pools } from '../domain/session.ts';
 import type { DailyCounter, SessionState } from '../domain/types.ts';
 import { newOrder, type Catalog } from '../content/catalog.ts';
 import type { ReadyState } from './state.ts';
@@ -34,6 +34,12 @@ export function poolsOf(s: PoolSource, counter: DailyCounter): Pools {
 /** A new round for `counter.day` (today), or undefined when nothing is left today ("Bugün bitti"). */
 export function freshRound(s: PoolSource, counter: DailyCounter, clock: Clock): SessionState | undefined {
   const queue = buildRound(poolsOf(s, counter), counter.day);
+  return queue.length > 0 ? newSession(queue, counter.day, clock.now()) : undefined;
+}
+
+/** A free-practice round (decision 30) for `counter.day`, or undefined when nothing seen is eligible. */
+export function practiceRound(s: PoolSource, counter: DailyCounter, clock: Clock): SessionState | undefined {
+  const queue = buildPracticeRound(poolsOf(s, counter), counter.day);
   return queue.length > 0 ? newSession(queue, counter.day, clock.now()) : undefined;
 }
 
