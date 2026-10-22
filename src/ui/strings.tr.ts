@@ -10,6 +10,17 @@ export const t = {
   contextPrefix: 'Bağlam:',
   hint: 'İpucu:',
   answerPlaceholder: 'Tam cümle yaz…',
+  /** Decision 31: "Hatayı düzelt" shape. */
+  fixHeading: 'Bu cümledeki hatayı düzelt:',
+  fixPlaceholder: 'Doğru cümleyi yaz…',
+  /** Decision 31: "Sırala" shape. */
+  orderHeading: 'Kelimeleri sıraya diz',
+  orderPlacedLabel: 'Kurduğun cümle',
+  orderPoolLabel: 'Kalan kelimeler',
+  orderEmpty: 'Aşağıdaki kelimelere dokun, cümle burada oluşsun.',
+  orderChipAdd: (word: string) => `${word}, cümleye ekle`,
+  orderChipRemove: (word: string, pos: number) => `${word}, ${pos}. sırada, geri koymak için dokun`,
+  orderProgress: (placed: number, total: number) => `${placed}/${total} kelime yerleşti`,
   check: 'Kontrol et',
   next: 'Sonraki',
 

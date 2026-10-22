@@ -30,6 +30,7 @@ import { exportFlagsReport, importItems, readBackupData, writeRestore } from '..
 import { fixedConnection, type AppDb, type DbConnection, type ImportedItem } from '../storage/db.ts';
 import { addNotebookEntry, clearSession, commitGrade, loadCounter, putMeta, saveSession, toggleFlag, undoGrade } from '../storage/repo.ts';
 import { loadReadyState } from './boot.ts';
+import { modeForEntry } from './mode.ts';
 import type { AppMeta } from './meta.ts';
 import { freshRound, nextCard, poolsOf, practiceRound } from './round.ts';
 import type { Action, AppState, ReadyState, Screen } from './state.ts';
@@ -135,7 +136,8 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
         gradedBy,
         hintStage: hintStageFor(prev),
         isRepeat,
-        ...(isPractice ? { mode: 'practice' as const } : {}),
+        // Decision 30: practice rows say 'practice'; otherwise the shape that was shown (decision 31).
+        mode: isPractice ? 'practice' : modeForEntry(s, entry, session.cursor),
         boxBefore: prev?.box ?? null,
         boxAfter: progress ? progress.box : (prev?.box ?? null),
       };

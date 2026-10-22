@@ -2,6 +2,8 @@ import { useEffect, useId, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 import type { Actions } from '../../app/actions.ts';
 import type { ReadyState } from '../../app/state.ts';
+import { modeForEntry } from '../../app/mode.ts';
+import { shuffleTokens, showsBefore } from '../../domain/exerciseMode.ts';
 import { hintStageFor } from '../../domain/hints.ts';
 import { currentEntry } from '../../domain/session.ts';
 import { AnswerInput } from '../components/AnswerInput.tsx';
@@ -11,6 +13,7 @@ import { HintLine } from '../components/HintLine.tsx';
 import { useDebouncedCallback } from '../hooks/useDebouncedCallback.ts';
 import { useVisualViewportHeight } from '../hooks/useVisualViewportHeight.ts';
 import { ResultPanel } from '../components/ResultPanel.tsx';
+import { WordOrder } from '../components/WordOrder.tsx';
 import { RoundDots } from '../components/RoundDots.tsx';
 import { UndoBar } from '../components/UndoBar.tsx';
 import { t } from '../strings.tr.ts';
@@ -37,6 +40,7 @@ export function CardScreen({ state, actions }: Props) {
   const headingId = `${ids}-heading`;
   const tagId = `${ids}-tag`;
   const situationId = `${ids}-situation`;
+  const mistakeId = `${ids}-mistake`;
   /** Where focus goes once the next render lands (a11y audit 08 #2, #3): the removed control would drop it to <body>. */
   const pendingFocus = useRef<'verdict' | 'next' | null>(null);
   useEffect(() => {
@@ -67,6 +71,13 @@ export function CardScreen({ state, actions }: Props) {
   if (!session || !item) return null;
   const phase = session.phase;
   const { tag, text } = splitSituation(item.situationTr);
+  // Only the question needs the mode; the result looks the same for every shape.
+  const mode = phase.tag === 'question' ? modeForEntry(state, entry, session.cursor) : 'write';
+  const orderTokens =
+    mode === 'order'
+      ? shuffleTokens(item.acceptedAnswers[0] ?? '', `${item.id}:${session.cursor}:${showsBefore(state.progress.get(item.id) ?? null)}`)
+      : [];
+  const heading = phase.tag !== 'question' || mode === 'write' ? (item.source === 'user-error' ? t.userErrorHeading : t.questionHeading) : mode === 'fix' ? t.fixHeading : t.orderHeading;
 
   function onDraftChange(text: string) {
     setDraft({ key: cardKey, text });
@@ -91,8 +102,13 @@ export function CardScreen({ state, actions }: Props) {
         <RoundDots total={session.queue.length} cursor={session.cursor} label={t.roundProgress(session.cursor + 1, session.queue.length)} />
         <section className="question">
           <h2 id={headingId} className="label">
-            {item.source === 'user-error' ? t.userErrorHeading : t.questionHeading}
+            {heading}
           </h2>
+          {phase.tag === 'question' && mode === 'fix' && (
+            <p id={mistakeId} className="fix-mistake" lang="en" data-testid="fix-mistake">
+              {item.commonMistake}
+            </p>
+          )}
           {tag && (
             <p id={tagId} className="context-tag">
               <span className="visually-hidden">{t.contextPrefix} </span>
@@ -102,18 +118,28 @@ export function CardScreen({ state, actions }: Props) {
           <p id={situationId} className="situation">
             {text}
           </p>
-          {phase.tag === 'question' && <HintLine item={item} stage={hintStageFor(state.progress.get(item.id) ?? null)} />}
+          {phase.tag === 'question' && mode === 'write' && <HintLine item={item} stage={hintStageFor(state.progress.get(item.id) ?? null)} />}
         </section>
 
-        {phase.tag === 'question' ? (
+        {phase.tag === 'question' && mode === 'order' ? (
+          <WordOrder
+            key={cardKey}
+            tokens={orderTokens}
+            disabled={state.busy}
+            labelledBy={headingId}
+            // The sentence only counts once every word is placed; it is not saved as a draft.
+            onChange={(placed) => setDraft({ key: cardKey, text: placed.length === orderTokens.length ? placed.join(' ') : '' })}
+          />
+        ) : phase.tag === 'question' ? (
           <AnswerInput
             ref={inputRef}
+            placeholder={mode === 'fix' ? t.fixPlaceholder : undefined}
             value={draft.text}
             onChange={onDraftChange}
             onSubmit={submit}
             disabled={state.busy}
             labelledBy={headingId}
-            describedBy={tag ? `${tagId} ${situationId}` : situationId}
+            describedBy={`${tag ? `${tagId} ` : ''}${situationId}${mode === 'fix' ? ` ${mistakeId}` : ''}`}
           />
         ) : (
           <ResultPanel

@@ -95,6 +95,7 @@ export const ProgressSchema: z.ZodType<Progress> = z.object({
   lastAnsweredOn: dayKey,
   lastGrade: grade,
   updatedAt: epochMs,
+  shows: count.optional(),
 });
 
 export const DailyCounterSchema: z.ZodType<DailyCounter> = z.object({
@@ -131,9 +132,9 @@ export const AnswerLogSchema: z.ZodType<AnswerLog> = z.object({
   gradedBy: z.enum(['auto', 'self']),
   hintStage: z.union([z.literal(1), z.literal(2), z.literal(3)]),
   isRepeat: z.boolean(),
-  mode: z.literal('practice').optional(),
   boxBefore: box.nullable(),
   boxAfter: box.nullable(),
+  mode: z.enum(['write', 'fix', 'order', 'practice']).optional(),
 });
 
 /** Validates `rest` with ItemSchema and re-reports its issues at the current path. */

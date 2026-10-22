@@ -24,6 +24,7 @@ export function applyGrade(prev: Progress | null, grade: Grade, itemId: string, 
     lastAnsweredOn: today,
     lastGrade: grade,
     updatedAt: now,
+    shows: (prev ? (prev.shows ?? 1) : 0) + 1,
   };
 }
 

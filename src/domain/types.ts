@@ -52,6 +52,8 @@ export interface Progress {
   lastGrade: Grade;
   /** Epoch ms; tie-breaker when merging imports. */
   updatedAt: number;
+  /** Graded main showings so far (decision 31 mode rotation). Absent on older records: counts as 1. */
+  shows?: number;
 }
 
 export interface DailyCounter {
@@ -91,11 +93,11 @@ export interface AnswerLog {
   hintStage: HintStage;
   /** End-of-round repeat (decision 5: does not change the box). */
   isRepeat: boolean;
-  /** 'practice' = decision 30 free practice (no box change); absent on normal answers. */
-  mode?: 'practice';
   /** null = new card. */
   boxBefore: Box | null;
   boxAfter: Box | null;
+  /** Exercise shape shown (decision 31); 'practice' for free practice (decision 30). Absent on older rows. */
+  mode?: 'write' | 'fix' | 'order' | 'practice';
 }
 
 /** 'practice' = decision 30 free practice: never touches progress or the daily counters. */
