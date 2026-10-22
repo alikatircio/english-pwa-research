@@ -31,8 +31,18 @@ test.describe('flag ⚑ (decision 12)', () => {
     const app = new App(page);
     await app.open();
     const flag = page.getByRole('button', { name: t.flag });
+    const border = () =>
+      flag.evaluate((el) => {
+        const c = getComputedStyle(el);
+        return { width: c.borderTopWidth, color: c.borderTopColor };
+      });
+    expect((await border()).color).toBe('rgba(0, 0, 0, 0)');
     await flag.click();
     await expect(flag).toHaveAttribute('aria-pressed', 'true');
+    // The pressed state shows a visible border, not only the text next to it (09 #8).
+    const pressed = await border();
+    expect(pressed.width).not.toBe('0px');
+    expect(pressed.color).not.toBe('rgba(0, 0, 0, 0)');
     await flag.click();
     await expect(flag).toHaveAttribute('aria-pressed', 'false');
     await expect(page.getByText(t.flagged)).toHaveCount(0);

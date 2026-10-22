@@ -355,15 +355,24 @@ body {
   gap: 8px;
 }
 
+/* Text-style button (Geri, notebook link, cancel). The border stays (transparent) so a modifier can show it. */
 .btn--text {
   min-height: 44px;
-  padding: 0 12px;
+  padding: 0 8px;
   border-color: transparent;
   background: transparent;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ⚑ is a quiet, doubtful action: muted, not the accent colour (09 #8). */
+.flag__button {
+  padding: 0 12px;
   color: var(--muted);
   font-weight: 500;
 }
 
+/* Pressed: a visible red border besides the "işaretlendi" text. */
 .flag__button[aria-pressed='true'] {
   border-color: var(--miss);
   color: var(--miss);
@@ -424,15 +433,6 @@ body {
 }
 
 /* --- Notebook (Slice 3) --------------------------------------------------- */
-
-.btn--text {
-  min-height: 44px;
-  border: 0;
-  background: transparent;
-  color: var(--accent);
-  font-weight: 600;
-  padding: 0 8px;
-}
 
 .btn--wide {
   width: 100%;
