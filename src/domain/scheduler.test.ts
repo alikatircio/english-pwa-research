@@ -14,8 +14,13 @@ describe('INTERVALS', () => {
 describe('applyGrade — new card', () => {
   it('correct → box 2, due in 2 days', () => {
     expect(applyGrade(null, 'correct', 'x', today, 5)).toEqual({
-      itemId: 'x', box: 2, dueOn: '2026-11-04', introducedOn: today, lastAnsweredOn: today, lastGrade: 'correct', updatedAt: 5,
+      itemId: 'x', box: 2, dueOn: '2026-11-04', introducedOn: today, lastAnsweredOn: today, lastGrade: 'correct', updatedAt: 5, shows: 1,
     });
+  });
+  it('counts every graded showing; older records without the field count as 1', () => {
+    const base = { itemId: 'x', box: 2 as const, dueOn: today, introducedOn: today, lastAnsweredOn: today, lastGrade: 'correct' as const, updatedAt: 1 };
+    expect(applyGrade({ ...base, shows: 4 }, 'wrong', 'x', today, 5).shows).toBe(5);
+    expect(applyGrade(base, 'correct', 'x', today, 5).shows).toBe(2);
   });
   it.each(['partial', 'wrong'] as const)('%s → box 1, due tomorrow', (g) => {
     const p = applyGrade(null, g, 'x', today, 5);
