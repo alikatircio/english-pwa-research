@@ -124,3 +124,64 @@ describe('actions — round wiring (T4.4)', () => {
     app.db.close();
   });
 });
+
+describe('actions — undo reverts the round effects too (T2.4 + T4.2)', () => {
+  it('undo of a wrong self-grade removes the queued repeat and the wrong streak', async () => {
+    const app = await setup();
+    const before = app.ready().session;
+    await app.answer('wrong');
+    expect(app.ready().session?.queue).toHaveLength((before?.queue.length ?? 0) + 1);
+    expect(app.ready().session?.consecutiveWrong).toBe(1);
+
+    await app.actions.undo();
+    const s = app.ready().session;
+    expect(s?.queue).toEqual(before?.queue);
+    expect(s?.repeatQueued).toEqual([]);
+    expect(s?.consecutiveWrong).toBe(0);
+    expect(s?.phase).toEqual({ tag: 'result', answer: 'something else entirely', matched: false });
+    expect((await app.db.get('session', 'current'))?.queue).toEqual(before?.queue);
+
+    // Re-grading as correct now queues no repeat.
+    await app.actions.selfGrade('correct');
+    expect(app.ready().session?.queue).toEqual(before?.queue);
+    expect(app.ready().session?.repeatQueued).toEqual([]);
+    app.db.close();
+  });
+
+  it('undo of the third wrong answer puts the breather card back and restores the streak (decision 6)', async () => {
+    const [a, b, c, x, d, e] = ids as [string, string, string, string, string, string];
+    const app = await setup({
+      progress: [
+        due(a, 1, '2026-10-27'),
+        due(b, 1, '2026-10-28'),
+        due(c, 1, '2026-10-29'),
+        due(x, 1, '2026-10-30'),
+        due(d, 3, '2026-10-31'),
+        due(e, 2, '2026-11-01'),
+      ],
+    });
+    const order = () => app.ready().session?.queue.map((q) => `${q.kind}:${q.itemId}`) ?? [];
+    // Opening card = highest box (05 §1).
+    expect(order().slice(0, 6)).toEqual([d, a, b, c, x, e].map((id) => `due:${id}`));
+
+    await app.answer('correct');
+    app.actions.next();
+    await app.answer('wrong');
+    app.actions.next();
+    await app.answer('wrong');
+    app.actions.next();
+    const beforeThird = app.ready().session;
+    await app.answer('wrong');
+    // Breather: the highest-box remaining card (e, box 2) moves right after c.
+    expect(order().slice(0, 6)).toEqual([d, a, b, c, e, x].map((id) => `due:${id}`));
+    expect(app.ready().session?.consecutiveWrong).toBe(0);
+
+    await app.actions.undo();
+    const s = app.ready().session;
+    expect(s?.queue).toEqual(beforeThird?.queue);
+    expect(s?.repeatQueued).toEqual([a, b]);
+    expect(s?.consecutiveWrong).toBe(2);
+    expect(s?.studiedChunks).toEqual(beforeThird?.studiedChunks);
+    app.db.close();
+  });
+});

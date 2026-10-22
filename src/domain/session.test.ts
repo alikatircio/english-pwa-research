@@ -401,7 +401,10 @@ describe('advance', () => {
       ...newSession(q('due:a', 'due:b'), today, 0),
       phase: { tag: 'result', answer: 'x', matched: false, grade: 'wrong' },
       draft: 'typing',
-      undo: { itemId: 'a', prevProgress: null, prevCounter: emptyCounter(today), logId: 1, expiresAt: 4000 },
+      undo: {
+        itemId: 'a', prevProgress: null, prevCounter: emptyCounter(today), logId: 1, expiresAt: 4000,
+        prevRound: { queue: q('due:a', 'due:b'), repeatQueued: [], consecutiveWrong: 0, studiedChunks: [] },
+      },
     };
     const next = advance(s);
     if (next === 'round-end') throw new Error('expected next card');

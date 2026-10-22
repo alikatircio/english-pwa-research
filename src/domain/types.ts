@@ -104,10 +104,15 @@ export type CardPhase =
   | { tag: 'result'; answer: string; matched: true }
   | { tag: 'result'; answer: string; matched: false; grade?: Grade };
 
+/** Session fields onFirstAnswer may change (repeat append, wrong streak, breather reorder, summary). */
+export type RoundFields = Pick<SessionState, 'queue' | 'repeatQueued' | 'consecutiveWrong' | 'studiedChunks'>;
+
 export interface UndoSnapshot {
   itemId: string;
   prevProgress: Progress | null;
   prevCounter: DailyCounter;
+  /** Round fields before the grade: undo reverts the onFirstAnswer effects too. */
+  prevRound: RoundFields;
   logId: number;
   expiresAt: number;
 }

@@ -77,7 +77,18 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       };
       const next: SessionState = { ...onFirstAnswer(session, g, poolsOf(s, base)), phase, draft: answer, updatedAt: now };
       const undo: Omit<UndoSnapshot, 'logId'> | undefined = undoable
-        ? { itemId: entry.itemId, prevProgress: prev, prevCounter: base, expiresAt: now + UNDO_WINDOW_MS }
+        ? {
+            itemId: entry.itemId,
+            prevProgress: prev,
+            prevCounter: base,
+            prevRound: {
+              queue: session.queue,
+              repeatQueued: session.repeatQueued,
+              consecutiveWrong: session.consecutiveWrong,
+              studiedChunks: session.studiedChunks,
+            },
+            expiresAt: now + UNDO_WINDOW_MS,
+          }
         : undefined;
       const commit = { counter, log, session: next, ...(progress ? { progress } : {}) };
       const logId = await commitGrade(db, undo ? { ...commit, undo } : commit);
@@ -113,7 +124,11 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       await grade(g, 'self', phase.answer, { ...phase, grade: g }, true);
     },
 
-    /** "Geri al" within 4 s of a self-grade: progress, counter and log back as before, result screen ungraded. */
+    /**
+     * "Geri al" within 4 s of a self-grade: progress, counter and log back as
+     * before, the round's queue, repeats and wrong streak as before the grade,
+     * result screen ungraded.
+     */
     async undo(): Promise<void> {
       const s = ready(getState);
       const session = s?.session;
@@ -121,7 +136,12 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       const phase = session?.phase;
       if (!s || !session || !snapshot || s.busy || !phase || phase.tag !== 'result' || phase.matched || !phase.grade) return;
       if (clock.now() > snapshot.expiresAt) return;
-      const restored: SessionState = { ...session, phase: { tag: 'result', answer: phase.answer, matched: false }, updatedAt: clock.now() };
+      const restored: SessionState = {
+        ...session,
+        ...snapshot.prevRound,
+        phase: { tag: 'result', answer: phase.answer, matched: false },
+        updatedAt: clock.now(),
+      };
       delete restored.undo;
       dispatch({ type: 'busy' });
       try {
