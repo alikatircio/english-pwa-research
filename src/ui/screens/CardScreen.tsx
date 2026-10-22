@@ -71,6 +71,7 @@ export function CardScreen({ state, actions }: Props) {
   if (!session || !item) return null;
   const phase = session.phase;
   const { tag, text } = splitSituation(item.situationTr);
+  const reaskAt = new Set(session.queue.flatMap((e, i) => (e.kind === 'repeat' ? [i] : [])));
   // Only the question needs the mode; the result looks the same for every shape.
   const mode = phase.tag === 'question' ? modeForEntry(state, entry, session.cursor, session.queue.length) : 'write';
   const orderTokens =
@@ -99,7 +100,7 @@ export function CardScreen({ state, actions }: Props) {
   return (
     <div className="screen card-screen">
       <div className="screen__body">
-        <RoundDots total={session.queue.length} cursor={session.cursor} label={t.roundProgress(session.cursor + 1, session.queue.length)} />
+        <RoundDots total={session.queue.length} cursor={session.cursor} reaskAt={reaskAt} label={t.roundProgress(session.cursor + 1, session.queue.length)} />
         <section className="question">
           <h2 id={headingId} className="label">
             {heading}
@@ -118,7 +119,7 @@ export function CardScreen({ state, actions }: Props) {
           <p id={situationId} className="situation">
             {text}
           </p>
-          {phase.tag === 'question' && mode === 'write' && <HintLine item={item} stage={hintStageFor(state.progress.get(item.id) ?? null)} />}
+          {phase.tag === 'question' && mode === 'write' && entry.kind !== 'repeat' && <HintLine item={item} stage={hintStageFor(state.progress.get(item.id) ?? null)} />}
         </section>
 
         {phase.tag === 'question' && mode === 'order' ? (

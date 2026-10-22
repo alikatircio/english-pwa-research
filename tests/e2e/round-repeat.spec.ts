@@ -22,37 +22,38 @@ function allDue(): Progress[] {
   }));
 }
 
-test.describe('round with end-of-round repeats (decisions 1, 5)', () => {
-  test('wrong on card 2 and partial on card 5 come back after card 8, then round end and another round', async ({ page }) => {
+test.describe('round with in-round re-asks (decisions 1, 38)', () => {
+  test('wrong on card 2 and partial on card 5 come back 4 cards later without a hint, and change no box', async ({ page }) => {
     const app = new App(page);
     await app.open(at(0), { start: false });
     await writeStore(page, 'progress', allDue());
     await page.reload();
-    await expect(app.startButton).toHaveText(t.start(items.length)); // 12 due, ≤ 25: no new cards (decision 2)
+    await expect(app.startButton).toHaveText(t.start(items.length)); // 12 due, ≤ 40: no new cards (decision 2)
     await app.start();
 
     const dots = page.getByTestId('round-dots').locator('.round-dots__dot');
     const hint = page.getByTestId('hint');
     await expect(dots).toHaveCount(ROUND_SIZE);
 
-    for (let i = 0; i < ROUND_SIZE; i++) {
+    // Queue order after the two inserts: 0 1 2 3 4 [1] 5 6 [4] 7 (a re-ask sits at answer position + 4).
+    const sequence = [0, 1, 2, 3, 4, 1, 5, 6, 4, 7];
+    const reasks = new Set([5, 8]);
+    for (const [pos, i] of sequence.entries()) {
       await expect(app.situation).toHaveText(app.situationOf(i));
-      await expect(dots.nth(i)).toHaveClass(/round-dots__dot--current/);
-      if (i === 1 || i === 4) {
+      await expect(dots.nth(pos)).toHaveClass(/round-dots__dot--current/);
+      if (reasks.has(pos)) {
+        await expect(hint).toHaveCount(0); // a re-ask is hint-free
+        await expect(dots.nth(pos)).toHaveClass(/round-dots__dot--reask/);
+      } else {
+        await expect(hint).toHaveAttribute('data-stage', '1');
+      }
+      if (pos === 1 || pos === 4) {
         await app.answer('Something else entirely');
-        await app.grade(i === 1 ? t.gradeWrong : t.gradePartial);
+        await app.grade(pos === 1 ? t.gradeWrong : t.gradePartial);
+        await expect(dots).toHaveCount(ROUND_SIZE + (pos === 1 ? 1 : 2)); // each re-ask adds one dot
       } else {
         await app.answer(canonical(i));
       }
-      await app.next.click();
-    }
-
-    // The two cards come back in order, with the stage 1 hint; each repeat adds one dot.
-    await expect(dots).toHaveCount(ROUND_SIZE + 2);
-    for (const i of [1, 4]) {
-      await expect(app.situation).toHaveText(app.situationOf(i));
-      await expect(hint).toHaveAttribute('data-stage', '1');
-      await app.answer(canonical(i));
       await app.next.click();
     }
 
@@ -66,7 +67,7 @@ test.describe('round with end-of-round repeats (decisions 1, 5)', () => {
     const [a, b] = [await another.boundingBox(), await enough.boundingBox()];
     expect(a && b && Math.abs(a.width - b.width) < 1 && Math.abs(a.height - b.height) < 1).toBe(true);
 
-    // A repeat writes a log row but leaves the box alone (decision 5).
+    // A re-ask writes a log row but leaves the box alone (decisions 5, 38).
     const progress = await readStore<Progress>(page, 'progress');
     const byId = new Map(progress.map((p) => [p.itemId, p]));
     expect(byId.get(items[1]?.id ?? '')).toMatchObject({ box: 1, lastGrade: 'wrong', dueOn: day(1) });

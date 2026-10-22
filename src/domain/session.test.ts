@@ -304,31 +304,57 @@ function step(s: SessionState, grade: Grade, p: Pools): SessionState {
   return next;
 }
 
-describe('onFirstAnswer — end-of-round repeat', () => {
+describe('onFirstAnswer — in-round re-ask (decision 38)', () => {
   const p = pools({ due: [prog('a', 2), prog('b', 3)], newIds: ['n1'] });
   const start = newSession(q('due:a', 'due:b', 'new:n1'), today, 0);
+  const long = pools({ due: ['a', 'b', 'c', 'd', 'e', 'f', 'g'].map((id) => prog(id, 2)), newIds: ['n1'] });
+  const longStart = newSession(q('due:a', 'due:b', 'due:c', 'due:d', 'due:e', 'due:f', 'due:g'), today, 0);
 
-  it.each(['wrong', 'partial'] as const)('%s → appended once as repeat', (grade) => {
-    const s = onFirstAnswer(start, grade, p);
-    expect(order(s)).toEqual(['due:a', 'due:b', 'new:n1', 'repeat:a']);
+  it.each(['wrong', 'partial'] as const)('%s → inserted once as repeat, 4 cards later (3 in between)', (grade) => {
+    const s = onFirstAnswer(longStart, grade, long);
+    expect(order(s)).toEqual(['due:a', 'due:b', 'due:c', 'due:d', 'repeat:a', 'due:e', 'due:f', 'due:g']);
     expect(s.repeatQueued).toEqual(['a']);
   });
 
-  it('correct → nothing appended', () => {
-    const s = onFirstAnswer(start, 'correct', p);
-    expect(s.queue).toEqual(start.queue);
-    expect(s.repeatQueued).toEqual([]);
+  it('the position is relative to the cursor', () => {
+    let s = step(longStart, 'correct', long);
+    s = step(s, 'correct', long);
+    s = onFirstAnswer(s, 'wrong', long); // cursor 2 → index 6
+    expect(order(s)).toEqual(['due:a', 'due:b', 'due:c', 'due:d', 'due:e', 'due:f', 'repeat:c', 'due:g']);
   });
 
-  it('a wrong repeat is not appended a second time and does not touch the counter', () => {
+  it('a short round puts it at the end', () => {
+    expect(order(onFirstAnswer(start, 'wrong', p))).toEqual(['due:a', 'due:b', 'new:n1', 'repeat:a']);
+    const near = { ...longStart, cursor: 5 };
+    expect(order(onFirstAnswer(near, 'wrong', long)).slice(-2)).toEqual(['due:g', 'repeat:f']);
+  });
+
+  it('a new card is re-asked even when answered correctly; a due card answered correctly is not', () => {
+    const s = onFirstAnswer({ ...start, cursor: 2 }, 'correct', p);
+    expect(order(s)).toEqual(['due:a', 'due:b', 'new:n1', 'repeat:n1']);
+    expect(s.repeatQueued).toEqual(['n1']);
+    const d = onFirstAnswer(start, 'correct', p);
+    expect(d.queue).toEqual(start.queue);
+    expect(d.repeatQueued).toEqual([]);
+  });
+
+  it('a card is re-asked at most once per round', () => {
+    // Already re-asked earlier in the round (e.g. after an undo-and-regrade): no second entry.
+    const again = onFirstAnswer({ ...start, repeatQueued: ['a'] }, 'wrong', p);
+    expect(again.queue).toEqual(start.queue);
+  });
+
+  it('a wrong re-ask is not queued again and does not touch the counter', () => {
     let s = step(start, 'wrong', p);
     s = step(s, 'correct', p);
     s = step(s, 'correct', p);
     expect(currentEntry(s)).toEqual({ itemId: 'a', kind: 'repeat' });
     const after = onFirstAnswer(s, 'wrong', p);
-    expect(order(after)).toEqual(['due:a', 'due:b', 'new:n1', 'repeat:a']);
+    expect(order(after)).toEqual(['due:a', 'due:b', 'new:n1', 'repeat:a', 'repeat:n1']);
     expect(after.consecutiveWrong).toBe(s.consecutiveWrong);
-    expect(advance(after)).toBe('round-end');
+    const last = advance(after);
+    expect(last !== 'round-end' && currentEntry(last)).toEqual({ itemId: 'n1', kind: 'repeat' });
+    expect(last !== 'round-end' && advance(last)).toBe('round-end');
   });
 
   it('a repeat answer leaves the queue alone; the box is untouched because the caller skips applyGrade', () => {
@@ -384,11 +410,11 @@ describe('onFirstAnswer — 3 wrongs in a row (decision 6)', () => {
       'due:c',
       'due:e',
       'new:n1',
-      'due:d',
-      'due:f',
       'repeat:a',
       'repeat:b',
       'repeat:c',
+      'due:d',
+      'due:f',
     ]);
     const next = advance(s);
     expect(next !== 'round-end' && currentEntry(next)).toEqual({ itemId: 'e', kind: 'due' });
@@ -401,7 +427,7 @@ describe('onFirstAnswer — 3 wrongs in a row (decision 6)', () => {
     s = step(s, 'wrong', p);
     s = onFirstAnswer(s, 'wrong', p);
     expect(s.consecutiveWrong).toBe(2);
-    expect(order(s).slice(0, 7)).toEqual(order(start));
+    expect(order(s).filter((e) => !e.startsWith('repeat:'))).toEqual(order(start));
   });
 
   it('correct resets the streak', () => {
@@ -419,12 +445,12 @@ describe('onFirstAnswer — 3 wrongs in a row (decision 6)', () => {
     s = onFirstAnswer(s, 'wrong', p2);
     expect(order(s).slice(3, 5)).toEqual(['due:d', 'new:n1']);
 
-    // Only new cards left: repeat:a (box 1) still stays at the end.
+    // Only new cards left: n1 is pulled nowhere (already next); the repeats are never pulled forward.
     let t = newSession(q('due:a', 'due:b', 'due:c', 'new:n1', 'new:n2'), today, 0);
     t = step(t, 'wrong', p2);
     t = step(t, 'wrong', p2);
     t = onFirstAnswer(t, 'wrong', p2);
-    expect(order(t)).toEqual(['due:a', 'due:b', 'due:c', 'new:n1', 'new:n2', 'repeat:a', 'repeat:b', 'repeat:c']);
+    expect(order(t)).toEqual(['due:a', 'due:b', 'due:c', 'new:n1', 'repeat:a', 'repeat:b', 'repeat:c', 'new:n2']);
   });
 
   it('with no main cards left, the queue is unchanged and the counter still resets', () => {

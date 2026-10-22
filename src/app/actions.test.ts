@@ -68,31 +68,38 @@ describe('actions — round wiring (T4.4)', () => {
     app.db.close();
   });
 
-  it('a wrong first answer queues one repeat; the repeat answer writes a log row only (decision 5)', async () => {
+  it('a wrong first answer queues one re-ask 4 cards later; its answer writes a log row only (decisions 5, 38)', async () => {
     const app = await setup();
     const first = ids[0] ?? '';
     await app.answer('wrong');
-    expect(app.ready().session?.queue.at(-1)).toEqual({ itemId: first, kind: 'repeat' });
+    expect(app.ready().session?.queue[4]).toEqual({ itemId: first, kind: 'repeat' });
     const afterFirst = await app.db.get('progress', first);
     expect(afterFirst?.box).toBe(1);
 
-    for (let i = 1; i < 5; i++) {
+    for (let i = 1; i < 4; i++) {
       app.actions.next();
       await app.answer('correct');
     }
     app.actions.next();
     expect(app.current()).toEqual({ itemId: first, kind: 'repeat' });
+    expect(app.ready().session?.cursor).toBe(4);
     app.clock.advance(60_000);
     await app.answer('correct');
 
     expect(await app.db.get('progress', first)).toEqual(afterFirst); // box, dueOn, updatedAt unchanged
-    expect(await app.db.get('dailyCounters', '2026-11-02')).toEqual({ day: '2026-11-02', newIntroduced: 5, reviewsAnswered: 0 });
     const logs = await app.db.getAll('answerLog');
     expect(logs.at(-1)).toMatchObject({ itemId: first, isRepeat: true, grade: 'correct', boxBefore: 1, boxAfter: 1 });
-    expect(app.ready().session?.queue).toHaveLength(6); // a repeat never queues another repeat
 
-    app.actions.next();
-    expect(app.ready().session).toBeUndefined();
+    // Run the rest of the round: every new card is re-asked exactly once, never twice.
+    for (;;) {
+      app.actions.next();
+      if (!app.ready().session) break;
+      await app.answer('correct');
+    }
+    const all = await app.db.getAll('answerLog');
+    expect(all.filter((l) => l.isRepeat)).toHaveLength(5);
+    expect(new Set(all.filter((l) => l.isRepeat).map((l) => l.itemId)).size).toBe(5);
+    expect(await app.db.get('dailyCounters', '2026-11-02')).toEqual({ day: '2026-11-02', newIntroduced: 5, reviewsAnswered: 0 });
     expect(app.ready().screen).toBe('roundEnd');
     // Round-end summary: the chunks studied, once each (05 §3); nothing left today.
     expect(app.ready().lastRound).toEqual({ studiedChunks: bundle.items.slice(0, 5).map((i) => i.targetChunk), moreToday: false });
@@ -114,18 +121,18 @@ describe('actions — round wiring (T4.4)', () => {
     app.db.close();
   });
 
-  it('Sonraki skips a card flagged after it was queued as a repeat', async () => {
+  it('Sonraki skips a card flagged after it was queued as a re-ask', async () => {
     const app = await setup();
     const first = ids[0] ?? '';
     await app.answer('wrong');
     await app.actions.toggleFlag();
-    for (let i = 1; i < 5; i++) {
+    for (;;) {
       app.actions.next();
+      if (!app.ready().session) break;
       await app.answer('correct');
     }
-    app.actions.next(); // the flagged repeat is skipped → round end
     expect(app.ready().flags.has(first)).toBe(true);
-    expect(app.ready().session).toBeUndefined();
+    expect((await app.db.getAll('answerLog')).filter((l) => l.itemId === first && l.isRepeat)).toHaveLength(0);
     app.db.close();
   });
 });
@@ -146,10 +153,10 @@ describe('actions — undo reverts the round effects too (T2.4 + T4.2)', () => {
     expect(s?.phase).toEqual({ tag: 'result', answer: 'something else entirely', matched: false, mode: 'write' });
     expect((await app.db.get('session', 'current'))?.queue).toEqual(before?.queue);
 
-    // Re-grading as correct now queues no repeat.
+    // Re-grading correct: a new card is still re-asked once (decision 38), so the queue grows by that one entry again.
     await app.actions.selfGrade('correct');
-    expect(app.ready().session?.queue).toEqual(before?.queue);
-    expect(app.ready().session?.repeatQueued).toEqual([]);
+    expect(app.ready().session?.queue).toHaveLength((before?.queue.length ?? 0) + 1);
+    expect(app.ready().session?.repeatQueued).toEqual([ids[0]]);
     app.db.close();
   });
 

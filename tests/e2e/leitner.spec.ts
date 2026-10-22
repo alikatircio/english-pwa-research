@@ -16,20 +16,20 @@ test.describe('Leitner across days (decisions 2–4)', () => {
     await app.open(at(0), { start: false });
     await expect(app.startButton).toHaveText(t.start(NEW_CAP));
     await app.start();
-    for (let i = 0; i < NEW_CAP; i++) {
+    // Every new card is asked again 4 cards after its first answer, hint-free (decision 38):
+    // 0 1 2 3 [0] [1] [2] [3] 4 [4]; the re-asks never change a box.
+    const sequence = [0, 1, 2, 3, 0, 1, 2, 3, 4, 4];
+    for (const [pos, i] of sequence.entries()) {
       await expect(app.situation).toHaveText(app.situationOf(i));
-      await expect(hint).toHaveAttribute('data-stage', '1'); // new card = stage 1
-      if (i === 1 || i === 2) {
+      const reask = pos > 3 && pos !== 8;
+      if (reask) await expect(hint).toHaveCount(0);
+      else await expect(hint).toHaveAttribute('data-stage', '1'); // new card = stage 1
+      if (!reask && (i === 1 || i === 2)) {
         await app.answer('Something else entirely');
         await app.grade(i === 1 ? t.gradeWrong : t.gradePartial);
       } else {
         await app.answer(canonical(i));
       }
-      await app.next.click();
-    }
-    for (const i of [1, 2]) {
-      await expect(app.situation).toHaveText(app.situationOf(i)); // end-of-round repeats
-      await app.answer(canonical(i));
       await app.next.click();
     }
     await expect(page.getByRole('button', { name: t.anotherRound })).toHaveCount(0);

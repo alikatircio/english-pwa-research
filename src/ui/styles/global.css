@@ -427,6 +427,10 @@ body {
   border-color: var(--muted);
 }
 
+.round-dots__dot--reask {
+  border-style: dashed;
+}
+
 .round-dots__dot--current {
   background: var(--accent);
   border-color: var(--accent);

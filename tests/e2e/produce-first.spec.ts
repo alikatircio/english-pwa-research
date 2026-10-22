@@ -73,7 +73,8 @@ test.describe('produce-first card', () => {
     await expect(app.todayCount).toHaveText(t.todayCount(NEW_CAP));
     await expect(app.startButton).toHaveText(t.start(NEW_CAP));
     await app.start();
-    for (let i = 0; i < NEW_CAP; i++) {
+    // Each new card comes back once, 4 cards later (decision 38): 0 1 2 3 [0] [1] [2] [3] 4 [4].
+    for (const i of [0, 1, 2, 3, 0, 1, 2, 3, 4, 4]) {
       await expect(app.situation).toHaveText(app.situationOf(i));
       await app.answer(canonical(i));
       await app.next.click();

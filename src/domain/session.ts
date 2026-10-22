@@ -1,4 +1,4 @@
-// Round/session logic (07 §3.6; decisions 1–3, 5, 6, 12, 25; 05 §1).
+// Round/session logic (07 §3.6; decisions 1–3, 6, 12, 25, 38; 05 §1).
 // Pure: the caller injects `today` (from a Clock) and `now`.
 import { compareDays } from './dates.ts';
 import { isDue } from './scheduler.ts';
@@ -181,7 +181,8 @@ export function isSessionStale(s: SessionState, today: DayKey, now: number): boo
 
 /**
  * Session effects of the first grade given to the current card.
- * - Main card graded wrong/partial → appended once as `repeat` (decision 5).
+ * - A new card, or a main card graded wrong/partial → asked again once, 4 cards
+ *   later (clamped to the end), as `repeat` (decision 38; the box never changes).
  * - `consecutiveWrong` counts wrong main-card answers; correct/partial reset it
  *   (decision 25). On reaching BREATHER_AFTER, the highest-box remaining main
  *   card (new = box 0; ties keep queue order) moves to cursor+1 and the
@@ -201,8 +202,8 @@ export function onFirstAnswer(s: SessionState, grade: Grade, pools: Pools): Sess
 
   let queue = s.queue;
   let repeatQueued = s.repeatQueued;
-  if (grade !== 'correct' && !repeatQueued.includes(entry.itemId)) {
-    queue = [...queue, { itemId: entry.itemId, kind: 'repeat' }];
+  if ((entry.kind === 'new' || grade !== 'correct') && !repeatQueued.includes(entry.itemId)) {
+    queue = insertReask(queue, s.cursor, entry.itemId);
     repeatQueued = [...repeatQueued, entry.itemId];
   }
 
@@ -213,6 +214,17 @@ export function onFirstAnswer(s: SessionState, grade: Grade, pools: Pools): Sess
   }
 
   return { ...s, queue, repeatQueued, consecutiveWrong, studiedChunks };
+}
+
+/** Decision 38: a re-ask comes back this many cards after the first answer (3 cards in between). */
+export const REASK_OFFSET = 4;
+
+/** Inserts the in-round re-ask at cursor + REASK_OFFSET, or at the end of a short round. */
+function insertReask(queue: readonly QueueEntry[], cursor: number, itemId: string): QueueEntry[] {
+  const at = Math.min(cursor + REASK_OFFSET, queue.length);
+  const next = [...queue];
+  next.splice(at, 0, { itemId, kind: 'repeat' });
+  return next;
 }
 
 function pullBreather(queue: readonly QueueEntry[], cursor: number, pools: Pools): QueueEntry[] {
