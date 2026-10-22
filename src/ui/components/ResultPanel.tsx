@@ -10,10 +10,12 @@ interface Props {
   matched: boolean;
   /** Self-grade once chosen (unmatched answers only). */
   grade?: Grade | undefined;
+  /** Decision 37: after a "fix" answer the note is shown right away, also on a match. */
+  showNote?: boolean;
 }
 
 /** The verdict heading takes focus after submit (ref; a11y audit 08 #2). */
-export const ResultPanel = forwardRef<HTMLHeadingElement, Props>(function ResultPanel({ item, answer, matched, grade }, verdictRef) {
+export const ResultPanel = forwardRef<HTMLHeadingElement, Props>(function ResultPanel({ item, answer, matched, grade, showNote }, verdictRef) {
   const canonical = item.acceptedAnswers[0] ?? '';
   const others = item.modelSentences.filter((s) => s !== canonical);
   return (
@@ -67,6 +69,12 @@ export const ResultPanel = forwardRef<HTMLHeadingElement, Props>(function Result
             ))}
           </ul>
         </div>
+      )}
+
+      {showNote && matched && (
+        <p className="pattern-card__note" data-testid="fix-note">
+          {item.noteTr}
+        </p>
       )}
 
       <PatternCard key={`${item.id}:${String(matched)}`} item={item} defaultOpen={!matched} showSentences={!matched} />

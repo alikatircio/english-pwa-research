@@ -72,7 +72,7 @@ export function CardScreen({ state, actions }: Props) {
   const phase = session.phase;
   const { tag, text } = splitSituation(item.situationTr);
   // Only the question needs the mode; the result looks the same for every shape.
-  const mode = phase.tag === 'question' ? modeForEntry(state, entry, session.cursor) : 'write';
+  const mode = phase.tag === 'question' ? modeForEntry(state, entry, session.cursor, session.queue.length) : 'write';
   const orderTokens =
     mode === 'order'
       ? shuffleTokens(item.acceptedAnswers[0] ?? '', `${item.id}:${session.cursor}:${showsBefore(state.progress.get(item.id) ?? null)}`)
@@ -144,7 +144,7 @@ export function CardScreen({ state, actions }: Props) {
         ) : (
           <ResultPanel
             ref={verdictRef}
-            item={item} answer={phase.answer} matched={phase.matched} grade={phase.matched ? undefined : phase.grade} />
+            item={item} answer={phase.answer} matched={phase.matched} grade={phase.matched ? undefined : phase.grade} showNote={phase.mode === 'fix'} />
         )}
 
         {phase.tag === 'question' && (

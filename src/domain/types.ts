@@ -109,10 +109,14 @@ export interface QueueEntry {
   kind: QueueKind;
 }
 
+/** Exercise shape (decisions 31, 36, 37). */
+export type ExerciseMode = 'write' | 'fix' | 'order';
+
+/** `mode` = the shape the question had, kept for the result (the log and the fix note). */
 export type CardPhase =
   | { tag: 'question' }
-  | { tag: 'result'; answer: string; matched: true }
-  | { tag: 'result'; answer: string; matched: false; grade?: Grade };
+  | { tag: 'result'; answer: string; matched: true; mode?: ExerciseMode }
+  | { tag: 'result'; answer: string; matched: false; grade?: Grade; mode?: ExerciseMode };
 
 /** Session fields onFirstAnswer may change (repeat append, wrong streak, breather reorder, summary). */
 export type RoundFields = Pick<SessionState, 'queue' | 'repeatQueued' | 'consecutiveWrong' | 'studiedChunks'>;

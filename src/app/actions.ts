@@ -138,7 +138,7 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
         hintStage: hintStageFor(prev),
         isRepeat,
         // Decision 30: practice rows say 'practice'; otherwise the shape that was shown (decision 31).
-        mode: isPractice ? 'practice' : modeForEntry(s, entry, session.cursor),
+        mode: isPractice ? 'practice' : ((phase.tag === 'result' ? phase.mode : undefined) ?? modeForEntry(s, entry, session.cursor, session.queue.length)),
         boxBefore: prev?.box ?? null,
         boxAfter: progress ? progress.box : (prev?.box ?? null),
       };
@@ -396,10 +396,11 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       const item = s.catalog.byId.get(entry.itemId);
       if (!item) return;
       const matched = isAccepted(answer, s.catalog.accepted.get(item.id) ?? item.acceptedAnswers);
+      const mode = modeForEntry(s, entry, session.cursor, session.queue.length);
       if (matched) {
-        await grade('correct', 'auto', answer, { tag: 'result', answer, matched: true });
+        await grade('correct', 'auto', answer, { tag: 'result', answer, matched: true, mode });
       } else {
-        setSession({ ...session, draft: text, phase: { tag: 'result', answer, matched: false }, updatedAt: clock.now() });
+        setSession({ ...session, draft: text, phase: { tag: 'result', answer, matched: false, mode }, updatedAt: clock.now() });
       }
     },
 
@@ -425,7 +426,7 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       const restored: SessionState = {
         ...session,
         ...snapshot.prevRound,
-        phase: { tag: 'result', answer: phase.answer, matched: false },
+        phase: { tag: 'result', answer: phase.answer, matched: false, ...(phase.mode ? { mode: phase.mode } : {}) },
         updatedAt: clock.now(),
       };
       delete restored.undo;

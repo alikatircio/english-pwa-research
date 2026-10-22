@@ -32,40 +32,54 @@ const progress = (box: Box, shows?: number): Progress => ({
   ...(shows === undefined ? {} : { shows }),
 });
 
-describe('chooseMode', () => {
-  it('box 1: first showing is order, later showings are write', () => {
-    expect(chooseMode({ item, progress: null, entryKind: 'new', showCount: 0 })).toBe('order');
-    expect(chooseMode({ item, progress: progress(1, 1), entryKind: 'due', showCount: 1 })).toBe('write');
-    expect(chooseMode({ item, progress: progress(1, 5), entryKind: 'due', showCount: 5 })).toBe('write');
+describe('chooseMode (decisions 36, 37)', () => {
+  const pick = (o: { box?: Box | null; kind?: string; n: number; last?: boolean; it?: Item }) =>
+    chooseMode({
+      item: o.it ?? item,
+      progress: o.box == null ? null : progress(o.box),
+      entryKind: o.kind ?? 'due',
+      showCount: o.n,
+      isLast: o.last ?? false,
+    });
+
+  it('new cards and box 1-2 cards are write (order is practice-only)', () => {
+    expect(pick({ box: null, kind: 'new', n: 0 })).toBe('write');
+    for (const box of [1, 2] as const) for (let n = 0; n < 8; n++) expect(pick({ box, n })).toBe('write');
   });
 
-  it('box >= 2 with a commonMistake: every 3rd showing is fix, the rest write', () => {
-    const modes = [1, 2, 3, 4, 5, 6].map((n) => chooseMode({ item, progress: progress(3), entryKind: 'due', showCount: n }));
+  it('box >= 3 with a commonMistake: every 3rd showing is fix, the rest write', () => {
+    const modes = [1, 2, 3, 4, 5, 6].map((n) => pick({ box: 3, n }));
     expect(modes).toEqual(['write', 'fix', 'write', 'write', 'fix', 'write']);
+    expect(pick({ box: 7, n: 2 })).toBe('fix');
   });
 
-  it('box >= 2 without a commonMistake is always write', () => {
-    for (let n = 1; n < 8; n++) expect(chooseMode({ item: noMistake, progress: progress(2), entryKind: 'due', showCount: n })).toBe('write');
+  it('box >= 3 without a commonMistake is always write', () => {
+    for (let n = 1; n < 8; n++) expect(pick({ box: 4, n, it: noMistake })).toBe('write');
   });
 
-  it('end-of-round repeats are order, whatever the box', () => {
-    expect(chooseMode({ item, progress: progress(4, 3), entryKind: 'repeat', showCount: 3 })).toBe('order');
+  it('never fix on the last card of a round', () => {
+    expect(pick({ box: 4, n: 2, last: false })).toBe('fix');
+    expect(pick({ box: 4, n: 2, last: true })).toBe('write');
   });
 
-  it('practice rotates write, fix, order', () => {
-    const modes = [0, 1, 2, 3, 4, 5].map((n) => chooseMode({ item, progress: progress(3), entryKind: 'practice', showCount: n }));
-    expect(modes).toEqual(['write', 'fix', 'order', 'write', 'fix', 'order']);
+  it('in-round re-asks are write, whatever the box', () => {
+    expect(pick({ box: 4, kind: 'repeat', n: 2 })).toBe('write');
+  });
+
+  it('practice rotates write, fix, order; fix needs box >= 3 and a non-last card', () => {
+    const rot = (box: Box, last = false) => [0, 1, 2, 3, 4, 5].map((n) => pick({ box, kind: 'practice', n, last }));
+    expect(rot(3)).toEqual(['write', 'fix', 'order', 'write', 'fix', 'order']);
+    expect(rot(2)).toEqual(['write', 'write', 'order', 'write', 'write', 'order']);
+    expect(pick({ box: 3, kind: 'practice', n: 1, last: true })).toBe('write');
   });
 
   it('falls back to write when the item cannot do the mode', () => {
-    expect(chooseMode({ item: oneWord, progress: null, entryKind: 'new', showCount: 0 })).toBe('write');
-    expect(chooseMode({ item: oneWord, progress: null, entryKind: 'repeat', showCount: 0 })).toBe('write');
-    expect(chooseMode({ item: noMistake, progress: null, entryKind: 'practice', showCount: 1 })).toBe('write');
+    expect(pick({ box: 3, kind: 'practice', n: 2, it: oneWord })).toBe('write');
+    expect(pick({ box: 3, kind: 'practice', n: 1, it: noMistake })).toBe('write');
   });
 
   it('is deterministic', () => {
-    const input = { item, progress: progress(2), entryKind: 'due', showCount: 2 };
-    expect(chooseMode(input)).toBe(chooseMode(input));
+    expect(pick({ box: 3, n: 2 })).toBe(pick({ box: 3, n: 2 }));
   });
 });
 

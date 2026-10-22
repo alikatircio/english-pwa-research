@@ -1,4 +1,4 @@
-// Which exercise shape the current queue entry gets (decision 31). The card screen
+// Which exercise shape the current queue entry gets (decisions 31, 36, 37). The card screen
 // and the answer log both ask here, so they always agree.
 import { chooseMode, showsBefore, type ExerciseMode } from '../domain/exerciseMode.ts';
 import type { QueueEntry } from '../domain/types.ts';
@@ -23,12 +23,12 @@ function e2eOverride(): ExerciseMode | undefined {
  * change between its question and its result. Practice entries rotate by their
  * position in the round (they never touch progress).
  */
-export function modeForEntry(s: Pick<ReadyState, 'catalog' | 'progress'>, entry: QueueEntry, cursor: number): ExerciseMode {
+export function modeForEntry(s: Pick<ReadyState, 'catalog' | 'progress'>, entry: QueueEntry, cursor: number, queueLength: number): ExerciseMode {
   const item = s.catalog.byId.get(entry.itemId);
   if (!item) return 'write';
   const forced = e2eOverride();
   if (forced) return forced;
   const progress = s.progress.get(entry.itemId) ?? null;
   const showCount = entry.kind === ('practice' as string) ? cursor : showsBefore(progress);
-  return chooseMode({ item, progress, entryKind: entry.kind, showCount });
+  return chooseMode({ item, progress, entryKind: entry.kind, showCount, isLast: cursor >= queueLength - 1 });
 }

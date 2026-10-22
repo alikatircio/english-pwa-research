@@ -1,9 +1,9 @@
-// Exercise modes (decision 31). Pure and deterministic: same inputs, same mode.
-import type { Item, Progress } from './types.ts';
+// Exercise modes (decisions 31, 36, 37). Pure and deterministic: same inputs, same mode.
+import type { ExerciseMode, Item, Progress } from './types.ts';
 
-export type ExerciseMode = 'write' | 'fix' | 'order';
+export type { ExerciseMode };
 
-/** Every 3rd showing of a box ≥2 card with a commonMistake is "fix". */
+/** Every 3rd showing of a box ≥3 card with a commonMistake is "fix" (decision 37). */
 export const FIX_EVERY = 3;
 
 const MODES: readonly ExerciseMode[] = ['write', 'fix', 'order'];
@@ -26,7 +26,7 @@ export interface ChooseModeInput {
   item: Item;
   /** Progress before this showing; null = new card. */
   progress: Progress | null;
-  /** QueueEntry.kind: 'due' | 'new' | 'repeat' | 'practice' (a plain string so this works before 'practice' is in the type). */
+  /** QueueEntry.kind: 'due' | 'new' | 'repeat' | 'practice' (a plain string so callers need no cast). */
   entryKind: string;
   /**
    * How many times the card was shown (graded) before this showing.
@@ -34,6 +34,8 @@ export interface ChooseModeInput {
    * so the caller passes the entry's position in the round instead (rotation).
    */
   showCount: number;
+  /** Last card of the round: never "fix" (decision 37). */
+  isLast: boolean;
 }
 
 /** Showings before this one, from Progress.shows (records from before the field count as 1). */
@@ -41,16 +43,24 @@ export function showsBefore(progress: Progress | null): number {
   return progress ? (progress.shows ?? 1) : 0;
 }
 
-/** Decision 31. A mode that the item cannot support falls back to "write". */
-export function chooseMode({ item, progress, entryKind, showCount }: ChooseModeInput): ExerciseMode {
-  let mode: ExerciseMode;
-  if (entryKind === 'repeat') mode = 'order';
-  else if (entryKind === 'practice') mode = MODES[Math.abs(showCount) % MODES.length] ?? 'write';
-  else if ((progress?.box ?? 1) === 1) mode = showCount === 0 ? 'order' : 'write';
-  else mode = (showCount + 1) % FIX_EVERY === 0 ? 'fix' : 'write';
-  if (mode === 'order' && !canOrder(item)) return 'write';
-  if (mode === 'fix' && !canFix(item)) return 'write';
-  return mode;
+/** Decision 37: "fix" only from this Leitner box on. */
+export const FIX_MIN_BOX = 3;
+
+/**
+ * Decisions 36, 37. "Sırala" lives in free practice only. "Hatayı düzelt" needs
+ * box ≥ 3, a commonMistake and a card that is not last in the round; in main
+ * rounds it is every 3rd showing. Everything else is "Yaz". A mode the item or
+ * the position cannot support falls back to "write".
+ */
+export function chooseMode({ item, progress, entryKind, showCount, isLast }: ChooseModeInput): ExerciseMode {
+  const fixOk = (progress?.box ?? 1) >= FIX_MIN_BOX && canFix(item) && !isLast;
+  if (entryKind === 'practice') {
+    const mode = MODES[Math.abs(showCount) % MODES.length] ?? 'write';
+    if (mode === 'order') return canOrder(item) ? 'order' : 'write';
+    return mode === 'fix' && fixOk ? 'fix' : 'write';
+  }
+  if (entryKind === 'repeat' || entryKind === 'new') return 'write';
+  return fixOk && (showCount + 1) % FIX_EVERY === 0 ? 'fix' : 'write';
 }
 
 function hashSeed(seed: number | string): number {

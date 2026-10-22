@@ -143,7 +143,7 @@ describe('actions — undo reverts the round effects too (T2.4 + T4.2)', () => {
     expect(s?.queue).toEqual(before?.queue);
     expect(s?.repeatQueued).toEqual([]);
     expect(s?.consecutiveWrong).toBe(0);
-    expect(s?.phase).toEqual({ tag: 'result', answer: 'something else entirely', matched: false });
+    expect(s?.phase).toEqual({ tag: 'result', answer: 'something else entirely', matched: false, mode: 'write' });
     expect((await app.db.get('session', 'current'))?.queue).toEqual(before?.queue);
 
     // Re-grading as correct now queues no repeat.
@@ -289,6 +289,25 @@ describe('actions — daily new-card cap (decision 29)', () => {
     expect(await app.actions.setDailyNewCap(15)).toBe(true);
     expect(app.ready().meta.dailyNewCap).toBe(15);
     expect(await app.db.get('meta', 'dailyNewCap')).toEqual({ key: 'dailyNewCap', value: 15 });
+    app.db.close();
+  });
+});
+
+describe('actions — fix mode (decision 37)', () => {
+  it('a box 3 card on its 3rd showing is fix: the phase and the log carry the mode; the last card is write', async () => {
+    const [a, b] = ids as [string, string];
+    const seen = (itemId: string, box: Progress['box'], shows: number): Progress => ({
+      itemId, box, dueOn: '2026-11-02', introducedOn: '2026-10-20', lastAnsweredOn: '2026-10-25', lastGrade: 'correct', updatedAt: 1, shows,
+    });
+    const app = await setup({ progress: [seen(a, 3, 2), seen(b, 3, 2)] });
+    const first = app.current()?.itemId ?? '';
+    const withMistake = app.ready().catalog.byId.get(first)?.commonMistake;
+    expect(withMistake).toBeTruthy();
+    await app.actions.submitAnswer('something else entirely');
+    expect(app.ready().session?.phase).toMatchObject({ tag: 'result', mode: 'fix' });
+    await app.actions.selfGrade('wrong');
+    expect((await app.db.getAll('answerLog'))[0]).toMatchObject({ mode: 'fix' });
+
     app.db.close();
   });
 });
