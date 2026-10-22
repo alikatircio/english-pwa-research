@@ -1,0 +1,142 @@
+{
+  "depend-on": [
+    "The result depends ___ the test data.",
+    "Whether we release on Friday depends ___ the regression results."
+  ],
+  "responsible-for": [
+    "Mert is responsible ___ the payment API tests.",
+    "Who is responsible ___ the staging environment?"
+  ],
+  "wait-for": [
+    null,
+    null
+  ],
+  "join-call-no-to": [
+    null,
+    null
+  ],
+  "related-to": [
+    "Is this ticket related ___ QA-123?",
+    "The timeout is related ___ the new config."
+  ],
+  "during-the-daily": [
+    null,
+    null
+  ],
+  "ask-for-access": [
+    "Ayşe asked ___ more time to finish the tests.",
+    "Don't be afraid to ask ___ help."
+  ],
+  "comment-on": [
+    "Can you comment ___ my PR?",
+    null
+  ],
+  "reply-to": [
+    "I'll reply ___ the email after the daily.",
+    "Mert hasn't replied ___ my message yet."
+  ],
+  "help-with": [
+    "Deniz helped me ___ the pipeline config.",
+    "Let me know if you need help ___ the test data."
+  ],
+  "attend-meeting-no-to": [
+    null,
+    null
+  ],
+  "reach-out-to": [
+    "Feel free to reach ___ if you have any questions.",
+    "Deniz reached ___ ___ me about the flaky test."
+  ],
+  "by-deadline": [
+    null,
+    null
+  ],
+  "until-duration": [
+    "The staging environment is down ___ tomorrow morning.",
+    "Let's wait ___ the build finishes."
+  ],
+  "agree-with-someone": [
+    "Mert agrees ___ Ayşe about the test scope.",
+    null
+  ],
+  "consist-of": [
+    "The release consists ___ three main features.",
+    "Each test case consists ___ steps and expected results."
+  ],
+  "reproduce-the-issue": [
+    null,
+    null
+  ],
+  "assign-something-to-someone": [
+    "I've assigned the bug ___ Mert.",
+    "This ticket is assigned ___ the backend team."
+  ],
+  "get-back-to-someone": [
+    null,
+    null
+  ],
+  "log-a-bug": [
+    null,
+    null
+  ],
+  "have-a-meeting": [
+    null,
+    null
+  ],
+  "look-into-it": [
+    null,
+    null
+  ],
+  "escalate-issue-to": [
+    null,
+    "Mert ___ the bug ___ the backend team."
+  ],
+  "follow-up-on": [
+    "Did anyone follow up ___ the flaky test?",
+    "Deniz followed up ___ the ticket after the daily."
+  ],
+  "blocked-by": [
+    null,
+    null
+  ],
+  "roll-back-release": [
+    "If the smoke tests fail, we'll roll ___ the deployment.",
+    null
+  ],
+  "flaky-test": [
+    null,
+    null
+  ],
+  "keep-me-in-the-loop": [
+    null,
+    null
+  ],
+  "works-on-my-end": [
+    null,
+    null
+  ],
+  "a-heads-up": [
+    null,
+    null
+  ],
+  "issue-has-come-up-again": [
+    "Something urgent has come ___, can we move the call?",
+    "This question came ___ in the retro."
+  ],
+  "address-review-comments": [
+    null,
+    null
+  ],
+  "sign-off-on": [
+    "We can't deploy until the product owner signs ___ on it.",
+    "Who needs to sign ___ on the test plan?"
+  ],
+  "edge-case": [
+    null,
+    null
+  ],
+  "grant-someone-access-to": [
+    "I've given Ayşe access ___ the test repo.",
+    "Who can grant access ___ the staging environment?"
+  ]
+}

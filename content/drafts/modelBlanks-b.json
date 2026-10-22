@@ -1,0 +1,142 @@
+{
+  "depend-on": [
+    "The result depends ___ the test data.",
+    "Whether we release on Friday depends ___ the regression results."
+  ],
+  "responsible-for": [
+    "Mert is responsible ___ the payment API tests.",
+    "Who is responsible ___ the staging environment?"
+  ],
+  "wait-for": [
+    "We're waiting ___ Mert's approval.",
+    "Sorry, I was waiting ___ the pipeline."
+  ],
+  "join-call-no-to": [
+    "Can Deniz ___ the meeting too?",
+    "Deniz ___ the team last month."
+  ],
+  "related-to": [
+    "Is this ticket related ___ QA-123?",
+    "The timeout is related ___ the new config."
+  ],
+  "during-the-daily": [
+    "The build failed ___ the night.",
+    "Mert mentioned it ___ the retro."
+  ],
+  "ask-for-access": [
+    "Ayşe asked ___ more time to finish the tests.",
+    "Don't be afraid to ask ___ help."
+  ],
+  "comment-on": [
+    "Can you comment ___ my PR?",
+    "Mert left a comment ___ the test plan."
+  ],
+  "reply-to": [
+    "I'll reply ___ the email after the daily.",
+    "Mert hasn't replied ___ my message yet."
+  ],
+  "help-with": [
+    "Deniz helped me ___ the pipeline config.",
+    "Let me know if you need help ___ the test data."
+  ],
+  "attend-meeting-no-to": [
+    "Ten people ___ the demo.",
+    "Will Mert ___ the planning meeting?"
+  ],
+  "reach-out-to": [
+    "Feel free to reach ___ if you have any questions.",
+    "Deniz reached ___ ___ me about the flaky test."
+  ],
+  "by-deadline": [
+    "I'll send the test report ___ EOD.",
+    "We need to finish the regression ___ the end of the sprint."
+  ],
+  "until-duration": [
+    "The staging environment is down ___ tomorrow morning.",
+    "Let's wait ___ the build finishes."
+  ],
+  "agree-with-someone": [
+    "Mert agrees ___ Ayşe ___ the test scope.",
+    "We agreed ___ the release date."
+  ],
+  "consist-of": [
+    "The release consists ___ three main features.",
+    "Each test case consists ___ steps and expected results."
+  ],
+  "reproduce-the-issue": [
+    "Could you add steps to ___?",
+    "Ayşe ___ the bug on staging."
+  ],
+  "assign-something-to-someone": [
+    "I've ___ the bug ___ Mert.",
+    "This ticket is ___ ___ the backend team."
+  ],
+  "get-back-to-someone": [
+    "Let me check and ___ ___ ___ you.",
+    "Deniz hasn't ___ ___ ___ me yet."
+  ],
+  "log-a-bug": [
+    "Could you ___ a bug and assign it to me?",
+    "Mert ___ a bug about the login timeout."
+  ],
+  "have-a-meeting": [
+    "We ___ a planning meeting every two weeks.",
+    "Can we ___ a quick meeting after the daily?"
+  ],
+  "look-into-it": [
+    "Mert is ___ ___ the timeout issue.",
+    "Could you ___ ___ why the build failed?"
+  ],
+  "escalate-issue-to": [
+    "If it's still blocked tomorrow, we should ___ it.",
+    "Mert ___ the bug ___ the backend team."
+  ],
+  "follow-up-on": [
+    "Did anyone ___ ___ ___ the flaky test?",
+    "Deniz ___ ___ ___ the ticket after the daily."
+  ],
+  "blocked-by": [
+    "QA-124 is ___ ___ QA-123.",
+    "The release is ___ ___ two critical bugs."
+  ],
+  "roll-back-release": [
+    "If the smoke tests fail, we'll ___ ___ the deployment.",
+    "The ___ took ten minutes."
+  ],
+  "flaky-test": [
+    "We have three ___ tests in the login suite.",
+    "Is it a real bug or just a ___ test?"
+  ],
+  "keep-me-in-the-loop": [
+    "I'll keep you ___ ___ ___.",
+    null
+  ],
+  "works-on-my-end": [
+    "Are there any problems ___ ___ ___?",
+    "Everything looks fine ___ ___ ___."
+  ],
+  "a-heads-up": [
+    "Thanks for the ___!",
+    "Could you give the team a ___ about the release?"
+  ],
+  "issue-has-come-up-again": [
+    "Something urgent has ___ ___, can we move the call?",
+    "This question ___ ___ in the retro."
+  ],
+  "address-review-comments": [
+    "Could you ___ Deniz's comments before we merge?",
+    "This PR ___ the timeout issue in QA-123."
+  ],
+  "sign-off-on": [
+    "We can't deploy until the product owner ___ ___ ___ it.",
+    "Who needs to ___ ___ ___ the test plan?"
+  ],
+  "edge-case": [
+    "Did you cover the ___ ___?",
+    "An empty cart is an ___ ___ for the checkout test."
+  ],
+  "grant-someone-access-to": [
+    "I've ___ Ayşe access ___ the test repo.",
+    "Who can ___ access ___ the staging environment?"
+  ]
+}

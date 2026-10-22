@@ -1,0 +1,146 @@
+{
+  "does-the-test-pass-question": [
+    null,
+    null
+  ],
+  "has-been-failing-since": [
+    "This test has been failing on CI ___ the last merge.",
+    "The login tests have been failing ___ yesterday."
+  ],
+  "it-turned-out-that": [
+    "It turned ___ the bug was already fixed on staging.",
+    "It turned ___ the failure was a corner case we missed."
+  ],
+  "not-sure-whether": [
+    null,
+    null
+  ],
+  "had-to-rerun": [
+    "We had ___ skip the payment tests because staging was down.",
+    "Deniz had ___ update the test data this morning."
+  ],
+  "should-have-tested": [
+    "I should ___ attached the logs to the ticket.",
+    "We should ___ raised a bug for this earlier."
+  ],
+  "make-sure-the-tests-pass": [
+    "Make ___ the test data is up to date.",
+    "Please make ___ that the PR has two approvals."
+  ],
+  "describe-something-to-someone": [
+    null,
+    null
+  ],
+  "point-it-out": [
+    null,
+    "Could you point it ___ in the PR?"
+  ],
+  "investigate-the-failure": [
+    null,
+    null
+  ],
+  "clarify-the-requirements": [
+    null,
+    null
+  ],
+  "attach-logs-to-the-ticket": [
+    "Could you attach a screenshot ___ the bug?",
+    "Mert attached the test report ___ QA-123."
+  ],
+  "hand-over-to": [
+    "I'll hand over my tasks ___ Deniz by EOD.",
+    "Ayşe handed the test plan over ___ me."
+  ],
+  "contact-someone": [
+    null,
+    null
+  ],
+  "fails-intermittently": [
+    null,
+    null
+  ],
+  "progress-uncountable": [
+    null,
+    null
+  ],
+  "documentation-uncountable": [
+    null,
+    null
+  ],
+  "a-lot-of-work": [
+    null,
+    null
+  ],
+  "in-terms-of": [
+    "In terms ___ test coverage, the payment API is fine.",
+    "What does this change mean in terms ___ testing?"
+  ],
+  "prioritise-verb": [
+    null,
+    null
+  ],
+  "clarification-noun": [
+    null,
+    null
+  ],
+  "on-leave": [
+    "Deniz is ___ leave until Monday.",
+    "Mert is ___ sick leave today."
+  ],
+  "in-charge-of": [
+    "Who is in charge ___ the staging environment?",
+    "Ayşe is in charge ___ the test plan."
+  ],
+  "get-rid-of": [
+    "Let's get rid ___ the old test data.",
+    "I got rid ___ the duplicate tests."
+  ],
+  "familiar-with": [
+    "Are you familiar ___ the payment API?",
+    "Deniz is familiar ___ the test framework."
+  ],
+  "similar-to": [
+    "The error is similar ___ the one we saw last week.",
+    "This test is very similar ___ the login test."
+  ],
+  "focus-on": [
+    "I'm focusing ___ the payment tests this week.",
+    "Ayşe is blocked on QA-123, so let's focus ___ that first."
+  ],
+  "catch-up-on": [
+    null,
+    null
+  ],
+  "run-tests-against-staging": [
+    null,
+    null
+  ],
+  "merge-pr-into-main": [
+    null,
+    null
+  ],
+  "revert-the-change": [
+    null,
+    null
+  ],
+  "take-over-from": [
+    "Mert will take over the release ___ Ayşe.",
+    null
+  ],
+  "double-check": [
+    null,
+    null
+  ],
+  "run-out-of-time": [
+    "I ran out ___ time to review your PR today.",
+    "We're running out ___ time before the release."
+  ],
+  "as-far-as-i-know": [
+    "As far ___ I know, Mert is on leave today.",
+    "Nobody has changed the test data, as far ___ I know."
+  ],
+  "mention-someone-in-a-comment": [
+    null,
+    null
+  ]
+}

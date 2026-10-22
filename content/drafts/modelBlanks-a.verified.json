@@ -1,0 +1,134 @@
+{
+  "could-you-base-verb": [
+    null,
+    null
+  ],
+  "will-base-verb": [
+    null,
+    null
+  ],
+  "need-to-do": [
+    "We need ___ rerun the regression suite.",
+    "You don't need ___ restart the server."
+  ],
+  "let-me-check": [
+    null,
+    null
+  ],
+  "i-agree-with-you": [
+    "I agree ___ Deniz on this.",
+    "I don't ___ with that approach."
+  ],
+  "didnt-fail": [
+    null,
+    null
+  ],
+  "the-test-passed": [
+    null,
+    null
+  ],
+  "be-able-to": [
+    null,
+    null
+  ],
+  "want-someone-to": [
+    "I want you ___ review the test cases.",
+    "Would you like me ___ rerun the job?"
+  ],
+  "explain-something-to-someone": [
+    "I explained the issue ___ the team.",
+    "Can you explain the new flow ___ Ayşe?"
+  ],
+  "discuss-something": [
+    null,
+    null
+  ],
+  "remind-someone-to": [
+    "Can you remind Mert ___ update the ticket?",
+    "Remind me ___ check the nightly run."
+  ],
+  "share-something-with-someone": [
+    "Could you share the logs ___ Mert?",
+    "I'll share my screen ___ the team."
+  ],
+  "take-a-look-at-it": [
+    "I'll take a look ___ the failing test.",
+    "Can you have a look ___ my PR?"
+  ],
+  "fix-it-today": [
+    null,
+    null
+  ],
+  "tell-someone-about": [
+    "Can you tell the team ___ the new release date?",
+    null
+  ],
+  "ask-someone-to": [
+    "Could you ask Mert ___ review my PR?",
+    "She asked me ___ update the test data."
+  ],
+  "inform-someone-about": [
+    null,
+    null
+  ],
+  "mention-something": [
+    null,
+    null
+  ],
+  "update-someone-on": [
+    null,
+    null
+  ],
+  "data-uncountable": [
+    null,
+    null
+  ],
+  "feedback-uncountable": [
+    null,
+    null
+  ],
+  "information-uncountable": [
+    null,
+    null
+  ],
+  "software-uncountable": [
+    null,
+    null
+  ],
+  "deployment-was-successful": [
+    null,
+    null
+  ],
+  "set-up-verb": [
+    null,
+    null
+  ],
+  "log-in-to": [
+    null,
+    null
+  ],
+  "reminder-noun": [
+    null,
+    null
+  ],
+  "waiting-for-approval": [
+    null,
+    null
+  ],
+  "failure-noun": [
+    null,
+    null
+  ],
+  "dependent-on": [
+    null,
+    null
+  ],
+  "analysis-of": [
+    null,
+    null
+  ],
+  "judgmental-question": [
+    null,
+    null
+  ]
+}

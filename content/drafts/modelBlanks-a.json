@@ -1,0 +1,134 @@
+{
+  "could-you-base-verb": [
+    "Can you ___ the pipeline?",
+    "Could you ___ me the link?"
+  ],
+  "will-base-verb": [
+    "I'll ___ the ticket after lunch.",
+    "We'll ___ it tomorrow."
+  ],
+  "need-to-do": [
+    "We need ___ ___ the regression suite.",
+    "You don't need ___ ___ the server."
+  ],
+  "let-me-check": [
+    "Let me ___ the test and see.",
+    "Let me ___ if it fails again."
+  ],
+  "i-agree-with-you": [
+    "I ___ ___ Deniz on this.",
+    "I don't ___ ___ that approach."
+  ],
+  "didnt-fail": [
+    "The build ___ ___ this morning.",
+    "It ___ ___ locally."
+  ],
+  "the-test-passed": [
+    "Two tests ___ on staging.",
+    "All the API tests ___ last night."
+  ],
+  "be-able-to": [
+    "We ___ ___ ___ deploy to staging yesterday.",
+    "Will you ___ ___ ___ test it today?"
+  ],
+  "want-someone-to": [
+    "I ___ ___ ___ review the test cases.",
+    "Would you ___ ___ ___ rerun the job?"
+  ],
+  "explain-something-to-someone": [
+    "I explained the issue ___ ___ ___.",
+    "Can you explain the new flow ___ ___?"
+  ],
+  "discuss-something": [
+    "We discussed ___ ___ ___ with the PO.",
+    "Can we discuss ___ tomorrow?"
+  ],
+  "remind-someone-to": [
+    "Can you remind ___ to ___ the ticket?",
+    "Remind ___ to ___ the nightly run."
+  ],
+  "share-something-with-someone": [
+    "Could you share ___ ___ ___ Mert?",
+    "I'll share ___ ___ ___ the team."
+  ],
+  "take-a-look-at-it": [
+    "I'll take a look ___ ___ ___ ___.",
+    "Can you have a look ___ ___ ___?"
+  ],
+  "fix-it-today": [
+    "I checked ___ and sent ___ to Ayşe.",
+    "Can you review ___ before lunch?"
+  ],
+  "tell-someone-about": [
+    "Can you ___ ___ ___ ___ the new release date?",
+    "She ___ ___ the build was green."
+  ],
+  "ask-someone-to": [
+    "Could you ask ___ ___ review my PR?",
+    "She asked ___ ___ update the test data."
+  ],
+  "inform-someone-about": [
+    "Please inform ___ ___ any changes.",
+    "Ayşe informed ___ ___ ___ ___ the outage."
+  ],
+  "mention-something": [
+    null,
+    "Did Deniz mention ___ ___ ___?"
+  ],
+  "update-someone-on": [
+    "Can you update ___ ___ the release?",
+    null
+  ],
+  "data-uncountable": [
+    "The test ___ is out of date.",
+    "I need some ___ from the payment API."
+  ],
+  "feedback-uncountable": [
+    "I got some ___ on the test plan.",
+    "Any ___ is welcome."
+  ],
+  "information-uncountable": [
+    "Thanks for the ___.",
+    "This ___ is out of date."
+  ],
+  "software-uncountable": [
+    "Which ___ do you use for load testing?",
+    "The ___ is installed on the build agent."
+  ],
+  "deployment-was-successful": [
+    "The migration was a big ___.",
+    "The second run ___."
+  ],
+  "set-up-verb": [
+    "Can you help me ___ ___ the pipeline?",
+    "The ___ takes about ten minutes."
+  ],
+  "log-in-to": [
+    "___ ___ with your test account.",
+    "The ___ page doesn't load."
+  ],
+  "reminder-noun": [
+    "I'll set a ___ for the release.",
+    "Thanks for the ___!"
+  ],
+  "waiting-for-approval": [
+    "Could you ___ my PR?",
+    "We need ___ from the team lead."
+  ],
+  "failure-noun": [
+    "We had three ___ in the nightly run.",
+    "The test ___ on Firefox."
+  ],
+  "dependent-on": [
+    "The result ___ on the environment.",
+    "We should remove this ___."
+  ],
+  "analysis-of": [
+    "We need to ___ the results first.",
+    "The ___ shows a memory leak."
+  ],
+  "judgmental-question": [
+    "Let's keep the retro feedback constructive, not ___.",
+    "I didn't mean to sound ___."
+  ]
+}

@@ -1,0 +1,146 @@
+{
+  "does-the-test-pass-question": [
+    "___ this test ___ on mobile too?",
+    "___ the API tests ___ on staging?"
+  ],
+  "has-been-failing-since": [
+    "This test ___ ___ ___ on CI since the last merge.",
+    "The login tests ___ ___ ___ since yesterday."
+  ],
+  "it-turned-out-that": [
+    "It ___ ___ the bug was already fixed on staging.",
+    "It ___ ___ the failure was a corner case we missed."
+  ],
+  "not-sure-whether": [
+    "I'm not sure ___ ___ ___ ___ on staging yet.",
+    "I'm not sure ___ ___ ___ merged the PR."
+  ],
+  "had-to-rerun": [
+    "We ___ ___ ___ the payment tests because staging was down.",
+    "Deniz ___ ___ ___ the test data this morning."
+  ],
+  "should-have-tested": [
+    "I ___ ___ ___ the logs to the ticket.",
+    "We ___ ___ ___ a bug for this earlier."
+  ],
+  "make-sure-the-tests-pass": [
+    "___ ___ the test data ___ up to date.",
+    "Please ___ ___ that the PR ___ two approvals."
+  ],
+  "describe-something-to-someone": [
+    "Can you ___ the ___ ___ ___?",
+    "I ___ the ___ ___ ___ in the ticket."
+  ],
+  "point-it-out": [
+    "Mert ___ ___ a problem in the test data.",
+    "Could you ___ ___ ___ in the PR?"
+  ],
+  "investigate-the-failure": [
+    "Deniz is ___ the ___ on staging.",
+    "We need to ___ why the login test fails."
+  ],
+  "clarify-the-requirements": [
+    "Could you ___ the ___ ___ for me?",
+    "We ___ the ___ with the PO."
+  ],
+  "attach-logs-to-the-ticket": [
+    "Could you ___ a ___ ___ the bug?",
+    "Mert ___ the ___ ___ ___ QA-123."
+  ],
+  "hand-over-to": [
+    "I'll ___ ___ my tasks ___ Deniz by EOD.",
+    "Ayşe ___ the test plan ___ ___ me."
+  ],
+  "contact-someone": [
+    "Could you ___ Deniz about the test data?",
+    "I ___ ___ API team this morning."
+  ],
+  "fails-intermittently": [
+    "The login test is failing ___ on CI.",
+    "The API returns a 500 error ___."
+  ],
+  "progress-uncountable": [
+    "We made ___ ___ on the regression suite today.",
+    "There's been ___ ___ on the flaky test."
+  ],
+  "documentation-uncountable": [
+    "Is there any ___ for the payment API?",
+    "The ___ is out of date."
+  ],
+  "a-lot-of-work": [
+    "There's still a lot of ___ on the test plan.",
+    "Thanks, that saved me a lot of ___."
+  ],
+  "in-terms-of": [
+    "___ ___ ___ test coverage, the payment API is fine.",
+    "What does this change mean ___ ___ ___ testing?"
+  ],
+  "prioritise-verb": [
+    "We need to ___ the payment bugs.",
+    "Let's ___ the login tests this sprint."
+  ],
+  "clarification-noun": [
+    "Could you give me some ___ on QA-123?",
+    "Thanks for the ___."
+  ],
+  "on-leave": [
+    "Deniz is ___ leave until Monday.",
+    "Mert is ___ sick leave today."
+  ],
+  "in-charge-of": [
+    "Who is ___ ___ ___ the staging environment?",
+    "Ayşe is ___ ___ ___ the test plan."
+  ],
+  "get-rid-of": [
+    "Let's ___ ___ ___ the old test data.",
+    "I ___ ___ ___ the duplicate tests."
+  ],
+  "familiar-with": [
+    "Are you ___ ___ the payment API?",
+    "Deniz is ___ ___ the test framework."
+  ],
+  "similar-to": [
+    "The error is ___ ___ the one we saw last week.",
+    "This test is very ___ ___ the login test."
+  ],
+  "focus-on": [
+    "I'm ___ ___ the payment tests this week.",
+    "Ayşe is blocked on QA-123, so let's ___ ___ that first."
+  ],
+  "catch-up-on": [
+    "I'm still ___ ___ ___ the PR comments.",
+    "Let's ___ ___ ___ the test results after lunch."
+  ],
+  "run-tests-against-staging": [
+    "Can you ___ the smoke tests ___ the new build?",
+    "We ___ the full suite ___ staging every night."
+  ],
+  "merge-pr-into-main": [
+    "Can I ___ this ___ main?",
+    "Mert ___ the fix ___ main this morning."
+  ],
+  "revert-the-change": [
+    "Can you ___ this commit?",
+    "We ___ the PR because it broke staging."
+  ],
+  "take-over-from": [
+    "Mert will ___ ___ the release ___ Ayşe.",
+    "Can you ___ ___ the flaky test investigation?"
+  ],
+  "double-check": [
+    "I'll ___ the logs before I raise a bug.",
+    "Let me ___ the staging config."
+  ],
+  "run-out-of-time": [
+    "I ___ ___ ___ time to review your PR today.",
+    "We're ___ ___ ___ time before the release."
+  ],
+  "as-far-as-i-know": [
+    "___ ___ ___ I know, Mert is on leave today.",
+    "Nobody has changed the test data, ___ ___ ___ I know."
+  ],
+  "mention-someone-in-a-comment": [
+    "Can you ___ Ayşe ___ the PR so she sees it?",
+    "Deniz ___ me ___ a comment on the bug."
+  ]
+}
