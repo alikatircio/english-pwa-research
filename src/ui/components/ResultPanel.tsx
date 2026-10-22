@@ -14,10 +14,12 @@ interface Props {
   showNote?: boolean;
   /** Box before this showing (null = new): commonMistake hidden at box ≤ 2 (decision 33). */
   boxBefore?: number | null | undefined;
+  /** Decision 35: a correct answer that counted as partial because a hint was used. */
+  hinted?: boolean;
 }
 
 /** The verdict heading takes focus after submit (ref; a11y audit 08 #2). */
-export const ResultPanel = forwardRef<HTMLHeadingElement, Props>(function ResultPanel({ item, answer, matched, grade, showNote, boxBefore }, verdictRef) {
+export const ResultPanel = forwardRef<HTMLHeadingElement, Props>(function ResultPanel({ item, answer, matched, grade, showNote, boxBefore, hinted }, verdictRef) {
   const canonical = item.acceptedAnswers[0] ?? '';
   const others = item.modelSentences.filter((s) => s !== canonical);
   return (
@@ -30,6 +32,12 @@ export const ResultPanel = forwardRef<HTMLHeadingElement, Props>(function Result
         <h2 ref={verdictRef} tabIndex={-1} className="verdict verdict--miss">
           <span aria-hidden="true">≠</span> {t.notMatched}
         </h2>
+      )}
+
+      {hinted && (
+        <p className="graded hint-credit" role="status" data-testid="hint-credit">
+          {t.correctWithHint}
+        </p>
       )}
 
       <dl className="answers">

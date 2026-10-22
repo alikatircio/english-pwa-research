@@ -1,5 +1,5 @@
-// Hint stages (07 §3.5; decisions 4, 18, 23). Pure.
-import type { HintStage, Item, Progress } from './types.ts';
+// Hints (07 §3.5; decisions 18, 23, 35). Pure. Stage 1 = cloze, 2 = initials of the chunk, 3 = none.
+import type { HintStage, Item } from './types.ts';
 
 export const BLANK = '___';
 /** Separator between initials: two spaces, so "a…  t…" reads as separate words. */
@@ -8,12 +8,6 @@ const ELLIPSIS = '…';
 const FIRST_WORD_CHAR = /[\p{L}\p{N}]/u;
 
 export type Hint = { kind: 'cloze'; text: string } | { kind: 'initials'; text: string } | { kind: 'none' };
-
-/** Decision 4: hintStage = min(box, 3). No progress record = new card = box 1. */
-export function hintStageFor(p: Progress | null): HintStage {
-  const box = p?.box ?? 1;
-  return box >= 3 ? 3 : box === 2 ? 2 : 1;
-}
 
 /**
  * Decision 23: stage 2 is derived from the cloze blanks, no extra schema field.

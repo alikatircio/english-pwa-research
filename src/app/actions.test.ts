@@ -342,6 +342,63 @@ describe('actions — new-card intro and "Bilmiyorum" (decisions 33, 34)', () =>
   });
 });
 
+describe('actions — hints on demand (decision 35)', () => {
+  it('the hint opens one level per tap, up to 2, and is cleared on the next card', async () => {
+    const app = await setup({ progress: [due(ids[0] ?? '', 3)] });
+    expect(app.ready().session?.hint).toBeUndefined();
+    app.actions.showHint();
+    expect(app.ready().session?.hint).toBe(1);
+    app.actions.showHint();
+    app.actions.showHint();
+    expect(app.ready().session?.hint).toBe(2);
+    expect((await app.db.get('session', 'current'))?.hint).toBe(2);
+    await app.answer('wrong');
+    expect(app.ready().session?.hint).toBe(2); // still on the result
+    app.actions.next();
+    expect(app.ready().session?.hint).toBeUndefined();
+    app.db.close();
+  });
+
+  it('is refused on a study view, after the answer and on a re-ask', async () => {
+    const app = await setup();
+    app.actions.showHint(); // new card: study view
+    expect(app.ready().session?.hint).toBeUndefined();
+    app.actions.startWriting();
+    await app.actions.submitAnswer('something else entirely');
+    app.actions.showHint(); // result phase
+    expect(app.ready().session?.hint).toBeUndefined();
+    app.db.close();
+  });
+
+  it('correct with a hint is scheduled and logged as partial; hintUsed is the highest level', async () => {
+    const app = await setup({ progress: [due(ids[0] ?? '', 3)] });
+    app.actions.showHint();
+    app.actions.showHint();
+    await app.actions.submitAnswer(canonical(ids[0] ?? ''));
+    const progress = await app.db.get('progress', ids[0] ?? '');
+    expect(progress).toMatchObject({ box: 3, lastGrade: 'partial', dueOn: '2026-11-03' });
+    expect(app.ready().session?.phase).toMatchObject({ tag: 'result', matched: true, hinted: true });
+    expect((await app.db.getAll('answerLog'))[0]).toMatchObject({ grade: 'partial', gradedBy: 'auto', hintUsed: 2, boxBefore: 3, boxAfter: 3 });
+    // A partial first answer queues the hint-free re-ask (decision 38).
+    expect(app.ready().session?.queue.some((e) => e.kind === 'repeat' && e.itemId === ids[0])).toBe(true);
+    app.db.close();
+  });
+
+  it('a hint with a wrong answer changes nothing in the grade; no hint logs hintUsed 0 and keeps correct', async () => {
+    const hinted = await setup({ progress: [due(ids[0] ?? '', 3)] });
+    hinted.actions.showHint();
+    await hinted.answer('wrong');
+    expect((await hinted.db.get('progress', ids[0] ?? ''))?.box).toBe(1);
+    hinted.db.close();
+
+    const plain = await setup({ progress: [due(ids[0] ?? '', 3)] });
+    await plain.answer('correct');
+    expect(await plain.db.get('progress', ids[0] ?? '')).toMatchObject({ box: 4, lastGrade: 'correct' });
+    expect((await plain.db.getAll('answerLog'))[0]).toMatchObject({ hintUsed: 0 });
+    plain.db.close();
+  });
+});
+
 describe('actions — fix mode (decision 37)', () => {
   it('a box 3 card on its 3rd showing is fix: the phase and the log carry the mode; the last card is write', async () => {
     const [a, b] = ids as [string, string];

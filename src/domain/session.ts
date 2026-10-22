@@ -255,6 +255,7 @@ export function advance(s: SessionState): SessionState | 'round-end' {
   if (cursor >= s.queue.length) return 'round-end';
   const next: SessionState = { ...s, cursor, phase: openingPhase(s.queue[cursor]), draft: '' };
   delete next.undo;
+  delete next.hint;
   return next;
 }
 

@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import batchA from '../../content/drafts/batch-a.verified.json';
 import batchB from '../../content/drafts/batch-b.verified.json';
-import { chunkTokens, hintStageFor, initialsFor, renderHint } from './hints.ts';
+import { chunkTokens, initialsFor, renderHint } from './hints.ts';
 import { ItemSchema } from './itemSchema.ts';
-import type { Box, Item, Progress } from './types.ts';
+import type { Item } from './types.ts';
 
 const item: Item = {
   id: 'assign-to',
@@ -19,31 +19,6 @@ const item: Item = {
   source: 'curated',
   verified: true,
 };
-
-const progress = (box: Box): Progress => ({
-  itemId: 'x',
-  box,
-  dueOn: '2026-11-02',
-  introducedOn: '2026-11-01',
-  lastAnsweredOn: '2026-11-01',
-  lastGrade: 'correct',
-  updatedAt: 0,
-});
-
-describe('hintStageFor', () => {
-  it('new card (no progress) is stage 1', () => {
-    expect(hintStageFor(null)).toBe(1);
-  });
-  it.each([
-    [1, 1],
-    [2, 2],
-    [3, 3],
-    [4, 3],
-    [5, 3],
-  ] as const)('box %i → stage %i', (box, stage) => {
-    expect(hintStageFor(progress(box))).toBe(stage);
-  });
-});
 
 describe('renderHint', () => {
   it('stage 1 returns the cloze unchanged', () => {

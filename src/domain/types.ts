@@ -4,7 +4,10 @@ export type Category = 'aux_to' | 'object' | 'word_form' | 'preposition' | 'work
 export type Grade = 'correct' | 'partial' | 'wrong';
 export type GradedBy = 'auto' | 'self';
 export type Box = 1 | 2 | 3 | 4 | 5 | 6 | 7;
+/** Legacy auto stage (decision 4, removed by decision 35); only old log rows carry it. */
 export type HintStage = 1 | 2 | 3;
+/** Decision 35: on-demand hint level. 1 = cloze, 2 = cloze + initials of the chunk. */
+export type HintLevel = 1 | 2;
 /** Device-local calendar day, 'YYYY-MM-DD'. No time component (03 §4.5). */
 export type DayKey = string;
 
@@ -92,7 +95,10 @@ export interface AnswerLog {
   answer: string;
   grade: Grade;
   gradedBy: GradedBy;
-  hintStage: HintStage;
+  /** Old rows only (decision 4: automatic stage by box). */
+  hintStage?: HintStage;
+  /** Decision 35: highest hint level the user asked for on this card (0 = none). */
+  hintUsed?: 0 | HintLevel;
   /** End-of-round repeat (decision 5: does not change the box). */
   isRepeat: boolean;
   /** null = new card. */
@@ -115,13 +121,14 @@ export type ExerciseMode = 'write' | 'fix' | 'order';
 /**
  * `mode` = the shape the question had, `boxBefore` = the card's box before this
  * showing (null = new); both are kept for the result (log, fix note, commonMistake rule).
+ * `hinted` = a correct answer that counted as partial because a hint was used (decision 35).
  */
 export type CardPhase =
   /** Decision 33: a new card's first look at the pattern, before "Hazırım" hides it. */
   | { tag: 'study' }
   | { tag: 'question' }
-  | { tag: 'result'; answer: string; matched: true; mode?: ExerciseMode; boxBefore?: Box | null }
-  | { tag: 'result'; answer: string; matched: false; grade?: Grade; mode?: ExerciseMode; boxBefore?: Box | null };
+  | { tag: 'result'; answer: string; matched: true; mode?: ExerciseMode; boxBefore?: Box | null; hinted?: boolean }
+  | { tag: 'result'; answer: string; matched: false; grade?: Grade; mode?: ExerciseMode; boxBefore?: Box | null; hinted?: boolean };
 
 /** Session fields onFirstAnswer may change (repeat append, wrong streak, breather reorder, summary). */
 export type RoundFields = Pick<SessionState, 'queue' | 'repeatQueued' | 'consecutiveWrong' | 'studiedChunks'>;
@@ -147,6 +154,8 @@ export interface SessionState {
   cursor: number;
   phase: CardPhase;
   draft: string;
+  /** Decision 35: hint level opened on the current card; cleared when the card changes. */
+  hint?: HintLevel;
   repeatQueued: string[];
   consecutiveWrong: number;
   studiedChunks: string[];

@@ -170,6 +170,15 @@ describe('parseFile', () => {
     expect(parseFile(ok, ['english-pwa-backup']).ok).toBe(false);
   });
 
+  it('answer-log rows: old ones with hintStage, new ones with hintUsed and no hintStage (decision 35)', () => {
+    const file = backupFile() as unknown as { data: { answerLog: Record<string, unknown>[] } };
+    const base = { at: 1, day: '2026-11-02', itemId: 'a', answer: '', grade: 'partial', gradedBy: 'auto', isRepeat: false, boxBefore: 3, boxAfter: 3 };
+    file.data.answerLog = [{ ...base, hintStage: 2 }, { ...base, hintUsed: 2 }];
+    expect(parseFile(file, ['english-pwa-backup']).ok).toBe(true);
+    file.data.answerLog = [{ ...base, hintUsed: 3 }];
+    expect(parseFile(file, ['english-pwa-backup']).ok).toBe(false);
+  });
+
   it('lists every problem with its path', () => {
     const file = backupFile() as unknown as { data: Record<string, unknown[]> };
     const bad = structuredClone(file) as { data: Record<string, Record<string, unknown>[]> };

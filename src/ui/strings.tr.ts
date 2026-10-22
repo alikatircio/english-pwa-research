@@ -9,6 +9,10 @@ export const t = {
   userErrorHeading: 'İngilizcesi neydi?',
   contextPrefix: 'Bağlam:',
   hint: 'İpucu:',
+  /** Decision 35: the hint button and the second level's label. */
+  hintButton: 'İpucu',
+  hintInitials: 'Baş harfler:',
+  correctWithHint: 'İpucuyla doğru: kutu aynı kalır',
   answerPlaceholder: 'Tam cümle yaz…',
   /** Decision 31: "Hatayı düzelt" shape. */
   fixHeading: 'Bu cümledeki hatayı düzelt:',

@@ -18,13 +18,12 @@ import { buildClaudePrompt } from '../domain/claudePrompt.ts';
 import type { Clock } from '../domain/clock.ts';
 import { msUntilNextDay } from '../domain/dates.ts';
 import { extractJson } from '../domain/extractJson.ts';
-import { hintStageFor } from '../domain/hints.ts';
 import { isAccepted } from '../domain/normalize.ts';
 import { backupReminderDue, firstAnswerDay } from '../domain/reminders.ts';
 import { applyGrade } from '../domain/scheduler.ts';
 import { cleanNotebookText, createNotebookEntry, isDuplicateEntry } from '../domain/notebook.ts';
 import { countFirstAnswer, currentEntry, emptyCounter, isSessionStale, onFirstAnswer, todayCount } from '../domain/session.ts';
-import type { AnswerLog, CardPhase, DailyCounter, DayKey, Flag, Grade, GradedBy, MetaKey, MetaRecord, SessionState, UndoSnapshot } from '../domain/types.ts';
+import type { AnswerLog, CardPhase, DailyCounter, DayKey, Flag, Grade, GradedBy, HintLevel, MetaKey, MetaRecord, SessionState, UndoSnapshot } from '../domain/types.ts';
 import { createCatalog, withImported, type Catalog } from '../content/catalog.ts';
 import { exportFlagsReport, importItems, readBackupData, writeRestore } from '../storage/backupIO.ts';
 import { fixedConnection, type AppDb, type DbConnection, type ImportedItem } from '../storage/db.ts';
@@ -110,11 +109,18 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
    *   (repeat, 3-wrong breather) from onFirstAnswer.
    * - End-of-round repeat: log only; the box and the counter stay (decision 5).
    */
-  async function grade(g: Grade, gradedBy: GradedBy, answer: string, phase: CardPhase, undoable = false): Promise<void> {
+  async function grade(asked: Grade, gradedBy: GradedBy, answer: string, shown: CardPhase, undoable = false): Promise<void> {
     const s = ready(getState);
     const session = s?.session;
     const entry = session && currentEntry(session);
     if (!s || !session || !entry || s.busy) return;
+
+    // Decision 35: a correct answer given with a hint counts as partial (the box stays).
+    const hintUsed = session.hint ?? 0;
+    const hinted = asked === 'correct' && hintUsed > 0;
+    const g: Grade = hinted ? 'partial' : asked;
+    const phase: CardPhase =
+      hinted && shown.tag === 'result' ? (shown.matched ? { ...shown, hinted: true } : { ...shown, grade: 'partial', hinted: true }) : shown;
 
     dispatch({ type: 'busy' });
     try {
@@ -135,7 +141,7 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
         answer,
         grade: g,
         gradedBy,
-        hintStage: hintStageFor(prev),
+        hintUsed,
         isRepeat,
         // Decision 30: practice rows say 'practice'; otherwise the shape that was shown (decision 31).
         mode: isPractice ? 'practice' : ((phase.tag === 'result' ? phase.mode : undefined) ?? modeForEntry(s, entry, session.cursor, session.queue.length)),
@@ -403,6 +409,21 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       } else {
         setSession({ ...session, draft: text, phase: { tag: 'result', answer, matched: false, mode, boxBefore }, updatedAt: clock.now() });
       }
+    },
+
+    /**
+     * "İpucu" (decision 35): 1st tap opens the cloze, 2nd adds the initials of the chunk.
+     * Only on an open question that is not a re-ask (re-asks are hint-free) or "Sırala".
+     */
+    showHint(): void {
+      const s = ready(getState);
+      const session = s?.session;
+      const entry = session && currentEntry(session);
+      if (!s || !session || !entry || s.busy || session.phase.tag !== 'question' || entry.kind === 'repeat') return;
+      if (modeForEntry(s, entry, session.cursor, session.queue.length) === 'order') return;
+      const level = session.hint ?? 0;
+      if (level >= 2) return;
+      setSession({ ...session, hint: (level + 1) as HintLevel, updatedAt: clock.now() });
     },
 
     /** "Hazırım" (decision 33): hide the study view of a new card and start writing. Synchronous so the caller can focus in the same tap. */

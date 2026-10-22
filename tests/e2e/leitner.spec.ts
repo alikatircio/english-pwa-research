@@ -22,11 +22,8 @@ test.describe('Leitner across days (decisions 2–4)', () => {
     for (const [pos, i] of sequence.entries()) {
       await expect(app.situation).toHaveText(app.situationOf(i));
       const reask = pos > 3 && pos !== 8;
-      if (reask) await expect(hint).toHaveCount(0);
-      else {
-        await app.passStudy(); // a new card opens on its study view first (decision 33)
-        await expect(hint).toHaveAttribute('data-stage', '1'); // new card = stage 1
-      }
+      if (!reask) await app.passStudy(); // a new card opens on its study view first (decision 33)
+      await expect(hint).toHaveCount(0); // hints only on demand (decision 35)
       if (!reask && (i === 1 || i === 2)) {
         await app.answer('Something else entirely');
         await app.grade(i === 1 ? t.gradeWrong : t.gradePartial);
@@ -41,20 +38,20 @@ test.describe('Leitner across days (decisions 2–4)', () => {
     await page.reload();
     await expect(page.getByRole('heading', { name: t.todayDone })).toBeVisible();
 
-    // Day 2: the wrong and partial cards are due (box 1, +1 day), first, at stage 1; then 5 new again.
+    // Day 2: the wrong and partial cards are due (box 1, +1 day), first; then 5 new again.
     await reopenOnDay(page, 1);
     await expect(app.startButton).toHaveText(t.start(2 + NEW_CAP));
     await app.start();
     for (const i of [1, 2]) {
       await expect(app.situation).toHaveText(app.situationOf(i));
-      await expect(hint).toHaveAttribute('data-stage', '1');
+      await expect(hint).toHaveCount(0);
       await app.answer(canonical(i));
       await app.next.click();
     }
     await expect(app.situation).toHaveText(app.situationOf(NEW_CAP)); // first new card of day 2
     await expect(app.todayCount).toHaveCount(0); // still in the round
 
-    // Day 3: the day-1 correct cards (box 2, +2 days) are due with the stage 2 initials;
+    // Day 3: the day-1 correct cards (box 2, +2 days) are due;
     // yesterday's open round is stale, so Home offers "Başla", not "Devam et".
     await reopenOnDay(page, 2);
     await expect(app.resumeButton).toHaveCount(0);
@@ -62,7 +59,7 @@ test.describe('Leitner across days (decisions 2–4)', () => {
     await app.start();
     // Due order: dueOn, box, then id → e2e-depend-on (item 4) first.
     await expect(app.situation).toHaveText(app.situationOf(4));
-    await expect(hint).toHaveAttribute('data-stage', '2');
+    await expect(hint).toHaveCount(0);
 
     const progress = new Map((await readStore<Progress>(page, 'progress')).map((p) => [p.itemId, p]));
     for (const i of [0, 3, 4]) expect(progress.get(id(i))).toMatchObject({ box: 2, dueOn: day(2), introducedOn: day(0) });

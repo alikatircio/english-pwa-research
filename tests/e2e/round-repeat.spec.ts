@@ -41,11 +41,13 @@ test.describe('round with in-round re-asks (decisions 1, 38)', () => {
     for (const [pos, i] of sequence.entries()) {
       await expect(app.situation).toHaveText(app.situationOf(i));
       await expect(dots.nth(pos)).toHaveClass(/round-dots__dot--current/);
+      await expect(hint).toHaveCount(0);
       if (reasks.has(pos)) {
-        await expect(hint).toHaveCount(0); // a re-ask is hint-free
+        // A re-ask is hint-free: no "İpucu" button either (decision 38).
+        await expect(page.getByRole('button', { name: t.hintButton })).toHaveCount(0);
         await expect(dots.nth(pos)).toHaveClass(/round-dots__dot--reask/);
       } else {
-        await expect(hint).toHaveAttribute('data-stage', '1');
+        await expect(page.getByRole('button', { name: t.hintButton })).toBeVisible();
       }
       if (pos === 1 || pos === 4) {
         await app.answer('Something else entirely');

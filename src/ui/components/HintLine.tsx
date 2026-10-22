@@ -1,31 +1,44 @@
-import { renderHint, type Hint } from '../../domain/hints.ts';
-import type { HintStage, Item } from '../../domain/types.ts';
+import { renderHint } from '../../domain/hints.ts';
+import type { HintLevel, Item } from '../../domain/types.ts';
 import { t } from '../strings.tr.ts';
 
 interface Props {
   item: Item;
-  stage: HintStage;
+  /** 1 = cloze, 2 = cloze and the initials of the chunk (decision 35). */
+  level: HintLevel;
 }
 
-function safeHint(item: Item, stage: HintStage): Hint {
+function safeText(item: Item, stage: 1 | 2): string | undefined {
   try {
-    return renderHint(item, stage);
+    const hint = renderHint(item, stage);
+    return hint.kind === 'none' ? undefined : hint.text;
   } catch {
     // Content check C5 prevents this for shipped items; never break the card over a hint.
-    return { kind: 'none' };
+    return undefined;
   }
 }
 
-/** Hint line under the situation (decision 4): stage 1 cloze, stage 2 initials, stage 3 nothing. */
-export function HintLine({ item, stage }: Props) {
-  const hint = safeHint(item, stage);
-  if (hint.kind === 'none') return null;
+/** Hint under the situation, opened by the "İpucu" button (decision 35). */
+export function HintLine({ item, level }: Props) {
+  const cloze = safeText(item, 1);
+  const initials = level === 2 ? safeText(item, 2) : undefined;
+  if (cloze === undefined) return null;
   return (
-    <p className={`hint hint--${hint.kind}`} data-testid="hint" data-stage={stage}>
-      <span className="hint__label">{t.hint}</span>{' '}
-      <span className="hint__text" lang="en">
-        {hint.text}
-      </span>
-    </p>
+    <div className="hint" data-testid="hint" data-stage={level}>
+      <p className="hint__row">
+        <span className="hint__label">{t.hint}</span>{' '}
+        <span className="hint__text" lang="en" data-testid="hint-cloze">
+          {cloze}
+        </span>
+      </p>
+      {initials !== undefined && (
+        <p className="hint__row">
+          <span className="hint__label">{t.hintInitials}</span>{' '}
+          <span className="hint__text" lang="en" data-testid="hint-initials">
+            {initials}
+          </span>
+        </p>
+      )}
+    </div>
   );
 }

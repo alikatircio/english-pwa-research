@@ -4,7 +4,6 @@ import type { Actions } from '../../app/actions.ts';
 import type { ReadyState } from '../../app/state.ts';
 import { modeForEntry } from '../../app/mode.ts';
 import { shuffleTokens, showsBefore } from '../../domain/exerciseMode.ts';
-import { hintStageFor } from '../../domain/hints.ts';
 import { currentEntry } from '../../domain/session.ts';
 import { AnswerInput } from '../components/AnswerInput.tsx';
 import { FlagButton } from '../components/FlagButton.tsx';
@@ -160,7 +159,7 @@ export function CardScreen({ state, actions }: Props) {
           <p id={situationId} className="situation">
             {text}
           </p>
-          {phase.tag === 'question' && mode === 'write' && entry.kind !== 'repeat' && <HintLine item={item} stage={hintStageFor(state.progress.get(item.id) ?? null)} />}
+          {phase.tag === 'question' && session.hint !== undefined && mode !== 'order' && entry.kind !== 'repeat' && <HintLine item={item} level={session.hint} />}
         </section>
 
         {phase.tag === 'question' && mode === 'order' ? (
@@ -186,7 +185,22 @@ export function CardScreen({ state, actions }: Props) {
         ) : (
           <ResultPanel
             ref={verdictRef}
-            item={item} answer={phase.answer} matched={phase.matched} grade={phase.matched ? undefined : phase.grade} showNote={phase.mode === 'fix'} boxBefore={phase.boxBefore} />
+            item={item} answer={phase.answer} matched={phase.matched} grade={phase.matched ? undefined : phase.grade} showNote={phase.mode === 'fix'} boxBefore={phase.boxBefore} hinted={phase.hinted === true} />
+        )}
+
+        {phase.tag === 'question' && mode !== 'order' && entry.kind !== 'repeat' && (session.hint ?? 0) < 2 && (
+          // Decision 35: hints on demand; the tap keeps the keyboard up.
+          <button
+            type="button"
+            className="btn btn--text hint-button"
+            disabled={state.busy}
+            onClick={() => {
+              flushSync(() => actions.showHint());
+              inputRef.current?.focus();
+            }}
+          >
+            {t.hintButton}
+          </button>
         )}
 
         {phase.tag === 'question' && (
