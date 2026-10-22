@@ -3,14 +3,12 @@ export const t = {
   appTitle: 'İngilizce Üretim',
   loading: 'Yükleniyor…',
   bootFailed: 'Uygulama açılamadı. Sayfayı yenilemeyi dene.',
-  storageUnavailable: 'Bu tarayıcıda kayıt alanı açılamadı (özel sekme olabilir).',
 
   questionHeading: 'Bunu İngilizce yaz',
   /** Heading for notebook (user-error) items (03 H3.3). */
   userErrorHeading: 'İngilizcesi neydi?',
   contextPrefix: 'Bağlam:',
   hint: 'İpucu:',
-  answerLabel: 'İngilizce cevabın',
   answerPlaceholder: 'Tam cümle yaz…',
   check: 'Kontrol et',
   next: 'Sonraki',
@@ -19,7 +17,6 @@ export const t = {
   notMatched: 'Birebir eşleşmedi',
   yourAnswer: 'Senin cevabın',
   correctAnswer: 'Doğrusu',
-  otherAnswers: 'Bu da olur',
   modelSentences: 'Örnek cümleler',
   checklist: 'Kendine sor',
   patternCard: 'Kalıp kartı',

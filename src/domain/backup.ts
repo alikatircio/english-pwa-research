@@ -4,7 +4,7 @@
 import { z } from 'zod';
 import { compareDays, isDayKey } from './dates.ts';
 import { ItemSchema } from './itemSchema.ts';
-import type { AnswerLog, Box, DailyCounter, Flag, Item, NotebookEntry, Progress } from './types.ts';
+import type { AnswerLog, Box, DailyCounter, Flag, ImportedItem, Item, NotebookEntry, Progress } from './types.ts';
 
 export const SCHEMA_VERSION = 1;
 
@@ -22,8 +22,7 @@ export const USER_IMPORT = { source: 'user-error', verified: true, verifiedNote:
 
 // --- Record types not in types.ts ------------------------------------------
 
-/** `importedItems` store row: an Item plus when it was imported. */
-export type ImportedItem = Item & { importedAt: number };
+export type { ImportedItem } from './types.ts';
 
 export interface BackupData {
   progress: Progress[];

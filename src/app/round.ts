@@ -1,6 +1,6 @@
 // Glue between in-memory app state and the pure round builder (07 §3.6).
 import type { Clock } from '../domain/clock.ts';
-import { advance, buildRound, currentEntry, newSession, type Pools } from '../domain/session.ts';
+import { advance, buildRound, currentEntry, isShowable as isShowableIn, newSession, type Pools } from '../domain/session.ts';
 import type { DailyCounter, SessionState } from '../domain/types.ts';
 import { newOrder, type Catalog } from '../content/catalog.ts';
 import type { ReadyState } from './state.ts';
@@ -30,9 +30,9 @@ export function freshRound(s: PoolSource, counter: DailyCounter, clock: Clock): 
   return queue.length > 0 ? newSession(queue, counter.day, clock.now()) : undefined;
 }
 
-/** A card can be shown if it is still in the catalog and not flagged (decision 12). */
+/** domain isShowable on app state: still in the catalog and not flagged (decision 12). */
 export function isShowable(s: ShowSource, itemId: string): boolean {
-  return s.catalog.byId.has(itemId) && !s.flags.has(itemId);
+  return isShowableIn({ items: s.catalog.byId, flaggedIds: s.flags }, itemId);
 }
 
 /**

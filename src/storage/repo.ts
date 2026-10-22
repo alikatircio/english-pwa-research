@@ -3,6 +3,7 @@
 import type { AnswerLog, DailyCounter, DayKey, Flag, MetaRecord, NotebookEntry, Progress, SessionState, UndoSnapshot } from '../domain/types.ts';
 import type { AppDb, ImportedItem } from './db.ts';
 import { writeAll } from './tx.ts';
+import { emptyCounter } from '../domain/session.ts';
 
 export interface LoadedData {
   progress: Progress[];
@@ -13,10 +14,6 @@ export interface LoadedData {
   counter: DailyCounter;
   session: SessionState | undefined;
   meta: MetaRecord[];
-}
-
-export function emptyCounter(day: DayKey): DailyCounter {
-  return { day, newIntroduced: 0, reviewsAnswered: 0 };
 }
 
 /** Everything the app keeps in memory, read in one transaction at boot. */

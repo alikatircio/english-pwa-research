@@ -28,6 +28,9 @@ export type Item = {
   notebookId?: string;
 };
 
+/** `importedItems` store row (Slice 3): an Item plus when it was imported. */
+export type ImportedItem = Item & { importedAt: number };
+
 /** Bundled content file (src/content/items.json). */
 export interface ContentBundle {
   /** First 12 hex chars of the sha256 of the canonical JSON. */

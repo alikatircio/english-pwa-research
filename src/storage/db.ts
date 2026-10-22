@@ -6,7 +6,7 @@ import type {
   DailyCounter,
   DayKey,
   Flag,
-  Item,
+  ImportedItem,
   MetaRecord,
   NotebookEntry,
   Progress,
@@ -17,7 +17,7 @@ import { upgrade } from './migrations.ts';
 export const DB_NAME = 'english-pwa';
 export const DB_VERSION = 1;
 
-export type ImportedItem = Item & { importedAt: number };
+export type { ImportedItem } from '../domain/types.ts';
 
 export interface AppDbSchema extends DBSchema {
   progress: { key: string; value: Progress };
@@ -31,17 +31,6 @@ export interface AppDbSchema extends DBSchema {
 }
 
 export type AppDb = IDBPDatabase<AppDbSchema>;
-
-export const STORE_NAMES = [
-  'progress',
-  'dailyCounters',
-  'notebook',
-  'flags',
-  'answerLog',
-  'importedItems',
-  'session',
-  'meta',
-] as const;
 
 export interface OpenOptions {
   name?: string;

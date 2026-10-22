@@ -25,7 +25,8 @@ export interface Pools {
   newOrder: readonly string[];
 }
 
-function isShowable(p: Pools, itemId: string): boolean {
+/** A card can be shown if it is in the catalog and not flagged (decision 12). The one rule for rounds and Home counts. */
+export function isShowable(p: Pick<Pools, 'items' | 'flaggedIds'>, itemId: string): boolean {
   return p.items.has(itemId) && !p.flaggedIds.has(itemId);
 }
 

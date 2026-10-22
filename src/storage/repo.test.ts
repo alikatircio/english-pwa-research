@@ -1,7 +1,10 @@
 import 'fake-indexeddb/auto';
 import { afterEach, describe, expect, it } from 'vitest';
 import type { AnswerLog, DailyCounter, Progress } from '../domain/types.ts';
-import { DB_VERSION, openAppDb, STORE_NAMES, type AppDb } from './db.ts';
+import type { StoreNames } from 'idb';
+import { DB_VERSION, openAppDb, type AppDb, type AppDbSchema } from './db.ts';
+
+const STORES: StoreNames<AppDbSchema>[] = ['answerLog', 'dailyCounters', 'flags', 'importedItems', 'meta', 'notebook', 'progress', 'session'];
 import { addNotebookEntry, clearSession, commitGrade, loadAll, loadCounter, saveSession, toggleFlag, undoGrade } from './repo.ts';
 import { newSession } from '../domain/session.ts';
 
@@ -25,8 +28,8 @@ describe('schema v1', () => {
   it('creates all 8 stores with their keys and indexes', async () => {
     const db = await freshDb();
     expect(db.version).toBe(DB_VERSION);
-    expect([...db.objectStoreNames].sort()).toEqual([...STORE_NAMES].sort());
-    const tx = db.transaction([...STORE_NAMES], 'readonly');
+    expect([...db.objectStoreNames].sort()).toEqual(STORES);
+    const tx = db.transaction(STORES, 'readonly');
     expect(tx.objectStore('progress').keyPath).toBe('itemId');
     expect(tx.objectStore('dailyCounters').keyPath).toBe('day');
     expect(tx.objectStore('answerLog').autoIncrement).toBe(true);
