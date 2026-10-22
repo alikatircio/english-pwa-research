@@ -1,10 +1,11 @@
 // The only side-effecting layer: domain → storage transaction → dispatch.
 // Write first, then change the screen: what is shown is what is on disk.
 import type { Clock } from '../domain/clock.ts';
+import { hintStageFor } from '../domain/hints.ts';
 import { isAccepted } from '../domain/normalize.ts';
 import { applyGrade } from '../domain/scheduler.ts';
 import { currentEntry } from '../domain/session.ts';
-import type { AnswerLog, CardPhase, DailyCounter, Grade, GradedBy, HintStage, SessionState } from '../domain/types.ts';
+import type { AnswerLog, CardPhase, DailyCounter, Grade, GradedBy, SessionState } from '../domain/types.ts';
 import type { AppDb } from '../storage/db.ts';
 import { clearSession, commitGrade, saveSession } from '../storage/repo.ts';
 import type { Action, AppState, ReadyState } from './state.ts';
@@ -19,11 +20,6 @@ export interface ActionDeps {
 function ready(getState: () => AppState): ReadyState | undefined {
   const s = getState();
   return s.status === 'ready' ? s : undefined;
-}
-
-/** Decision 4: hintStage = min(box, 3); a new card is stage 1. (hints.ts takes over in T2.1.) */
-function hintStage(box: number | undefined): HintStage {
-  return Math.min(box ?? 1, 3) as HintStage;
 }
 
 export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
@@ -65,7 +61,7 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       answer,
       grade: g,
       gradedBy,
-      hintStage: hintStage(prev?.box),
+      hintStage: hintStageFor(prev),
       isRepeat: false,
       boxBefore: prev?.box ?? null,
       boxAfter: progress.box,

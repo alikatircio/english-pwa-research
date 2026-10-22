@@ -21,3 +21,25 @@ export function readStore<T = unknown>(page: Page, store: string): Promise<T[]> 
     store,
   );
 }
+
+/** Put records into one store of the app DB (the app must have opened it once). */
+export function writeStore(page: Page, store: string, records: unknown[]): Promise<void> {
+  return page.evaluate(
+    ({ name, rows }) =>
+      new Promise<void>((resolve, reject) => {
+        const open = indexedDB.open('english-pwa');
+        open.onerror = () => reject(open.error);
+        open.onsuccess = () => {
+          const db = open.result;
+          const tx = db.transaction(name, 'readwrite');
+          for (const r of rows) tx.objectStore(name).put(r);
+          tx.oncomplete = () => {
+            db.close();
+            resolve();
+          };
+          tx.onerror = () => reject(tx.error);
+        };
+      }),
+    { name: store, rows: records },
+  );
+}

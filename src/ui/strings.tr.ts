@@ -6,6 +6,7 @@ export const t = {
   storageUnavailable: 'Bu tarayıcıda kayıt alanı açılamadı (özel sekme olabilir).',
 
   questionHeading: 'Bunu İngilizce yaz',
+  hint: 'İpucu:',
   answerLabel: 'İngilizce cevabın',
   answerPlaceholder: 'Tam cümle yaz…',
   check: 'Kontrol et',

@@ -2,9 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 import type { Actions } from '../../app/actions.ts';
 import type { ReadyState } from '../../app/state.ts';
+import { hintStageFor } from '../../domain/hints.ts';
 import { currentEntry } from '../../domain/session.ts';
 import { AnswerInput } from '../components/AnswerInput.tsx';
 import { GradeButtons } from '../components/GradeButtons.tsx';
+import { HintLine } from '../components/HintLine.tsx';
 import { useDebouncedCallback } from '../hooks/useDebouncedCallback.ts';
 import { useVisualViewportHeight } from '../hooks/useVisualViewportHeight.ts';
 import { ResultPanel } from '../components/ResultPanel.tsx';
@@ -69,6 +71,7 @@ export function CardScreen({ state, actions }: Props) {
           <p className="label">{t.questionHeading}</p>
           {tag && <p className="context-tag">{tag}</p>}
           <p className="situation">{text}</p>
+          {phase.tag === 'question' && <HintLine item={item} stage={hintStageFor(state.progress.get(item.id) ?? null)} />}
         </section>
 
         {phase.tag === 'question' ? (

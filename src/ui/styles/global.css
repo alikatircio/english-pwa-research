@@ -273,3 +273,20 @@ body {
   color: var(--muted);
   font-weight: 600;
 }
+
+.hint {
+  margin: 0;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: var(--tag-bg);
+  font-size: 1.0625rem;
+}
+
+.hint__label {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.hint__text {
+  white-space: pre-wrap; /* keep the two spaces between initials */
+}
