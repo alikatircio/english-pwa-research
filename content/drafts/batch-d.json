@@ -1,0 +1,987 @@
+[
+  {
+    "id": "would-it-be-possible-to",
+    "category": "aux_to",
+    "targetChunk": "Would it be possible to + base verb (polite request)",
+    "patternSlots": "Would it be possible ___ ___ ___?",
+    "clozeTemplate": "___ ___ ___ ___ ___ restart staging before EOD?",
+    "situationTr": "[Teams, çok nazik rica] Deniz'e yazıyorsun: \"Staging'i mesai bitmeden önce yeniden başlatmak mümkün olur mu?\"",
+    "acceptedAnswers": [
+      "Would it be possible to restart staging before EOD?",
+      "Would it be possible to restart staging by EOD?",
+      "Would it be possible to restart the staging environment before EOD?",
+      "Would it be possible to restart the staging environment by EOD?",
+      "Is it possible to restart staging before EOD?",
+      "Is it possible to restart staging by EOD?"
+    ],
+    "modelSentences": [
+      "Would it be possible to restart staging before EOD?",
+      "Would it be possible to get another pair of eyes on this PR?",
+      "Would it be possible to move the demo to Thursday?"
+    ],
+    "checklistTr": [
+      "Would it be possible to'dan sonra fiil yalın mı? (to restart, to restarting değil)",
+      "will değil, would ile mi başladın? (nazik rica)",
+      "Soru işaretiyle biten bir soru cümlesi kurdun mu?"
+    ],
+    "noteTr": "Türkçe 'mümkün olur mu' tek kalıptır; İngilizcede Would it be possible to + yalın fiil, Is it possible to'dan daha yumuşaktır. Bağlama göre kişiyi belirtmek için Would it be possible for you to … de kullanılır.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Grammar/hedging item. Cambridge possible, Oxford possible ('possible to' pattern), Longman possible ('Is it possible to get tickets…'). SkELL 'would it be possible to' = 40 natural lines ('Would it be possible to arrange accommodation?'). 'Is it possible to' accepted as the less hedged variant (noteTr says context decides). No commonMistake (no evidence). Sources: https://dictionary.cambridge.org/dictionary/english/possible ; https://www.oxfordlearnersdictionaries.com/definition/english/possible ; https://www.ldoceonline.com/dictionary/possible ; https://skell.sketchengine.eu/api/concordance?lang=English&query=would+it+be+possible+to",
+    "level": 3
+  },
+  {
+    "id": "be-supposed-to",
+    "category": "aux_to",
+    "targetChunk": "be supposed to + base verb (expected / planned)",
+    "patternSlots": "be supposed to ___",
+    "clozeTemplate": "The fix ___ ___ ___ be in this build, but it isn't.",
+    "situationTr": "[daily'de söylüyorsun] \"Plana göre bu düzeltme bu build'de olmalıydı ama yok.\"",
+    "acceptedAnswers": [
+      "The fix was supposed to be in this build, but it isn't.",
+      "This fix was supposed to be in this build, but it isn't.",
+      "The fix was meant to be in this build, but it isn't.",
+      "The fix was supposed to be included in this build, but it isn't.",
+      "The fix was supposed to be in this build, but it hasn't made it in."
+    ],
+    "modelSentences": [
+      "The fix was supposed to be in this build, but it isn't.",
+      "This endpoint is supposed to return a 404 for unknown users.",
+      "I was supposed to raise a bug for this yesterday."
+    ],
+    "checklistTr": [
+      "was/is supposed to'dan sonra to + yalın fiil geldi mi? (to be)",
+      "supposed sonunda -d var mı? (suppose değil)",
+      "Geçmiş plan için was supposed to kullandın mı (should değil)?"
+    ],
+    "noteTr": "Türkçe 'olmalıydı / gerekiyordu' hem görevi hem planı anlatır; be supposed to planlanan ya da beklenen şeyi söyler ve çoğu zaman 'ama olmadı' demektir. Bağlama göre be meant to benzer ve daha gündeliktir.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Cambridge supposed ('be supposed to… B1 to be intended to', B2 duty sense), Oxford supposed. SkELL 'is supposed to' 40 natural lines. 'be meant to' accepted as natural alternative (not dictionary-verified here; flag for verifier). No commonMistake (no evidence). Sources: https://dictionary.cambridge.org/dictionary/english/supposed ; https://www.oxfordlearnersdictionaries.com/definition/english/supposed ; https://skell.sketchengine.eu/api/concordance?lang=English&query=is+supposed+to",
+    "level": 3
+  },
+  {
+    "id": "be-about-to",
+    "category": "aux_to",
+    "targetChunk": "be about to + base verb (very near future)",
+    "patternSlots": "be about to ___",
+    "clozeTemplate": "I'm ___ ___ deploy to staging.",
+    "situationTr": "[daily'de söylüyorsun] Ekibe haber veriyorsun: \"Tam şu an staging'e deploy etmek üzereyim.\"",
+    "acceptedAnswers": [
+      "I'm about to deploy to staging.",
+      "I'm about to deploy this to staging.",
+      "I'm about to deploy it to staging.",
+      "I'm just about to deploy to staging.",
+      "I'm about to deploy the build to staging.",
+      "I'm about to deploy to the staging environment."
+    ],
+    "modelSentences": [
+      "I'm about to deploy to staging.",
+      "I was about to raise a bug when Mert pinged me.",
+      "Ayşe is about to merge the PR, so please hold your changes."
+    ],
+    "checklistTr": [
+      "about to'dan sonra yalın fiil var mı? (deploy, deploying değil)",
+      "am/is/are unutulmadı mı? (I'm about to)",
+      "Çok yakın gelecek için about to kullandın mı (will tek başına değil)?"
+    ],
+    "noteTr": "Türkçe '-mek üzereyim' tek ek taşır; İngilizcede be about to + yalın fiil 'birkaç saniye içinde olacak' anlamı verir. Bağlama göre I'm going to deploy shortly de doğrudur ama 'tam şu an' vurgusunu vermez.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Cambridge about (entry has 'be about to' sense: 'something that will happen very soon'), Oxford about_1. SkELL 'was about to' 40 natural lines. No commonMistake (no evidence). Sources: https://dictionary.cambridge.org/dictionary/english/about ; https://www.oxfordlearnersdictionaries.com/definition/english/about_1 ; https://skell.sketchengine.eu/api/concordance?lang=English&query=was+about+to",
+    "level": 3
+  },
+  {
+    "id": "used-to-do",
+    "category": "aux_to",
+    "targetChunk": "used to + base verb (past habit / past state)",
+    "patternSlots": "used to ___",
+    "clozeTemplate": "We ___ ___ run the regression tests by hand.",
+    "situationTr": "[Teams, eski yöntemi anlatıyorsun] \"Eskiden regresyon testlerini elle çalıştırırdık.\"",
+    "acceptedAnswers": [
+      "We used to run the regression tests by hand.",
+      "We used to run the regression tests manually.",
+      "We used to run the regression suite by hand.",
+      "We used to run the regression suite manually.",
+      "We used to run regression tests by hand.",
+      "We used to run regression tests manually."
+    ],
+    "modelSentences": [
+      "We used to run the regression tests by hand.",
+      "This used to work before the last merge.",
+      "We used to be blocked on test data every sprint."
+    ],
+    "commonMistake": "We were used to run the regression tests by hand.",
+    "checklistTr": [
+      "Eskiden olup artık olmayan şey için used to + yalın fiil mi?",
+      "used to'dan sonra fiil yalın mı? (run, running değil)",
+      "was/were used to yazmadın, değil mi? (o 'alışkındık' demek)"
+    ],
+    "noteTr": "Türkçe '-erdik' geçmiş alışkanlığı tek ekle verir; İngilizcede used to + yalın fiil gerekir ve 'was used to' tamamen başka bir kalıptır. Bağlama göre would da geçmiş alışkanlıkta kullanılır ama geçmiş durumlar için kullanılmaz.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Oxford used to 'Which Word? used to / be used to: Do not confuse used to do something with be used to something' (mistake evidence); Cambridge used to; Longman used to. SkELL 'used to run' 40 lines (39 'used to run', 1 'used to running' in the 'be used to' sense). Sources: https://dictionary.cambridge.org/dictionary/english/used-to ; https://www.oxfordlearnersdictionaries.com/definition/english/used-to ; https://www.ldoceonline.com/dictionary/used-to ; https://skell.sketchengine.eu/api/concordance?lang=English&query=used+to+run",
+    "level": 3
+  },
+  {
+    "id": "be-used-to-doing",
+    "category": "aux_to",
+    "targetChunk": "be used to + -ing (be familiar with / accustomed to)",
+    "patternSlots": "be used to ___ing",
+    "clozeTemplate": "I'm ___ ___ ___ from home, so it's fine.",
+    "situationTr": "[Teams, Mert'e cevap] \"Evden çalışmaya alışkınım, sorun değil.\"",
+    "acceptedAnswers": [
+      "I'm used to working from home, so it's fine.",
+      "I'm used to working from home, so that's fine.",
+      "I'm used to working from home, so it's not a problem.",
+      "I'm used to working from home, so it's okay.",
+      "I'm used to working from home, so there's no problem."
+    ],
+    "modelSentences": [
+      "I'm used to working from home, so it's fine.",
+      "Ayşe is used to reading long stack traces.",
+      "We aren't used to getting this many failures on CI."
+    ],
+    "commonMistake": "I'm used to work from home, so it's fine.",
+    "checklistTr": [
+      "be used to'dan sonra fiil -ing aldı mı? (working, work değil)",
+      "am/is/are unutulmadı mı? (I'm used to)",
+      "I used to work (eskiden çalışırdım) ile karıştırmadın, değil mi?"
+    ],
+    "noteTr": "Türkçe 'alışkınım' bir durumu anlatır; İngilizcede be used to + -ing yazılır çünkü buradaki to bir edattır. Bağlama göre 'alışmak' süreci için get used to + -ing kullanılır.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Oxford used to: 'You use be used to (doing) something to talk about something that you are familiar with… I'm used to getting up early' (Which Word note); Cambridge used to something (phrase); Longman used to. SkELL 'is used to running' 1 line. Sources: https://dictionary.cambridge.org/dictionary/english/used-to ; https://www.oxfordlearnersdictionaries.com/definition/english/used-to ; https://www.ldoceonline.com/dictionary/used-to ; https://skell.sketchengine.eu/api/concordance?lang=English&query=is+used+to+running",
+    "level": 3
+  },
+  {
+    "id": "look-forward-to-doing",
+    "category": "aux_to",
+    "targetChunk": "look forward to + -ing",
+    "patternSlots": "look forward to ___ing",
+    "clozeTemplate": "I'm ___ ___ ___ ___ you at tomorrow's retro.",
+    "situationTr": "[Teams, mesajın sonu] Ayşe'ye yazıyorsun: \"Yarınki retroda seninle görüşmeyi dört gözle bekliyorum.\"",
+    "acceptedAnswers": [
+      "I'm looking forward to seeing you at tomorrow's retro.",
+      "I look forward to seeing you at tomorrow's retro.",
+      "I'm looking forward to seeing you at the retro tomorrow.",
+      "I'm really looking forward to seeing you at tomorrow's retro.",
+      "Looking forward to seeing you at tomorrow's retro."
+    ],
+    "modelSentences": [
+      "I'm looking forward to seeing you at tomorrow's retro.",
+      "I look forward to hearing your feedback on the test plan.",
+      "We're looking forward to getting the new build on staging."
+    ],
+    "commonMistake": "I'm looking forward to see you at tomorrow's retro.",
+    "checklistTr": [
+      "look forward to'dan sonra fiil -ing aldı mı? (seeing)",
+      "to burada edattır: looking forward to see yazmadın, değil mi?",
+      "looking forward for yazmadın, değil mi? (edat to)"
+    ],
+    "noteTr": "Türkçe '-meyi dört gözle bekliyorum' mastarla biter, bu yüzden to + yalın fiil yazılır; oysa look forward to'daki to bir edattır. Bağlama göre I look forward to … daha resmî, I'm looking forward to … daha gündeliktir.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Oxford look-forward-to ('look forward to doing something: We're really looking forward to seeing you again'); Longman look forward to something (Grammar: Don't say 'looking forward for'); Cambridge look forward to something. SkELL 'looking forward to see' returns 39 'to seeing' and 1 'to see' line (the base form is a rare slip, supports the mistake). Sources: https://dictionary.cambridge.org/dictionary/english/look-forward-to ; https://www.oxfordlearnersdictionaries.com/definition/english/look-forward-to ; https://www.ldoceonline.com/dictionary/look-forward-to ; https://skell.sketchengine.eu/api/concordance?lang=English&query=looking+forward+to+see",
+    "level": 3
+  },
+  {
+    "id": "suggest-doing",
+    "category": "aux_to",
+    "targetChunk": "suggest + -ing (not suggest to do)",
+    "patternSlots": "suggest ___ing",
+    "clozeTemplate": "I'd suggest ___ the logs first.",
+    "situationTr": "[PR yorumu, nazik öneri] Mert'e yazıyorsun: \"Önce logları kontrol etmeyi öneririm.\"",
+    "acceptedAnswers": [
+      "I'd suggest checking the logs first.",
+      "I would suggest checking the logs first.",
+      "I suggest checking the logs first.",
+      "I'd suggest looking at the logs first.",
+      "I would suggest looking at the logs first.",
+      "I'd suggest that we check the logs first.",
+      "I suggest that we check the logs first."
+    ],
+    "modelSentences": [
+      "I'd suggest checking the logs first.",
+      "I suggest raising a bug for this corner case.",
+      "I'd suggest merging after Ayşe's review."
+    ],
+    "commonMistake": "I'd suggest to check the logs first.",
+    "checklistTr": [
+      "suggest'ten sonra fiil -ing aldı mı? (suggest checking)",
+      "suggest to check yazmadın, değil mi?",
+      "Kişi eklemek istersen suggest that + cümle mi? (suggest you to check değil)"
+    ],
+    "noteTr": "Türkçe '-meyi öneririm' mastarı to ile eşlemeye götürür; suggest + -ing ya da suggest (that) + cümle gerekir. Bağlama göre I'd suggest nazik, I suggest daha doğrudandır.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Longman suggest GRAMMAR: 'You suggest doing something: I suggested going for a walk. Don't say: I suggested to go for a walk' (mistake evidence); Oxford suggest ('suggest doing something', 'suggest (that)…'); Cambridge suggest. SkELL 'suggest that we' 40 lines. Sources: https://dictionary.cambridge.org/dictionary/english/suggest ; https://www.oxfordlearnersdictionaries.com/definition/english/suggest ; https://www.ldoceonline.com/dictionary/suggest ; https://skell.sketchengine.eu/api/concordance?lang=English&query=suggest+that+we",
+    "level": 3
+  },
+  {
+    "id": "suggest-that-clause",
+    "category": "object",
+    "targetChunk": "suggest (that) + someone + verb (not suggest someone to do)",
+    "patternSlots": "suggest (that) ___ ___",
+    "clozeTemplate": "I'd ___ ___ Mert ___ this flow again.",
+    "situationTr": "[Jira yorumu, nazik öneri] Ayşe'ye yazıyorsun: \"Mert'in bu akışı yeniden test etmesini öneririm.\"",
+    "acceptedAnswers": [
+      "I'd suggest that Mert tests this flow again.",
+      "I'd suggest that Mert test this flow again.",
+      "I'd suggest Mert tests this flow again.",
+      "I'd suggest Mert test this flow again.",
+      "I would suggest that Mert tests this flow again.",
+      "I would suggest that Mert test this flow again.",
+      "I suggest that Mert tests this flow again.",
+      "I suggest that Mert test this flow again."
+    ],
+    "modelSentences": [
+      "I'd suggest that Mert tests this flow again.",
+      "I suggest that we release after the fix is verified.",
+      "I'd suggest that Deniz checks the corner case on mobile."
+    ],
+    "commonMistake": "I'd suggest Mert to test this flow again.",
+    "checklistTr": [
+      "suggest + kişi + to + fiil yazmadın, değil mi? (suggest Mert to test değil)",
+      "that'ten sonra özne + fiil var mı? (Mert tests / test)",
+      "suggest'ten hemen sonra kişi yerine öneri mi geldi? (suggest a solution to someone)"
+    ],
+    "noteTr": "Türkçe '-sini öneririm' kişiyi ayrı bir özne olarak verir ama İngilizcede suggest, want gibi kişi + to almaz. Bağlama göre İngiliz İngilizcesinde tests / should test, Amerikan İngilizcesinde çoğu zaman test (yalın) kullanılır.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Longman suggest GRAMMAR: 'In everyday English, you suggest that someone does something: I suggest that she waits a few weeks. Don't say: I suggest her to…' (mistake evidence); Oxford suggest 'suggest (that)…' and 'I strongly suggest (that) you don't get involved'; Cambridge suggest. The bare-form variants (test) are the subjunctive. SkELL 'suggest that we' 40 lines. Sources: https://dictionary.cambridge.org/dictionary/english/suggest ; https://www.oxfordlearnersdictionaries.com/definition/english/suggest ; https://www.ldoceonline.com/dictionary/suggest ; https://skell.sketchengine.eu/api/concordance?lang=English&query=suggest+that+we",
+    "level": 3
+  },
+  {
+    "id": "prevent-from-doing",
+    "category": "object",
+    "targetChunk": "prevent something from + -ing / from being + past participle",
+    "patternSlots": "prevent ___ from ___ing",
+    "clozeTemplate": "This check ___ broken code ___ ___ merged into main.",
+    "situationTr": "[PR yorumu] Yeni kontrolü anlatıyorsun: \"Bu kontrol, bozuk kodun main'e merge edilmesini engelliyor.\"",
+    "acceptedAnswers": [
+      "This check prevents broken code from being merged into main.",
+      "This check prevents broken code from being merged to main.",
+      "This check will prevent broken code from being merged into main.",
+      "The check prevents broken code from being merged into main.",
+      "This check stops broken code from being merged into main.",
+      "This check prevents broken code being merged into main."
+    ],
+    "modelSentences": [
+      "This check prevents broken code from being merged into main.",
+      "A guard clause prevents this corner case from crashing the app.",
+      "Retries prevent a single timeout from failing the whole run."
+    ],
+    "commonMistake": "This check prevents broken code to be merged into main.",
+    "checklistTr": [
+      "prevent + nesne + from yapısını kurdun mu?",
+      "from'dan sonra fiil -ing aldı mı? (from being merged, to be merged değil)",
+      "prevent'ten sonra nesne (broken code) hemen geldi mi?"
+    ],
+    "noteTr": "Türkçe '-mesini engellemek' mastar ekidir ve to ile eşlenmeye çalışılır; İngilizcede prevent X from + -ing gerekir. Bağlama göre İngiliz İngilizcesinde from düşebilir (prevent X being …) ama from her yerde güvenlidir.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Oxford prevent: 'prevent somebody/something from doing something… (British English) prevent somebody/something doing something'; Cambridge prevent 'to prevent something from happening'; Longman prevent. SkELL 'prevent from happening' = 13 natural lines; 'prevent to' = 13 lines of non-standard 'prevent to / prevented to' (e.g. 'actively prevented to sell'), which attests the learner form. Sources: https://dictionary.cambridge.org/dictionary/english/prevent ; https://www.oxfordlearnersdictionaries.com/definition/english/prevent ; https://www.ldoceonline.com/dictionary/prevent ; https://skell.sketchengine.eu/api/concordance?lang=English&query=prevent+from+happening ; https://skell.sketchengine.eu/api/concordance?lang=English&query=prevent+to",
+    "level": 3
+  },
+  {
+    "id": "verify-that-clause",
+    "category": "object",
+    "targetChunk": "verify that + clause",
+    "patternSlots": "verify that ___ ___",
+    "clozeTemplate": "I ___ ___ the fix works on staging.",
+    "situationTr": "[Jira yorumu] Ayşe'ye yazıyorsun: \"Düzeltmenin staging'de çalıştığını doğruladım.\"",
+    "acceptedAnswers": [
+      "I verified that the fix works on staging.",
+      "I have verified that the fix works on staging.",
+      "I verified that the fix works in staging.",
+      "I have verified that the fix works in staging.",
+      "I verified that the fix is working on staging.",
+      "I have verified that the fix is working on staging.",
+      "I verified the fix works on staging."
+    ],
+    "modelSentences": [
+      "I verified that the fix works on staging.",
+      "Can you verify that the new build passes on Firefox?",
+      "Please verify that the login test is no longer blocked on the API change."
+    ],
+    "checklistTr": [
+      "verify'dan sonra that + özne + fiil geldi mi? (verify that the fix works)",
+      "verify about yazmadın, değil mi?",
+      "Fiil geçmişte verified (-ed) mi?"
+    ],
+    "noteTr": "Türkçe 'çalıştığını doğruladım' '-dığını' ekiyle kurulur; İngilizcede bunun karşılığı verify (that) + özne + fiil'dir. Bağlama göre that düşebilir ve confirm de benzer anlamdadır.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Cambridge verify (C1: 'to prove that something exists or is true, or to make certain that something is correct'), Oxford verify, Longman verify. SkELL 'verify that' 40 natural lines. 'verify about' not tested; no commonMistake. Sources: https://dictionary.cambridge.org/dictionary/english/verify ; https://www.oxfordlearnersdictionaries.com/definition/english/verify ; https://www.ldoceonline.com/dictionary/verify ; https://skell.sketchengine.eu/api/concordance?lang=English&query=verify+that",
+    "level": 3
+  },
+  {
+    "id": "ensure-that-clause",
+    "category": "object",
+    "targetChunk": "ensure (that) + clause (not ensure to do)",
+    "patternSlots": "ensure (that) ___ ___",
+    "clozeTemplate": "We need to ___ ___ all tests pass before merging.",
+    "situationTr": "[PR yorumu] Ekibe yazıyorsun: \"Merge etmeden önce tüm testlerin geçtiğinden emin olmamız gerekiyor.\"",
+    "acceptedAnswers": [
+      "We need to ensure that all tests pass before merging.",
+      "We need to ensure all tests pass before merging.",
+      "We need to make sure that all tests pass before merging.",
+      "We need to make sure all tests pass before merging.",
+      "We have to ensure that all tests pass before merging.",
+      "We have to ensure all tests pass before merging.",
+      "We must ensure that all tests pass before merging."
+    ],
+    "modelSentences": [
+      "We need to ensure that all tests pass before merging.",
+      "Please ensure that you raise a bug for every failure.",
+      "We need to ensure that nothing is blocked on the API team."
+    ],
+    "commonMistake": "We need to ensure to pass all tests before merging.",
+    "checklistTr": [
+      "ensure'dan sonra that + özne + fiil (ya da doğrudan nesne) geldi mi?",
+      "ensure to + fiil yazmadın, değil mi?",
+      "that'ten sonra fiil özneyle uyumlu mu? (all tests pass)"
+    ],
+    "noteTr": "Türkçe 'emin olmak / sağlamak' İngilizcede ensure (resmî) ya da make sure (gündelik) olur ve ikisinde de standart yapı that + cümledir (to + fiil değil). Bağlama göre Teams'te make sure, PR ve Jira metninde ensure daha yaygındır.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Cambridge ensure ('ensure [+ (that)]…'), Oxford ensure, Longman ensure. SkELL 'ensure that' 40 natural lines (29 'ensure that'); SkELL 'ensure to' also returns 40 lines ('They must ensure to drink plenty of water'), i.e. the form occurs in real text but dictionaries list only ensure + object / that-clause, so the mistake is a non-standard pattern, not a corpus hallucination. make sure accepted as the natural alternative. Sources: https://dictionary.cambridge.org/dictionary/english/ensure ; https://www.oxfordlearnersdictionaries.com/definition/english/ensure ; https://www.ldoceonline.com/dictionary/ensure ; https://skell.sketchengine.eu/api/concordance?lang=English&query=ensure+that ; https://skell.sketchengine.eu/api/concordance?lang=English&query=ensure+to",
+    "level": 3
+  },
+  {
+    "id": "walk-someone-through",
+    "category": "object",
+    "targetChunk": "walk someone through something",
+    "patternSlots": "walk ___ through ___",
+    "clozeTemplate": "Could you ___ me ___ how this bug happens?",
+    "situationTr": "[Teams, nazik rica] Deniz'e yazıyorsun: \"Bu hatanın nasıl oluştuğunu bana adım adım anlatabilir misin?\"",
+    "acceptedAnswers": [
+      "Could you walk me through how this bug happens?",
+      "Can you walk me through how this bug happens?",
+      "Could you walk me through how this bug occurs?",
+      "Can you walk me through how this bug occurs?",
+      "Could you walk me through how the bug happens?",
+      "Can you walk me through how the bug happens?",
+      "Could you walk me through how the bug occurs?",
+      "Can you walk me through how the bug occurs?"
+    ],
+    "modelSentences": [
+      "Could you walk me through how this bug happens?",
+      "Can you walk me through the steps to reproduce it?",
+      "Ayşe walked me through the new test plan yesterday."
+    ],
+    "checklistTr": [
+      "walk + kişi + through + konu sırası doğru mu?",
+      "walk through me yazmadın, değil mi? (kişi walk'tan hemen sonra)",
+      "through'dan sonra how/what cümlesi ya da isim geldi mi?"
+    ],
+    "noteTr": "Türkçe 'adım adım anlatmak' tek bir fiil gibi durur; İngilizcede bunun yerleşik karşılığı walk someone through something'dir. Bağlama göre explain it to me daha genel ve adım adım vurgusu taşımaz.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Cambridge walk someone through something: 'to slowly and carefully explain something to someone or show someone how to do something: She walked me through the six-page document'. Only one dictionary page confirmed (Oxford/Longman pages did not resolve), so the verifier should add a second source. SkELL 'walk me through' 40 natural lines. No commonMistake (no evidence). Sources: https://dictionary.cambridge.org/dictionary/english/walk-someone-through ; https://skell.sketchengine.eu/api/concordance?lang=English&query=walk+me+through",
+    "level": 3
+  },
+  {
+    "id": "due-to-noun",
+    "category": "word_form",
+    "targetChunk": "due to + noun phrase / -ing (not due to + clause)",
+    "patternSlots": "due to ___ (noun / ___ing)",
+    "clozeTemplate": "The tests failed ___ ___ the API ___ down.",
+    "situationTr": "[olay notu] Jira'ya yazıyorsun: \"Testler, API'nin kapalı olması nedeniyle fail oldu.\"",
+    "acceptedAnswers": [
+      "The tests failed due to the API being down.",
+      "The tests failed because of the API being down.",
+      "The tests failed because the API was down.",
+      "The tests failed due to the API outage.",
+      "The tests failed as a result of the API being down.",
+      "The tests failed owing to the API being down."
+    ],
+    "modelSentences": [
+      "The tests failed due to the API being down.",
+      "The deploy was delayed due to a missing approval.",
+      "The build is blocked due to a failing check."
+    ],
+    "commonMistake": "The tests failed due to the API was down.",
+    "checklistTr": [
+      "due to bir edattır: sonrasında isim ya da -ing yapısı geldi mi? (the API being down)",
+      "due to + çekimli cümle (the API was down) yazmadın, değil mi?",
+      "Cümle kurmak istiyorsan because + özne + fiil mi?"
+    ],
+    "noteTr": "Türkçe '-ması nedeniyle / -ından dolayı' hem isimle hem fiilimsiyle kurulur; İngilizcede due to bir edat olduğu için isim ya da -ing alır, çekimli cümle almaz. Bağlama göre because of aynı yerde kullanılır, because ise çekimli cümle ister.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Cambridge due to something (B1 'because of something', all examples noun phrases), Oxford due_1 ('due to' examples all noun phrases/-ing), Longman due to (preposition). Mistake 'due to + clause' is a preposition + finite clause; evidence is the dictionaries' preposition label and all-noun examples, plus SkELL 'due to the' 40 lines (noun phrases). Judgement for the exact Turkish transfer. Sources: https://dictionary.cambridge.org/dictionary/english/due-to ; https://www.oxfordlearnersdictionaries.com/definition/english/due_1 ; https://www.ldoceonline.com/dictionary/due-to ; https://skell.sketchengine.eu/api/concordance?lang=English&query=due+to+the",
+    "level": 3
+  },
+  {
+    "id": "despite-doing",
+    "category": "word_form",
+    "targetChunk": "despite + -ing / noun (not despite of)",
+    "patternSlots": "despite ___ing",
+    "clozeTemplate": "___ ___ twice, the test passed on the third run.",
+    "situationTr": "[Jira yorumu] Mert'e yazıyorsun: \"Test iki kez fail etmesine rağmen üçüncü çalıştırmada geçti.\"",
+    "acceptedAnswers": [
+      "Despite failing twice, the test passed on the third run.",
+      "Despite failing twice, the test passed on the third attempt.",
+      "In spite of failing twice, the test passed on the third run.",
+      "In spite of failing twice, the test passed on the third attempt.",
+      "Despite having failed twice, the test passed on the third run.",
+      "Despite having failed twice, the test passed on the third attempt.",
+      "The test passed on the third run despite failing twice.",
+      "The test passed on the third run in spite of failing twice."
+    ],
+    "modelSentences": [
+      "Despite failing twice, the test passed on the third run.",
+      "Despite being blocked on the API, Mert finished the test plan.",
+      "We shipped on time despite finding a corner case late."
+    ],
+    "commonMistake": "Despite of failing twice, the test passed on the third run.",
+    "checklistTr": [
+      "despite'ten sonra of yok, değil mi? (despite of değil; in spite of)",
+      "despite'ten sonra isim ya da -ing geldi mi? (failing)",
+      "despite + özne + fiil yazmadın, değil mi? (despite it failed değil)"
+    ],
+    "noteTr": "Türkçe '-mesine rağmen' fiilimsiyle kurulur; İngilizcede despite + -ing ya da isim gerekir ve despite of diye bir kalıp yoktur. Bağlama göre in spite of aynı anlamda kullanılır.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Longman despite GRAMMAR: 'You say despite doing something: He won despite being injured… Don't say: despite of' (mistake evidence); Oxford despite_1 ('Despite applying for hundreds of jobs, he is still out of work'); Cambridge despite. SkELL 'despite failing' 40 natural lines; SkELL 'despite of' also returns 40 lines (non-standard form attested in real text). Sources: https://dictionary.cambridge.org/dictionary/english/despite ; https://www.oxfordlearnersdictionaries.com/definition/english/despite_1 ; https://www.ldoceonline.com/dictionary/despite ; https://skell.sketchengine.eu/api/concordance?lang=English&query=despite+failing ; https://skell.sketchengine.eu/api/concordance?lang=English&query=despite+of",
+    "level": 3
+  },
+  {
+    "id": "although-clause",
+    "category": "word_form",
+    "targetChunk": "although / even though + clause (despite takes a noun or -ing)",
+    "patternSlots": "although ___ ___, ___ ___",
+    "clozeTemplate": "___ the build was green, Mert found a bug in Firefox.",
+    "situationTr": "[Jira yorumu] Mert'in bulgusunu yazıyorsun: \"Build'in yeşil olmasına rağmen Mert Firefox'ta bir bug buldu.\"",
+    "acceptedAnswers": [
+      "Although the build was green, Mert found a bug in Firefox.",
+      "Although the build was green, Mert found a bug on Firefox.",
+      "Even though the build was green, Mert found a bug in Firefox.",
+      "Even though the build was green, Mert found a bug on Firefox.",
+      "Though the build was green, Mert found a bug in Firefox.",
+      "Though the build was green, Mert found a bug on Firefox.",
+      "Mert found a bug in Firefox although the build was green.",
+      "Mert found a bug in Firefox even though the build was green."
+    ],
+    "modelSentences": [
+      "Although the build was green, Mert found a bug in Firefox.",
+      "Although the fix works, the corner case still needs a test.",
+      "Although Ayşe was blocked on access, she finished the review."
+    ],
+    "commonMistake": "Despite the build was green, Mert found a bug in Firefox.",
+    "checklistTr": [
+      "although'tan sonra tam cümle (özne + fiil) geldi mi? (the build was green)",
+      "despite + çekimli cümle yazmadın, değil mi? (despite isim ya da -ing ister)",
+      "Aynı cümlede although ile birlikte but kullanmadın, değil mi?"
+    ],
+    "noteTr": "Türkçe '-e rağmen' tek yapıdır, İngilizcede ise çekimli cümle için although / even though, isim ya da -ing için despite gerekir. Bağlama göre though daha gündelik yazışmada, although biraz daha yazı dilinde kullanılır.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Cambridge although (B1 'despite the fact that'), Oxford although ('Although the sun was shining, it wasn't very warm'), Longman although; Longman despite GRAMMAR: 'Don't say: He won despite he was injured' (mistake evidence: despite + clause). SkELL 'despite of' attests learner forms. 'although…but' item is a teaching convention, not tested. Sources: https://dictionary.cambridge.org/dictionary/english/although ; https://www.oxfordlearnersdictionaries.com/definition/english/although ; https://www.ldoceonline.com/dictionary/although ; https://www.ldoceonline.com/dictionary/despite ; https://skell.sketchengine.eu/api/concordance?lang=English&query=even+though+the+build",
+    "level": 3
+  },
+  {
+    "id": "given-that-clause",
+    "category": "word_form",
+    "targetChunk": "given that + clause (reason already known)",
+    "patternSlots": "given that ___ ___, ___",
+    "clozeTemplate": "___ ___ the deadline is tomorrow, we should merge this now.",
+    "situationTr": "[PR yorumu] Ayşe'ye yazıyorsun: \"Deadline yarın olduğuna göre bunu şimdi merge etmeliyiz.\"",
+    "acceptedAnswers": [
+      "Given that the deadline is tomorrow, we should merge this now.",
+      "Given that the deadline is tomorrow, we should merge it now.",
+      "Since the deadline is tomorrow, we should merge this now.",
+      "Since the deadline is tomorrow, we should merge it now.",
+      "As the deadline is tomorrow, we should merge this now.",
+      "As the deadline is tomorrow, we should merge it now.",
+      "Considering that the deadline is tomorrow, we should merge this now."
+    ],
+    "modelSentences": [
+      "Given that the deadline is tomorrow, we should merge this now.",
+      "Given that the API is unstable, I'd keep the retry in place.",
+      "Given that Deniz is on leave, Mert will review the PR."
+    ],
+    "checklistTr": [
+      "given that'ten sonra tam cümle (özne + fiil) geldi mi?",
+      "Gerekçe cümlesini virgülle ana cümleden ayırdın mı?",
+      "given + isim (Given the deadline) ile given that + cümle ayrımını yaptın mı?"
+    ],
+    "noteTr": "Türkçe '-dığına göre' bilinen bir gerekçeyi alır ve ona dayanarak sonuç söyler; given that tam bu işi görür. Bağlama göre since / as daha gündelik, given that gerekçeyi daha belirgin vurgular.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Cambridge given ('given that: The baby was looking very healthy, given that it was born prematurely'; 'Given the fact that…'), Oxford given_2 (conjunction 'given that' listed in the entry). SkELL 'given that the' 40 natural lines. Longman given-that page did not resolve (search page), not cited. No commonMistake (no evidence). Sources: https://dictionary.cambridge.org/dictionary/english/given ; https://www.oxfordlearnersdictionaries.com/definition/english/given_2 ; https://skell.sketchengine.eu/api/concordance?lang=English&query=given+that+the",
+    "level": 3
+  },
+  {
+    "id": "as-a-result-of-noun",
+    "category": "word_form",
+    "targetChunk": "as a result of + noun phrase (not + clause)",
+    "patternSlots": "as a result of ___",
+    "clozeTemplate": "Users saw old data ___ ___ ___ ___ a missing migration.",
+    "situationTr": "[olay notu] Jira'ya yazıyorsun: \"Eksik bir migration sonucunda kullanıcılar eski veriyi gördü.\"",
+    "acceptedAnswers": [
+      "Users saw old data as a result of a missing migration.",
+      "Users saw old data as a result of the missing migration.",
+      "Users saw outdated data as a result of a missing migration.",
+      "Users saw outdated data as a result of the missing migration.",
+      "Users saw old data due to a missing migration.",
+      "Users saw old data because of a missing migration.",
+      "Users saw old data because of the missing migration."
+    ],
+    "modelSentences": [
+      "Users saw old data as a result of a missing migration.",
+      "Several tests were skipped as a result of the config change.",
+      "The queue grew as a result of the retry loop."
+    ],
+    "checklistTr": [
+      "as a result of dört sözcük, hepsini yazdın mı? (of dahil)",
+      "of'tan sonra isim grubu geldi mi? (cümle değil)",
+      "data sayılamaz: datas yazmadın, değil mi?"
+    ],
+    "noteTr": "Türkçe '-ması sonucunda' bir isim grubuyla biter; İngilizcede as a result of + isim grubu olur. Bağlama göre ayrı cümle için As a result, … (virgülle) kullanılır.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Cambridge result ('as a result of something B2 because of something: Profits have declined as a result of the recent drop in sales'); Oxford result_1 ('as a result of something: She died as a result of her injuries'). SkELL 'as a result of' 40 natural lines. No commonMistake (no evidence). Sources: https://dictionary.cambridge.org/dictionary/english/result ; https://www.oxfordlearnersdictionaries.com/definition/english/result_1 ; https://skell.sketchengine.eu/api/concordance?lang=English&query=as+a+result+of",
+    "level": 3
+  },
+  {
+    "id": "affect-vs-effect",
+    "category": "word_form",
+    "targetChunk": "affect (verb) vs effect (noun)",
+    "patternSlots": "___ affects ___",
+    "clozeTemplate": "This change ___ the login flow.",
+    "situationTr": "[Teams] Mert'e yazıyorsun: \"Bu değişiklik giriş akışını etkiliyor.\"",
+    "acceptedAnswers": [
+      "This change affects the login flow.",
+      "This change is affecting the login flow.",
+      "This change has an effect on the login flow.",
+      "This change has an impact on the login flow.",
+      "This change will affect the login flow."
+    ],
+    "modelSentences": [
+      "This change affects the login flow.",
+      "The new timeout could affect the payment API.",
+      "A slow staging environment affects every test run."
+    ],
+    "commonMistake": "This change effects the login flow.",
+    "checklistTr": [
+      "Fiil gerektiğinde affect (a ile) yazdın mı? (effect isimdir)",
+      "affect'ten sonra edat yok: affects on değil, değil mi?",
+      "İsim kullandıysan an effect on + isim mi?"
+    ],
+    "noteTr": "Türkçe 'etki / etkilemek' aynı kökten gelir; İngilizcede fiil affect, isim effect olarak ayrışır. Bağlama göre effect fiil olarak 'gerçekleştirmek' anlamına gelir (çok resmî), yani burada yanlış olur.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Oxford effect_1 'Which Word? affect / effect: affect verb to have an influence on somebody/something… effect noun a result or influence… effect verb is quite formal and means to achieve or produce' (mistake evidence); Longman affect GRAMMAR: 'Smoking affects your health. Don't say: Smoking affects on your health'; Cambridge affect, effect. SkELL 'affects the' 40 lines. Note: will affect variant is not in situationTr tense (present); accepted as natural. Sources: https://dictionary.cambridge.org/dictionary/english/affect ; https://dictionary.cambridge.org/dictionary/english/effect ; https://www.oxfordlearnersdictionaries.com/definition/english/effect_1 ; https://www.ldoceonline.com/dictionary/affect ; https://skell.sketchengine.eu/api/concordance?lang=English&query=affects+the",
+    "level": 3
+  },
+  {
+    "id": "impact-on",
+    "category": "preposition",
+    "targetChunk": "have an impact on something",
+    "patternSlots": "have an impact on ___",
+    "clozeTemplate": "This PR has a negative ___ ___ page load time.",
+    "situationTr": "[Jira yorumu] PR'ı değerlendiriyorsun: \"Bu PR'ın sayfa yükleme süresi üzerinde olumsuz bir etkisi var.\"",
+    "acceptedAnswers": [
+      "This PR has a negative impact on page load time.",
+      "This PR has a negative impact on the page load time.",
+      "This PR has a negative impact on page load times.",
+      "This PR has a negative effect on page load time.",
+      "This PR has a negative effect on the page load time.",
+      "This PR has a negative effect on page load times."
+    ],
+    "modelSentences": [
+      "This PR has a negative impact on page load time.",
+      "The outage had no impact on production data.",
+      "The extra retry has a small impact on test duration."
+    ],
+    "checklistTr": [
+      "impact'ten sonra on geldi mi? (impact on + isim)",
+      "have an impact on yapısında fiil have mi? (make değil)",
+      "impact burada isim: an impact, fiil gibi kullanmadın, değil mi?"
+    ],
+    "noteTr": "Türkçe '-in üzerinde etkisi' İngilizcede impact on olur; 'üzerinde' karşılığı on'dur, to ya da for değil. Bağlama göre effect on aynı anlamdadır ve biraz daha genel bir sözcüktür.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Cambridge impact ('impact on: The economic impact on the hospitality industry… have an impact: …had quite an impact on young people'), Oxford impact_1 and effect_1 ('effect on somebody/something'), Longman impact. SkELL 'impact on' 40 lines (33 'impact on'). No commonMistake: 'impact to' also occurs in business English and I found no source calling it wrong. Sources: https://dictionary.cambridge.org/dictionary/english/impact ; https://www.oxfordlearnersdictionaries.com/definition/english/impact_1 ; https://www.ldoceonline.com/dictionary/impact ; https://skell.sketchengine.eu/api/concordance?lang=English&query=impact+on",
+    "level": 3
+  },
+  {
+    "id": "reason-for",
+    "category": "preposition",
+    "targetChunk": "the reason for something (not the reason of)",
+    "patternSlots": "the reason for ___",
+    "clozeTemplate": "The ___ ___ the test failure was a missing config value.",
+    "situationTr": "[olay notu] Jira'ya yazıyorsun: \"Testin fail olmasının nedeni eksik bir config değeriydi.\"",
+    "acceptedAnswers": [
+      "The reason for the test failure was a missing config value.",
+      "The reason for the test failing was a missing config value.",
+      "The reason the test failed was a missing config value.",
+      "The reason why the test failed was a missing config value.",
+      "The reason for the test failure was the missing config value."
+    ],
+    "modelSentences": [
+      "The reason for the test failure was a missing config value.",
+      "I'll add the reason for the rollback to the ticket.",
+      "What was the reason for the delay?"
+    ],
+    "commonMistake": "The reason of the test failure was a missing config value.",
+    "checklistTr": [
+      "reason'dan sonra for geldi mi? (of değil)",
+      "Cümle kuracaksan the reason why / the reason + özne + fiil mi?",
+      "for'dan sonra isim ya da -ing geldi mi? (the test failure)"
+    ],
+    "noteTr": "Türkçe '-in nedeni' tamlama ile kurulur ve bu of'u çağrıştırır; İngilizcede reason'dan sonra for gelir. Bağlama göre cause ile of kullanılır (the cause of the failure).",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Longman reason GRAMMAR: 'You say the reason for something: What do you think was the reason for their success? Don't say: the reason of their success… You say the cause of something' (mistake evidence); Cambridge reason ('reason for: The reason for the disaster was engine failure'); Oxford reason_1. SkELL 'the reason of' 40 lines (non-standard form attested), 'reason for' 40 natural lines. Sources: https://dictionary.cambridge.org/dictionary/english/reason ; https://www.oxfordlearnersdictionaries.com/definition/english/reason_1 ; https://www.ldoceonline.com/dictionary/reason ; https://skell.sketchengine.eu/api/concordance?lang=English&query=reason+for ; https://skell.sketchengine.eu/api/concordance?lang=English&query=the+reason+of",
+    "level": 3
+  },
+  {
+    "id": "solution-to",
+    "category": "preposition",
+    "targetChunk": "a solution to a problem",
+    "patternSlots": "a solution to ___",
+    "clozeTemplate": "We need to find a permanent ___ ___ the flaky test problem.",
+    "situationTr": "[Teams] Takım lideriyle konuşuyorsun: \"Flaky test sorununa kalıcı bir çözüm bulmamız lazım.\"",
+    "acceptedAnswers": [
+      "We need to find a permanent solution to the flaky test problem.",
+      "We need to find a lasting solution to the flaky test problem.",
+      "We need to find a long-term solution to the flaky test problem.",
+      "We have to find a permanent solution to the flaky test problem.",
+      "We need to find a permanent solution to the problem of flaky tests."
+    ],
+    "modelSentences": [
+      "We need to find a permanent solution to the flaky test problem.",
+      "Do you have a solution to the timeout issue?",
+      "Ayşe proposed a simple solution to the merge conflict."
+    ],
+    "checklistTr": [
+      "solution'dan sonra to geldi mi? (problem'e çözüm = solution to)",
+      "to'dan sonra sorun (problem / issue) mu geldi?",
+      "need to find yapısında to + yalın fiil doğru mu?"
+    ],
+    "noteTr": "Türkçe '-e çözüm' yönelme ekiyle kurulur, bu yüzden to doğal gelir; ama '-in çözümü' diye düşünürsen of yazılabilir. Bağlama göre matematikte solution of kullanılır, sorun için solution to kullanılır.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Cambridge solution ('solution to: There's no easy solution to this problem'), Oxford solution, Longman solution. SkELL 'solution to' 40 natural lines; 'solution of' 40 lines exist but are maths/engineering senses (so no commonMistake, 'solution of the problem' can be legitimate). The claim in noteTr about mathematics is from SkELL ('solution of target course…') and is a judgement. Sources: https://dictionary.cambridge.org/dictionary/english/solution ; https://www.oxfordlearnersdictionaries.com/definition/english/solution ; https://www.ldoceonline.com/dictionary/solution ; https://skell.sketchengine.eu/api/concordance?lang=English&query=solution+to",
+    "level": 3
+  },
+  {
+    "id": "have-access-to",
+    "category": "preposition",
+    "targetChunk": "have access to something",
+    "patternSlots": "have access to ___",
+    "clozeTemplate": "I don't have ___ ___ the staging logs.",
+    "situationTr": "[Teams] Deniz'e yazıyorsun: \"Staging loglarına erişimim yok.\"",
+    "acceptedAnswers": [
+      "I don't have access to the staging logs.",
+      "I have no access to the staging logs.",
+      "I don't have any access to the staging logs."
+    ],
+    "modelSentences": [
+      "I don't have access to the staging logs.",
+      "Mert has access to the payment API dashboard.",
+      "Could you check whether Deniz still has access to the repo?"
+    ],
+    "checklistTr": [
+      "access'ten sonra to geldi mi? (access for / on değil)",
+      "access sayılamaz: an access yazmadın, değil mi?",
+      "'Erişimim yok' için don't have access ya da have no access mi?"
+    ],
+    "noteTr": "Türkçe '-e erişim' yönelme ekiyle kurulur ve İngilizcede to olur. Bağlama göre access for başka bir anlam taşır (engelli ziyaretçiler için erişim).",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Cambridge access ('access to: The only access to the village is by boat'), Longman access ([uncountable] 'access to: Cats should always have access to fresh, clean water'; 'access for' = improving access for disabled visitors), Oxford access_1. SkELL 'access to' 40 lines. No commonMistake (no evidence). Sources: https://dictionary.cambridge.org/dictionary/english/access ; https://www.oxfordlearnersdictionaries.com/definition/english/access_1 ; https://www.ldoceonline.com/dictionary/access ; https://skell.sketchengine.eu/api/concordance?lang=English&query=access+to",
+    "level": 3
+  },
+  {
+    "id": "increase-in",
+    "category": "preposition",
+    "targetChunk": "an increase in something",
+    "patternSlots": "an increase in ___",
+    "clozeTemplate": "There was a sudden ___ ___ the error rate.",
+    "situationTr": "[olay notu] Jira'ya yazıyorsun: \"Hata oranında ani bir artış oldu.\"",
+    "acceptedAnswers": [
+      "There was a sudden increase in the error rate.",
+      "We saw a sudden increase in the error rate.",
+      "There has been a sudden increase in the error rate.",
+      "We have seen a sudden increase in the error rate.",
+      "There was a sharp increase in the error rate.",
+      "We saw a sharp increase in the error rate.",
+      "There was a sudden rise in the error rate.",
+      "There was a sudden spike in the error rate."
+    ],
+    "modelSentences": [
+      "There was a sudden increase in the error rate.",
+      "We saw a small increase in response time after the release.",
+      "Deniz noticed an increase in failed logins this morning."
+    ],
+    "checklistTr": [
+      "increase'ten sonra in geldi mi? (of / on değil)",
+      "İsim olarak an increase yazdın mı? (a increase değil)",
+      "Hata oranı gibi ölçülen şey in'den sonra mı geldi?"
+    ],
+    "noteTr": "Türkçe '-de artış' bulunma ekiyle kurulur ve İngilizcede in olur. Bağlama göre an increase of 10% miktarı, an increase in … ise neyin arttığını söyler.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Cambridge increase, Oxford increase_2, Longman increase; SkELL 'increase in' 40 lines (21 'increase in'), 'rise in' 27, 'spike in' 33 natural lines. SkELL 'an increase on' returns 40 lines, a legitimate British pattern ('an increase on last year'), so no commonMistake. Sources: https://dictionary.cambridge.org/dictionary/english/increase ; https://www.oxfordlearnersdictionaries.com/definition/english/increase_2 ; https://www.ldoceonline.com/dictionary/increase ; https://skell.sketchengine.eu/api/concordance?lang=English&query=increase+in ; https://skell.sketchengine.eu/api/concordance?lang=English&query=spike+in",
+    "level": 3
+  },
+  {
+    "id": "result-in",
+    "category": "preposition",
+    "targetChunk": "result in something (effect) vs result from something (cause)",
+    "patternSlots": "result in ___",
+    "clozeTemplate": "The config change ___ ___ a short outage.",
+    "situationTr": "[olay notu] Jira'ya yazıyorsun: \"Config değişikliği kısa bir kesintiyle sonuçlandı.\"",
+    "acceptedAnswers": [
+      "The config change resulted in a short outage.",
+      "The config change resulted in a brief outage.",
+      "The config change has resulted in a short outage.",
+      "The config change led to a short outage.",
+      "The config change led to a brief outage.",
+      "The config change caused a short outage.",
+      "The config change caused a brief outage."
+    ],
+    "modelSentences": [
+      "The config change resulted in a short outage.",
+      "The missing check resulted in broken code on main.",
+      "A slow query can result in timeouts."
+    ],
+    "commonMistake": "The config change resulted to a short outage.",
+    "checklistTr": [
+      "result'tan sonra in geldi mi? (sonuç = result in; neden = result from)",
+      "resulted to yazmadın, değil mi?",
+      "Neden ve sonucu doğru sıraya koydun mu? (nedenin ardından in, sonucun ardından from değil)"
+    ],
+    "noteTr": "Türkçe '-ile sonuçlandı' yönelme ekine (to) benzetilir ve resulted to hatası çıkar; doğrusu result in. Bağlama göre led to ve caused da aynı olay notunda kullanılır.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Longman result in something ('CAUSE: to make something happen SYN cause'), Cambridge result (B1 'as a result of'), Oxford result_1 ('result from', 'as a result of') and lead_1 ('lead to something… synonym result in'). SkELL 'result in' 40 natural lines; SkELL 'resulted to' also returns 40 lines (non-standard form attested, e.g. 'resulted to overcrowded elevators'). led to / caused accepted as natural alternatives. Sources: https://dictionary.cambridge.org/dictionary/english/result ; https://www.oxfordlearnersdictionaries.com/definition/english/result_1 ; https://www.oxfordlearnersdictionaries.com/definition/english/lead_1 ; https://www.ldoceonline.com/dictionary/result-in ; https://skell.sketchengine.eu/api/concordance?lang=English&query=result+in ; https://skell.sketchengine.eu/api/concordance?lang=English&query=resulted+to",
+    "level": 3
+  },
+  {
+    "id": "mitigate-the-risk",
+    "category": "work_vocab",
+    "targetChunk": "mitigate a risk / the impact (formal: make less harmful)",
+    "patternSlots": "mitigate ___",
+    "clozeTemplate": "We can ___ the risk by releasing in two stages.",
+    "situationTr": "[Jira yorumu] Deniz'e yazıyorsun: \"Release'i iki aşamada yaparak riski hafifletebiliriz.\"",
+    "acceptedAnswers": [
+      "We can mitigate the risk by releasing in two stages.",
+      "We could mitigate the risk by releasing in two stages.",
+      "We can mitigate the risk by releasing in two phases.",
+      "We could mitigate the risk by releasing in two phases.",
+      "We can mitigate this risk by releasing in two stages.",
+      "We could mitigate this risk by releasing in two stages.",
+      "We can mitigate the risk by releasing it in two stages."
+    ],
+    "modelSentences": [
+      "We can mitigate the risk by releasing in two stages.",
+      "A feature flag would mitigate the risk of a bad deploy.",
+      "To mitigate this corner case, we added a retry."
+    ],
+    "checklistTr": [
+      "Riski hafifletmek için mitigate (geçişli fiil) kullandın mı?",
+      "mitigate'ten sonra nesne (the risk) hemen geldi mi?",
+      "Yöntemi by + -ing ile bağladın mı?"
+    ],
+    "noteTr": "Türkçe 'hafifletmek / azaltmak' tek fiil gibi durur; İngilizcede mitigate resmî ve çoğu raporda kullanılan karşılıktır. Bağlama göre gündelik yazışmada reduce the risk daha doğal olabilir.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Cambridge mitigate ('formal: to make something less harmful, unpleasant, or bad'), Oxford mitigate ('(formal)'), Longman mitigate. SkELL 'mitigate the risk' 40 natural lines. No commonMistake (no evidence). Sources: https://dictionary.cambridge.org/dictionary/english/mitigate ; https://www.oxfordlearnersdictionaries.com/definition/english/mitigate ; https://www.ldoceonline.com/dictionary/mitigate ; https://skell.sketchengine.eu/api/concordance?lang=English&query=mitigate+the+risk",
+    "level": 3
+  },
+  {
+    "id": "address-an-issue",
+    "category": "work_vocab",
+    "targetChunk": "address an issue / a problem (deal with it)",
+    "patternSlots": "address ___",
+    "clozeTemplate": "We will ___ this issue in the next sprint.",
+    "situationTr": "[Jira yorumu] Mert'e yazıyorsun: \"Bu sorunu bir sonraki sprintte ele alacağız.\"",
+    "acceptedAnswers": [
+      "We will address this issue in the next sprint.",
+      "We will address this problem in the next sprint.",
+      "We will address the issue in the next sprint.",
+      "We will address this issue during the next sprint.",
+      "We will address this issue next sprint.",
+      "We are going to address this issue in the next sprint."
+    ],
+    "modelSentences": [
+      "We will address this issue in the next sprint.",
+      "Ayşe addressed the issue before EOD.",
+      "We need to address the failing tests before the release."
+    ],
+    "checklistTr": [
+      "'Ele almak' için address (geçişli fiil) kullandın mı?",
+      "address'ten sonra nesne (this issue) hemen geldi mi, araya edat girmedi mi?",
+      "Gelecek zaman için will / are going to kullandın mı?"
+    ],
+    "noteTr": "Türkçe 'ele almak' fiili sorunu çözmeye başlamak anlamına gelir; İngilizcede address a problem/issue bunun yerleşik iş karşılığıdır. Bağlama göre address söz verir ama çözdüğünü garanti etmez, çözüm için fix / resolve kullanılır.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Cambridge address (business: 'to deal with a particular problem or need… address a problem/issue'), Oxford address_2 ('address something… to address a problem/concern/question'), Longman address. SkELL 'address the issue' 40 natural lines. Related existing item address-review-comments uses comments, not issue; flag for verifier if too close. No commonMistake (no evidence). Sources: https://dictionary.cambridge.org/dictionary/english/address ; https://www.oxfordlearnersdictionaries.com/definition/english/address_2 ; https://www.ldoceonline.com/dictionary/address ; https://skell.sketchengine.eu/api/concordance?lang=English&query=address+the+issue",
+    "level": 3
+  },
+  {
+    "id": "raise-a-concern",
+    "category": "work_vocab",
+    "targetChunk": "raise a concern with someone about something",
+    "patternSlots": "raise ___ with ___",
+    "clozeTemplate": "I ___ my concern about the schedule ___ Deniz.",
+    "situationTr": "[Teams] Takım liderine bilgi veriyorsun: \"Takvimle ilgili endişemi Deniz'e dile getirdim.\"",
+    "acceptedAnswers": [
+      "I raised my concern about the schedule with Deniz.",
+      "I raised my concerns about the schedule with Deniz.",
+      "I raised a concern about the schedule with Deniz.",
+      "I have raised my concern about the schedule with Deniz.",
+      "I have raised my concerns about the schedule with Deniz.",
+      "I raised my concern with Deniz about the schedule.",
+      "I voiced my concern about the schedule to Deniz."
+    ],
+    "modelSentences": [
+      "I raised my concern about the schedule with Deniz.",
+      "If you have any concerns, please raise them with Mert.",
+      "I raised a concern about the test data in the retro."
+    ],
+    "checklistTr": [
+      "'Dile getirmek' için raise (a concern) kullandın mı? (say değil)",
+      "Kişiden önce with geldi mi? (raise … with Deniz)",
+      "Konu about ile mi bağlandı? (concern about the schedule)"
+    ],
+    "noteTr": "Türkçe 'dile getirmek' hem 'söylemek' hem 'gündeme getirmek' gibi çalışır; İngilizcede bunun iş dilindeki karşılığı raise a concern with someone'dır. Bağlama göre voice a concern (to someone) daha çok duygu ve görüş ifade etmek için kullanılır.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Cambridge concern ('raise a concern: Several workers raised concerns about levels of radiation'; 'voice a concern'); Oxford raise_1 page reached but no phrase example found; SkELL 'raised concerns with' 37 and 'raise concerns with' 40 natural lines (plus 'voiced concerns to' 3 lines, so the 'voiced…to' variant is rare but attested). Needs a second dictionary confirmation for the phrase. No commonMistake (no evidence). Sources: https://dictionary.cambridge.org/dictionary/english/concern ; https://dictionary.cambridge.org/dictionary/english/raise ; https://www.oxfordlearnersdictionaries.com/definition/english/raise_1 ; https://skell.sketchengine.eu/api/concordance?lang=English&query=raise+concerns+with ; https://skell.sketchengine.eu/api/concordance?lang=English&query=voiced+concerns+to",
+    "level": 3
+  },
+  {
+    "id": "it-might-be-worth-doing",
+    "category": "work_vocab",
+    "targetChunk": "it might be worth + -ing (hedged suggestion)",
+    "patternSlots": "it might be worth ___ing",
+    "clozeTemplate": "It ___ ___ ___ running this test once more before merging.",
+    "situationTr": "[PR yorumu, nazik öneri] Mert'e yazıyorsun: \"Merge etmeden önce bu testi bir kez daha çalıştırmak faydalı olabilir.\"",
+    "acceptedAnswers": [
+      "It might be worth running this test once more before merging.",
+      "It might be worth running this test again before merging.",
+      "It may be worth running this test once more before merging.",
+      "It may be worth running this test again before merging.",
+      "It could be worth running this test once more before merging.",
+      "It could be worth running this test again before merging."
+    ],
+    "modelSentences": [
+      "It might be worth running this test once more before merging.",
+      "It might be worth raising a bug for this corner case.",
+      "It may be worth asking Deniz before changing the API."
+    ],
+    "commonMistake": "It might be worth to run this test once more before merging.",
+    "checklistTr": [
+      "worth'ten sonra fiil -ing aldı mı? (worth running, worth to run değil)",
+      "might be ile yumuşattın mı? (It is worth … daha doğrudan)",
+      "be unutulmadı mı? (It might be worth, It might worth değil)"
+    ],
+    "noteTr": "Türkçe '-mek faydalı olabilir' mastarla biter ama İngilizcede worth'ten sonra -ing gelir. Bağlama göre might, may ve could aynı yumuşatmayı verir; might biraz daha temkinlidir.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Cambridge worth ('be worth having/doing something… It's worth remembering that…'), Oxford worth_1, Longman not cited. SkELL 'might be worth' 40 natural lines ('A local radio station might be worth contacting'), 'worth running' 20 lines; SkELL 'worth to' returns only the noun 'net worth to' (40 lines), i.e. no corpus support for 'worth to + verb'. The mistake is a judgement from the dictionary pattern. Sources: https://dictionary.cambridge.org/dictionary/english/worth ; https://www.oxfordlearnersdictionaries.com/definition/english/worth_1 ; https://skell.sketchengine.eu/api/concordance?lang=English&query=might+be+worth ; https://skell.sketchengine.eu/api/concordance?lang=English&query=worth+running",
+    "level": 3
+  },
+  {
+    "id": "i-see-your-point-but",
+    "category": "work_vocab",
+    "targetChunk": "I see your point, but … (polite pushback)",
+    "patternSlots": "I see your point, but ___",
+    "clozeTemplate": "I ___ your ___, but changing this now would delay the release.",
+    "situationTr": "[PR yorumu, nazik karşı çıkış] Mert'e yazıyorsun: \"Haklı olduğunu görüyorum ama bunu şimdi değiştirmek release'i geciktirir.\"",
+    "acceptedAnswers": [
+      "I see your point, but changing this now would delay the release.",
+      "I see your point, but changing it now would delay the release.",
+      "I take your point, but changing this now would delay the release.",
+      "I take your point, but changing it now would delay the release.",
+      "I understand your point, but changing this now would delay the release.",
+      "I see your point, but changing this now will delay the release.",
+      "I see your point, but changing it now will delay the release."
+    ],
+    "modelSentences": [
+      "I see your point, but changing this now would delay the release.",
+      "I see your point, but we are still blocked on the API change.",
+      "I see your point, but I'd prefer to wait for Ayşe's review."
+    ],
+    "checklistTr": [
+      "Önce karşındakinin görüşünü kabul ettin mi? (I see your point, but …)",
+      "but'tan sonra itirazını somut ve nazik yazdın mı?",
+      "'You are wrong' gibi doğrudan karşı çıkmadın, değil mi?"
+    ],
+    "noteTr": "Türkçe 'haklısın ama' İngilizcede çoğu zaman sert kalır; I see your point, but önce görüşü kabul eder, sonra itiraz eder. Bağlama göre I take your point de aynı işi görür.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Cambridge point ('Yes, I can see your point, but I still disagree with you'; 'I take your point'), SkELL 'I see your point' 40 and 'I take your point' 40 natural lines. Oxford point not fetched; second dictionary source needed. No commonMistake (no evidence). Sources: https://dictionary.cambridge.org/dictionary/english/point ; https://skell.sketchengine.eu/api/concordance?lang=English&query=I+see+your+point ; https://skell.sketchengine.eu/api/concordance?lang=English&query=I+take+your+point",
+    "level": 3
+  },
+  {
+    "id": "to-sum-up",
+    "category": "work_vocab",
+    "targetChunk": "To sum up, … / In short, … (summarising)",
+    "patternSlots": "To sum up, ___",
+    "clozeTemplate": "___ ___ ___, the cause was old data and it is fixed now.",
+    "situationTr": "[Teams, kapanış mesajı] Ekibe yazıyorsun: \"Özetle: neden eski veriydi ve şimdi düzeldi.\"",
+    "acceptedAnswers": [
+      "To sum up, the cause was old data and it is fixed now.",
+      "In short, the cause was old data and it is fixed now.",
+      "To summarise, the cause was old data and it is fixed now.",
+      "To summarize, the cause was old data and it is fixed now.",
+      "In summary, the cause was old data and it is fixed now."
+    ],
+    "modelSentences": [
+      "To sum up, the cause was old data and it is fixed now.",
+      "In short, we need two more days for testing.",
+      "To sum up, the PR is ready, but we are blocked on the review."
+    ],
+    "checklistTr": [
+      "Özeti To sum up, ile (virgülle) mi başlattın?",
+      "up unutulmadı mı? (to sum up, to sum değil)",
+      "Özette yeni bilgi değil, ana noktaları mı yazdın?"
+    ],
+    "noteTr": "Türkçe 'özetle' kısa bir kalıptır; İngilizcede To sum up, ya da In short, cümle başında virgülle gelir. Bağlama göre In summary ve To summarise yazılı raporlarda biraz daha resmîdir.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Oxford sum-up ('To sum up, there are three main ways of tackling the problem…'), Cambridge sum-up, Longman sum-up; SkELL 'to sum up' 40, 'in short' 39, 'to summarise' 40, 'in summary' 40 lines. No commonMistake (no evidence). Sources: https://dictionary.cambridge.org/dictionary/english/sum-up ; https://www.oxfordlearnersdictionaries.com/definition/english/sum-up ; https://www.ldoceonline.com/dictionary/sum-up ; https://skell.sketchengine.eu/api/concordance?lang=English&query=to+sum+up",
+    "level": 3
+  },
+  {
+    "id": "whereas-contrast",
+    "category": "work_vocab",
+    "targetChunk": "…, whereas … (contrast between two facts)",
+    "patternSlots": "___, whereas ___",
+    "clozeTemplate": "The old suite takes ten minutes, ___ the new one takes two.",
+    "situationTr": "[PR açıklaması] Ayşe'ye yazıyorsun: \"Eski suite on dakika sürüyor, yenisi ise iki dakika.\"",
+    "acceptedAnswers": [
+      "The old suite takes ten minutes, whereas the new one takes two.",
+      "The old suite takes ten minutes, while the new one takes two.",
+      "The old suite takes ten minutes, but the new one takes two.",
+      "The old suite takes ten minutes, whereas the new suite takes two.",
+      "The old suite takes ten minutes, while the new suite takes two.",
+      "Whereas the old suite takes ten minutes, the new one takes two.",
+      "While the old suite takes ten minutes, the new one takes two."
+    ],
+    "modelSentences": [
+      "The old suite takes ten minutes, whereas the new one takes two.",
+      "Chrome passes all tests, whereas Firefox fails two of them.",
+      "Mert prefers manual checks, whereas Ayşe wants everything automated."
+    ],
+    "checklistTr": [
+      "İki karşıt olguyu whereas ile bağladın mı?",
+      "whereas'ten sonra tam cümle (özne + fiil) geldi mi?",
+      "Ortada kullandıysan whereas'tan önce virgül var mı?"
+    ],
+    "noteTr": "Türkçe '-ken / ise' iki durumu karşılaştırmak için kullanılır; İngilizcede bunun resmî karşılığı whereas'tır. Bağlama göre while günlük yazışmada, whereas karşılaştırmanın net olduğu raporlarda tercih edilir.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "author: 2026-10-22. Oxford whereas ('used to compare or contrast two facts: Some of the studies show positive results, whereas others do not'), Cambridge whereas (B2 'compared with the fact that; but'), Longman whereas. SkELL 'whereas' 40 natural lines. 'but' and 'while' accepted as natural alternatives. No commonMistake (no evidence). Sources: https://dictionary.cambridge.org/dictionary/english/whereas ; https://www.oxfordlearnersdictionaries.com/definition/english/whereas ; https://www.ldoceonline.com/dictionary/whereas ; https://skell.sketchengine.eu/api/concordance?lang=English&query=whereas",
+    "level": 3
+  }
+]
