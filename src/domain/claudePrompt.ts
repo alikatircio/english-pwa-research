@@ -96,7 +96,7 @@ export function buildClaudePrompt(entries: readonly NotebookEntry[], nowIso: str
     '- commonMistake (isteğe bağlı): bir Türk öğrencinin gerçekten yapacağı tipik hata.',
     '- checklistTr en fazla 3 kısa Türkçe kontrol sorusudur.',
     '- noteTr kısa Türkçe bir açıklamadır. Kullanım bağlama göre değişiyorsa "bağlama göre" yazar.',
-    '- Gerçek şirket, ürün müşterisi ya da kişi adı yok. Kişi adı gerekiyorsa sadece Ayşe, Mert, Deniz.',
+    '- Gerçek şirket, ürün ya da kişi adı yok. Kişi adı gerekiyorsa sadece Ayşe, Mert, Deniz.',
     '  E-posta, URL, telefon numarası yok.',
     '- Bir ifadenin doğal olduğundan emin değilsen uydurma; bunu açıkça söyle.',
     '  If you are not sure a phrase is natural English, do not invent one: say so.',
