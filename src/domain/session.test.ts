@@ -21,7 +21,7 @@ import {
   todayCount,
   type Pools,
 } from './session.ts';
-import type { Box, DailyCounter, DayKey, Grade, Item, Progress, QueueEntry, SessionState } from './types.ts';
+import type { Box, Category, DailyCounter, DayKey, Grade, Item, Progress, QueueEntry, SessionState } from './types.ts';
 
 const today = '2026-11-02';
 
@@ -56,6 +56,8 @@ function prog(itemId: string, box: Box, dueOn: DayKey = today, extra: Partial<Pr
   };
 }
 
+const CATS: Category[] = ['aux_to', 'object', 'word_form', 'preposition', 'work_vocab'];
+
 interface PoolSpec {
   due?: Progress[];
   newIds?: string[];
@@ -67,7 +69,8 @@ interface PoolSpec {
 function pools(spec: PoolSpec): Pools {
   const items = new Map<string, Item>();
   for (const p of spec.due ?? []) items.set(p.itemId, item(p.itemId));
-  for (const id of spec.newIds ?? []) items.set(id, item(id));
+  // Spread new cards over categories so the decision-40 per-category cap does not interfere by default.
+  (spec.newIds ?? []).forEach((id, i) => items.set(id, item(id, { category: CATS[i % CATS.length] ?? 'aux_to' })));
   for (const it of spec.extraItems ?? []) items.set(it.id, it);
   return {
     items,
@@ -163,7 +166,7 @@ describe('buildRound', () => {
   it('3 due + 10 new, newIntroduced=0 → 3 due then 5 new', () => {
     const round = buildRound(pools({ due: dueCards(3), newIds: ids('n', 10) }), today);
     expect(round.map((e) => e.kind)).toEqual(['due', 'due', 'due', 'new', 'new', 'new', 'new', 'new']);
-    expect(round.slice(3).map((e) => e.itemId)).toEqual(ids('n', 5));
+    expect(round.slice(3).map((e) => e.itemId).sort()).toEqual(ids('n', 5));
   });
 
   it('3 due + 10 new, newIntroduced=4 → 3 due + 1 new', () => {
@@ -215,6 +218,68 @@ describe('buildRound', () => {
   it('nothing to do → [] ("Bugün bitti")', () => {
     expect(buildRound(pools({}), today)).toEqual([]);
     expect(todayCount(pools({}), today)).toBe(0);
+  });
+});
+
+describe('buildRound — decision 40 (category spread)', () => {
+  const cat = (id: string, category: Category): Item => item(id, { category });
+  const cats = (r: QueueEntry[], p: Pools) => r.map((e) => p.items.get(e.itemId)?.category);
+
+  it('avoids adjacent same-category cards when avoidable', () => {
+    const p = pools({
+      due: [prog('a1', 1), prog('a2', 1), prog('b1', 1), prog('b2', 1)],
+      extraItems: [cat('a1', 'object'), cat('a2', 'object'), cat('b1', 'aux_to'), cat('b2', 'aux_to')],
+    });
+    const c = cats(buildRound(p, today), p);
+    for (let i = 1; i < c.length; i++) expect(c[i]).not.toBe(c[i - 1]);
+  });
+
+  it('allows adjacency only when unavoidable', () => {
+    const p = pools({ due: [prog('a', 1), prog('b', 1)], extraItems: [cat('a', 'object'), cat('b', 'object')] });
+    expect(buildRound(p, today)).toHaveLength(2);
+  });
+
+  it('caps new cards at 2 per category, counting today introductions', () => {
+    const p = pools({
+      due: [prog('t1', 1, '2026-12-01', { introducedOn: today })],
+      newIds: ['n1', 'n2', 'n3', 'n4'],
+      extraItems: [cat('t1', 'object'), cat('n1', 'object'), cat('n2', 'aux_to'), cat('n3', 'object'), cat('n4', 'object')],
+    });
+    expect(buildRound(p, today).map((e) => e.itemId)).toEqual(['n1', 'n2']);
+  });
+
+  it('caps chosen-in-round cards and fewer new cards are fine', () => {
+    const items = ['n1', 'n2', 'n3', 'n4'].map((id) => cat(id, 'object'));
+    const p = pools({ newIds: ['n1', 'n2', 'n3', 'n4'], extraItems: items });
+    expect(buildRound(p, today).map((e) => e.itemId)).toEqual(['n1', 'n2']);
+  });
+
+  it('keeps the highest-box opener first', () => {
+    const p = pools({
+      due: [prog('a', 1), prog('b', 1), prog('c', 4)],
+      extraItems: [cat('a', 'object'), cat('b', 'aux_to'), cat('c', 'object')],
+    });
+    expect(buildRound(p, today)[0]?.itemId).toBe('c');
+  });
+
+  it('keeps notebook-first order among new cards when categories allow', () => {
+    const p = pools({
+      newIds: ['nb1', 'nb2', 'x1', 'x2'],
+      extraItems: [cat('nb1', 'object'), cat('nb2', 'aux_to'), cat('x1', 'object'), cat('x2', 'aux_to')],
+    });
+    const ids2 = buildRound(p, today).map((e) => e.itemId);
+    expect(ids2.slice(0, 2)).toEqual(['nb1', 'nb2']);
+  });
+
+  it('is deterministic and keeps due before new', () => {
+    const p = pools({
+      due: [prog('a', 2), prog('b', 1)],
+      newIds: ['n1', 'n2', 'n3'],
+      extraItems: [cat('a', 'object'), cat('b', 'object'), cat('n1', 'object'), cat('n2', 'aux_to'), cat('n3', 'object')],
+    });
+    const r1 = buildRound(p, today);
+    expect(buildRound(p, today)).toEqual(r1);
+    expect(r1.map((e) => e.kind)).toEqual(['due', 'due', 'new', 'new', 'new']);
   });
 });
 
