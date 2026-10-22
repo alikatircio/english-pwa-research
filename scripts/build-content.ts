@@ -3,7 +3,7 @@
 // Any 'error' finding stops the build with exit code 1.
 //
 // Flags (defaults in parentheses):
-//   --drafts <dir>        (content/drafts)  reads every *.verified.json, sorted by name
+//   --drafts <dir>        (content/drafts)  reads batch-*.verified.json items + modelBlanks-*.verified.json overlays
 //   --out <file>          (src/content/items.json)
 //   --lock <file>         (content/shipped-ids.lock.json)
 //   --allow-remove <id>   may be repeated; lets a locked id disappear on purpose
@@ -65,12 +65,16 @@ function parseArgs(argv: readonly string[]): Args {
   return args;
 }
 
-function readDrafts(dir: string): DraftFile[] {
+function readJsonFiles(dir: string, pattern: RegExp): DraftFile[] {
   return readdirSync(dir)
-    .filter((f) => f.endsWith('.verified.json'))
+    .filter((f) => pattern.test(f))
     .sort()
     .map((file) => ({ file, raw: JSON.parse(readFileSync(join(dir, file), 'utf8')) as unknown }));
 }
+
+/** Item files only: batch-*.verified.json (modelBlanks overlays are separate). */
+const readDrafts = (dir: string): DraftFile[] => readJsonFiles(dir, /^batch-.+\.verified\.json$/);
+const readModelBlanks = (dir: string): DraftFile[] => readJsonFiles(dir, /^modelBlanks-.+\.verified\.json$/);
 
 function readLock(file: string): string[] {
   if (!existsSync(file)) return [];
@@ -117,6 +121,7 @@ function main(): number {
   const { findings, shipped } = runChecks(drafts, {
     locked,
     allowRemove: args.allowRemove,
+    modelBlanks: readModelBlanks(args.drafts),
     extraItemChecks: [checkPrivacyPatterns, makeDenylistCheck(deny.terms), makeProperNounCheck(readAllowlist(args.allowlist))],
   });
   findings.unshift(...deny.findings);

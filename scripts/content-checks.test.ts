@@ -8,7 +8,9 @@ import {
   canonicalJson,
   checkCloze,
   checkCommonMistake,
+  applyModelBlanks,
   checkContextNote,
+  checkModelBlanks,
   checkCounts,
   checkDuplicateVariants,
   checkIds,
@@ -177,6 +179,48 @@ describe('C10 proper-noun candidates (warning)', () => {
   });
 });
 
+describe('modelBlanks overlay and C14', () => {
+  const withBlanks = (modelBlanks: (string | null)[]) => item({ modelBlanks });
+
+  it('attaches entries by id without mutating the inputs', () => {
+    const drafts = [{ file: 'a', raw: [good] }];
+    const r = applyModelBlanks(drafts, [{ file: 'modelBlanks-a.verified.json', raw: { [good.id]: ['Can you ___ the pipeline?'] } }]);
+    expect(r.findings).toEqual([]);
+    expect((r.drafts[0]?.raw as Item[])[0]?.modelBlanks).toEqual(['Can you ___ the pipeline?']);
+    expect(good.modelBlanks).toBeUndefined();
+    expect((drafts[0]?.raw as Item[])[0]?.modelBlanks).toBeUndefined();
+  });
+  it('flags unknown ids, wrong lengths and non-object overlays', () => {
+    const ov = (raw: unknown) => applyModelBlanks([{ file: 'a', raw: [good] }], [{ file: 'o', raw }]).findings;
+    expect(ov({ ghost: [null] })[0]?.message).toContain('unknown item id');
+    expect(ov({ [good.id]: [null, null] })[0]?.message).toContain('length 2');
+    expect(ov({ [good.id]: [] })[0]?.check).toBe('C14');
+    expect(ov([])[0]?.message).toContain('JSON object');
+  });
+  it('runChecks surfaces overlay errors and the schema rejects bad entries', () => {
+    const r = runChecks([{ file: 'a', raw: [good] }], { modelBlanks: [{ file: 'o', raw: { [good.id]: [''] } }] });
+    expect(hasErrors(r.findings)).toBe(true);
+  });
+  it('C14 passes null entries and a correct blanked sentence', () => {
+    expect(checkModelBlanks(withBlanks([null]))).toEqual([]);
+    expect(checkModelBlanks(withBlanks(['Can you ___ the pipeline?']))).toEqual([]);
+    expect(checkModelBlanks(withBlanks(['Can you ___ ___ pipeline?']))).toEqual([]);
+    expect(checkModelBlanks(good)).toEqual([]);
+  });
+  it('C14 fails when the blanked sentence does not refill to the original', () => {
+    const f = checkModelBlanks(withBlanks(['Could you ___ the pipeline?']));
+    expect(f).toHaveLength(1);
+    expect(f[0]).toMatchObject({ check: 'C14', severity: 'error', itemId: good.id });
+  });
+  it('C14 fails with no blank or more than 5 blanks', () => {
+    expect(checkModelBlanks(withBlanks(['Can you rerun the pipeline?']))[0]?.message).toContain('0 blanks');
+    const long = item({ modelSentences: ['a b c d e f g', 'a b c d e f g'], modelBlanks: ['___ ___ ___ ___ ___ ___ g'] });
+    expect(checkModelBlanks(long)[0]?.message).toContain('6 blanks');
+    const five = item({ modelSentences: ['a b c d e f g', 'a b c d e f g'], modelBlanks: ['___ ___ ___ ___ ___ f g'] });
+    expect(checkModelBlanks(five)).toEqual([]);
+  });
+});
+
 describe('runChecks', () => {
   it('ships only verified items', () => {
     const r = runChecks([{ file: 'a', raw: [good, item({ id: 'unverified', verified: false })] }]);
@@ -205,9 +249,10 @@ describe('runChecks', () => {
 });
 
 describe('build-content CLI', () => {
-  function run(items: unknown[], lock?: string[], extra: string[] = [], { ci = false } = {}) {
+  function run(items: unknown[], lock?: string[], extra: string[] = [], { ci = false, overlays = {} as Record<string, unknown> } = {}) {
     const dir = mkdtempSync(join(tmpdir(), 'content-'));
-    writeFileSync(join(dir, 'x.verified.json'), JSON.stringify(items));
+    writeFileSync(join(dir, 'batch-x.verified.json'), JSON.stringify(items));
+    for (const [name, body] of Object.entries(overlays)) writeFileSync(join(dir, name), JSON.stringify(body));
     writeFileSync(join(dir, 'ignored.json'), JSON.stringify([{ broken: true }]));
     const lockFile = join(dir, 'lock.json');
     if (lock) writeFileSync(lockFile, JSON.stringify(lock));
@@ -235,6 +280,23 @@ describe('build-content CLI', () => {
     const r = run(items);
     expect(r.code).toBe(1);
     expect(r.stderr).toContain('content:build failed');
+  });
+
+  it('attaches modelBlanks overlays to the shipped items and ignores them as item files', () => {
+    const r = run([good], undefined, [], { overlays: { 'modelBlanks-a.verified.json': { 'could-you-base-verb': ['Can you ___ the pipeline?'] } } });
+    expect(r.code).toBe(0);
+    const bundle = JSON.parse(readFileSync(r.out, 'utf8')) as ContentBundle;
+    expect(bundle.items[0]?.modelBlanks).toEqual(['Can you ___ the pipeline?']);
+  });
+
+  it.each([
+    ['unknown id', { nope: [null] }],
+    ['wrong length', { 'could-you-base-verb': [null, null] }],
+    ['blanks that do not refill', { 'could-you-base-verb': ['Can you ___ the logs?'] }],
+  ])('exits 1 on a modelBlanks overlay with %s (C14)', (_n, overlay) => {
+    const r = run([good], undefined, [], { overlays: { 'modelBlanks-a.verified.json': overlay } });
+    expect(r.code).toBe(1);
+    expect(r.stderr).toContain('[C14]');
   });
 
   it('exits 1 on an e-mail address (C8)', () => {

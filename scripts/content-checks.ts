@@ -2,11 +2,12 @@
 // decides what to do with them (any 'error' → exit 1).
 // Imports the app's own schema and normaliser so the build and the app agree.
 import { ItemSchema, KEBAB_CASE } from '../src/domain/itemSchema.ts';
+import { blankAnswers, BLANK_TOKEN, refillBlanks } from '../src/domain/blankAnswers.ts';
 import { normalizeAnswer } from '../src/domain/normalize.ts';
 import type { Category, Item } from '../src/domain/types.ts';
 
 export type Severity = 'error' | 'warning' | 'info';
-export type CheckId = 'C1' | 'C2' | 'C3' | 'C4' | 'C5' | 'C6' | 'C7' | 'C8' | 'C9' | 'C10' | 'C11' | 'C12' | 'C13';
+export type CheckId = 'C1' | 'C2' | 'C3' | 'C4' | 'C5' | 'C6' | 'C7' | 'C8' | 'C9' | 'C10' | 'C11' | 'C12' | 'C13' | 'C14';
 
 export interface Finding {
   check: CheckId;
@@ -250,6 +251,73 @@ export function checkNotEmpty(shipped: readonly Item[]): Finding[] {
   return shipped.length === 0 ? [{ check: 'C13', severity: 'error', message: 'no verified items to ship' }] : [];
 }
 
+/**
+ * Overlay: attach modelBlanks-*.verified.json ({itemId: [blanked | null, ...]})
+ * to the raw draft items by id. Unknown ids and wrong array lengths are C14
+ * errors. Returns new drafts; the inputs are not mutated.
+ */
+export function applyModelBlanks(drafts: readonly DraftFile[], overlays: readonly DraftFile[]): { drafts: DraftFile[]; findings: Finding[] } {
+  const findings: Finding[] = [];
+  const byId = new Map<string, Record<string, unknown>>();
+  const out = drafts.map(({ file, raw }) => ({
+    file,
+    raw: Array.isArray(raw)
+      ? raw.map((e: unknown) => {
+          if (!e || typeof e !== 'object') return e;
+          const copy = { ...(e as Record<string, unknown>) };
+          const id = idOf(copy);
+          if (id !== undefined && !byId.has(id)) byId.set(id, copy);
+          return copy;
+        })
+      : raw,
+  }));
+  const attached = new Set<string>();
+  for (const { file, raw } of overlays) {
+    if (!raw || typeof raw !== 'object' || Array.isArray(raw)) {
+      findings.push({ check: 'C14', severity: 'error', file, message: 'overlay must be a JSON object {itemId: [...]}' });
+      continue;
+    }
+    for (const [id, blanks] of Object.entries(raw as Record<string, unknown>)) {
+      const target = byId.get(id);
+      if (!target) {
+        findings.push({ check: 'C14', severity: 'error', file, itemId: id, message: 'modelBlanks for unknown item id' });
+        continue;
+      }
+      if (attached.has(id)) {
+        findings.push({ check: 'C14', severity: 'error', file, itemId: id, message: 'modelBlanks given more than once' });
+        continue;
+      }
+      const sentences = target.modelSentences;
+      if (!Array.isArray(blanks) || !Array.isArray(sentences) || blanks.length !== sentences.length - 1) {
+        const want = Array.isArray(sentences) ? sentences.length - 1 : '?';
+        const has = Array.isArray(blanks) ? blanks.length : 'not an array';
+        findings.push({ check: 'C14', severity: 'error', file, itemId: id, message: `modelBlanks length ${has}, expected modelSentences.length-1 = ${want}` });
+        continue;
+      }
+      attached.add(id);
+      target.modelBlanks = blanks;
+    }
+  }
+  return { drafts: out, findings };
+}
+
+/** C14: each non-null blanked entry refills to modelSentences[i+1] and has 1–5 blanks. */
+export function checkModelBlanks(item: Item): Finding[] {
+  const f: Finding[] = [];
+  (item.modelBlanks ?? []).forEach((blanked, i) => {
+    if (blanked === null) return;
+    const original = item.modelSentences[i + 1];
+    const err = (message: string) => f.push({ check: 'C14', severity: 'error', itemId: item.id, message: `modelBlanks[${i}]: ${message}` });
+    if (original === undefined) return err('no matching model sentence');
+    const n = blanked.split(BLANK_TOKEN).length - 1;
+    if (n < 1 || n > 5) return err(`has ${n} blanks (need 1–5)`);
+    const answers = blankAnswers(blanked, original);
+    if (!answers) return err(`does not fit "${original}"`);
+    if (refillBlanks(blanked, answers) !== original) err(`refill differs from "${original}"`);
+  });
+  return f;
+}
+
 export interface ContentResult {
   findings: Finding[];
   /** verified:true only, in draft-file order. */
@@ -259,14 +327,18 @@ export interface ContentResult {
 export interface RunOptions {
   locked?: readonly string[];
   allowRemove?: readonly string[];
+  /** modelBlanks-*.verified.json overlay files, attached to items by id. */
+  modelBlanks?: readonly DraftFile[];
   /** Extra per-item checks (privacy, T1.4). */
   extraItemChecks?: ReadonlyArray<(item: Item) => Finding[]>;
 }
 
-export function runChecks(drafts: readonly DraftFile[], opts: RunOptions = {}): ContentResult {
-  const { items, findings } = checkSchema(drafts);
+export function runChecks(rawDrafts: readonly DraftFile[], opts: RunOptions = {}): ContentResult {
+  const overlaid = applyModelBlanks(rawDrafts, opts.modelBlanks ?? []);
+  const { items, findings } = checkSchema(overlaid.drafts);
+  findings.push(...overlaid.findings);
   findings.push(...checkIds(items));
-  const perItem = [checkCounts, checkCommonMistake, checkCloze, checkDuplicateVariants, checkVerifiedNote, checkContextNote, ...(opts.extraItemChecks ?? [])];
+  const perItem = [checkCounts, checkCommonMistake, checkCloze, checkDuplicateVariants, checkVerifiedNote, checkContextNote, checkModelBlanks, ...(opts.extraItemChecks ?? [])];
   for (const item of items) for (const check of perItem) findings.push(...check(item));
   const shipped = items.filter((i) => i.verified);
   findings.push(...checkLockedIds(opts.locked ?? [], shipped.map((i) => i.id), opts.allowRemove ?? []));

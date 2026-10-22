@@ -29,6 +29,17 @@ describe('ItemSchema', () => {
       expect(r.success, JSON.stringify(r.error?.issues)).toBe(true);
     }
   });
+  it('accepts modelBlanks with strings and nulls, and omits it by default', () => {
+    expect(ItemSchema.safeParse({ ...valid, modelBlanks: ['Could you ___ the logs?', null] }).success).toBe(true);
+    expect(ItemSchema.parse(valid).modelBlanks).toBeUndefined();
+  });
+  it.each([
+    ['blank entry text', ['  ']],
+    ['non-string entry', [3]],
+    ['non-array', 'x'],
+  ])('rejects modelBlanks with %s', (_n, modelBlanks) => {
+    expect(ItemSchema.safeParse({ ...valid, modelBlanks }).success).toBe(false);
+  });
   it('accepts a minimal valid item', () => {
     expect(ItemSchema.safeParse(valid).success).toBe(true);
   });
