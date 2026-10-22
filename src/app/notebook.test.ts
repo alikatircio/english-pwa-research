@@ -38,6 +38,7 @@ const itemsFile = (items: unknown[]) => JSON.stringify({ format: 'english-pwa-it
 describe('notebook capture', () => {
   it('saves mid-card with the card as context, keeps the session, and warns on a duplicate', async () => {
     const { db, actions, ready } = await setup();
+    actions.startWriting(); // a new card opens on its study view (decision 33)
     actions.saveDraft(0, 'I will se');
     const sessionBefore = ready().session;
 

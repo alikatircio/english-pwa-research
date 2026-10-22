@@ -23,7 +23,10 @@ test.describe('Leitner across days (decisions 2–4)', () => {
       await expect(app.situation).toHaveText(app.situationOf(i));
       const reask = pos > 3 && pos !== 8;
       if (reask) await expect(hint).toHaveCount(0);
-      else await expect(hint).toHaveAttribute('data-stage', '1'); // new card = stage 1
+      else {
+        await app.passStudy(); // a new card opens on its study view first (decision 33)
+        await expect(hint).toHaveAttribute('data-stage', '1'); // new card = stage 1
+      }
       if (!reask && (i === 1 || i === 2)) {
         await app.answer('Something else entirely');
         await app.grade(i === 1 ? t.gradeWrong : t.gradePartial);

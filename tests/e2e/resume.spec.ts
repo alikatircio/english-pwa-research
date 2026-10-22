@@ -14,6 +14,7 @@ test.describe('resume after reload', () => {
     await app.open();
     await app.answer(canonical(0));
     await app.next.click();
+    await app.passStudy();
 
     await app.input.fill('Could you che');
     await page.clock.runFor(400); // past the ~300 ms draft debounce

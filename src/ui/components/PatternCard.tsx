@@ -8,10 +8,12 @@ interface Props {
   defaultOpen: boolean;
   /** Model sentences are already listed above on a matched result. */
   showSentences: boolean;
+  /** Decision 33: the commonMistake stays hidden while the box is ≤ 2. */
+  showMistake: boolean;
 }
 
 /** Pattern card: a collapsible section at the bottom of the result (02 §2), not a screen. */
-export function PatternCard({ item, defaultOpen, showSentences }: Props) {
+export function PatternCard({ item, defaultOpen, showSentences, showMistake }: Props) {
   const [open, setOpen] = useState(defaultOpen);
   return (
     <details className="pattern-card" open={open} onToggle={(e) => setOpen(e.currentTarget.open)}>
@@ -37,7 +39,7 @@ export function PatternCard({ item, defaultOpen, showSentences }: Props) {
             </ul>
           </div>
         )}
-        {item.commonMistake && (
+        {showMistake && item.commonMistake && (
           <div className="block">
             <h3 className="label">{t.commonMistake}</h3>
             <p className="pattern-card__mistake" lang="en">

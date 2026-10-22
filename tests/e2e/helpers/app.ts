@@ -19,6 +19,8 @@ export class App {
   readonly check: Locator;
   readonly next: Locator;
   readonly situation: Locator;
+  /** "Hazırım" on a new card's study view (decision 33). */
+  readonly ready: Locator;
   readonly page: Page;
 
   constructor(page: Page) {
@@ -27,6 +29,7 @@ export class App {
     this.check = page.getByRole('button', { name: t.check });
     this.next = page.getByRole('button', { name: t.next });
     this.situation = page.locator('.situation');
+    this.ready = page.getByRole('button', { name: t.studyReady });
     this.startButton = page.getByRole('button', { name: /^Başla · bugün \d+$/ });
     this.resumeButton = page.getByRole('button', { name: t.resume });
     this.todayCount = page.getByTestId('today-count');
@@ -68,8 +71,19 @@ export class App {
   /** Tap "Başla · bugün N" on Home; the first card opens with the keyboard (focus). */
   async start(): Promise<void> {
     await this.startButton.click();
+    await this.passStudy();
     // By class: a notebook item's field is named "İngilizcesi neydi?", not the usual heading.
     await expect(this.page.locator('.answer-input')).toBeFocused();
+  }
+
+  /**
+   * A new card opens on its study view (decision 33): tap "Hazırım" if it is showing.
+   * Waits for either the study view or the question, so it is safe for due cards too.
+   */
+  async passStudy(): Promise<void> {
+    const question = this.page.locator('.answer-input, .word-order');
+    await question.or(this.ready).first().waitFor();
+    if (await this.ready.isVisible()) await this.ready.click();
   }
 
   /** Reload, then "Devam et" on Home back into the open round. */
@@ -84,6 +98,7 @@ export class App {
   }
 
   async answer(text: string, via: 'enter' | 'button' = 'enter'): Promise<void> {
+    await this.passStudy();
     await this.input.fill(text);
     if (via === 'enter') await this.input.press('Enter');
     else await this.check.click();

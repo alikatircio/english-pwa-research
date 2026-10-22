@@ -22,6 +22,12 @@ export const t = {
   orderChipRemove: (word: string, pos: number) => `${word}, ${pos}. sırada, geri koymak için dokun`,
   orderProgress: (placed: number, total: number) => `${placed}/${total} kelime yerleşti`,
   check: 'Kontrol et',
+  /** Decision 33: a new card's study view and its "ready" button. */
+  studyHeading: 'Önce kalıbı gör',
+  studyReady: 'Hazırım',
+  /** Decision 34. */
+  dontKnow: 'Bilmiyorum',
+  noAnswer: '(cevap yok)',
   next: 'Sonraki',
 
   correct: 'Doğru',

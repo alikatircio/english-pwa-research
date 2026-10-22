@@ -397,11 +397,35 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       if (!item) return;
       const matched = isAccepted(answer, s.catalog.accepted.get(item.id) ?? item.acceptedAnswers);
       const mode = modeForEntry(s, entry, session.cursor, session.queue.length);
+      const boxBefore = s.progress.get(entry.itemId)?.box ?? null;
       if (matched) {
-        await grade('correct', 'auto', answer, { tag: 'result', answer, matched: true, mode });
+        await grade('correct', 'auto', answer, { tag: 'result', answer, matched: true, mode, boxBefore });
       } else {
-        setSession({ ...session, draft: text, phase: { tag: 'result', answer, matched: false, mode }, updatedAt: clock.now() });
+        setSession({ ...session, draft: text, phase: { tag: 'result', answer, matched: false, mode, boxBefore }, updatedAt: clock.now() });
       }
+    },
+
+    /** "Hazırım" (decision 33): hide the study view of a new card and start writing. Synchronous so the caller can focus in the same tap. */
+    startWriting(): void {
+      const s = ready(getState);
+      const session = s?.session;
+      if (!s || !session || s.busy || session.phase.tag !== 'study') return;
+      setSession({ ...session, phase: { tag: 'question' }, updatedAt: clock.now() });
+    },
+
+    /**
+     * "Bilmiyorum" (decision 34): show the answer and record 'wrong' right away.
+     * Only while a question is open; what was typed so far is kept as the answer.
+     */
+    async dontKnow(text: string): Promise<void> {
+      const s = ready(getState);
+      const session = s?.session;
+      const entry = session && currentEntry(session);
+      if (!s || !session || !entry || s.busy || session.phase.tag !== 'question') return;
+      const answer = text.trim();
+      const mode = modeForEntry(s, entry, session.cursor, session.queue.length);
+      const boxBefore = s.progress.get(entry.itemId)?.box ?? null;
+      await grade('wrong', 'self', answer, { tag: 'result', answer, matched: false, grade: 'wrong', mode, boxBefore });
     },
 
     /** Self-grade an unmatched answer (decision 10): progress + answer log written immediately. */
@@ -426,7 +450,13 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       const restored: SessionState = {
         ...session,
         ...snapshot.prevRound,
-        phase: { tag: 'result', answer: phase.answer, matched: false, ...(phase.mode ? { mode: phase.mode } : {}) },
+        phase: {
+          tag: 'result',
+          answer: phase.answer,
+          matched: false,
+          ...(phase.mode ? { mode: phase.mode } : {}),
+          ...(phase.boxBefore !== undefined ? { boxBefore: phase.boxBefore } : {}),
+        },
         updatedAt: clock.now(),
       };
       delete restored.undo;
@@ -475,7 +505,7 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       const flag: Flag = {
         itemId: entry.itemId,
         flaggedAt: clock.now(),
-        screen: phase.tag,
+        screen: phase.tag === 'result' ? 'result' : 'question',
         contentVersion: s.catalog.contentVersion,
         ...(userAnswer ? { userAnswer } : {}),
       };

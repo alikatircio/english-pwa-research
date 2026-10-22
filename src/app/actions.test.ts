@@ -40,6 +40,7 @@ async function setup({ progress = [] as Progress[], at = T0, newCap = 5 } = {}) 
   async function answer(g: Grade) {
     const entry = current();
     if (!entry) throw new Error('no card');
+    actions.startWriting(); // a new card opens on its study view (decision 33); no-op otherwise
     if (g === 'correct') await actions.submitAnswer(canonical(entry.itemId));
     else {
       await actions.submitAnswer('something else entirely');
@@ -150,7 +151,7 @@ describe('actions — undo reverts the round effects too (T2.4 + T4.2)', () => {
     expect(s?.queue).toEqual(before?.queue);
     expect(s?.repeatQueued).toEqual([]);
     expect(s?.consecutiveWrong).toBe(0);
-    expect(s?.phase).toEqual({ tag: 'result', answer: 'something else entirely', matched: false, mode: 'write' });
+    expect(s?.phase).toEqual({ tag: 'result', answer: 'something else entirely', matched: false, mode: 'write', boxBefore: null });
     expect((await app.db.get('session', 'current'))?.queue).toEqual(before?.queue);
 
     // Re-grading correct: a new card is still re-asked once (decision 38), so the queue grows by that one entry again.
@@ -251,6 +252,7 @@ describe('actions — Home and round end (T4.3)', () => {
 describe('actions — busy gate (review 09 #6)', () => {
   it('a draft save that lands while a flag write is in flight keeps the buttons disabled', async () => {
     const app = await setup();
+    app.actions.startWriting();
     const flagging = app.actions.toggleFlag();
     expect(app.ready().busy).toBe(true);
     app.actions.saveDraft(app.ready().session?.cursor ?? 0, 'Could you');
@@ -296,6 +298,46 @@ describe('actions — daily new-card cap (decision 29)', () => {
     expect(await app.actions.setDailyNewCap(15)).toBe(true);
     expect(app.ready().meta.dailyNewCap).toBe(15);
     expect(await app.db.get('meta', 'dailyNewCap')).toEqual({ key: 'dailyNewCap', value: 15 });
+    app.db.close();
+  });
+});
+
+describe('actions — new-card intro and "Bilmiyorum" (decisions 33, 34)', () => {
+  it('a new card opens on the study view; typing and checking wait for "Hazırım"; nothing is written', async () => {
+    const app = await setup();
+    expect(app.ready().session?.phase).toEqual({ tag: 'study' });
+    await app.actions.submitAnswer(canonical(ids[0] ?? ''));
+    expect(app.ready().session?.phase).toEqual({ tag: 'study' });
+    await app.actions.dontKnow('');
+    expect(await app.db.count('answerLog')).toBe(0);
+
+    app.actions.startWriting();
+    expect(app.ready().session?.phase).toEqual({ tag: 'question' });
+    expect((await app.db.get('session', 'current'))?.phase).toEqual({ tag: 'question' });
+    expect(await app.db.count('progress')).toBe(0);
+    app.db.close();
+  });
+
+  it('a due card and a re-ask open on the question; the next new card on the study view', async () => {
+    const app = await setup({ progress: [due(ids[0] ?? '', 2)] });
+    expect(app.current()?.kind).toBe('due');
+    expect(app.ready().session?.phase).toEqual({ tag: 'question' });
+    await app.answer('correct');
+    app.actions.next();
+    expect(app.current()?.kind).toBe('new');
+    expect(app.ready().session?.phase).toEqual({ tag: 'study' });
+    app.db.close();
+  });
+
+  it('"Bilmiyorum" grades wrong at once: result phase graded, Leitner box 1, log row with the typed text', async () => {
+    const app = await setup({ progress: [due(ids[0] ?? '', 4)] });
+    await app.actions.dontKnow('  half  ');
+    expect(app.ready().session?.phase).toMatchObject({ tag: 'result', matched: false, grade: 'wrong', answer: 'half', boxBefore: 4 });
+    expect(await app.db.get('progress', ids[0] ?? '')).toMatchObject({ box: 1, lastGrade: 'wrong' });
+    expect((await app.db.getAll('answerLog'))[0]).toMatchObject({ grade: 'wrong', gradedBy: 'self', answer: 'half', boxBefore: 4, boxAfter: 1 });
+    // A second tap does nothing: the card is already graded.
+    await app.actions.dontKnow('');
+    expect(await app.db.count('answerLog')).toBe(1);
     app.db.close();
   });
 });

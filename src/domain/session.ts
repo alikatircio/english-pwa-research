@@ -2,7 +2,7 @@
 // Pure: the caller injects `today` (from a Clock) and `now`.
 import { compareDays } from './dates.ts';
 import { isDue } from './scheduler.ts';
-import type { DailyCounter, DayKey, Grade, Item, Progress, QueueEntry, QueueKind, SessionState } from './types.ts';
+import type { CardPhase, DailyCounter, DayKey, Grade, Item, Progress, QueueEntry, QueueKind, SessionState } from './types.ts';
 
 /** Decision 1. */
 export const ROUND_SIZE = 8;
@@ -151,6 +151,11 @@ export function buildRound(p: Pools, today: DayKey): QueueEntry[] {
   ];
 }
 
+/** Decision 33: a new card opens on the study view; everything else on the question. */
+export function openingPhase(entry: QueueEntry | undefined): CardPhase {
+  return entry?.kind === 'new' ? { tag: 'study' } : { tag: 'question' };
+}
+
 export function newSession(queue: readonly QueueEntry[], day: DayKey, now: number): SessionState {
   return {
     key: 'current',
@@ -159,7 +164,7 @@ export function newSession(queue: readonly QueueEntry[], day: DayKey, now: numbe
     updatedAt: now,
     queue: [...queue],
     cursor: 0,
-    phase: { tag: 'question' },
+    phase: openingPhase(queue[0]),
     draft: '',
     repeatQueued: [],
     consecutiveWrong: 0,
@@ -248,7 +253,7 @@ function pullBreather(queue: readonly QueueEntry[], cursor: number, pools: Pools
 export function advance(s: SessionState): SessionState | 'round-end' {
   const cursor = s.cursor + 1;
   if (cursor >= s.queue.length) return 'round-end';
-  const next: SessionState = { ...s, cursor, phase: { tag: 'question' }, draft: '' };
+  const next: SessionState = { ...s, cursor, phase: openingPhase(s.queue[cursor]), draft: '' };
   delete next.undo;
   return next;
 }

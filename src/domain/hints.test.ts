@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import batchA from '../../content/drafts/batch-a.verified.json';
 import batchB from '../../content/drafts/batch-b.verified.json';
-import { hintStageFor, initialsFor, renderHint } from './hints.ts';
+import { chunkTokens, hintStageFor, initialsFor, renderHint } from './hints.ts';
 import { ItemSchema } from './itemSchema.ts';
 import type { Box, Item, Progress } from './types.ts';
 
@@ -102,5 +102,17 @@ describe('drafts', () => {
       expect(hint.kind, d.id).toBe('initials');
       if (hint.kind === 'initials') expect(hint.text, d.id).toMatch(/^[\p{L}\p{N}]…( {2}[\p{L}\p{N}]…)*$/u);
     }
+  });
+});
+
+describe('chunkTokens (decision 33)', () => {
+  it('flags the words under the cloze blanks', () => {
+    expect(chunkTokens('I need ___ ___ the test data.', 'I need to update the test data.')).toEqual([
+      { text: 'I', hit: false }, { text: 'need', hit: false }, { text: 'to', hit: true }, { text: 'update', hit: true },
+      { text: 'the', hit: false }, { text: 'test', hit: false }, { text: 'data.', hit: false },
+    ]);
+  });
+  it('highlights nothing when the sentence does not line up with the cloze', () => {
+    expect(chunkTokens('Could you ___ the logs?', 'Please check the logs for me.').every((t) => !t.hit)).toBe(true);
   });
 });

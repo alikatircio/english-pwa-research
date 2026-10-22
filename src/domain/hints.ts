@@ -42,6 +42,24 @@ export function initialsFor(clozeTemplate: string, canonical: string): string {
   return initials.join(INITIALS_SEPARATOR);
 }
 
+export interface ChunkToken {
+  text: string;
+  /** The word sits under a cloze blank: it belongs to the chunk. */
+  hit: boolean;
+}
+
+/**
+ * Decision 33: the model sentence's words, with the chunk part (the words under
+ * the cloze blanks) flagged. A sentence that does not line up with the cloze
+ * (imported items) comes back without any highlight.
+ */
+export function chunkTokens(clozeTemplate: string, sentence: string): ChunkToken[] {
+  const words = sentence.trim().split(/\s+/);
+  const cloze = clozeTemplate.trim().split(/\s+/);
+  const aligned = words.length === cloze.length;
+  return words.map((text, i) => ({ text, hit: aligned && (cloze[i] ?? '').includes(BLANK) }));
+}
+
 /** Stage 1: cloze as written. Stage 2: initials of the blanked words. Stage 3: no hint (situation only). */
 export function renderHint(item: Item, stage: HintStage): Hint {
   switch (stage) {

@@ -490,6 +490,18 @@ describe('advance', () => {
   });
 });
 
+describe('openingPhase (decision 33)', () => {
+  it('a new card opens on the study view, everything else on the question', () => {
+    expect(newSession(q('new:a', 'due:b'), today, 0).phase).toEqual({ tag: 'study' });
+    expect(newSession(q('due:b', 'new:a'), today, 0).phase).toEqual({ tag: 'question' });
+    const s = newSession(q('due:b', 'new:a', 'repeat:b'), today, 0);
+    const n = advance(s);
+    expect(n !== 'round-end' && n.phase).toEqual({ tag: 'study' });
+    const r = n === 'round-end' ? n : advance(n);
+    expect(r !== 'round-end' && r.phase).toEqual({ tag: 'question' });
+  });
+});
+
 describe('countFirstAnswer', () => {
   it('new → newIntroduced++, due → reviewsAnswered++, repeat → unchanged', () => {
     const c = emptyCounter(today);

@@ -645,3 +645,40 @@ main {
   color: var(--miss);
   font-size: 1.125rem;
 }
+
+/* --- New-card study view (decision 33) and "Bilmiyorum" (decision 34) ------ */
+
+.study {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.study__sentence {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+
+.study__chunk {
+  padding: 0 4px;
+  border-radius: 6px;
+  background: var(--tag-bg);
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.study__chunk-name {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+.dont-know {
+  width: 100%;
+  margin-top: 4px;
+}

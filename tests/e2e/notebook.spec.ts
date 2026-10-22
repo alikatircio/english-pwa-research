@@ -198,8 +198,9 @@ test.describe('items import (Settings)', () => {
     // Back on Home the import has opened today's round with the new card first.
     await page.getByRole('button', { name: t.back, exact: true }).click();
     await app.resumeButton.click();
-    await expect(page.getByText(t.userErrorHeading)).toBeVisible();
     await expect(app.situation).toHaveText(imported.situationTr.replace(/^\[[^\]]+\]\s*/, ''));
+    await app.passStudy(); // a notebook item is a new card: study view first (decision 33)
+    await expect(page.getByText(t.userErrorHeading)).toBeVisible();
     // The field is labelled by the card heading, so here by "İngilizcesi neydi?".
     const field = page.getByRole('textbox', { name: t.userErrorHeading });
     await field.fill(imported.acceptedAnswers[0] ?? '');
@@ -244,8 +245,9 @@ test.describe('items import (Settings)', () => {
 
     await page.getByRole('button', { name: t.back, exact: true }).click();
     await app.resumeButton.click();
-    await expect(page.getByText(t.userErrorHeading)).toBeVisible();
     await expect(app.situation).toHaveText(imported.situationTr.replace(/^\[[^\]]+\]\s*/, ''));
+    await app.passStudy();
+    await expect(page.getByText(t.userErrorHeading)).toBeVisible();
     await expect(page.getByRole('textbox', { name: t.userErrorHeading })).toBeVisible();
   });
 

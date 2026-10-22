@@ -112,11 +112,16 @@ export interface QueueEntry {
 /** Exercise shape (decisions 31, 36, 37). */
 export type ExerciseMode = 'write' | 'fix' | 'order';
 
-/** `mode` = the shape the question had, kept for the result (the log and the fix note). */
+/**
+ * `mode` = the shape the question had, `boxBefore` = the card's box before this
+ * showing (null = new); both are kept for the result (log, fix note, commonMistake rule).
+ */
 export type CardPhase =
+  /** Decision 33: a new card's first look at the pattern, before "Hazırım" hides it. */
+  | { tag: 'study' }
   | { tag: 'question' }
-  | { tag: 'result'; answer: string; matched: true; mode?: ExerciseMode }
-  | { tag: 'result'; answer: string; matched: false; grade?: Grade; mode?: ExerciseMode };
+  | { tag: 'result'; answer: string; matched: true; mode?: ExerciseMode; boxBefore?: Box | null }
+  | { tag: 'result'; answer: string; matched: false; grade?: Grade; mode?: ExerciseMode; boxBefore?: Box | null };
 
 /** Session fields onFirstAnswer may change (repeat append, wrong streak, breather reorder, summary). */
 export type RoundFields = Pick<SessionState, 'queue' | 'repeatQueued' | 'consecutiveWrong' | 'studiedChunks'>;

@@ -38,6 +38,7 @@ test.describe('produce-first card', () => {
     await expect(page.locator('.verdict--ok')).toContainText(t.correct);
     await app.next.click();
     await expect(app.situation).toHaveText(app.situationOf(1));
+    await app.passStudy(); // the second item is new: study view first (decision 33)
     await expect(app.input).toBeFocused();
   });
 
@@ -112,7 +113,7 @@ test.describe('produce-first card', () => {
     const item = items[1];
     await expect(card.locator('summary')).toContainText(item?.targetChunk ?? '');
     for (const s of item?.modelSentences ?? []) await expect(card.getByText(s, { exact: true })).toBeVisible();
-    await expect(card.getByText(item?.commonMistake ?? '')).toBeVisible();
+    await expect(card.getByText(item?.commonMistake ?? '')).toHaveCount(0); // new card = box 1: mistake hidden (decision 33)
     await expect(card.getByText(item?.noteTr ?? '')).toBeVisible();
     // Stays open after self-grading.
     await app.grade(t.gradeWrong);

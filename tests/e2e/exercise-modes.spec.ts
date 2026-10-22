@@ -164,4 +164,52 @@ test.describe('exercise modes (decisions 31, 36, 37)', () => {
     const log = await readStore<AnswerLog>(page, 'answerLog');
     expect(log).toEqual([expect.objectContaining({ mode: 'write' })]);
   });
+
+  test('"Bilmiyorum" in fix mode shows the answer and records wrong; the box falls to 1 (decision 34)', async ({ page }) => {
+    const app = new App(page);
+    await app.open('2026-11-02T08:00:00', { start: false, mode: 'auto' });
+    const itemId = items[0]?.id ?? '';
+    await resumeRound(page, app, {
+      queue: [{ index: 0, kind: 'due' }, { index: 1, kind: 'due' }],
+      progress: [{ index: 0, box: 3, shows: 2 }],
+    });
+    await expect(page.getByRole('heading', { name: t.fixHeading })).toBeVisible();
+    await page.getByRole('button', { name: t.dontKnow }).click();
+
+    await expect(page.locator('.answers__canonical')).toHaveText(canonical(0));
+    await expect(page.locator('.answers__mine')).toHaveText(t.noAnswer);
+    await expect(page.getByRole('group', { name: t.howWasIt })).toHaveCount(0); // already graded
+    await expect(page.locator('.graded')).toHaveText(t.gradedAs(t.gradeWrong));
+    await expect(app.next).toBeFocused();
+    const log = await readStore<AnswerLog>(page, 'answerLog');
+    expect(log).toEqual([expect.objectContaining({ itemId, grade: 'wrong', gradedBy: 'self', mode: 'fix', answer: '', boxBefore: 3, boxAfter: 1 })]);
+    expect((await readStore<Progress>(page, 'progress')).find((p) => p.itemId === itemId)).toMatchObject({ box: 1, lastGrade: 'wrong' });
+  });
+
+  test('"Bilmiyorum" is not offered in "Sırala" (practice)', async ({ page }) => {
+    const app = new App(page);
+    await app.open('2026-11-02T08:00:00', { start: false, mode: 'auto' });
+    await resumeRound(page, app, practiceOrder);
+    await expect(page.getByRole('heading', { name: t.orderHeading })).toBeVisible();
+    await expect(page.getByRole('button', { name: t.dontKnow })).toHaveCount(0);
+  });
+
+  test('commonMistake: hidden after a wrong answer at box 2, shown at box 3 and above (decision 33)', async ({ page }) => {
+    const app = new App(page);
+    await app.open('2026-11-02T08:00:00', { start: false });
+    const mistake = page.locator('details.pattern-card').getByText(items[0]?.commonMistake ?? '');
+    await resumeRound(page, app, {
+      queue: [{ index: 0, kind: 'due' }, { index: 1, kind: 'due' }, { index: 2, kind: 'due' }],
+      progress: [{ index: 0, box: 2, shows: 1 }, { index: 1, box: 3, shows: 1 }],
+    });
+    await app.answer('Something else entirely');
+    await expect(page.locator('details.pattern-card')).toHaveAttribute('open', '');
+    await expect(mistake).toHaveCount(0);
+    await app.grade(t.gradeWrong);
+    await expect(mistake).toHaveCount(0); // grading moved the card to box 1, still hidden
+    await app.next.click();
+
+    await app.answer('Something else entirely');
+    await expect(page.locator('details.pattern-card').getByText(items[1]?.commonMistake ?? '')).toBeVisible();
+  });
 });

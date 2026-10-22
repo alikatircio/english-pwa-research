@@ -14,6 +14,7 @@ import { useDebouncedCallback } from '../hooks/useDebouncedCallback.ts';
 import { useVisualViewportHeight } from '../hooks/useVisualViewportHeight.ts';
 import { ResultPanel } from '../components/ResultPanel.tsx';
 import { WordOrder } from '../components/WordOrder.tsx';
+import { StudyView } from '../components/StudyView.tsx';
 import { RoundDots } from '../components/RoundDots.tsx';
 import { UndoBar } from '../components/UndoBar.tsx';
 import { t } from '../strings.tr.ts';
@@ -97,6 +98,46 @@ export function CardScreen({ state, actions }: Props) {
     inputRef.current?.focus();
   }
 
+  if (phase.tag === 'study') {
+    // Decision 33: look first. "Hazırım" hides the card and opens the question with the keyboard (same tap, iOS rule).
+    return (
+      <div className="screen card-screen">
+        <div className="screen__body">
+          <RoundDots total={session.queue.length} cursor={session.cursor} reaskAt={reaskAt} label={t.roundProgress(session.cursor + 1, session.queue.length)} />
+          <section className="question">
+            {tag && (
+              <p className="context-tag">
+                <span className="visually-hidden">{t.contextPrefix} </span>
+                {tag}
+              </p>
+            )}
+            <p className="situation">{text}</p>
+          </section>
+          <StudyView item={item} boxBefore={state.progress.get(item.id)?.box ?? null} headingId={headingId} />
+          <FlagButton flagged={state.flags.has(item.id)} onToggle={() => void actions.toggleFlag()} disabled={state.busy} />
+          {state.error === 'save-failed' && (
+            <p className="error" role="alert">
+              {t.saveFailed}
+            </p>
+          )}
+        </div>
+        <div className="screen__footer">
+          <button
+            type="button"
+            className="btn btn--primary"
+            disabled={state.busy}
+            onClick={() => {
+              flushSync(() => actions.startWriting());
+              inputRef.current?.focus();
+            }}
+          >
+            {t.studyReady}
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="screen card-screen">
       <div className="screen__body">
@@ -145,7 +186,7 @@ export function CardScreen({ state, actions }: Props) {
         ) : (
           <ResultPanel
             ref={verdictRef}
-            item={item} answer={phase.answer} matched={phase.matched} grade={phase.matched ? undefined : phase.grade} showNote={phase.mode === 'fix'} />
+            item={item} answer={phase.answer} matched={phase.matched} grade={phase.matched ? undefined : phase.grade} showNote={phase.mode === 'fix'} boxBefore={phase.boxBefore} />
         )}
 
         {phase.tag === 'question' && (
@@ -185,9 +226,26 @@ export function CardScreen({ state, actions }: Props) {
 
       <div className="screen__footer">
         {phase.tag === 'question' ? (
-          <button type="button" className="btn btn--primary" onClick={submit} disabled={state.busy || draft.text.trim() === ''}>
-            {t.check}
-          </button>
+          <>
+            <button type="button" className="btn btn--primary" onClick={submit} disabled={state.busy || draft.text.trim() === ''}>
+              {t.check}
+            </button>
+            {mode !== 'order' && (
+              // Decision 34: show the answer and count it wrong.
+              <button
+                type="button"
+                className="btn btn--text dont-know"
+                disabled={state.busy}
+                onClick={() => {
+                  persistDraft.cancel();
+                  pendingFocus.current = 'next';
+                  void actions.dontKnow(draft.text);
+                }}
+              >
+                {t.dontKnow}
+              </button>
+            )}
+          </>
         ) : !phase.matched && !phase.grade ? (
           // No "Sonraki" until the user grades an unmatched answer (T1.9).
           <GradeButtons

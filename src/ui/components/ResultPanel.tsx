@@ -12,10 +12,12 @@ interface Props {
   grade?: Grade | undefined;
   /** Decision 37: after a "fix" answer the note is shown right away, also on a match. */
   showNote?: boolean;
+  /** Box before this showing (null = new): commonMistake hidden at box ≤ 2 (decision 33). */
+  boxBefore?: number | null | undefined;
 }
 
 /** The verdict heading takes focus after submit (ref; a11y audit 08 #2). */
-export const ResultPanel = forwardRef<HTMLHeadingElement, Props>(function ResultPanel({ item, answer, matched, grade, showNote }, verdictRef) {
+export const ResultPanel = forwardRef<HTMLHeadingElement, Props>(function ResultPanel({ item, answer, matched, grade, showNote, boxBefore }, verdictRef) {
   const canonical = item.acceptedAnswers[0] ?? '';
   const others = item.modelSentences.filter((s) => s !== canonical);
   return (
@@ -33,7 +35,7 @@ export const ResultPanel = forwardRef<HTMLHeadingElement, Props>(function Result
       <dl className="answers">
         <div>
           <dt>{t.yourAnswer}</dt>
-          <dd lang="en" className="answers__mine">{answer}</dd>
+          <dd lang="en" className="answers__mine">{answer === '' ? t.noAnswer : answer}</dd>
         </div>
         {!matched && (
           <div>
@@ -77,7 +79,7 @@ export const ResultPanel = forwardRef<HTMLHeadingElement, Props>(function Result
         </p>
       )}
 
-      <PatternCard key={`${item.id}:${String(matched)}`} item={item} defaultOpen={!matched} showSentences={!matched} />
+      <PatternCard key={`${item.id}:${String(matched)}`} item={item} defaultOpen={!matched} showSentences={!matched} showMistake={(boxBefore ?? 1) >= 3} />
     </section>
   );
 });
