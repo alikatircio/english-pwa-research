@@ -135,7 +135,7 @@ test.describe('notebook and flags export (Settings)', () => {
     ]);
     await expect(page.getByText(t.exportDownloaded)).toBeVisible();
 
-    await page.getByRole('button', { name: t.back }).click();
+    await page.getByRole('button', { name: t.back, exact: true }).click();
     await expect(page.getByRole('heading', { name: t.todayDone })).toBeVisible();
   });
 
@@ -185,7 +185,7 @@ test.describe('items import (Settings)', () => {
     const app = new App(page);
     await openDone(app, { notebook: [pendingEntry] });
     await page.getByRole('button', { name: t.settings }).click();
-    await page.locator('input[type=file]').setInputFiles(IMPORT_FIXTURE);
+    await page.getByLabel(t.itemsChoose).setInputFiles(IMPORT_FIXTURE);
 
     await expect(page.getByText(t.itemsImported)).toBeVisible();
     // The bundled-content id is rejected and listed.
@@ -196,7 +196,7 @@ test.describe('items import (Settings)', () => {
     await expect(page.getByText(t.notebookNothingPending)).toBeVisible();
 
     // Back on Home the import has opened today's round with the new card first.
-    await page.getByRole('button', { name: t.back }).click();
+    await page.getByRole('button', { name: t.back, exact: true }).click();
     await app.resumeButton.click();
     await expect(page.getByText(t.userErrorHeading)).toBeVisible();
     await expect(app.situation).toHaveText(imported.situationTr.replace(/^\[[^\]]+\]\s*/, ''));
@@ -255,7 +255,7 @@ test.describe('items import (Settings)', () => {
     await seedStores(page, { put: { progress: answeredProgress(items.map((i) => i.id)) }, delete: { session: ['current'] } });
     await page.reload();
     await page.getByRole('button', { name: t.settings }).click();
-    await page.locator('input[type=file]').setInputFiles(IMPORT_FIXTURE);
+    await page.getByLabel(t.itemsChoose).setInputFiles(IMPORT_FIXTURE);
     await expect(page.getByText(t.itemsImported)).toBeVisible();
 
     // Next day, with curated cards new again: the imported one still comes first.
@@ -271,7 +271,7 @@ test.describe('items import (Settings)', () => {
     const app = new App(page);
     await openDone(app, { notebook: [pendingEntry] });
     await page.getByRole('button', { name: t.settings }).click();
-    const input = page.locator('input[type=file]');
+    const input = page.getByLabel(t.itemsChoose);
 
     await input.setInputFiles({ name: 'broken.json', mimeType: 'application/json', buffer: Buffer.from('{"format": "english-pwa-items",') });
     await expect(page.getByRole('alert')).toContainText(t.importErrors['invalid-json']);

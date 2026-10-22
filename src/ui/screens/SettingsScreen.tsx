@@ -1,6 +1,8 @@
 import { useRef, useState, type ChangeEvent, type ReactNode } from 'react';
 import type { Actions, ExportFile, ImportItemsResult } from '../../app/actions.ts';
 import type { ReadyState } from '../../app/state.ts';
+import { BackupSection } from '../components/BackupSection.tsx';
+import { StorageSection } from '../components/StorageSection.tsx';
 import { ClaudePaste } from '../components/ClaudePaste.tsx';
 import { PasteImport } from '../components/PasteImport.tsx';
 import { shareOrDownload } from '../share.ts';
@@ -15,7 +17,7 @@ type Status = { tone: 'ok' | 'error'; text: string } | undefined;
 
 /**
  * Settings, first version (T3.3, T3.4): notebook export, flags report and
- * items import. Backup comes in T5.4. No counts for open
+ * items import; full backup in BackupSection (T5.4). No counts for open
  * notebook entries (05 §4): only whether something is waiting.
  */
 export function SettingsScreen({ state, actions }: Props) {
@@ -62,6 +64,10 @@ export function SettingsScreen({ state, actions }: Props) {
         </Section>
 
         <ItemsImport actions={actions} busy={state.busy} />
+
+        {/* Slice 5: full backup (T5.4) and persistent storage (T5.5), in their own components. */}
+        <BackupSection state={state} actions={actions} />
+        <StorageSection state={state} actions={actions} />
 
         {status && (
           <p className={status.tone === 'error' ? 'error' : 'graded'} role={status.tone === 'error' ? 'alert' : 'status'}>

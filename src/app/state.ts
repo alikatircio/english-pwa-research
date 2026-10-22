@@ -1,6 +1,7 @@
 import type { NotebookContext } from '../domain/notebook.ts';
 import type { DailyCounter, NotebookEntry, Progress, SessionState } from '../domain/types.ts';
 import type { Catalog } from '../content/catalog.ts';
+import type { AppMeta } from './meta.ts';
 
 export type Screen = 'home' | 'card' | 'roundEnd' | 'settings';
 export type AppError = 'save-failed';
@@ -39,6 +40,8 @@ export interface ReadyState {
   notebook: readonly NotebookEntry[];
   overlay?: Overlay | undefined;
   notice?: Notice | undefined;
+  /** The `meta` store (last export, …). */
+  meta: AppMeta;
   /** A write is in flight; buttons that write are disabled. */
   busy: boolean;
   error?: AppError;
@@ -61,6 +64,9 @@ export type Action =
   | { type: 'notebookAdded'; entry: NotebookEntry; notice: Notice }
   | { type: 'notice'; notice: Notice | undefined }
   | { type: 'itemsImported'; catalog: Catalog; notebook: readonly NotebookEntry[]; session: SessionState | undefined; counter: DailyCounter }
+  | { type: 'meta'; meta: AppMeta }
+  /** After a backup restore: everything reloaded from disk; overlay and notice are kept as they are. */
+  | { type: 'restored'; state: Omit<ReadyState, 'status' | 'busy'> }
   | { type: 'clearError' };
 
 /** A grade only updates the in-memory counter of the day it belongs to. */
@@ -121,5 +127,9 @@ export function appReducer(state: AppState, action: Action): AppState {
       return { ...state, notice: action.notice };
     case 'itemsImported':
       return { ...state, busy: false, error: undefined, catalog: action.catalog, notebook: action.notebook, session: action.session, counter: action.counter };
+    case 'meta':
+      return { ...state, meta: action.meta };
+    case 'restored':
+      return { ...state, ...action.state, busy: false, error: undefined, lastRound: undefined };
   }
 }

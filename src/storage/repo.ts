@@ -111,6 +111,12 @@ export async function clearSession(db: AppDb): Promise<void> {
   await db.delete('session', 'current');
 }
 
+/** Meta rows (last export, persist result, dismissed hints…), one transaction. */
+export async function putMeta(db: AppDb, records: readonly MetaRecord[]): Promise<void> {
+  const tx = db.transaction('meta', 'readwrite');
+  await Promise.all([...records.map((r) => tx.store.put(r)), tx.done]);
+}
+
 /** One notebook entry (Slice 3, T3.1). Works offline: IndexedDB only. */
 export async function addNotebookEntry(db: AppDb, entry: NotebookEntry): Promise<void> {
   await db.add('notebook', entry);
