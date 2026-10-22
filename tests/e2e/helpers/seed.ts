@@ -39,7 +39,8 @@ export function answeredProgress(ids: readonly string[], day = '2026-11-02'): Pr
     itemId,
     box: 2,
     dueOn: '2026-11-04',
-    introducedOn: day,
+    // Introduced earlier: today's per-category new cap (decision 40) must stay free for new cards.
+    introducedOn: '2026-10-20',
     lastAnsweredOn: day,
     lastGrade: 'correct',
     updatedAt: 1,

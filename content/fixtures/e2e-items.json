@@ -29,32 +29,6 @@
       "level": 1
     },
     {
-      "id": "e2e-could-you-check",
-      "category": "aux_to",
-      "targetChunk": "could + base verb",
-      "clozeTemplate": "Could you ___ the build?",
-      "situationTr": "[e2e] Build’i kontrol etmesini rica et.",
-      "acceptedAnswers": [
-        "Could you check the build?",
-        "Can you check the build?",
-        "Could you please check the build?"
-      ],
-      "modelSentences": [
-        "Could you check the build?",
-        "Can you check the build?"
-      ],
-      "commonMistake": "Could you to check the build?",
-      "checklistTr": [
-        "Kritik noktayı kontrol ettin mi?",
-        "Fiil biçimi doğru mu?"
-      ],
-      "noteTr": "E2E test kalemi (kurgusal).",
-      "source": "curated",
-      "verified": true,
-      "verifiedNote": "e2e fixture (fictional, not shipped)",
-      "level": 1
-    },
-    {
       "id": "e2e-explain-to",
       "category": "object",
       "targetChunk": "explain something to someone",
@@ -70,6 +44,32 @@
         "Can you explain it to me?"
       ],
       "commonMistake": "Could you explain me?",
+      "checklistTr": [
+        "Kritik noktayı kontrol ettin mi?",
+        "Fiil biçimi doğru mu?"
+      ],
+      "noteTr": "E2E test kalemi (kurgusal).",
+      "source": "curated",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)",
+      "level": 1
+    },
+    {
+      "id": "e2e-could-you-check",
+      "category": "aux_to",
+      "targetChunk": "could + base verb",
+      "clozeTemplate": "Could you ___ the build?",
+      "situationTr": "[e2e] Build’i kontrol etmesini rica et.",
+      "acceptedAnswers": [
+        "Could you check the build?",
+        "Can you check the build?",
+        "Could you please check the build?"
+      ],
+      "modelSentences": [
+        "Could you check the build?",
+        "Can you check the build?"
+      ],
+      "commonMistake": "Could you to check the build?",
       "checklistTr": [
         "Kritik noktayı kontrol ettin mi?",
         "Fiil biçimi doğru mu?"
@@ -133,58 +133,6 @@
       "level": 1
     },
     {
-      "id": "e2e-wait-for",
-      "category": "preposition",
-      "targetChunk": "wait for something",
-      "clozeTemplate": "I'm waiting ___ the deploy.",
-      "situationTr": "[e2e] Deploy’u bekliyorsun.",
-      "acceptedAnswers": [
-        "I'm waiting for the deploy.",
-        "We're waiting for the deploy.",
-        "I'm still waiting for the deploy."
-      ],
-      "modelSentences": [
-        "I'm waiting for the deploy.",
-        "We're waiting for the deploy."
-      ],
-      "commonMistake": "I'm waiting the deploy.",
-      "checklistTr": [
-        "Kritik noktayı kontrol ettin mi?",
-        "Fiil biçimi doğru mu?"
-      ],
-      "noteTr": "E2E test kalemi (kurgusal).",
-      "source": "curated",
-      "verified": true,
-      "verifiedNote": "e2e fixture (fictional, not shipped)",
-      "level": 1
-    },
-    {
-      "id": "e2e-responsible-for",
-      "category": "preposition",
-      "targetChunk": "be responsible for",
-      "clozeTemplate": "I'm responsible ___ the smoke tests.",
-      "situationTr": "[e2e] Smoke testlerden sorumlusun.",
-      "acceptedAnswers": [
-        "I'm responsible for the smoke tests.",
-        "I'm the one responsible for the smoke tests.",
-        "I'm in charge of the smoke tests."
-      ],
-      "modelSentences": [
-        "I'm responsible for the smoke tests.",
-        "I'm the one responsible for the smoke tests."
-      ],
-      "commonMistake": "I'm responsible from the smoke tests.",
-      "checklistTr": [
-        "Kritik noktayı kontrol ettin mi?",
-        "Fiil biçimi doğru mu?"
-      ],
-      "noteTr": "E2E test kalemi (kurgusal).",
-      "source": "curated",
-      "verified": true,
-      "verifiedNote": "e2e fixture (fictional, not shipped)",
-      "level": 1
-    },
-    {
       "id": "e2e-data",
       "category": "word_form",
       "targetChunk": "data (uncountable)",
@@ -211,21 +159,21 @@
       "level": 1
     },
     {
-      "id": "e2e-feedback",
-      "category": "word_form",
-      "targetChunk": "feedback (uncountable)",
-      "clozeTemplate": "Thanks for the ___.",
-      "situationTr": "[e2e] Geri bildirim için teşekkür et.",
+      "id": "e2e-wait-for",
+      "category": "preposition",
+      "targetChunk": "wait for something",
+      "clozeTemplate": "I'm waiting ___ the deploy.",
+      "situationTr": "[e2e] Deploy’u bekliyorsun.",
       "acceptedAnswers": [
-        "Thanks for the feedback.",
-        "Thank you for the feedback.",
-        "Thanks a lot for the feedback."
+        "I'm waiting for the deploy.",
+        "We're waiting for the deploy.",
+        "I'm still waiting for the deploy."
       ],
       "modelSentences": [
-        "Thanks for the feedback.",
-        "Thank you for the feedback."
+        "I'm waiting for the deploy.",
+        "We're waiting for the deploy."
       ],
-      "commonMistake": "Thanks for the feedbacks.",
+      "commonMistake": "I'm waiting the deploy.",
       "checklistTr": [
         "Kritik noktayı kontrol ettin mi?",
         "Fiil biçimi doğru mu?"
@@ -263,6 +211,32 @@
       "level": 1
     },
     {
+      "id": "e2e-feedback",
+      "category": "word_form",
+      "targetChunk": "feedback (uncountable)",
+      "clozeTemplate": "Thanks for the ___.",
+      "situationTr": "[e2e] Geri bildirim için teşekkür et.",
+      "acceptedAnswers": [
+        "Thanks for the feedback.",
+        "Thank you for the feedback.",
+        "Thanks a lot for the feedback."
+      ],
+      "modelSentences": [
+        "Thanks for the feedback.",
+        "Thank you for the feedback."
+      ],
+      "commonMistake": "Thanks for the feedbacks.",
+      "checklistTr": [
+        "Kritik noktayı kontrol ettin mi?",
+        "Fiil biçimi doğru mu?"
+      ],
+      "noteTr": "E2E test kalemi (kurgusal).",
+      "source": "curated",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)",
+      "level": 1
+    },
+    {
       "id": "e2e-look-into",
       "category": "work_vocab",
       "targetChunk": "look into something",
@@ -278,6 +252,32 @@
         "I'll look into it this afternoon."
       ],
       "commonMistake": "I'll look it today.",
+      "checklistTr": [
+        "Kritik noktayı kontrol ettin mi?",
+        "Fiil biçimi doğru mu?"
+      ],
+      "noteTr": "E2E test kalemi (kurgusal).",
+      "source": "curated",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)",
+      "level": 1
+    },
+    {
+      "id": "e2e-responsible-for",
+      "category": "preposition",
+      "targetChunk": "be responsible for",
+      "clozeTemplate": "I'm responsible ___ the smoke tests.",
+      "situationTr": "[e2e] Smoke testlerden sorumlusun.",
+      "acceptedAnswers": [
+        "I'm responsible for the smoke tests.",
+        "I'm the one responsible for the smoke tests.",
+        "I'm in charge of the smoke tests."
+      ],
+      "modelSentences": [
+        "I'm responsible for the smoke tests.",
+        "I'm the one responsible for the smoke tests."
+      ],
+      "commonMistake": "I'm responsible from the smoke tests.",
       "checklistTr": [
         "Kritik noktayı kontrol ettin mi?",
         "Fiil biçimi doğru mu?"

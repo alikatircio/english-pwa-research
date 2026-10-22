@@ -42,7 +42,8 @@ test.describe('Leitner across days (decisions 2–4)', () => {
     await reopenOnDay(page, 1);
     await expect(app.startButton).toHaveText(t.start(2 + NEW_CAP));
     await app.start();
-    for (const i of [1, 2]) {
+    // Same dueOn and box → by id: could-you-check (2) before explain-to (1).
+    for (const i of [2, 1]) {
       await expect(app.situation).toHaveText(app.situationOf(i));
       await expect(hint).toHaveCount(0);
       await app.answer(canonical(i));

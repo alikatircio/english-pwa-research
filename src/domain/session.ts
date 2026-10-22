@@ -12,6 +12,8 @@ export const DAILY_NEW_CAP = 10;
 export const DAILY_DUE_CAP = 40;
 /** Decision 29: the choices offered in Settings. */
 export const NEW_CAP_OPTIONS = [5, 10, 15, 20] as const;
+/** Decision 40: at most this many new cards per category per day. */
+export const DAILY_NEW_PER_CATEGORY_CAP = 2;
 /** Decision 6: consecutive wrong first answers before a breather card. */
 export const BREATHER_AFTER = 3;
 
@@ -82,8 +84,54 @@ function select(p: Pools, today: DayKey): Selection {
   const b = budgets(p);
   const allDue = eligibleDue(p, today);
   const due = allDue.slice(0, b.due);
-  const fresh = allDue.length <= b.due ? eligibleNew(p).slice(0, b.new) : [];
+  const fresh = allDue.length <= b.due ? capNewByCategory(p, eligibleNew(p), b.new, today) : [];
   return { due, fresh };
+}
+
+/**
+ * Decision 40: first `limit` new cards (in order) such that no category exceeds
+ * DAILY_NEW_PER_CATEGORY_CAP, counting today's introductions (progress records
+ * with introducedOn === today) plus the cards already chosen. Skipped cards are
+ * simply not offered today.
+ */
+function capNewByCategory(p: Pools, candidates: readonly string[], limit: number, today: DayKey): string[] {
+  const counts = new Map<string, number>();
+  for (const prog of p.progress.values()) {
+    if (prog.introducedOn !== today) continue;
+    const cat = p.items.get(prog.itemId)?.category;
+    if (cat !== undefined) counts.set(cat, (counts.get(cat) ?? 0) + 1);
+  }
+  const out: string[] = [];
+  for (const id of candidates) {
+    if (out.length >= limit) break;
+    const cat = p.items.get(id)?.category;
+    if (cat === undefined) continue;
+    const n = counts.get(cat) ?? 0;
+    if (n >= DAILY_NEW_PER_CATEGORY_CAP) continue;
+    counts.set(cat, n + 1);
+    out.push(id);
+  }
+  return out;
+}
+
+/**
+ * Decision 40: deterministic greedy reorder. At each position take the first
+ * remaining id (input order = priority) whose category differs from the previous
+ * card's; if none, take the first. `prev` is the category before the list.
+ */
+function spreadCategories(p: Pools, ids: readonly string[], prev: string | undefined): string[] {
+  const rest = [...ids];
+  const out: string[] = [];
+  let last = prev;
+  while (rest.length > 0) {
+    let k = rest.findIndex((id) => p.items.get(id)?.category !== last);
+    if (k < 0) k = 0;
+    const [id] = rest.splice(k, 1);
+    if (id === undefined) break;
+    out.push(id);
+    last = p.items.get(id)?.category;
+  }
+  return out;
 }
 
 /** The single number on the Home screen. */
@@ -131,8 +179,8 @@ export function canPractice(p: Pools, today: DayKey): boolean {
  */
 export function buildRound(p: Pools, today: DayKey): QueueEntry[] {
   const s = select(p, today);
-  const due = s.due.slice(0, ROUND_SIZE);
-  const fresh = s.fresh.slice(0, ROUND_SIZE - due.length);
+  let due = s.due.slice(0, ROUND_SIZE);
+  let fresh = s.fresh.slice(0, ROUND_SIZE - due.length);
 
   let opener = -1;
   let best = 0;
@@ -144,6 +192,14 @@ export function buildRound(p: Pools, today: DayKey): QueueEntry[] {
     }
   });
   if (opener > 0) due.unshift(...due.splice(opener, 1));
+
+  // Decision 40: avoid adjacent same-category cards. The opener stays first and
+  // due cards stay before new ones; the re-ask insertion (decision 38) acts later.
+  const head = due.slice(0, 1);
+  const headCat = head[0] === undefined ? undefined : p.items.get(head[0])?.category;
+  due = [...head, ...spreadCategories(p, due.slice(1), headCat)];
+  const lastDue = due[due.length - 1];
+  fresh = spreadCategories(p, fresh, lastDue === undefined ? undefined : p.items.get(lastDue)?.category);
 
   return [
     ...due.map((itemId): QueueEntry => ({ itemId, kind: 'due' })),
