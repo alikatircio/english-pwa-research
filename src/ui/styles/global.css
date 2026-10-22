@@ -290,3 +290,49 @@ body {
 .hint__text {
   white-space: pre-wrap; /* keep the two spaces between initials */
 }
+
+.pattern-card {
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.pattern-card__summary {
+  min-height: 48px;
+  padding: 10px 14px;
+  cursor: pointer;
+  list-style-position: inside;
+}
+
+.pattern-card__summary:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 12px;
+}
+
+.pattern-card__chunk {
+  display: block;
+  margin-top: 2px;
+  font-weight: 600;
+}
+
+.pattern-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0 14px 14px;
+}
+
+.pattern-card__slots {
+  margin: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.pattern-card__mistake,
+.pattern-card__note {
+  margin: 0;
+}
+
+.pattern-card__mistake {
+  color: var(--miss);
+}

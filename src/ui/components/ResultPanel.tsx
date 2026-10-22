@@ -1,6 +1,7 @@
 import type { Grade, Item } from '../../domain/types.ts';
 import { t } from '../strings.tr.ts';
 import { gradeLabel } from './GradeButtons.tsx';
+import { PatternCard } from './PatternCard.tsx';
 
 interface Props {
   item: Item;
@@ -55,16 +56,18 @@ export function ResultPanel({ item, answer, matched, grade }: Props) {
         </p>
       )}
 
-      {others.length > 0 && (
+      {matched && (
         <div className="block">
           <h2 className="label">{t.modelSentences}</h2>
           <ul className="sentences" lang="en">
-            {(matched ? [canonical, ...others] : others).map((s) => (
+            {[canonical, ...others].map((s) => (
               <li key={s}>{s}</li>
             ))}
           </ul>
         </div>
       )}
+
+      <PatternCard key={`${item.id}:${String(matched)}`} item={item} defaultOpen={!matched} showSentences={!matched} />
     </section>
   );
 }

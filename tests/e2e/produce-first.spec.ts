@@ -71,4 +71,30 @@ test.describe('produce-first card', () => {
     await page.reload();
     await expect(page.getByText(t.allDone)).toBeVisible();
   });
+
+  test('pattern card: closed after a match, open after an unmatched answer (decision 11)', async ({ page }) => {
+    const app = new App(page);
+    await app.open();
+    const card = page.locator('details.pattern-card');
+
+    await app.answer(canonical(0));
+    await expect(card).toBeVisible();
+    await expect(card).not.toHaveAttribute('open');
+    await expect(card.locator('summary')).toContainText(items[0]?.targetChunk ?? '');
+    await expect(card.getByText(items[0]?.noteTr ?? '')).toBeHidden();
+    await card.locator('summary').click();
+    await expect(card.getByText(items[0]?.noteTr ?? '')).toBeVisible();
+
+    await app.next.click();
+    await app.answer('Could you to check the build');
+    await expect(card).toHaveAttribute('open', '');
+    const item = items[1];
+    await expect(card.locator('summary')).toContainText(item?.targetChunk ?? '');
+    for (const s of item?.modelSentences ?? []) await expect(card.getByText(s, { exact: true })).toBeVisible();
+    await expect(card.getByText(item?.commonMistake ?? '')).toBeVisible();
+    await expect(card.getByText(item?.noteTr ?? '')).toBeVisible();
+    // Stays open after self-grading.
+    await app.grade(t.gradeWrong);
+    await expect(card).toHaveAttribute('open', '');
+  });
 });
