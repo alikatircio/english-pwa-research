@@ -1,6 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
-const PORT = 4173;
+// E2E_PORT lets parallel checkouts (agent worktrees) run the suite side by side.
+const PORT = Number(process.env.E2E_PORT ?? 4173);
 const BASE_PATH = '/english-pwa-research/';
 
 export default defineConfig({
