@@ -16,7 +16,7 @@ concurrency:
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     env:
       CI: true
       # Job level, so every content:build in the job sees it (C9 fails on CI without it).
@@ -38,7 +38,14 @@ jobs:
       - run: npm run lint
       - run: npm run test:unit
 
+      - name: Cache Playwright browsers
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
       - name: Install Playwright browsers
+        timeout-minutes: 12
         run: npx playwright install --with-deps webkit chromium
 
       - run: npm run test:e2e
