@@ -8,8 +8,9 @@ export default defineConfig({
     include: ['src/**/*.test.ts', 'scripts/**/*.test.ts', 'tests/unit/**/*.test.ts'],
     coverage: {
       provider: 'v8',
-      include: ['src/domain/**/*.ts'],
-      exclude: ['src/domain/**/*.test.ts'],
+      // Every layer with unit tests (review 09 #13); .tsx UI is covered by Playwright.
+      include: ['src/domain/**/*.ts', 'src/storage/**/*.ts', 'src/app/**/*.ts', 'src/pwa/**/*.ts'],
+      exclude: ['src/**/*.test.ts', 'src/**/*.d.ts'],
     },
   },
 });
