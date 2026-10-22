@@ -9,6 +9,8 @@ import {
   checkCloze,
   checkCommonMistake,
   applyModelBlanks,
+  applyDailyContext,
+  checkDailyContext,
   checkContextNote,
   checkModelBlanks,
   checkCounts,
@@ -221,6 +223,46 @@ describe('modelBlanks overlay and C14', () => {
   });
 });
 
+describe('dailyContext overlay and C15', () => {
+  const daily = { sentence: 'I need to call my sister tonight.', blank: 'I need ___ call my ___ tonight.' };
+  const withDaily = (dailyContext: { sentence: string; blank: string }) => item({ dailyContext });
+
+  it('attaches entries by id, treats null as absent, and does not mutate the inputs', () => {
+    const drafts = [{ file: 'a', raw: [good] }];
+    const r = applyDailyContext(drafts, [{ file: 'dailyContext-a.verified.json', raw: { [good.id]: daily } }]);
+    expect(r.findings).toEqual([]);
+    expect((r.drafts[0]?.raw as Item[])[0]?.dailyContext).toEqual(daily);
+    expect((drafts[0]?.raw as Item[])[0]?.dailyContext).toBeUndefined();
+    const n = applyDailyContext(drafts, [{ file: 'o', raw: { [good.id]: null } }]);
+    expect(n.findings).toEqual([]);
+    expect((n.drafts[0]?.raw as Item[])[0]).not.toHaveProperty('dailyContext');
+  });
+  it('flags unknown ids, repeats and non-object overlays', () => {
+    const ov = (...raws: unknown[]) => applyDailyContext([{ file: 'a', raw: [good] }], raws.map((raw) => ({ file: 'o', raw }))).findings;
+    expect(ov({ ghost: null })[0]).toMatchObject({ check: 'C15', message: expect.stringContaining('unknown item id') });
+    expect(ov({ [good.id]: daily }, { [good.id]: daily })[0]?.message).toContain('more than once');
+    expect(ov([])[0]?.message).toContain('JSON object');
+  });
+  it('runChecks rejects unknown fields inside a dailyContext entry (strict schema)', () => {
+    const r = runChecks([{ file: 'a', raw: [good] }], { dailyContext: [{ file: 'o', raw: { [good.id]: { ...daily, extra: 1 } } }] });
+    expect(hasErrors(r.findings)).toBe(true);
+  });
+  it('C15 passes a good entry and items without one', () => {
+    expect(checkDailyContext(good)).toEqual([]);
+    expect(checkDailyContext(withDaily(daily))).toEqual([]);
+    expect(checkDailyContext(withDaily({ sentence: 'a b c d', blank: '___ ___ ___ d' }))).toEqual([]);
+  });
+  it('C15 fails when the blank does not refill to the sentence', () => {
+    const f = checkDailyContext(withDaily({ sentence: daily.sentence, blank: 'I want ___ call my ___ tonight.' }));
+    expect(f).toHaveLength(1);
+    expect(f[0]).toMatchObject({ check: 'C15', severity: 'error', itemId: good.id });
+  });
+  it('C15 fails with no blank or more than 3 blanks', () => {
+    expect(checkDailyContext(withDaily({ sentence: daily.sentence, blank: daily.sentence }))[0]?.message).toContain('0 blanks');
+    expect(checkDailyContext(withDaily({ sentence: 'a b c d e', blank: '___ ___ ___ ___ e' }))[0]?.message).toContain('4 blanks');
+  });
+});
+
 describe('runChecks', () => {
   it('ships only verified items', () => {
     const r = runChecks([{ file: 'a', raw: [good, item({ id: 'unverified', verified: false })] }]);
@@ -297,6 +339,28 @@ describe('build-content CLI', () => {
     const r = run([good], undefined, [], { overlays: { 'modelBlanks-a.verified.json': overlay } });
     expect(r.code).toBe(1);
     expect(r.stderr).toContain('[C14]');
+  });
+
+  it('attaches dailyContext overlays (null = absent) and ignores them as item files', () => {
+    const r = run([good], undefined, [], {
+      overlays: { 'dailyContext-a.verified.json': { 'could-you-base-verb': { sentence: 'Could you pass the salt?', blank: 'Could you ___ the ___?' } } },
+    });
+    expect(r.code).toBe(0);
+    const bundle = JSON.parse(readFileSync(r.out, 'utf8')) as ContentBundle;
+    expect(bundle.items[0]?.dailyContext).toEqual({ sentence: 'Could you pass the salt?', blank: 'Could you ___ the ___?' });
+    const none = run([good], undefined, [], { overlays: { 'dailyContext-a.verified.json': { 'could-you-base-verb': null } } });
+    expect(none.code).toBe(0);
+    expect((JSON.parse(readFileSync(none.out, 'utf8')) as ContentBundle).items[0]).not.toHaveProperty('dailyContext');
+  });
+
+  it.each([
+    ['unknown id', { nope: null }],
+    ['blanks that do not refill', { 'could-you-base-verb': { sentence: 'Could you pass the salt?', blank: 'Would you ___ the salt?' } }],
+    ['too many blanks', { 'could-you-base-verb': { sentence: 'a b c d e', blank: '___ ___ ___ ___ e' } }],
+  ])('exits 1 on a dailyContext overlay with %s (C15)', (_n, overlay) => {
+    const r = run([good], undefined, [], { overlays: { 'dailyContext-a.verified.json': overlay } });
+    expect(r.code).toBe(1);
+    expect(r.stderr).toContain('[C15]');
   });
 
   it('exits 1 on an e-mail address (C8)', () => {

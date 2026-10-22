@@ -26,26 +26,39 @@ function canFix(item: Item): boolean {
   return (item.commonMistake ?? '').trim() !== '';
 }
 
-/** A fill-in-the-blanks card (decision 42): the blanked sentence, its answers and the full original. */
+/** A fill-in-the-blanks card (decisions 42, 44b): the blanked sentence, its answers and the full original. */
 export interface ContextCard {
   blanked: string;
   original: string;
   answers: string[];
+  /** True for the item's daily-life sentence (decision 44b); absent for work sentences. */
+  daily?: true;
 }
 
 /**
- * The 'context' card of an item, or null when none of its modelBlanks entries is usable.
- * Entries (non-null and consistent with modelSentences[i+1]) are picked by showCount.
+ * The 'context' card of an item, or null when nothing is usable. Candidates: the non-null
+ * modelBlanks entries (consistent with modelSentences[i+1]) plus dailyContext. A context
+ * card only shows up once per rotation cycle, so the pick is by cycle number, not by raw
+ * showCount: with both kinds it alternates work, daily, work, ... (cycling through the
+ * work entries); with one kind it cycles through that kind.
  */
 export function contextCard(item: Item, showCount: number): ContextCard | null {
-  const usable: ContextCard[] = [];
+  const work: ContextCard[] = [];
   (item.modelBlanks ?? []).forEach((blanked, i) => {
     const original = item.modelSentences[i + 1];
     if (blanked === null || original === undefined) return;
     const answers = blankAnswers(blanked, original);
-    if (answers) usable.push({ blanked, original, answers });
+    if (answers) work.push({ blanked, original, answers });
   });
-  return usable[Math.abs(showCount) % usable.length] ?? null;
+  let daily: ContextCard | undefined;
+  if (item.dailyContext) {
+    const { blank, sentence } = item.dailyContext;
+    const answers = blankAnswers(blank, sentence);
+    if (answers) daily = { blanked: blank, original: sentence, answers, daily: true };
+  }
+  const k = Math.floor(Math.abs(showCount) / ROTATION.length);
+  if (work.length > 0 && daily) return k % 2 === 1 ? daily : (work[(k / 2) % work.length] as ContextCard);
+  return daily ?? work[k % work.length] ?? null;
 }
 
 /** Decision 42: every blank equal to its answer after normalisation. */

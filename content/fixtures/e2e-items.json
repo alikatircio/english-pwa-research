@@ -200,6 +200,10 @@
         "I can't reproduce the issue.",
         "We can't reproduce the issue."
       ],
+      "dailyContext": {
+        "sentence": "I can't reproduce the sound from my old radio.",
+        "blank": "I can't ___ the sound from my old ___."
+      },
       "commonMistake": "I can't repeat the issue.",
       "checklistTr": [
         "Kritik noktayı kontrol ettin mi?",

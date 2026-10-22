@@ -205,7 +205,7 @@ export function CardScreen({ state, actions }: Props) {
         ) : (
           <ResultPanel
             ref={verdictRef}
-            item={item} answer={phase.answer} original={phase.original} matched={phase.matched} grade={phase.matched ? undefined : phase.grade} showNote={phase.mode === 'fix'} boxBefore={phase.boxBefore} hinted={phase.hinted === true} />
+            item={item} answer={phase.answer} original={phase.original} daily={phase.original !== undefined && phase.original === item.dailyContext?.sentence} matched={phase.matched} grade={phase.matched ? undefined : phase.grade} showNote={phase.mode === 'fix'} boxBefore={phase.boxBefore} hinted={phase.hinted === true} />
         )}
 
         {phase.tag === 'question' && mode !== 'order' && mode !== 'context' && entry.kind !== 'repeat' && (session.hint ?? 0) < 2 && (

@@ -23,6 +23,8 @@ export type Item = {
   modelSentences: string[];
   /** Decision 42: aligned with modelSentences[1..]; the sentence with critical words replaced by "___", or null. */
   modelBlanks?: (string | null)[];
+  /** Decision 44b: one daily-life (non-work) sentence using the chunk; `blank` is it with the critical words replaced by "___". */
+  dailyContext?: { sentence: string; blank: string };
   commonMistake?: string;
   checklistTr: string[];
   noteTr: string;

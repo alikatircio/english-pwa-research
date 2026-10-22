@@ -3,7 +3,7 @@
 // Any 'error' finding stops the build with exit code 1.
 //
 // Flags (defaults in parentheses):
-//   --drafts <dir>        (content/drafts)  reads batch-*.verified.json items + modelBlanks-*.verified.json overlays
+//   --drafts <dir>        (content/drafts)  reads batch-*.verified.json items + modelBlanks-*.verified.json and dailyContext-*.verified.json overlays
 //   --out <file>          (src/content/items.json)
 //   --lock <file>         (content/shipped-ids.lock.json)
 //   --allow-remove <id>   may be repeated; lets a locked id disappear on purpose
@@ -74,6 +74,7 @@ function readJsonFiles(dir: string, pattern: RegExp): DraftFile[] {
 
 /** Item files only: batch-*.verified.json (modelBlanks overlays are separate). */
 const readDrafts = (dir: string): DraftFile[] => readJsonFiles(dir, /^batch-.+\.verified\.json$/);
+const readDailyContext = (dir: string): DraftFile[] => readJsonFiles(dir, /^dailyContext-.+\.verified\.json$/);
 const readModelBlanks = (dir: string): DraftFile[] => readJsonFiles(dir, /^modelBlanks-.+\.verified\.json$/);
 
 function readLock(file: string): string[] {
@@ -122,6 +123,7 @@ function main(): number {
     locked,
     allowRemove: args.allowRemove,
     modelBlanks: readModelBlanks(args.drafts),
+    dailyContext: readDailyContext(args.drafts),
     extraItemChecks: [checkPrivacyPatterns, makeDenylistCheck(deny.terms), makeProperNounCheck(readAllowlist(args.allowlist))],
   });
   findings.unshift(...deny.findings);
@@ -147,7 +149,7 @@ function main(): number {
   writeFileSync(args.lock, JSON.stringify(nextLock, null, 2) + '\n');
 
   const counts = Object.entries(countByCategory(shipped)).map(([k, v]) => `${k} ${v}`).join(', ');
-  console.log(`content:build ok: ${shipped.length} verified item(s) [${counts}], contentVersion ${contentVersion}`);
+  console.log(`content:build ok: ${shipped.length} verified item(s) [${counts}], ${shipped.filter((i) => i.dailyContext).length} with dailyContext, contentVersion ${contentVersion}`);
   return 0;
 }
 

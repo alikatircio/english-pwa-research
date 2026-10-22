@@ -18,6 +18,7 @@ export const t = {
   fixHeading: 'Bu cümledeki hatayı düzelt:',
   fixPlaceholder: 'Doğru cümleyi yaz…',
   /** Decision 42: fill-in-the-blanks shape. */
+  dailyContext: 'Günlük hayat',
   contextHeading: 'Boşlukları doldur:',
   blankLabel: (n: number, total: number) => `${n}. boşluk, ${total} boşluktan`,
   /** Decision 31: "Sırala" shape. */

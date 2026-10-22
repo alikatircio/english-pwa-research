@@ -9,6 +9,8 @@ interface Props {
   answer: string;
   /** Decision 42: the full sentence of a fill-in-the-blanks card; shown as the correct answer. */
   original?: string | undefined;
+  /** Decision 44b: the full sentence is the item's daily-life one; gets a small label. */
+  daily?: boolean | undefined;
   matched: boolean;
   /** Self-grade once chosen (unmatched answers only). */
   grade?: Grade | undefined;
@@ -21,7 +23,7 @@ interface Props {
 }
 
 /** The verdict heading takes focus after submit (ref; a11y audit 08 #2). */
-export const ResultPanel = forwardRef<HTMLHeadingElement, Props>(function ResultPanel({ item, answer, original, matched, grade, showNote, boxBefore, hinted }, verdictRef) {
+export const ResultPanel = forwardRef<HTMLHeadingElement, Props>(function ResultPanel({ item, answer, original, daily, matched, grade, showNote, boxBefore, hinted }, verdictRef) {
   const canonical = item.acceptedAnswers[0] ?? '';
   const others = item.modelSentences.filter((s) => s !== canonical);
   return (
@@ -39,6 +41,12 @@ export const ResultPanel = forwardRef<HTMLHeadingElement, Props>(function Result
       {hinted && (
         <p className="graded hint-credit" role="status" data-testid="hint-credit">
           {t.correctWithHint}
+        </p>
+      )}
+
+      {daily && (
+        <p className="context-tag" data-testid="daily-label">
+          {t.dailyContext}
         </p>
       )}
 

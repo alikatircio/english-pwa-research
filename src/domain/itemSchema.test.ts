@@ -40,6 +40,18 @@ describe('ItemSchema', () => {
   ])('rejects modelBlanks with %s', (_n, modelBlanks) => {
     expect(ItemSchema.safeParse({ ...valid, modelBlanks }).success).toBe(false);
   });
+  it('accepts a strict dailyContext and omits it by default', () => {
+    expect(ItemSchema.safeParse({ ...valid, dailyContext: { sentence: 'I need to buy milk.', blank: 'I need ___ buy milk.' } }).success).toBe(true);
+    expect(ItemSchema.parse(valid).dailyContext).toBeUndefined();
+  });
+  it.each([
+    ['an extra key', { sentence: 'a b', blank: '___ b', extra: 1 }],
+    ['a missing blank', { sentence: 'a b' }],
+    ['blank text', { sentence: ' ', blank: '___' }],
+    ['null', null],
+  ])('rejects dailyContext with %s', (_n, dailyContext) => {
+    expect(ItemSchema.safeParse({ ...valid, dailyContext }).success).toBe(false);
+  });
   it('accepts a minimal valid item', () => {
     expect(ItemSchema.safeParse(valid).success).toBe(true);
   });

@@ -24,6 +24,7 @@ export const ItemSchema: z.ZodType<Item> = z.strictObject({
   acceptedAnswers: z.array(text).min(1),
   modelSentences: z.array(text).min(1),
   modelBlanks: z.array(text.nullable()).optional(),
+  dailyContext: z.strictObject({ sentence: text, blank: text }).optional(),
   commonMistake: text.optional(),
   checklistTr: z.array(text).min(1).max(3),
   noteTr: text,

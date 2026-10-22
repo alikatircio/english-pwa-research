@@ -7,7 +7,7 @@ import { normalizeAnswer } from '../src/domain/normalize.ts';
 import type { Category, Item } from '../src/domain/types.ts';
 
 export type Severity = 'error' | 'warning' | 'info';
-export type CheckId = 'C1' | 'C2' | 'C3' | 'C4' | 'C5' | 'C6' | 'C7' | 'C8' | 'C9' | 'C10' | 'C11' | 'C12' | 'C13' | 'C14';
+export type CheckId = 'C1' | 'C2' | 'C3' | 'C4' | 'C5' | 'C6' | 'C7' | 'C8' | 'C9' | 'C10' | 'C11' | 'C12' | 'C13' | 'C14' | 'C15';
 
 export interface Finding {
   check: CheckId;
@@ -301,6 +301,62 @@ export function applyModelBlanks(drafts: readonly DraftFile[], overlays: readonl
   return { drafts: out, findings };
 }
 
+/**
+ * Overlay: attach dailyContext-*.verified.json ({itemId: {sentence, blank} | null})
+ * to the raw draft items by id. null means absent; unknown ids and repeats are C15
+ * errors. Returns new drafts; the inputs are not mutated.
+ */
+export function applyDailyContext(drafts: readonly DraftFile[], overlays: readonly DraftFile[]): { drafts: DraftFile[]; findings: Finding[] } {
+  const findings: Finding[] = [];
+  const byId = new Map<string, Record<string, unknown>>();
+  const out = drafts.map(({ file, raw }) => ({
+    file,
+    raw: Array.isArray(raw)
+      ? raw.map((e: unknown) => {
+          if (!e || typeof e !== 'object') return e;
+          const copy = { ...(e as Record<string, unknown>) };
+          const id = idOf(copy);
+          if (id !== undefined && !byId.has(id)) byId.set(id, copy);
+          return copy;
+        })
+      : raw,
+  }));
+  const seen = new Set<string>();
+  for (const { file, raw } of overlays) {
+    if (!raw || typeof raw !== 'object' || Array.isArray(raw)) {
+      findings.push({ check: 'C15', severity: 'error', file, message: 'overlay must be a JSON object {itemId: {sentence, blank} | null}' });
+      continue;
+    }
+    for (const [id, entry] of Object.entries(raw as Record<string, unknown>)) {
+      const target = byId.get(id);
+      if (!target) {
+        findings.push({ check: 'C15', severity: 'error', file, itemId: id, message: 'dailyContext for unknown item id' });
+        continue;
+      }
+      if (seen.has(id)) {
+        findings.push({ check: 'C15', severity: 'error', file, itemId: id, message: 'dailyContext given more than once' });
+        continue;
+      }
+      seen.add(id);
+      if (entry !== null) target.dailyContext = entry;
+    }
+  }
+  return { drafts: out, findings };
+}
+
+/** C15: dailyContext.blank refills to dailyContext.sentence and has 1–3 blanks. */
+export function checkDailyContext(item: Item): Finding[] {
+  const d = item.dailyContext;
+  if (!d) return [];
+  const err = (message: string): Finding[] => [{ check: 'C15', severity: 'error', itemId: item.id, message: `dailyContext: ${message}` }];
+  const n = d.blank.split(BLANK_TOKEN).length - 1;
+  if (n < 1 || n > 3) return err(`has ${n} blanks (need 1–3)`);
+  const answers = blankAnswers(d.blank, d.sentence);
+  if (!answers) return err(`blank does not fit "${d.sentence}"`);
+  if (refillBlanks(d.blank, answers) !== d.sentence) return err(`refill differs from "${d.sentence}"`);
+  return [];
+}
+
 /** C14: each non-null blanked entry refills to modelSentences[i+1] and has 1–5 blanks. */
 export function checkModelBlanks(item: Item): Finding[] {
   const f: Finding[] = [];
@@ -329,16 +385,19 @@ export interface RunOptions {
   allowRemove?: readonly string[];
   /** modelBlanks-*.verified.json overlay files, attached to items by id. */
   modelBlanks?: readonly DraftFile[];
+  /** dailyContext-*.verified.json overlay files (C15), attached to items by id. */
+  dailyContext?: readonly DraftFile[];
   /** Extra per-item checks (privacy, T1.4). */
   extraItemChecks?: ReadonlyArray<(item: Item) => Finding[]>;
 }
 
 export function runChecks(rawDrafts: readonly DraftFile[], opts: RunOptions = {}): ContentResult {
   const overlaid = applyModelBlanks(rawDrafts, opts.modelBlanks ?? []);
-  const { items, findings } = checkSchema(overlaid.drafts);
-  findings.push(...overlaid.findings);
+  const daily = applyDailyContext(overlaid.drafts, opts.dailyContext ?? []);
+  const { items, findings } = checkSchema(daily.drafts);
+  findings.push(...overlaid.findings, ...daily.findings);
   findings.push(...checkIds(items));
-  const perItem = [checkCounts, checkCommonMistake, checkCloze, checkDuplicateVariants, checkVerifiedNote, checkContextNote, checkModelBlanks, ...(opts.extraItemChecks ?? [])];
+  const perItem = [checkCounts, checkCommonMistake, checkCloze, checkDuplicateVariants, checkVerifiedNote, checkContextNote, checkModelBlanks, checkDailyContext, ...(opts.extraItemChecks ?? [])];
   for (const item of items) for (const check of perItem) findings.push(...check(item));
   const shipped = items.filter((i) => i.verified);
   findings.push(...checkLockedIds(opts.locked ?? [], shipped.map((i) => i.id), opts.allowRemove ?? []));

@@ -12,7 +12,7 @@ You see a situation in Turkish and write the English sentence yourself, before s
 - **Chunks with their pattern.** You learn a target chunk together with its slot pattern (for example a verb plus the preposition it takes), not isolated words.
 - **Spaced repetition (Leitner).** Correct answers move a card up a box and lengthen the interval; wrong answers send it back to box 1. Intervals are defined in `src/domain/scheduler.ts` (currently 1, 2, 4, 8 and 16 days across 5 boxes).
 - **Hints on demand.** Nothing is shown until you ask. Hints escalate from a cloze to word initials.
-- **Context cloze.** From box 2 on, some showings (rotation: write, context, write, fix) give you one of the item's model sentences with its key words blanked out (`modelBlanks`, check C14); you fill each blank in its own field, and any miss goes to self-grade with the full sentence. It is never a hint.
+- **Context cloze.** From box 2 on, some showings (rotation: write, context, write, fix) give you one of the item's model sentences with its key words blanked out (`modelBlanks`, check C14); you fill each blank in its own field, and any miss goes to self-grade with the full sentence. It is never a hint. Varied contexts: when an item also has a verified daily-life sentence (`dailyContext`, check C15), context showings alternate between the work sentence and the daily one (labelled "Günlük hayat" after you answer), so the same chunk shows up in different situations.
 - **In-round re-ask.** A card you miss comes back at the end of the same round. The repeat never changes its box.
 - **Free practice and fix-the-mistake.** Practise outside the schedule, and turn your own mistakes into new cards (see the notebook workflow below).
 - **Offline.** After the first load the app runs without a network (service worker).
@@ -36,7 +36,7 @@ The app never talks to an LLM. You do, in claude.ai, and bring the result back.
 ## Content quality
 
 - Every bundled item is verified independently of its author. Only items with `verified: true` and a `verifiedNote` ship; unverified drafts never reach the bundle.
-- `npm run content:build` runs checks **C1–C14** and stops on any error:
+- `npm run content:build` runs checks **C1–C15** and stops on any error:
   - schema, ids, list sizes and the canonical answer (C1–C3)
   - the common mistake is never an accepted answer (C4)
   - cloze alignment (C5), redundant variants (C6), verification notes (C7)
@@ -44,6 +44,7 @@ The app never talks to an LLM. You do, in claude.ai, and bring the result back.
   - a shipped id may never disappear, so progress is never orphaned (C11)
   - note wording (C12) and a non-empty bundle (C13)
   - `modelBlanks` entries refill to their model sentence and have 1–5 blanks (C14)
+  - `dailyContext` blanks refill to their sentence and have 1–3 blanks (C15)
 - C6, C10 and C12 report warnings or info; the rest fail the build.
 
 ## Development

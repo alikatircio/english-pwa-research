@@ -71,10 +71,48 @@ describe('context mode (decision 42)', () => {
     expect(contextCard(withBlanks, 1)).toEqual({ blanked: "I'll ___ you the ___ today.", original: "I'll send you the report today.", answers: ['send', 'report'] });
     expect(contextCard(withBlanks, 5)).toEqual(contextCard(withBlanks, 1));
     const two: Item = { ...withBlanks, modelBlanks: ["I'll ___ you the ___ today.", 'We\'ll ___ them the report ___.'] };
-    expect(contextCard(two, 0)?.original).toBe("I'll send you the report today.");
-    expect(contextCard(two, 1)?.answers).toEqual(['send', 'today']);
+    expect(contextCard(two, 1)?.original).toBe("I'll send you the report today.");
+    expect(contextCard(two, 5)?.answers).toEqual(['send', 'today']);
     const broken: Item = { ...withBlanks, modelBlanks: ['Totally ___ different.', null] };
     expect(contextCard(broken, 0)).toBeNull();
+  });
+
+  const daily = { sentence: 'I need to send mom a photo.', blank: 'I need to ___ mom a ___.' };
+  const ctxOf = (it: Item, n: number) => contextCard(it, n)?.original;
+
+  it('dailyContext alone makes an item eligible for context mode', () => {
+    const only: Item = { ...item, id: 'e', dailyContext: daily };
+    expect(pick({ box: 3, n: 1, it: only })).toBe('context');
+    expect(contextCard(only, 1)).toEqual({ blanked: daily.blank, original: daily.sentence, answers: ['send', 'photo'], daily: true });
+    expect(contextCard(only, 5)?.original).toBe(daily.sentence);
+  });
+
+  it('work and daily alternate across context showings (showCount 1, 5, 9, ...)', () => {
+    const both: Item = { ...withBlanks, dailyContext: daily };
+    const seq = [1, 5, 9, 13].map((n) => contextCard(both, n)?.daily === true);
+    expect(seq).toEqual([false, true, false, true]);
+    expect(ctxOf(both, 1)).toBe("I'll send you the report today.");
+    expect(ctxOf(both, 5)).toBe(daily.sentence);
+  });
+
+  it('with several work entries the work slots cycle through them, daily in between', () => {
+    const two: Item = { ...withBlanks, modelBlanks: ["I'll ___ you the ___ today.", 'We\'ll ___ them the report ___.'], dailyContext: daily };
+    expect([1, 5, 9, 13, 17, 21].map((n) => ctxOf(two, n))).toEqual([
+      "I'll send you the report today.",
+      daily.sentence,
+      "We'll send them the report today.",
+      daily.sentence,
+      "I'll send you the report today.",
+      daily.sentence,
+    ]);
+  });
+
+  it('is deterministic and ignores an inconsistent dailyContext', () => {
+    const both: Item = { ...withBlanks, dailyContext: daily };
+    expect(contextCard(both, 5)).toEqual(contextCard(both, 5));
+    const bad: Item = { ...withBlanks, dailyContext: { sentence: 'Something else.', blank: 'Totally ___ different.' } };
+    expect(ctxOf(bad, 5)).toBe("I'll send you the report today.");
+    expect(contextCard({ ...item, dailyContext: bad.dailyContext }, 1)).toBeNull();
   });
 
   it('gradeContext compares every blank after normalisation', () => {

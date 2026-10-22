@@ -255,6 +255,53 @@ test.describe('exercise modes (decisions 31, 36, 37)', () => {
     expect(log).toEqual([expect.objectContaining({ grade: 'partial', gradedBy: 'self', mode: 'context' })]);
   });
 
+  test('daily-life context (decision 44b): an item with only dailyContext gets a context card; the full sentence and a "Günlük hayat" label show after answering', async ({ page }) => {
+    const app = new App(page);
+    await app.open('2026-11-02T08:00:00', { start: false, mode: 'auto' });
+    const idx = items.findIndex((i) => i.dailyContext);
+    const item = items[idx];
+    if (!item?.dailyContext) throw new Error('fixture has no dailyContext item');
+    await resumeRound(page, app, {
+      queue: [{ index: idx, kind: 'due' }, { index: 1, kind: 'due' }],
+      progress: [{ index: idx, box: 2, shows: 1 }],
+    });
+
+    await expect(page.getByRole('heading', { name: t.contextHeading })).toBeVisible();
+    await expect(page.getByTestId('context-blanks')).toContainText('the sound from my old');
+    const blanks = page.locator('.context-blank');
+    await expect(blanks).toHaveCount(2);
+    await blanks.nth(0).fill('reproduce');
+    await blanks.nth(0).press('Enter');
+    await blanks.nth(1).fill('rádio');
+    await app.check.click();
+
+    // A miss shows the full daily sentence as the correct answer, with the label.
+    await expect(page.getByRole('heading', { name: t.notMatched })).toBeVisible();
+    await expect(page.locator('.answers__canonical')).toHaveText(item.dailyContext.sentence);
+    await expect(page.getByTestId('daily-label')).toHaveText(t.dailyContext);
+    await app.grade(t.gradePartial);
+    const log = await readStore<AnswerLog>(page, 'answerLog');
+    expect(log).toEqual([expect.objectContaining({ itemId: item.id, grade: 'partial', gradedBy: 'self', mode: 'context' })]);
+  });
+
+  test('daily-life context: a correct answer is auto-graded and still shows the label', async ({ page }) => {
+    const app = new App(page);
+    await app.open('2026-11-02T08:00:00', { start: false, mode: 'auto' });
+    const idx = items.findIndex((i) => i.dailyContext);
+    await resumeRound(page, app, {
+      queue: [{ index: idx, kind: 'due' }, { index: 1, kind: 'due' }],
+      progress: [{ index: idx, box: 2, shows: 1 }],
+    });
+    const blanks = page.locator('.context-blank');
+    await blanks.nth(0).fill('reproduce');
+    await blanks.nth(0).press('Enter');
+    await blanks.nth(1).fill('radio');
+    await blanks.nth(1).press('Enter');
+    await expect(page.locator('.verdict--ok')).toContainText(t.correct);
+    await expect(page.getByTestId('daily-label')).toHaveText(t.dailyContext);
+    await expect(page.locator('.answers__mine')).toHaveText(items[idx]?.dailyContext?.sentence ?? '');
+  });
+
   test('commonMistake: hidden after a wrong answer at box 2, shown at box 3 and above (decision 33)', async ({ page }) => {
     const app = new App(page);
     await app.open('2026-11-02T08:00:00', { start: false });
