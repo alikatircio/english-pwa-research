@@ -107,7 +107,7 @@ export interface AnswerLog {
   boxBefore: Box | null;
   boxAfter: Box | null;
   /** Exercise shape shown (decision 31); 'practice' for free practice (decision 30). Absent on older rows. */
-  mode?: 'write' | 'fix' | 'order' | 'practice';
+  mode?: 'write' | 'fix' | 'order' | 'context' | 'practice';
 }
 
 /** 'practice' = decision 30 free practice: never touches progress or the daily counters. */
@@ -117,8 +117,8 @@ export interface QueueEntry {
   kind: QueueKind;
 }
 
-/** Exercise shape (decisions 31, 36, 37). */
-export type ExerciseMode = 'write' | 'fix' | 'order';
+/** Exercise shape (decisions 31, 36, 37, 42). `original` = the full sentence of a 'context' card (decision 42). */
+export type ExerciseMode = 'write' | 'fix' | 'order' | 'context';
 
 /**
  * `mode` = the shape the question had, `boxBefore` = the card's box before this
@@ -129,8 +129,8 @@ export type CardPhase =
   /** Decision 33: a new card's first look at the pattern, before "Hazırım" hides it. */
   | { tag: 'study' }
   | { tag: 'question' }
-  | { tag: 'result'; answer: string; matched: true; mode?: ExerciseMode; boxBefore?: Box | null; hinted?: boolean }
-  | { tag: 'result'; answer: string; matched: false; grade?: Grade; mode?: ExerciseMode; boxBefore?: Box | null; hinted?: boolean };
+  | { tag: 'result'; answer: string; matched: true; mode?: ExerciseMode; boxBefore?: Box | null; hinted?: boolean; original?: string }
+  | { tag: 'result'; answer: string; matched: false; grade?: Grade; mode?: ExerciseMode; boxBefore?: Box | null; hinted?: boolean; original?: string };
 
 /** Session fields onFirstAnswer may change (repeat append, wrong streak, breather reorder, summary). */
 export type RoundFields = Pick<SessionState, 'queue' | 'repeatQueued' | 'consecutiveWrong' | 'studiedChunks'>;

@@ -173,6 +173,7 @@
         "I'm waiting for the deploy.",
         "We're waiting for the deploy."
       ],
+      "modelBlanks": ["We're waiting ___ the ___."],
       "commonMistake": "I'm waiting the deploy.",
       "checklistTr": [
         "Kritik noktayı kontrol ettin mi?",

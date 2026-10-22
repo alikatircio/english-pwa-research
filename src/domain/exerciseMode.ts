@@ -1,10 +1,14 @@
-// Exercise modes (decisions 31, 36, 37). Pure and deterministic: same inputs, same mode.
+// Exercise modes (decisions 31, 36, 37, 42). Pure and deterministic: same inputs, same mode.
+import { blankAnswers, refillBlanks } from './blankAnswers.ts';
+import { normalizeAnswer } from './normalize.ts';
 import type { ExerciseMode, Item, Progress } from './types.ts';
 
 export type { ExerciseMode };
 
-/** Every 3rd showing of a box ≥3 card with a commonMistake is "fix" (decision 37). */
-export const FIX_EVERY = 3;
+/** Decision 42: box ≥2 main cards cycle write, context, write, fix (by showing count). */
+export const ROTATION = ['write', 'context', 'write', 'fix'] as const;
+/** Decision 42: "context" from this Leitner box on. */
+export const CONTEXT_MIN_BOX = 2;
 
 const MODES: readonly ExerciseMode[] = ['write', 'fix', 'order'];
 
@@ -20,6 +24,38 @@ export function canOrder(item: Item): boolean {
 
 function canFix(item: Item): boolean {
   return (item.commonMistake ?? '').trim() !== '';
+}
+
+/** A fill-in-the-blanks card (decision 42): the blanked sentence, its answers and the full original. */
+export interface ContextCard {
+  blanked: string;
+  original: string;
+  answers: string[];
+}
+
+/**
+ * The 'context' card of an item, or null when none of its modelBlanks entries is usable.
+ * Entries (non-null and consistent with modelSentences[i+1]) are picked by showCount.
+ */
+export function contextCard(item: Item, showCount: number): ContextCard | null {
+  const usable: ContextCard[] = [];
+  (item.modelBlanks ?? []).forEach((blanked, i) => {
+    const original = item.modelSentences[i + 1];
+    if (blanked === null || original === undefined) return;
+    const answers = blankAnswers(blanked, original);
+    if (answers) usable.push({ blanked, original, answers });
+  });
+  return usable[Math.abs(showCount) % usable.length] ?? null;
+}
+
+/** Decision 42: every blank equal to its answer after normalisation. */
+export function gradeContext(values: readonly string[], answers: readonly string[]): boolean {
+  return values.length === answers.length && answers.every((a, i) => normalizeAnswer(values[i] ?? '') === normalizeAnswer(a));
+}
+
+/** The sentence the user built, for the result screen and the log. */
+export function contextAnswer(card: ContextCard, values: readonly string[]): string {
+  return values.every((v) => v.trim() === '') ? '' : refillBlanks(card.blanked, values.map((v) => v.trim()));
 }
 
 export interface ChooseModeInput {
@@ -47,9 +83,10 @@ export function showsBefore(progress: Progress | null): number {
 export const FIX_MIN_BOX = 3;
 
 /**
- * Decisions 36, 37. "Sırala" lives in free practice only. "Hatayı düzelt" needs
- * box ≥ 3, a commonMistake and a card that is not last in the round; in main
- * rounds it is every 3rd showing. Everything else is "Yaz". A mode the item or
+ * Decisions 36, 37, 42. "Sırala" lives in free practice only. "Hatayı düzelt" needs
+ * box ≥ 3, a commonMistake and a card that is not last in the round. Main-round
+ * cards from box 2 cycle write, context, write, fix (decision 42; "context" needs
+ * a modelBlanks entry, "fix" its conditions). Everything else is "Yaz". A mode the item or
  * the position cannot support falls back to "write".
  */
 export function chooseMode({ item, progress, entryKind, showCount, isLast }: ChooseModeInput): ExerciseMode {
@@ -60,7 +97,11 @@ export function chooseMode({ item, progress, entryKind, showCount, isLast }: Cho
     return mode === 'fix' && fixOk ? 'fix' : 'write';
   }
   if (entryKind === 'repeat' || entryKind === 'new') return 'write';
-  return fixOk && (showCount + 1) % FIX_EVERY === 0 ? 'fix' : 'write';
+  if ((progress?.box ?? 1) < CONTEXT_MIN_BOX) return 'write';
+  const slot = ROTATION[Math.abs(showCount) % ROTATION.length];
+  if (slot === 'fix') return fixOk ? 'fix' : 'write';
+  if (slot === 'context') return contextCard(item, showCount) ? 'context' : 'write';
+  return 'write';
 }
 
 function hashSeed(seed: number | string): number {

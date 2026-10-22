@@ -17,6 +17,9 @@ export const t = {
   /** Decision 31: "Hatayı düzelt" shape. */
   fixHeading: 'Bu cümledeki hatayı düzelt:',
   fixPlaceholder: 'Doğru cümleyi yaz…',
+  /** Decision 42: fill-in-the-blanks shape. */
+  contextHeading: 'Boşlukları doldur:',
+  blankLabel: (n: number, total: number) => `${n}. boşluk, ${total} boşluktan`,
   /** Decision 31: "Sırala" shape. */
   orderHeading: 'Kelimeleri sıraya diz',
   orderPlacedLabel: 'Kurduğun cümle',

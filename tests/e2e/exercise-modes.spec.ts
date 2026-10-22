@@ -113,13 +113,13 @@ test.describe('exercise modes (decisions 31, 36, 37)', () => {
     expect(await readStore(page, 'answerLog')).toEqual([]);
   });
 
-  test('every 3rd showing of a box 3 card is "Hatayı düzelt": mistake shown, empty textarea, accepted answer is correct, noteTr shown after', async ({ page }) => {
+  test('every 4th showing of a box 3 card is "Hatayı düzelt": mistake shown, empty textarea, accepted answer is correct, noteTr shown after', async ({ page }) => {
     const app = new App(page);
     await app.open('2026-11-02T08:00:00', { start: false, mode: 'auto' });
     const itemId = items[0]?.id ?? '';
     await resumeRound(page, app, {
       queue: [{ index: 0, kind: 'due' }, { index: 1, kind: 'due' }],
-      progress: [{ index: 0, box: 3, shows: 2 }],
+      progress: [{ index: 0, box: 3, shows: 3 }],
     });
 
     await expect(page.getByRole('heading', { name: t.fixHeading })).toBeVisible();
@@ -136,27 +136,27 @@ test.describe('exercise modes (decisions 31, 36, 37)', () => {
     const log = await readStore<AnswerLog>(page, 'answerLog');
     expect(log).toEqual([expect.objectContaining({ itemId, grade: 'correct', gradedBy: 'auto', mode: 'fix', answer: canonical(0) })]);
     const after = await readStore<Progress>(page, 'progress');
-    expect(after.find((p) => p.itemId === itemId)).toMatchObject({ box: 4, shows: 3 });
+    expect(after.find((p) => p.itemId === itemId)).toMatchObject({ box: 4, shows: 4 });
   });
 
-  test('the last card of a round is never "Hatayı düzelt", even on its 3rd showing', async ({ page }) => {
+  test('the last card of a round is never "Hatayı düzelt", even on its 4th showing', async ({ page }) => {
     const app = new App(page);
     await app.open('2026-11-02T08:00:00', { start: false, mode: 'auto' });
     await resumeRound(page, app, {
       queue: [{ index: 1, kind: 'due' }, { index: 0, kind: 'due' }],
       cursor: 1,
-      progress: [{ index: 0, box: 3, shows: 2 }, { index: 1, box: 1, shows: 1 }],
+      progress: [{ index: 0, box: 3, shows: 3 }, { index: 1, box: 1, shows: 1 }],
     });
     await expect(app.input).toBeVisible();
     await expect(page.getByTestId('fix-mistake')).toHaveCount(0);
   });
 
-  test('a box 2 card is plain "Yaz", even on its 3rd showing', async ({ page }) => {
+  test('a box 2 card is plain "Yaz", even on its 4th showing', async ({ page }) => {
     const app = new App(page);
     await app.open('2026-11-02T08:00:00', { start: false, mode: 'auto' });
     await resumeRound(page, app, {
       queue: [{ index: 0, kind: 'due' }, { index: 1, kind: 'due' }],
-      progress: [{ index: 0, box: 2, shows: 2 }],
+      progress: [{ index: 0, box: 2, shows: 3 }],
     });
     await expect(app.input).toBeVisible();
     await expect(page.getByTestId('fix-mistake')).toHaveCount(0);
@@ -171,7 +171,7 @@ test.describe('exercise modes (decisions 31, 36, 37)', () => {
     const itemId = items[0]?.id ?? '';
     await resumeRound(page, app, {
       queue: [{ index: 0, kind: 'due' }, { index: 1, kind: 'due' }],
-      progress: [{ index: 0, box: 3, shows: 2 }],
+      progress: [{ index: 0, box: 3, shows: 3 }],
     });
     await expect(page.getByRole('heading', { name: t.fixHeading })).toBeVisible();
     await page.getByRole('button', { name: t.dontKnow }).click();
@@ -192,6 +192,67 @@ test.describe('exercise modes (decisions 31, 36, 37)', () => {
     await resumeRound(page, app, practiceOrder);
     await expect(page.getByRole('heading', { name: t.orderHeading })).toBeVisible();
     await expect(page.getByRole('button', { name: t.dontKnow })).toHaveCount(0);
+  });
+
+  test('fill in the blanks (decision 42): a box 2 card on its 2nd showing shows the blanked sentence; each blank is checked, Enter moves on', async ({ page }) => {
+    const app = new App(page);
+    await app.open('2026-11-02T08:00:00', { start: false, mode: 'auto' });
+    const itemId = items[6]?.id ?? '';
+    await resumeRound(page, app, {
+      queue: [{ index: 6, kind: 'due' }, { index: 1, kind: 'due' }],
+      progress: [{ index: 6, box: 2, shows: 1 }],
+    });
+
+    await expect(page.getByRole('heading', { name: t.contextHeading })).toBeVisible();
+    await expect(page.locator('.answer-input')).toHaveCount(0);
+    await expect(page.getByTestId('hint')).toHaveCount(0);
+    await expect(page.getByRole('button', { name: t.hintButton })).toHaveCount(0); // never a hint
+    await expect(page.getByTestId('context-blanks')).toContainText("We're waiting");
+    const blanks = page.locator('.context-blank');
+    await expect(blanks).toHaveCount(2);
+    for (let i = 0; i < 2; i++) {
+      const box = await blanks.nth(i).boundingBox();
+      expect(box?.height ?? 0).toBeGreaterThanOrEqual(44);
+      await expect(blanks.nth(i)).toHaveAttribute('autocorrect', 'off');
+      await expect(blanks.nth(i)).toHaveAttribute('spellcheck', 'false');
+      await expect(blanks.nth(i)).toHaveAttribute('autocapitalize', 'off');
+      expect(await blanks.nth(i).evaluate((el) => parseFloat(getComputedStyle(el).fontSize))).toBeGreaterThanOrEqual(16);
+    }
+    await expect(app.check).toBeDisabled();
+
+    // Enter moves from the first blank to the second, and submits from the last (all filled).
+    await blanks.nth(0).fill('for');
+    await blanks.nth(0).press('Enter');
+    await expect(blanks.nth(1)).toBeFocused();
+    await blanks.nth(1).fill('Deploy');
+    await expect(app.check).toBeEnabled();
+    await blanks.nth(1).press('Enter');
+
+    await expect(page.locator('.verdict--ok')).toContainText(t.correct);
+    const log = await readStore<AnswerLog>(page, 'answerLog');
+    expect(log).toEqual([expect.objectContaining({ itemId, grade: 'correct', gradedBy: 'auto', mode: 'context', hintUsed: 0, answer: "We're waiting for the Deploy." })]);
+    expect((await readStore<Progress>(page, 'progress')).find((p) => p.itemId === itemId)).toMatchObject({ box: 3, shows: 2 });
+  });
+
+  test('fill in the blanks: a wrong blank goes to self-grade and shows the full original sentence', async ({ page }) => {
+    const app = new App(page);
+    await app.open('2026-11-02T08:00:00', { start: false, mode: 'auto' });
+    await resumeRound(page, app, {
+      queue: [{ index: 6, kind: 'due' }, { index: 1, kind: 'due' }],
+      progress: [{ index: 6, box: 2, shows: 1 }],
+    });
+    const blanks = page.locator('.context-blank');
+    await blanks.nth(0).fill('to');
+    await blanks.nth(0).press('Enter');
+    await blanks.nth(1).fill('deploy');
+    await app.check.click();
+
+    await expect(page.getByRole('heading', { name: t.notMatched })).toBeVisible();
+    await expect(page.locator('.answers__canonical')).toHaveText("We're waiting for the deploy.");
+    await expect(page.locator('.answers__mine')).toHaveText("We're waiting to the deploy.");
+    await app.grade(t.gradePartial);
+    const log = await readStore<AnswerLog>(page, 'answerLog');
+    expect(log).toEqual([expect.objectContaining({ grade: 'partial', gradedBy: 'self', mode: 'context' })]);
   });
 
   test('commonMistake: hidden after a wrong answer at box 2, shown at box 3 and above (decision 33)', async ({ page }) => {

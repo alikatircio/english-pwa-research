@@ -645,6 +645,39 @@ main {
   outline-offset: 2px;
 }
 
+.context-blanks {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  border: 1.5px solid var(--field-border);
+  border-radius: 12px;
+  background: var(--surface);
+  font-size: 1.125rem;
+  line-height: 1.4;
+}
+
+.context-blank {
+  box-sizing: border-box;
+  min-height: 44px;
+  width: 7.5em;
+  max-width: 100%;
+  padding: 0 10px;
+  border: 1.5px solid var(--field-border);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+  font-size: 1.125rem; /* 18px: above iOS's 16px zoom threshold */
+}
+
+.context-blank:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent);
+}
+
 .fix-mistake {
   margin: 0;
   padding: 10px 12px;

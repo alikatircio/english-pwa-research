@@ -136,7 +136,7 @@ export const AnswerLogSchema: z.ZodType<AnswerLog> = z.object({
   isRepeat: z.boolean(),
   boxBefore: box.nullable(),
   boxAfter: box.nullable(),
-  mode: z.enum(['write', 'fix', 'order', 'practice']).optional(),
+  mode: z.enum(['write', 'fix', 'order', 'context', 'practice']).optional(),
 });
 
 /** Validates `rest` with ItemSchema and re-reports its issues at the current path. */

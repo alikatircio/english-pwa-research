@@ -29,7 +29,8 @@ import { exportFlagsReport, importItems, readBackupData, writeRestore } from '..
 import { fixedConnection, type AppDb, type DbConnection, type ImportedItem } from '../storage/db.ts';
 import { addNotebookEntry, clearSession, commitGrade, loadCounter, putMeta, saveSession, toggleFlag, undoGrade } from '../storage/repo.ts';
 import { loadReadyState } from './boot.ts';
-import { modeForEntry } from './mode.ts';
+import { contextAnswer, gradeContext } from '../domain/exerciseMode.ts';
+import { contextForEntry, modeForEntry } from './mode.ts';
 import type { AppMeta } from './meta.ts';
 import { freshRound, nextCard, poolsOf, practiceRound } from './round.ts';
 import type { Action, AppState, ReadyState, Screen } from './state.ts';
@@ -401,9 +402,21 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       if (!s || !session || !entry || s.busy || session.phase.tag !== 'question' || answer === '') return;
       const item = s.catalog.byId.get(entry.itemId);
       if (!item) return;
-      const matched = isAccepted(answer, s.catalog.accepted.get(item.id) ?? item.acceptedAnswers);
       const mode = modeForEntry(s, entry, session.cursor, session.queue.length);
       const boxBefore = s.progress.get(entry.itemId)?.box ?? null;
+      // Decision 42: a 'context' card sends its blanks joined by newlines; each is graded on its own.
+      const ctx = contextForEntry(s, entry, session.cursor, session.queue.length);
+      if (ctx) {
+        const values = text.split('\n').map((v) => v.trim());
+        if (values.length !== ctx.answers.length || values.some((v) => v === '')) return;
+        const built = contextAnswer(ctx, values);
+        const ok = gradeContext(values, ctx.answers);
+        const result = { tag: 'result' as const, answer: built, mode, boxBefore, original: ctx.original };
+        if (ok) await grade('correct', 'auto', built, { ...result, matched: true });
+        else setSession({ ...session, draft: text, phase: { ...result, matched: false }, updatedAt: clock.now() });
+        return;
+      }
+      const matched = isAccepted(answer, s.catalog.accepted.get(item.id) ?? item.acceptedAnswers);
       if (matched) {
         await grade('correct', 'auto', answer, { tag: 'result', answer, matched: true, mode, boxBefore });
       } else {
@@ -420,7 +433,8 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       const session = s?.session;
       const entry = session && currentEntry(session);
       if (!s || !session || !entry || s.busy || session.phase.tag !== 'question' || entry.kind === 'repeat') return;
-      if (modeForEntry(s, entry, session.cursor, session.queue.length) === 'order') return;
+      const shape = modeForEntry(s, entry, session.cursor, session.queue.length);
+      if (shape === 'order' || shape === 'context') return; // the blanked sentence never counts as a hint (decision 42)
       const level = session.hint ?? 0;
       if (level >= 2) return;
       setSession({ ...session, hint: (level + 1) as HintLevel, updatedAt: clock.now() });
@@ -443,10 +457,11 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       const session = s?.session;
       const entry = session && currentEntry(session);
       if (!s || !session || !entry || s.busy || session.phase.tag !== 'question') return;
-      const answer = text.trim();
       const mode = modeForEntry(s, entry, session.cursor, session.queue.length);
       const boxBefore = s.progress.get(entry.itemId)?.box ?? null;
-      await grade('wrong', 'self', answer, { tag: 'result', answer, matched: false, grade: 'wrong', mode, boxBefore });
+      const ctx = contextForEntry(s, entry, session.cursor, session.queue.length);
+      const answer = ctx ? contextAnswer(ctx, text.split('\n')) : text.trim();
+      await grade('wrong', 'self', answer, { tag: 'result', answer, matched: false, grade: 'wrong', mode, boxBefore, ...(ctx ? { original: ctx.original } : {}) });
     },
 
     /** Self-grade an unmatched answer (decision 10): progress + answer log written immediately. */

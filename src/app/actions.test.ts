@@ -400,12 +400,12 @@ describe('actions — hints on demand (decision 35)', () => {
 });
 
 describe('actions — fix mode (decision 37)', () => {
-  it('a box 3 card on its 3rd showing is fix: the phase and the log carry the mode; the last card is write', async () => {
+  it('a box 3 card on its 4th showing is fix: the phase and the log carry the mode; the last card is write', async () => {
     const [a, b] = ids as [string, string];
     const seen = (itemId: string, box: Progress['box'], shows: number): Progress => ({
       itemId, box, dueOn: '2026-11-02', introducedOn: '2026-10-20', lastAnsweredOn: '2026-10-25', lastGrade: 'correct', updatedAt: 1, shows,
     });
-    const app = await setup({ progress: [seen(a, 3, 2), seen(b, 3, 2)] });
+    const app = await setup({ progress: [seen(a, 3, 3), seen(b, 3, 3)] });
     const first = app.current()?.itemId ?? '';
     const withMistake = app.ready().catalog.byId.get(first)?.commonMistake;
     expect(withMistake).toBeTruthy();
@@ -414,6 +414,44 @@ describe('actions — fix mode (decision 37)', () => {
     await app.actions.selfGrade('wrong');
     expect((await app.db.getAll('answerLog'))[0]).toMatchObject({ mode: 'fix' });
 
+    app.db.close();
+  });
+});
+
+describe('actions — context mode (decision 42)', () => {
+  const waitFor = ids[6] ?? '';
+  const seen = (shows: number): Progress => ({
+    itemId: waitFor, box: 2, dueOn: '2026-11-02', introducedOn: '2026-10-20', lastAnsweredOn: '2026-10-25', lastGrade: 'correct', updatedAt: 1, shows,
+  });
+
+  it('a box 2 card on its 2nd showing is a context card; every blank right is auto-correct and logged as context', async () => {
+    const app = await setup({ progress: [seen(1)] });
+    expect(app.current()?.itemId).toBe(waitFor);
+    await app.actions.submitAnswer('for\n Deploy ');
+    expect(app.ready().session?.phase).toMatchObject({ tag: 'result', matched: true, mode: 'context', answer: "We're waiting for the Deploy.", original: "We're waiting for the deploy." });
+    expect(await app.db.get('progress', waitFor)).toMatchObject({ box: 3, lastGrade: 'correct', shows: 2 });
+    expect((await app.db.getAll('answerLog'))[0]).toMatchObject({ mode: 'context', grade: 'correct', gradedBy: 'auto', hintUsed: 0 });
+    app.db.close();
+  });
+
+  it('one wrong blank goes to self-grade with the full original sentence; an empty blank does nothing', async () => {
+    const app = await setup({ progress: [seen(1)] });
+    await app.actions.submitAnswer('for\n');
+    expect(app.ready().session?.phase.tag).toBe('question');
+    await app.actions.submitAnswer('to\ndeploy');
+    expect(app.ready().session?.phase).toMatchObject({ tag: 'result', matched: false, mode: 'context', answer: "We're waiting to the deploy.", original: "We're waiting for the deploy." });
+    expect(await app.db.getAll('answerLog')).toHaveLength(0);
+    await app.actions.selfGrade('partial');
+    expect((await app.db.getAll('answerLog'))[0]).toMatchObject({ mode: 'context', grade: 'partial', gradedBy: 'self' });
+    app.db.close();
+  });
+
+  it('is never a hint: showHint is ignored, and "Bilmiyorum" keeps the original', async () => {
+    const app = await setup({ progress: [seen(1)] });
+    app.actions.showHint();
+    expect(app.ready().session?.hint).toBeUndefined();
+    await app.actions.dontKnow('for\n');
+    expect(app.ready().session?.phase).toMatchObject({ matched: false, grade: 'wrong', mode: 'context', original: "We're waiting for the deploy." });
     app.db.close();
   });
 });

@@ -7,6 +7,8 @@ import { PatternCard } from './PatternCard.tsx';
 interface Props {
   item: Item;
   answer: string;
+  /** Decision 42: the full sentence of a fill-in-the-blanks card; shown as the correct answer. */
+  original?: string | undefined;
   matched: boolean;
   /** Self-grade once chosen (unmatched answers only). */
   grade?: Grade | undefined;
@@ -19,7 +21,7 @@ interface Props {
 }
 
 /** The verdict heading takes focus after submit (ref; a11y audit 08 #2). */
-export const ResultPanel = forwardRef<HTMLHeadingElement, Props>(function ResultPanel({ item, answer, matched, grade, showNote, boxBefore, hinted }, verdictRef) {
+export const ResultPanel = forwardRef<HTMLHeadingElement, Props>(function ResultPanel({ item, answer, original, matched, grade, showNote, boxBefore, hinted }, verdictRef) {
   const canonical = item.acceptedAnswers[0] ?? '';
   const others = item.modelSentences.filter((s) => s !== canonical);
   return (
@@ -48,7 +50,7 @@ export const ResultPanel = forwardRef<HTMLHeadingElement, Props>(function Result
         {!matched && (
           <div>
             <dt>{t.correctAnswer}</dt>
-            <dd lang="en" className="answers__canonical">{canonical}</dd>
+            <dd lang="en" className="answers__canonical">{original ?? canonical}</dd>
           </div>
         )}
       </dl>

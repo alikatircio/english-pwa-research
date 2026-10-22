@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { answerTokens, chooseMode, shuffleTokens, showsBefore } from './exerciseMode.ts';
+import { answerTokens, chooseMode, contextAnswer, contextCard, gradeContext, shuffleTokens, showsBefore } from './exerciseMode.ts';
 import type { Box, Item, Progress } from './types.ts';
 
 const item: Item = {
@@ -32,6 +32,66 @@ const progress = (box: Box, shows?: number): Progress => ({
   ...(shows === undefined ? {} : { shows }),
 });
 
+const withBlanks: Item = {
+  ...item,
+  id: 'd',
+  modelSentences: ["I'll send the report today.", "I'll send you the report today.", "We'll send them the report today."],
+  modelBlanks: ["I'll ___ you the ___ today.", null],
+};
+
+describe('context mode (decision 42)', () => {
+  const pick = (o: { box: Box | null; n: number; kind?: string; last?: boolean; it?: Item }) =>
+    chooseMode({ item: o.it ?? withBlanks, progress: o.box === null ? null : progress(o.box), entryKind: o.kind ?? 'due', showCount: o.n, isLast: o.last ?? false });
+
+  it('box >= 2 cycles write, context, write, fix', () => {
+    expect([0, 1, 2, 3, 4, 5, 6, 7].map((n) => pick({ box: 3, n }))).toEqual(['write', 'context', 'write', 'fix', 'write', 'context', 'write', 'fix']);
+    expect([0, 1, 2, 3].map((n) => pick({ box: 2, n }))).toEqual(['write', 'context', 'write', 'write']); // fix needs box >= 3
+  });
+
+  it('box 1, new cards and re-asks stay write', () => {
+    for (let n = 0; n < 4; n++) expect(pick({ box: 1, n })).toBe('write');
+    expect(pick({ box: null, n: 1, kind: 'new' })).toBe('write');
+    expect(pick({ box: 4, n: 1, kind: 'repeat' })).toBe('write');
+  });
+
+  it('fix keeps its conditions: not on the last card; context has no such limit', () => {
+    expect(pick({ box: 4, n: 3, last: true })).toBe('write');
+    expect(pick({ box: 4, n: 1, last: true })).toBe('context');
+  });
+
+  it('an item with only null blanks, or no blanks, never gets context', () => {
+    const allNull: Item = { ...withBlanks, modelBlanks: [null, null] };
+    for (let n = 0; n < 8; n++) {
+      expect(pick({ box: 3, n, it: allNull })).not.toBe('context');
+      expect(pick({ box: 3, n, it: item })).not.toBe('context');
+    }
+  });
+
+  it('contextCard picks a usable entry by showCount and skips nulls and inconsistent entries', () => {
+    expect(contextCard(withBlanks, 1)).toEqual({ blanked: "I'll ___ you the ___ today.", original: "I'll send you the report today.", answers: ['send', 'report'] });
+    expect(contextCard(withBlanks, 5)).toEqual(contextCard(withBlanks, 1));
+    const two: Item = { ...withBlanks, modelBlanks: ["I'll ___ you the ___ today.", 'We\'ll ___ them the report ___.'] };
+    expect(contextCard(two, 0)?.original).toBe("I'll send you the report today.");
+    expect(contextCard(two, 1)?.answers).toEqual(['send', 'today']);
+    const broken: Item = { ...withBlanks, modelBlanks: ['Totally ___ different.', null] };
+    expect(contextCard(broken, 0)).toBeNull();
+  });
+
+  it('gradeContext compares every blank after normalisation', () => {
+    expect(gradeContext(['send', 'report'], ['send', 'report'])).toBe(true);
+    expect(gradeContext([' Send ', 'REPORT.'], ['send', 'report'])).toBe(true);
+    expect(gradeContext(['send', 'mail'], ['send', 'report'])).toBe(false);
+    expect(gradeContext(['send'], ['send', 'report'])).toBe(false);
+  });
+
+  it('contextAnswer rebuilds the sentence the user typed, empty when nothing was typed', () => {
+    const card = contextCard(withBlanks, 0);
+    if (!card) throw new Error('no card');
+    expect(contextAnswer(card, ['send ', 'mail'])).toBe("I'll send you the mail today.");
+    expect(contextAnswer(card, ['', ' '])).toBe('');
+  });
+});
+
 describe('chooseMode (decisions 36, 37)', () => {
   const pick = (o: { box?: Box | null; kind?: string; n: number; last?: boolean; it?: Item }) =>
     chooseMode({
@@ -47,10 +107,10 @@ describe('chooseMode (decisions 36, 37)', () => {
     for (const box of [1, 2] as const) for (let n = 0; n < 8; n++) expect(pick({ box, n })).toBe('write');
   });
 
-  it('box >= 3 with a commonMistake: every 3rd showing is fix, the rest write', () => {
-    const modes = [1, 2, 3, 4, 5, 6].map((n) => pick({ box: 3, n }));
-    expect(modes).toEqual(['write', 'fix', 'write', 'write', 'fix', 'write']);
-    expect(pick({ box: 7, n: 2 })).toBe('fix');
+  it('box >= 3 with a commonMistake but no blanks: every 4th showing is fix (rotation slot 3), the rest write', () => {
+    const modes = [0, 1, 2, 3, 4, 5, 6, 7].map((n) => pick({ box: 3, n }));
+    expect(modes).toEqual(['write', 'write', 'write', 'fix', 'write', 'write', 'write', 'fix']);
+    expect(pick({ box: 7, n: 3 })).toBe('fix');
   });
 
   it('box >= 3 without a commonMistake is always write', () => {
@@ -58,8 +118,8 @@ describe('chooseMode (decisions 36, 37)', () => {
   });
 
   it('never fix on the last card of a round', () => {
-    expect(pick({ box: 4, n: 2, last: false })).toBe('fix');
-    expect(pick({ box: 4, n: 2, last: true })).toBe('write');
+    expect(pick({ box: 4, n: 3, last: false })).toBe('fix');
+    expect(pick({ box: 4, n: 3, last: true })).toBe('write');
   });
 
   it('in-round re-asks are write, whatever the box', () => {
@@ -71,6 +131,10 @@ describe('chooseMode (decisions 36, 37)', () => {
     expect(rot(3)).toEqual(['write', 'fix', 'order', 'write', 'fix', 'order']);
     expect(rot(2)).toEqual(['write', 'write', 'order', 'write', 'write', 'order']);
     expect(pick({ box: 3, kind: 'practice', n: 1, last: true })).toBe('write');
+  });
+
+  it('practice never uses context', () => {
+    for (let n = 0; n < 8; n++) expect(pick({ box: 3, kind: 'practice', n, it: withBlanks })).not.toBe('context');
   });
 
   it('falls back to write when the item cannot do the mode', () => {

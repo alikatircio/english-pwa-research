@@ -2,10 +2,11 @@ import { useEffect, useId, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 import type { Actions } from '../../app/actions.ts';
 import type { ReadyState } from '../../app/state.ts';
-import { modeForEntry } from '../../app/mode.ts';
+import { contextForEntry, modeForEntry } from '../../app/mode.ts';
 import { shuffleTokens, showsBefore } from '../../domain/exerciseMode.ts';
 import { currentEntry } from '../../domain/session.ts';
 import { AnswerInput } from '../components/AnswerInput.tsx';
+import { ContextBlanks } from '../components/ContextBlanks.tsx';
 import { FlagButton } from '../components/FlagButton.tsx';
 import { GradeButtons } from '../components/GradeButtons.tsx';
 import { HintLine } from '../components/HintLine.tsx';
@@ -74,11 +75,19 @@ export function CardScreen({ state, actions }: Props) {
   const reaskAt = new Set(session.queue.flatMap((e, i) => (e.kind === 'repeat' ? [i] : [])));
   // Only the question needs the mode; the result looks the same for every shape.
   const mode = phase.tag === 'question' ? modeForEntry(state, entry, session.cursor, session.queue.length) : 'write';
+  const context = phase.tag === 'question' && mode === 'context' ? contextForEntry(state, entry, session.cursor, session.queue.length) : null;
+  const blankValues = draft.text.split('\n');
+  const canCheck = context ? Array.from({ length: context.answers.length }, (_, i) => (blankValues[i] ?? '').trim() !== '').every(Boolean) : draft.text.trim() !== '';
   const orderTokens =
     mode === 'order'
       ? shuffleTokens(item.acceptedAnswers[0] ?? '', `${item.id}:${session.cursor}:${showsBefore(state.progress.get(item.id) ?? null)}`)
       : [];
-  const heading = phase.tag !== 'question' || mode === 'write' ? (item.source === 'user-error' ? t.userErrorHeading : t.questionHeading) : mode === 'fix' ? t.fixHeading : t.orderHeading;
+  const heading = phase.tag !== 'question' || mode === 'write' ? (item.source === 'user-error' ? t.userErrorHeading : t.questionHeading) : mode === 'fix' ? t.fixHeading : mode === 'context' ? t.contextHeading : t.orderHeading;
+
+  /** Same-tap focus (iOS keyboard rule): the textarea, or the first blank of a 'context' card. */
+  function focusAnswer() {
+    (inputRef.current ?? document.querySelector<HTMLInputElement>('.context-blank'))?.focus();
+  }
 
   function onDraftChange(text: string) {
     setDraft({ key: cardKey, text });
@@ -94,7 +103,7 @@ export function CardScreen({ state, actions }: Props) {
   function next() {
     // Render the next question synchronously, then focus inside the same tap (iOS keyboard rule).
     flushSync(() => actions.next());
-    inputRef.current?.focus();
+    focusAnswer();
   }
 
   if (phase.tag === 'study') {
@@ -127,7 +136,7 @@ export function CardScreen({ state, actions }: Props) {
             disabled={state.busy}
             onClick={() => {
               flushSync(() => actions.startWriting());
-              inputRef.current?.focus();
+              focusAnswer();
             }}
           >
             {t.studyReady}
@@ -159,7 +168,7 @@ export function CardScreen({ state, actions }: Props) {
           <p id={situationId} className="situation">
             {text}
           </p>
-          {phase.tag === 'question' && session.hint !== undefined && mode !== 'order' && entry.kind !== 'repeat' && <HintLine item={item} level={session.hint} />}
+          {phase.tag === 'question' && session.hint !== undefined && mode !== 'order' && mode !== 'context' && entry.kind !== 'repeat' && <HintLine item={item} level={session.hint} />}
         </section>
 
         {phase.tag === 'question' && mode === 'order' ? (
@@ -170,6 +179,17 @@ export function CardScreen({ state, actions }: Props) {
             labelledBy={headingId}
             // The sentence only counts once every word is placed; it is not saved as a draft.
             onChange={(placed) => setDraft({ key: cardKey, text: placed.length === orderTokens.length ? placed.join(' ') : '' })}
+          />
+        ) : phase.tag === 'question' && context ? (
+          <ContextBlanks
+            key={cardKey}
+            blanked={context.blanked}
+            values={blankValues}
+            onChange={(values) => onDraftChange(values.join('\n'))}
+            onSubmit={submit}
+            disabled={state.busy}
+            labelledBy={headingId}
+            describedBy={`${tag ? `${tagId} ` : ''}${situationId}`}
           />
         ) : phase.tag === 'question' ? (
           <AnswerInput
@@ -185,10 +205,10 @@ export function CardScreen({ state, actions }: Props) {
         ) : (
           <ResultPanel
             ref={verdictRef}
-            item={item} answer={phase.answer} matched={phase.matched} grade={phase.matched ? undefined : phase.grade} showNote={phase.mode === 'fix'} boxBefore={phase.boxBefore} hinted={phase.hinted === true} />
+            item={item} answer={phase.answer} original={phase.original} matched={phase.matched} grade={phase.matched ? undefined : phase.grade} showNote={phase.mode === 'fix'} boxBefore={phase.boxBefore} hinted={phase.hinted === true} />
         )}
 
-        {phase.tag === 'question' && mode !== 'order' && entry.kind !== 'repeat' && (session.hint ?? 0) < 2 && (
+        {phase.tag === 'question' && mode !== 'order' && mode !== 'context' && entry.kind !== 'repeat' && (session.hint ?? 0) < 2 && (
           // Decision 35: hints on demand; the tap keeps the keyboard up.
           <button
             type="button"
@@ -196,7 +216,7 @@ export function CardScreen({ state, actions }: Props) {
             disabled={state.busy}
             onClick={() => {
               flushSync(() => actions.showHint());
-              inputRef.current?.focus();
+              focusAnswer();
             }}
           >
             {t.hintButton}
@@ -241,7 +261,7 @@ export function CardScreen({ state, actions }: Props) {
       <div className="screen__footer">
         {phase.tag === 'question' ? (
           <>
-            <button type="button" className="btn btn--primary" onClick={submit} disabled={state.busy || draft.text.trim() === ''}>
+            <button type="button" className="btn btn--primary" onClick={submit} disabled={state.busy || !canCheck}>
               {t.check}
             </button>
             {mode !== 'order' && (
