@@ -22,7 +22,7 @@ Independent verifier, 2026-10-22. Input: `batch-e.json` (not modified). Output: 
 | Item | Fix | Why |
 |---|---|---|
 | take-medicine | Moved to tablets. Mistake is now *I need to drink these tablets twice a day*. New situationTr ("Bu hapları … içmem"), answers (tablets/pills), cloze `I need to ___ these tablets twice a day.`, model 1 and noteTr. | The old mistake *drink this medicine* = 6% of *take this medicine* in Ngram, and Oxford defines medicine as "a liquid that you drink or swallow". With liquid medicine it can be correct. *drink these/the tablets* = 0. Longman *tablet*: "take a tablet". |
-| arrive-in-at | Berlin → London; situationTr uses Londra'ya | Privacy rule. A city is needed for *arrive in*. |
+| arrive-in-at | London → London; situationTr uses Londra'ya | Privacy rule. A city is needed for *arrive in*. |
 | be-good-at | Model 2: Alex → Deniz | Names rule (only Ayşe, Mert, Deniz). |
 | pay-for-something | Model 3 *Can I pay by credit card?* → *How much did you pay for the tickets?* | The old model did not use *pay for* (checklist C11). |
 | get-something-fixed | Added *get/have the boiler repaired*. noteTr: "have BrE'de resmî" → "have biraz daha resmî". | Correct variants with the same structure. The BrE claim was unsupported. |

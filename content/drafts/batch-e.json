@@ -768,23 +768,23 @@
     "level": 2,
     "targetChunk": "arrive in a city / at a place (no 'to')",
     "patternSlots": "arrive ___ ...",
-    "clozeTemplate": "My plane ___ ___ Berlin at five.",
-    "situationTr": "[Arkadaşına mesaj] Uçağının ne zaman varacağını söylüyorsun: \"Uçağım saat beşte Berlin'e varıyor.\"",
+    "clozeTemplate": "My plane ___ ___ London at five.",
+    "situationTr": "[Arkadaşına mesaj] Uçağının ne zaman varacağını söylüyorsun: \"Uçağım saat beşte London'e varıyor.\"",
     "acceptedAnswers": [
-      "My plane arrives in Berlin at five.",
-      "My flight arrives in Berlin at five.",
-      "My plane will arrive in Berlin at five.",
-      "My flight will arrive in Berlin at five."
+      "My plane arrives in London at five.",
+      "My flight arrives in London at five.",
+      "My plane will arrive in London at five.",
+      "My flight will arrive in London at five."
     ],
     "modelSentences": [
-      "My plane arrives in Berlin at five.",
+      "My plane arrives in London at five.",
       "The train arrived at the station twenty minutes late.",
       "Call me when you arrive."
     ],
-    "commonMistake": "My plane arrives to Berlin at five.",
+    "commonMistake": "My plane arrives to London at five.",
     "checklistTr": [
       "arrive'dan sonra to koymadın, değil mi?",
-      "Şehir için in mi? (arrive in Berlin)",
+      "Şehir için in mi? (arrive in London)",
       "Küçük nokta için at mi? (arrive at the airport)"
     ],
     "noteTr": "Türkçe '-e varmak' yönelme ekiyle gelir; İngilizcede arrive to yoktur: şehir ve ülke için in, istasyon ve havalimanı gibi nokta için at kullanılır. Bağlama göre arrive here / there / home edatsızdır.",
