@@ -21,7 +21,7 @@ test.describe('flag ⚑ (decision 12)', () => {
       expect.objectContaining({ itemId: items[0]?.id, screen: 'question', contentVersion: fixture.contentVersion }),
     ]);
 
-    await page.reload();
+    await app.reloadAndResume();
     await expect(app.situation).toHaveText(app.situationOf(1));
     await expect(flag).toHaveAttribute('aria-pressed', 'false');
   });
@@ -37,7 +37,7 @@ test.describe('flag ⚑ (decision 12)', () => {
     await expect(page.getByText(t.flagged)).toHaveCount(0);
     expect(await readStore(page, 'flags')).toEqual([]);
 
-    await page.reload();
+    await app.reloadAndResume();
     await expect(app.situation).toHaveText(app.situationOf(0));
   });
 

@@ -1,12 +1,12 @@
 // Boot: open the DB, read everything into memory, build the catalog and
-// resume the stored round or build a new one (07 §5.2, §3.6).
+// resume the stored round; a new one starts from Home's "Başla" (07 §5.2, §3.6).
 import type { Clock } from '../domain/clock.ts';
 import { isSessionStale } from '../domain/session.ts';
 import type { ContentBundle, SessionState } from '../domain/types.ts';
 import { createCatalog, type Catalog } from '../content/catalog.ts';
 import type { AppDb } from '../storage/db.ts';
 import { clearSession, loadAll } from '../storage/repo.ts';
-import { freshRound, onShowableCard } from './round.ts';
+import { onShowableCard } from './round.ts';
 import type { ReadyState } from './state.ts';
 
 export interface BootDeps {
@@ -46,9 +46,9 @@ export async function boot({ bundle, clock, openDb }: BootDeps): Promise<BootRes
   const flags = new Set(data.flags.map((f) => f.itemId));
   const resumed = resumableSession(data.session, catalog, clock, flags);
   if (data.session && !resumed) await clearSession(db); // dropped silently (02 §3)
-  const session = resumed ?? freshRound({ catalog, progress, flags }, data.counter, clock);
   return {
     db,
-    state: { screen: session ? 'card' : 'done', catalog, progress, flags, counter: data.counter, session },
+    // Always open on Home (05 §1): "Başla · bugün N", "Devam et" or "Bugün bitti".
+    state: { screen: 'home', catalog, progress, flags, counter: data.counter, session: resumed },
   };
 }

@@ -11,6 +11,7 @@ import { HintLine } from '../components/HintLine.tsx';
 import { useDebouncedCallback } from '../hooks/useDebouncedCallback.ts';
 import { useVisualViewportHeight } from '../hooks/useVisualViewportHeight.ts';
 import { ResultPanel } from '../components/ResultPanel.tsx';
+import { RoundDots } from '../components/RoundDots.tsx';
 import { UndoBar } from '../components/UndoBar.tsx';
 import { t } from '../strings.tr.ts';
 
@@ -85,6 +86,7 @@ export function CardScreen({ state, actions }: Props) {
   return (
     <div className="screen card-screen">
       <div className="screen__body">
+        <RoundDots total={session.queue.length} cursor={session.cursor} label={t.roundProgress(session.cursor + 1, session.queue.length)} />
         <section className="question">
           <h2 id={headingId} className="label">
             {t.questionHeading}

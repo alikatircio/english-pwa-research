@@ -1,5 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
 import type { Box, Progress, SessionState } from '../../src/domain/types.ts';
+import { t } from '../../src/ui/strings.tr.ts';
 import { App, items } from './helpers/app.ts';
 import { writeStore } from './helpers/db.ts';
 
@@ -18,6 +19,7 @@ async function seedDue(page: Page, box: Box): Promise<void> {
   await writeStore(page, 'progress', [progress]);
   await writeStore(page, 'session', [session]);
   await page.reload();
+  await page.getByRole('button', { name: t.resume }).click();
 }
 
 test.describe('hint stages (decision 4)', () => {

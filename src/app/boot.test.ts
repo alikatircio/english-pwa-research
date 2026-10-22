@@ -8,6 +8,7 @@ import { commitGrade, saveSession } from '../storage/repo.ts';
 import { newSession, SESSION_MAX_AGE_MS } from '../domain/session.ts';
 import { createCatalog } from '../content/catalog.ts';
 import { boot, resumableSession } from './boot.ts';
+import { freshRound } from './round.ts';
 
 const bundle = fixture as ContentBundle;
 const clock = fixedClock(new Date(2026, 10, 2, 8).getTime());
@@ -27,10 +28,12 @@ describe('boot', () => {
     expect(state.catalog.items).toHaveLength(12);
     expect(state.progress.get('e2e-will-send')?.box).toBe(2);
     expect(state.counter.newIntroduced).toBe(1);
-    expect(state.screen).toBe('card');
+    expect(state.screen).toBe('home'); // always opens on Home (05 §1)
+    expect(state.session).toBeUndefined(); // the round starts from "Başla"
     // One new card already introduced today → 4 of the daily 5 left (decision 3), file order.
-    expect(state.session?.queue).toEqual(bundle.items.slice(1, 5).map((i) => ({ itemId: i.id, kind: 'new' })));
-    expect(state.session?.day).toBe('2026-11-02');
+    const round = freshRound(state, state.counter, clock);
+    expect(round?.queue).toEqual(bundle.items.slice(1, 5).map((i) => ({ itemId: i.id, kind: 'new' })));
+    expect(round?.day).toBe('2026-11-02');
     opened.close();
   });
 });
@@ -66,18 +69,17 @@ describe('boot — session resume', () => {
     expect(session?.phase).toEqual(result.phase);
   });
 
-  it('drops a session older than 12 h and starts fresh', async () => {
+  it('drops a session older than 12 h', async () => {
     const later = new Date(2026, 10, 2, 8).getTime() + SESSION_MAX_AGE_MS + 1;
     const { session, left } = await bootAt(later);
-    expect(session?.cursor).toBe(0);
-    expect(session?.draft).toBe('');
+    expect(session).toBeUndefined();
     expect(left).toBeUndefined();
   });
 
   it('drops a session from another day', async () => {
-    const { session } = await bootAt(new Date(2026, 10, 3, 0, 30).getTime());
-    expect(session?.day).toBe('2026-11-03');
-    expect(session?.cursor).toBe(0);
+    const { session, left } = await bootAt(new Date(2026, 10, 3, 0, 30).getTime());
+    expect(session).toBeUndefined();
+    expect(left).toBeUndefined();
   });
 });
 

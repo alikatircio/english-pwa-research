@@ -34,6 +34,19 @@ export const t = {
   flagged: 'İşaretlendi',
 
   saveFailed: 'Kaydedilemedi. Tekrar dene.',
-  allDone: 'Şimdilik bu kadar.',
-  allDoneDetail: 'Tüm kartları cevapladın. Yeni kartlar sonraki sürümde.',
+
+  // Home (05 §1): the only number is "today's cards".
+  todayCount: (n: number) => `Bugün: ${n} kart`,
+  start: (n: number) => `Başla · bugün ${n}`,
+  resume: 'Devam et',
+  resumeDetail: 'Yarım kalan tur kaldığın karttan açılır.',
+  todayDone: 'Bugün bitti.',
+  todayDoneDetail: 'Yarın görüşürüz.',
+
+  // Round (05 §2–3): no counts, no percentages.
+  roundProgress: (at: number, of: number) => `Turda kart ${at} / ${of}`,
+  roundDone: 'Tur bitti.',
+  roundSummary: (chunks: readonly string[]) => `Bu turda: ${chunks.join(' · ')}`,
+  anotherRound: 'Bir tur daha',
+  enough: 'Bu kadar',
 } as const;

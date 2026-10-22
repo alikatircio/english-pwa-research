@@ -1,6 +1,7 @@
 import '../ui/styles/global.css';
 import { CardScreen } from '../ui/screens/CardScreen.tsx';
-import { DoneScreen } from '../ui/screens/DoneScreen.tsx';
+import { HomeScreen } from '../ui/screens/HomeScreen.tsx';
+import { RoundEndScreen } from '../ui/screens/RoundEndScreen.tsx';
 import { t } from '../ui/strings.tr.ts';
 import { AppProvider, useApp } from './AppContext.tsx';
 
@@ -26,8 +27,9 @@ function CurrentScreen() {
       </div>
     );
   }
-  if (state.screen === 'done' || !state.session) return <DoneScreen />;
-  return <CardScreen state={state} actions={actions} />;
+  if (state.screen === 'roundEnd') return <RoundEndScreen state={state} actions={actions} />;
+  if (state.screen === 'card' && state.session) return <CardScreen state={state} actions={actions} />;
+  return <HomeScreen state={state} actions={actions} />;
 }
 
 export function App() {

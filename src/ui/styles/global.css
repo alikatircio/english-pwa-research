@@ -379,3 +379,46 @@ body {
 .done__title:focus {
   outline: none;
 }
+
+/* Round end: two equal choices, same size and colour (05 §2). */
+.choice-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.btn--choice {
+  width: 100%;
+  min-height: 56px;
+  font-size: 1.125rem;
+}
+
+.round-end__summary {
+  margin: 0;
+  font-size: 1.125rem;
+  line-height: 1.5;
+}
+
+/* Dots inside the round (decision 1); not saved anywhere. */
+.round-dots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.round-dots__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid var(--field-border);
+}
+
+.round-dots__dot--done {
+  background: var(--muted);
+  border-color: var(--muted);
+}
+
+.round-dots__dot--current {
+  background: var(--accent);
+  border-color: var(--accent);
+}

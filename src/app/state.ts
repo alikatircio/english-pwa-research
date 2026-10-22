@@ -1,8 +1,15 @@
 import type { DailyCounter, Progress, SessionState } from '../domain/types.ts';
 import type { Catalog } from '../content/catalog.ts';
 
-export type Screen = 'card' | 'done';
+export type Screen = 'home' | 'card' | 'roundEnd';
 export type AppError = 'save-failed';
+
+/** What the round-end screen shows (05 §3). Kept in memory only, never saved. */
+export interface RoundSummary {
+  studiedChunks: readonly string[];
+  /** Cards are left today, so "Bir tur daha" makes sense. */
+  moreToday: boolean;
+}
 
 export type AppState =
   | { status: 'loading' }
@@ -21,6 +28,8 @@ export interface ReadyState {
    */
   counter: DailyCounter;
   session: SessionState | undefined;
+  /** Set when a round ends; cleared when the next round starts. */
+  lastRound?: RoundSummary | undefined;
   /** A write is in flight; buttons that write are disabled. */
   busy: boolean;
   error?: AppError;
@@ -34,6 +43,10 @@ export type Action =
   | { type: 'graded'; progress?: Progress; counter: DailyCounter; session: SessionState }
   | { type: 'undone'; itemId: string; progress: Progress | null; counter: DailyCounter; session: SessionState }
   | { type: 'flags'; flags: ReadonlySet<string> }
+  /** Day switch or round start: today's counter and the session to show. */
+  | { type: 'day'; counter: DailyCounter; session: SessionState | undefined; screen: Screen }
+  | { type: 'roundEnded'; summary: RoundSummary }
+  | { type: 'screen'; screen: Screen }
   | { type: 'error'; error: AppError }
   | { type: 'clearError' };
 
@@ -70,6 +83,12 @@ export function appReducer(state: AppState, action: Action): AppState {
     }
     case 'flags':
       return { ...state, busy: false, error: undefined, flags: action.flags };
+    case 'day':
+      return { ...state, busy: false, error: undefined, counter: action.counter, session: action.session, screen: action.screen, lastRound: undefined };
+    case 'roundEnded':
+      return { ...state, busy: false, error: undefined, session: undefined, screen: 'roundEnd', lastRound: action.summary };
+    case 'screen':
+      return { ...state, error: undefined, screen: action.screen };
     case 'error':
       return { ...state, busy: false, error: action.error };
     case 'clearError':

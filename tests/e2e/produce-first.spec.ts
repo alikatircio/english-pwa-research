@@ -32,8 +32,10 @@ test.describe('produce-first card', () => {
     const log = await readStore<AnswerLog>(page, 'answerLog');
     expect(log).toEqual([expect.objectContaining({ itemId: items[0]?.id, grade: 'correct', gradedBy: 'auto', answer: typed })]);
 
-    // After a reload the answered card is still answered: Sonraki leads to the second item.
+    // After a reload Home counts one card less; "Devam et" reopens the answered card, Sonraki leads to the second item.
     await page.reload();
+    await expect(app.todayCount).toHaveText(t.todayCount(DAILY_NEW_CAP - 1));
+    await app.resumeButton.click();
     await expect(page.locator('.verdict--ok')).toContainText(t.correct);
     await app.next.click();
     await expect(app.situation).toHaveText(app.situationOf(1));
@@ -66,20 +68,28 @@ test.describe('produce-first card', () => {
     expect(log).toEqual([expect.objectContaining({ grade: 'partial', gradedBy: 'self', boxBefore: null, boxAfter: 1 })]);
   });
 
-  test('the first day offers 5 new cards (decision 3), then the "all done" screen', async ({ page }) => {
+  test('the first day offers 5 new cards (decision 3); then round end and Home say "Bugün bitti"', async ({ page }) => {
     const app = new App(page);
-    await app.open();
+    await app.open('2026-11-02T08:00:00', { start: false });
+    await expect(app.todayCount).toHaveText(t.todayCount(DAILY_NEW_CAP));
+    await expect(app.startButton).toHaveText(t.start(DAILY_NEW_CAP));
+    await app.start();
     for (let i = 0; i < DAILY_NEW_CAP; i++) {
       await expect(app.situation).toHaveText(app.situationOf(i));
       await app.answer(canonical(i));
       await app.next.click();
     }
-    await expect(page.getByText(t.allDone)).toBeVisible();
-    await expect(page.getByRole('heading', { name: t.allDone })).toBeFocused(); // 08 #8
+    await expect(page.getByRole('heading', { name: t.roundDone })).toBeFocused(); // 08 #8
+    // Nothing left today: no "Bir tur daha", only "Bu kadar".
+    await expect(page.getByRole('button', { name: t.anotherRound })).toHaveCount(0);
+    await page.getByRole('button', { name: t.enough }).click();
+    await expect(page.getByRole('heading', { name: t.todayDone })).toBeFocused();
+    await expect(page.getByText(t.todayDoneDetail)).toBeVisible();
+    await expect(page.getByRole('button')).toHaveCount(0); // no bottom button on a finished day
     // Session writes are write-behind (only grades are awaited); wait for the clear before reloading.
     await expect.poll(() => readStore(page, 'session')).toEqual([]);
     await page.reload();
-    await expect(page.getByText(t.allDone)).toBeVisible();
+    await expect(page.getByRole('heading', { name: t.todayDone })).toBeVisible();
   });
 
   test('pattern card: closed after a match, open after an unmatched answer (decision 11)', async ({ page }) => {

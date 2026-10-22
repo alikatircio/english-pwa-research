@@ -4,12 +4,12 @@ import type { Clock } from '../domain/clock.ts';
 import { hintStageFor } from '../domain/hints.ts';
 import { isAccepted } from '../domain/normalize.ts';
 import { applyGrade } from '../domain/scheduler.ts';
-import { countFirstAnswer, currentEntry, onFirstAnswer } from '../domain/session.ts';
-import type { AnswerLog, CardPhase, Flag, Grade, GradedBy, SessionState, UndoSnapshot } from '../domain/types.ts';
+import { countFirstAnswer, currentEntry, emptyCounter, isSessionStale, onFirstAnswer, todayCount } from '../domain/session.ts';
+import type { AnswerLog, CardPhase, DailyCounter, DayKey, Flag, Grade, GradedBy, SessionState, UndoSnapshot } from '../domain/types.ts';
 import type { AppDb } from '../storage/db.ts';
 import { clearSession, commitGrade, loadCounter, saveSession, toggleFlag, undoGrade } from '../storage/repo.ts';
-import { nextCard, poolsOf } from './round.ts';
-import type { Action, AppState, ReadyState } from './state.ts';
+import { freshRound, nextCard, poolsOf } from './round.ts';
+import type { Action, AppState, ReadyState, Screen } from './state.ts';
 
 export interface ActionDeps {
   db: AppDb;
@@ -36,7 +36,7 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
     void (session ? saveSession(db, session) : clearSession(db)).catch(() => undefined);
   }
 
-  function setSession(session: SessionState | undefined, screen?: 'card' | 'done'): void {
+  function setSession(session: SessionState | undefined, screen?: Screen): void {
     dispatch(screen ? { type: 'session', session, screen } : { type: 'session', session });
     persistSession(session);
   }
@@ -99,7 +99,63 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
     }
   }
 
+  /**
+   * Today's counter. Only a round writes a counter and a round counts into the
+   * in-memory one, so a day other than the in-memory one has no counter yet
+   * (Home also reloads it from the DB, see refreshHome).
+   */
+  function todayCounter(s: ReadyState, today: DayKey): DailyCounter {
+    return s.counter.day === today ? s.counter : emptyCounter(today);
+  }
+
+  /** "Başla" / "Bir tur daha": a new round from buildRound, or Home ("Bugün bitti") if nothing is left. Synchronous for iOS focus. */
+  function startRound(): void {
+    const s = ready(getState);
+    if (!s || s.busy || s.session) return;
+    const counter = todayCounter(s, clock.today());
+    const session = freshRound(s, counter, clock);
+    dispatch({ type: 'day', counter, session, screen: session ? 'card' : 'home' });
+    if (session) persistSession(session);
+  }
+
   return {
+    startRound,
+
+    /** "Devam et": back to the open round where it was left; a stale one (other day, > 12 h) is replaced by a new round. */
+    resume(): void {
+      const s = ready(getState);
+      const session = s?.session;
+      if (!s || !session || s.busy) return;
+      if (isSessionStale(session, clock.today(), clock.now())) {
+        setSession(undefined);
+        startRound();
+        return;
+      }
+      dispatch({ type: 'screen', screen: 'card' });
+    },
+
+    /** "Bu kadar": leave the round end for Home. No confirmation, no cost (05 §2). */
+    finish(): void {
+      dispatch({ type: 'screen', screen: 'home' });
+    },
+
+    /**
+     * On Home (mount and return to the app): switch to a new day if the date
+     * changed, dropping a stale round silently (02 §3) and loading today's counter.
+     */
+    async refreshHome(): Promise<void> {
+      const s = ready(getState);
+      if (!s) return;
+      const today = clock.today();
+      const stale = s.session !== undefined && isSessionStale(s.session, today, clock.now());
+      if (!stale && s.counter.day === today) return;
+      const counter = s.counter.day === today ? s.counter : await loadCounter(db, today).catch(() => emptyCounter(today));
+      const now = ready(getState);
+      if (!now || now.screen !== 'home' || now.session !== s.session) return; // the user moved on meanwhile
+      if (stale) persistSession(undefined);
+      dispatch({ type: 'day', counter, session: stale ? undefined : s.session, screen: 'home' });
+    },
+
     /** "Kontrol et": exact match after normalisation → auto "correct", saved immediately. */
     async submitAnswer(text: string): Promise<void> {
       const s = ready(getState);
@@ -161,7 +217,10 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       if (!phase.matched && !phase.grade) return; // must self-grade first
       const moved = nextCard(session, s);
       if (moved === 'round-end') {
-        setSession(undefined, 'done');
+        const today = clock.today();
+        const moreToday = todayCount(poolsOf(s, todayCounter(s, today)), today) > 0;
+        persistSession(undefined);
+        dispatch({ type: 'roundEnded', summary: { studiedChunks: session.studiedChunks, moreToday } });
         return;
       }
       setSession({ ...moved, updatedAt: clock.now() });

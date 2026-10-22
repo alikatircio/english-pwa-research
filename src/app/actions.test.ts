@@ -25,6 +25,7 @@ async function setup({ progress = [] as Progress[], at = T0 } = {}) {
   const store = createStore();
   store.dispatch({ type: 'booted', state });
   const actions = createActions({ db, clock, getState: store.getState, dispatch: store.dispatch });
+  actions.startRound(); // "Başla"
   const ready = (): ReadyState => {
     const s = store.getState();
     if (s.status !== 'ready') throw new Error('not ready');
@@ -91,7 +92,10 @@ describe('actions — round wiring (T4.4)', () => {
 
     app.actions.next();
     expect(app.ready().session).toBeUndefined();
-    expect(app.ready().screen).toBe('done');
+    expect(app.ready().screen).toBe('roundEnd');
+    // Round-end summary: the chunks studied, once each (05 §3); nothing left today.
+    expect(app.ready().lastRound).toEqual({ studiedChunks: bundle.items.slice(0, 5).map((i) => i.targetChunk), moreToday: false });
+    expect(await app.db.get('session', 'current')).toBeUndefined();
     app.db.close();
   });
 
@@ -182,6 +186,56 @@ describe('actions — undo reverts the round effects too (T2.4 + T4.2)', () => {
     expect(s?.repeatQueued).toEqual([a, b]);
     expect(s?.consecutiveWrong).toBe(2);
     expect(s?.studiedChunks).toEqual(beforeThird?.studiedChunks);
+    app.db.close();
+  });
+});
+
+describe('actions — Home and round end (T4.3)', () => {
+  it('"Bir tur daha" builds the next round from what is left; "Bu kadar" goes Home', async () => {
+    const progress = ids.slice(0, 10).map((id, i) => due(id, 1, `2026-10-${String(20 + i).padStart(2, '0')}`));
+    const app = await setup({ progress });
+    expect(app.ready().session?.queue).toHaveLength(8);
+    for (let i = 0; i < 8; i++) {
+      if (i > 0) app.actions.next();
+      await app.answer('correct');
+    }
+    app.actions.next();
+    expect(app.ready().lastRound?.moreToday).toBe(true);
+    app.actions.startRound();
+    // 2 due left (≤ 25), then the new cards up to the round size.
+    expect(app.ready().session?.queue.map((e) => e.kind)).toEqual(['due', 'due', 'new', 'new']);
+    expect(app.ready().screen).toBe('card');
+    expect(app.ready().lastRound).toBeUndefined();
+
+    app.actions.finish();
+    expect(app.ready().screen).toBe('home');
+    expect(app.ready().session).toBeDefined(); // "Devam et"
+    app.actions.resume();
+    expect(app.ready().screen).toBe('card');
+    app.db.close();
+  });
+
+  it('refreshHome after midnight drops the old round and switches to the new day', async () => {
+    const app = await setup({ at: new Date(2026, 10, 2, 23, 50).getTime() });
+    await app.answer('correct');
+    app.actions.finish(); // reopened next morning: on Home (refreshHome only acts there)
+    app.clock.set(new Date(2026, 10, 3, 7, 0).getTime());
+    await app.actions.refreshHome();
+    expect(app.ready().session).toBeUndefined();
+    expect(app.ready().counter).toEqual({ day: '2026-11-03', newIntroduced: 0, reviewsAnswered: 0 });
+    expect(await app.db.get('session', 'current')).toBeUndefined();
+    app.actions.startRound();
+    expect(app.ready().session?.day).toBe('2026-11-03');
+    expect(app.ready().session?.queue).toHaveLength(5);
+    app.db.close();
+  });
+
+  it('"Devam et" on a round older than 12 h starts a new round instead', async () => {
+    const app = await setup();
+    app.clock.advance(13 * 60 * 60 * 1000);
+    app.actions.resume();
+    expect(app.ready().session?.startedAt).toBe(app.clock.now());
+    expect(app.ready().screen).toBe('card');
     app.db.close();
   });
 });

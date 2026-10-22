@@ -1,9 +1,10 @@
 /// <reference lib="dom" />
 import { expect, test } from '@playwright/test';
 import { t } from '../../src/ui/strings.tr.ts';
+import { App } from './helpers/app.ts';
 
 test('answer textarea has the iOS keyboard attributes and a ≥16px font', async ({ page }) => {
-  await page.goto('./');
+  await new App(page).open();
   const input = page.getByRole('textbox', { name: t.questionHeading });
   await expect(input).toBeVisible();
   await expect(input).toHaveAttribute('autocorrect', 'off');
@@ -18,16 +19,19 @@ test('answer textarea has the iOS keyboard attributes and a ≥16px font', async
   expect(fontSize).toBeGreaterThanOrEqual(16);
 });
 
-test('primary button is full width, ≥44px tall, at the bottom, and nothing is position: fixed', async ({ page }) => {
-  await page.goto('./');
-  const button = page.getByRole('button', { name: t.check });
-  const box = await button.boundingBox();
-  const viewport = page.viewportSize();
-  expect(box && viewport).toBeTruthy();
-  if (!box || !viewport) return;
-  expect(box.height).toBeGreaterThanOrEqual(44);
-  expect(box.width).toBeGreaterThan(viewport.width - 40);
-  expect(box.y + box.height).toBeGreaterThan(viewport.height - 80);
-  const fixed = await page.evaluate(() => [...document.querySelectorAll('body *')].filter((el) => getComputedStyle(el).position === 'fixed').length);
-  expect(fixed).toBe(0);
-});
+for (const screen of ['home', 'card'] as const) {
+  test(`${screen}: primary button is full width, ≥44px tall, at the bottom, and nothing is position: fixed`, async ({ page }) => {
+    const app = new App(page);
+    await app.open('2026-11-02T08:00:00', { start: screen === 'card' });
+    const button = screen === 'card' ? page.getByRole('button', { name: t.check }) : app.startButton;
+    const box = await button.boundingBox();
+    const viewport = page.viewportSize();
+    expect(box && viewport).toBeTruthy();
+    if (!box || !viewport) return;
+    expect(box.height).toBeGreaterThanOrEqual(44);
+    expect(box.width).toBeGreaterThan(viewport.width - 40);
+    expect(box.y + box.height).toBeGreaterThan(viewport.height - 80);
+    const fixed = await page.evaluate(() => [...document.querySelectorAll('body *')].filter((el) => getComputedStyle(el).position === 'fixed').length);
+    expect(fixed).toBe(0);
+  });
+}

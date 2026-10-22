@@ -23,13 +23,37 @@ export class App {
     this.check = page.getByRole('button', { name: t.check });
     this.next = page.getByRole('button', { name: t.next });
     this.situation = page.locator('.situation');
+    this.startButton = page.getByRole('button', { name: /^Başla · bugün \d+$/ });
+    this.resumeButton = page.getByRole('button', { name: t.resume });
+    this.todayCount = page.getByTestId('today-count');
   }
 
-  /** Fixed clock (07 §7.3) so day keys are deterministic, then open the app. */
-  async open(time = '2026-11-02T08:00:00'): Promise<void> {
+  /** Home's single bottom button: "Başla · bugün N". */
+  readonly startButton: Locator;
+  readonly resumeButton: Locator;
+  readonly todayCount: Locator;
+
+  /**
+   * Fixed clock (07 §7.3) so day keys are deterministic, then open the app on
+   * Home and (by default) tap "Başla".
+   */
+  async open(time = '2026-11-02T08:00:00', { start = true } = {}): Promise<void> {
     await this.page.clock.install({ time });
     await this.page.goto('./');
-    await expect(this.input).toBeVisible();
+    await expect(this.todayCount).toBeVisible();
+    if (start) await this.start();
+  }
+
+  /** Tap "Başla · bugün N" on Home; the first card opens with the keyboard (focus). */
+  async start(): Promise<void> {
+    await this.startButton.click();
+    await expect(this.input).toBeFocused();
+  }
+
+  /** Reload, then "Devam et" on Home back into the open round. */
+  async reloadAndResume(): Promise<void> {
+    await this.page.reload();
+    await this.resumeButton.click();
   }
 
   /** Situation text without the "[…]" context tag. */

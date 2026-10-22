@@ -19,9 +19,10 @@ test.describe('resume after reload', () => {
     await page.clock.runFor(400); // past the ~300 ms draft debounce
     await expect.poll(() => storedDraft(app)).toBe('Could you che');
 
-    await page.reload();
+    await app.reloadAndResume();
     await expect(app.situation).toHaveText(app.situationOf(1));
     await expect(app.input).toHaveValue('Could you che');
+    await expect(app.input).toBeFocused();
   });
 
   test('a result screen survives a reload as the result screen', async ({ page }) => {
@@ -31,7 +32,7 @@ test.describe('resume after reload', () => {
     await expect(page.getByRole('heading', { name: t.notMatched })).toBeVisible();
     await expect.poll(async () => (await readStore<SessionState>(page, 'session'))[0]?.phase.tag).toBe('result');
 
-    await page.reload();
+    await app.reloadAndResume();
     await expect(page.getByRole('heading', { name: t.notMatched })).toBeVisible();
     await expect(page.locator('.answers__mine')).toHaveText('Totally different');
     await expect(page.getByRole('group', { name: t.howWasIt })).toBeVisible();
@@ -46,6 +47,8 @@ test.describe('resume after reload', () => {
 
     await page.clock.setSystemTime(new Date('2026-11-02T20:30:00'));
     await page.reload();
+    await expect(app.resumeButton).toHaveCount(0);
+    await app.start();
     await expect(app.situation).toHaveText(app.situationOf(0));
     await expect(app.input).toHaveValue('');
   });
