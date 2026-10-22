@@ -9,7 +9,9 @@
 //      the returned function removes the listener on unmount.
 //
 // A new version that arrives while the user is already on Home is NOT applied until the
-// next Home mount or the next return to the app, so a tap is never interrupted.
+// next Home mount or the next return to the app, so a tap is never interrupted. When the
+// new SW finally takes control, Home is checked again before reloading: if the user has
+// left Home (or started a round) meanwhile, the reload waits for the next safe Home moment.
 import { registerSW } from 'virtual:pwa-register';
 import { mayReloadNow, shouldCheckForUpdate } from './updatePolicy.ts';
 
@@ -18,9 +20,11 @@ let started = false;
 let updateReady = false;
 /** The new SW already took control elsewhere; only a reload is left to do. */
 let controllerChanged = false;
-/** We asked the waiting SW to activate; the reload follows from `onNeedReload`. */
+/** We asked the waiting SW to activate (or are reloading); `onNeedReload` re-checks Home before reloading. */
 let applying = false;
 let activateWaitingSW: (() => Promise<void>) | undefined;
+/** Set while Home is mounted (applyUpdateOnHome); undefined on every other screen. */
+let home: { hasSession: boolean } | undefined;
 let registration: ServiceWorkerRegistration | undefined;
 let lastCheckAt: number | undefined;
 
@@ -34,13 +38,15 @@ export function startServiceWorker(): void {
       updateReady = true;
     },
     onNeedReload() {
-      if (applying) {
-        window.location.reload();
-        return;
-      }
-      // Activated from another tab/window: defer the reload to the next safe Home moment.
+      // The new SW controls the page now. Activation can take a while (cache cleanup), and
+      // the user may have left Home meanwhile (e.g. tapped "Başla"): check again (09 #2).
+      const requested = applying;
+      applying = false;
       controllerChanged = true;
       updateReady = true;
+      if (requested && safeToReload()) reload();
+      // Otherwise (another screen, a round open, or activated from another tab): the reload
+      // waits for the next safe Home moment (Home mount or return to the app).
     },
     onRegisteredSW(_swUrl, reg) {
       registration = reg;
@@ -64,14 +70,23 @@ function checkForUpdate(): void {
   registration.update().catch(() => undefined);
 }
 
-function tryApplyOnHome(hasSession: boolean): void {
-  if (applying) return;
+/** Home is shown with no round open and the page is visible, right now. */
+function safeToReload(): boolean {
   const visible = document.visibilityState === 'visible';
-  if (!mayReloadNow({ updateReady, screen: 'home', hasSession, visible })) return;
+  return mayReloadNow({ updateReady, screen: home ? 'home' : 'other', hasSession: home?.hasSession ?? true, visible });
+}
+
+function reload(): void {
   applying = true;
+  window.location.reload();
+}
+
+function tryApplyOnHome(): void {
+  if (applying || !safeToReload()) return;
   if (controllerChanged) {
-    window.location.reload();
+    reload();
   } else {
+    applying = true;
     // Sends SKIP_WAITING; the page reloads once the new SW controls it (`onNeedReload`).
     void activateWaitingSW?.();
   }
@@ -83,10 +98,15 @@ function tryApplyOnHome(hasSession: boolean): void {
  * `useEffect` return value).
  */
 export function applyUpdateOnHome({ hasSession }: { hasSession: boolean }): () => void {
-  tryApplyOnHome(hasSession);
+  const mounted = { hasSession };
+  home = mounted;
+  tryApplyOnHome();
   const onVisibility = () => {
-    if (document.visibilityState === 'visible') tryApplyOnHome(hasSession);
+    if (document.visibilityState === 'visible') tryApplyOnHome();
   };
   document.addEventListener('visibilitychange', onVisibility);
-  return () => document.removeEventListener('visibilitychange', onVisibility);
+  return () => {
+    if (home === mounted) home = undefined;
+    document.removeEventListener('visibilitychange', onVisibility);
+  };
 }
