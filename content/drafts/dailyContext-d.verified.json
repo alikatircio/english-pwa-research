@@ -1,0 +1,78 @@
+{
+  "would-it-be-possible-to": {
+    "sentence": "Would it be possible to get a table by the window?",
+    "blank": "Would it be possible ___ get a table by the window?"
+  },
+  "be-supposed-to": null,
+  "be-about-to": null,
+  "used-to-do": {
+    "sentence": "Deniz never used to like fish, but now he eats it every day.",
+    "blank": "Deniz never ___ ___ like fish, but now he eats it every day."
+  },
+  "be-used-to-doing": null,
+  "look-forward-to-doing": {
+    "sentence": "Ayşe is really looking forward to seeing her cousins.",
+    "blank": "Ayşe is really looking forward ___ seeing her cousins."
+  },
+  "suggest-doing": null,
+  "suggest-that-clause": null,
+  "prevent-from-doing": {
+    "sentence": "The gate prevents our dog from running onto the road.",
+    "blank": "The gate prevents our dog ___ running onto the road."
+  },
+  "verify-that-clause": null,
+  "ensure-that-clause": null,
+  "walk-someone-through": {
+    "sentence": "Could you walk me through the recipe step by step?",
+    "blank": "Could you walk me ___ the recipe step by step?"
+  },
+  "due-to-noun": null,
+  "despite-doing": {
+    "sentence": "Despite feeling tired, Ayşe went for a run.",
+    "blank": "___ feeling tired, Ayşe went for a run."
+  },
+  "although-clause": null,
+  "given-that-clause": null,
+  "as-a-result-of-noun": null,
+  "affect-vs-effect": {
+    "sentence": "The cough medicine has a few side effects, like feeling sleepy.",
+    "blank": "The cough medicine has a few side ___, like feeling sleepy."
+  },
+  "impact-on": {
+    "sentence": "Moving to the coast had a big impact on Ayşe's health.",
+    "blank": "Moving to the coast had a big impact ___ Ayşe's health."
+  },
+  "reason-for": {
+    "sentence": "Deniz never explained his reason for leaving the party early.",
+    "blank": "Deniz never explained his reason ___ leaving the party early."
+  },
+  "solution-to": null,
+  "have-access-to": {
+    "sentence": "Guests have free access to the garden.",
+    "blank": "Guests have free access ___ the garden."
+  },
+  "increase-in": {
+    "sentence": "There was a sharp increase in ticket prices this summer.",
+    "blank": "There was a sharp increase ___ ticket prices this summer."
+  },
+  "result-in": {
+    "sentence": "The storm resulted in a power cut.",
+    "blank": "The storm resulted ___ a power cut."
+  },
+  "mitigate-the-risk": null,
+  "address-an-issue": null,
+  "raise-a-concern": null,
+  "it-might-be-worth-doing": {
+    "sentence": "It might be worth taking an umbrella today.",
+    "blank": "It might be ___ taking an umbrella today."
+  },
+  "i-see-your-point-but": {
+    "sentence": "I see your point, but I still want pasta.",
+    "blank": "I see your ___, but I still want pasta."
+  },
+  "to-sum-up": {
+    "sentence": "To sum up, we need tickets, a hotel and a car.",
+    "blank": "To sum ___, we need tickets, a hotel and a car."
+  },
+  "whereas-contrast": null
+}

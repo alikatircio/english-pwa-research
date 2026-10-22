@@ -1,0 +1,128 @@
+{
+  "could-you-base-verb": {
+    "sentence": "I wish I could swim as fast as Deniz.",
+    "blank": "I wish I ___ swim as fast as Deniz."
+  },
+  "will-base-verb": {
+    "sentence": "I promise I will call you tonight, Ayşe.",
+    "blank": "I promise I ___ call you tonight, Ayşe."
+  },
+  "need-to-do": {
+    "sentence": "I need to buy milk on the way home.",
+    "blank": "I need ___ buy milk on the way home."
+  },
+  "let-me-check": {
+    "sentence": "Ayşe, let me carry that bag for you.",
+    "blank": "Ayşe, let ___ carry that bag for you."
+  },
+  "i-agree-with-you": {
+    "sentence": "I completely agree with Deniz about this restaurant.",
+    "blank": "I completely agree ___ Deniz about this restaurant."
+  },
+  "didnt-fail": {
+    "sentence": "Mert didn't like the film, but I loved it.",
+    "blank": "Mert ___ like the film, but I loved it."
+  },
+  "the-test-passed": null,
+  "be-able-to": {
+    "sentence": "Last night I just wasn't able to sleep at all.",
+    "blank": "Last night I just wasn't ___ ___ sleep at all."
+  },
+  "want-someone-to": {
+    "sentence": "Mom wants me to call her every Sunday.",
+    "blank": "Mom wants me ___ call her every Sunday."
+  },
+  "explain-something-to-someone": {
+    "sentence": "Can you explain the board game rules to Deniz?",
+    "blank": "Can you explain the board game rules ___ Deniz?"
+  },
+  "discuss-something": {
+    "sentence": "Ayşe and Mert like to discuss books over coffee.",
+    "blank": "Ayşe and Mert like to ___ books over coffee."
+  },
+  "remind-someone-to": {
+    "sentence": "Can you remind me to buy milk on the way home?",
+    "blank": "Can you remind me ___ buy milk on the way home?"
+  },
+  "share-something-with-someone": {
+    "sentence": "I shared my umbrella with Ayşe on the way home.",
+    "blank": "I shared my umbrella ___ Ayşe on the way home."
+  },
+  "take-a-look-at-it": {
+    "sentence": "Could you take a look at my bike, Mert? The brake is loose.",
+    "blank": "Could you take a look ___ my bike, Mert? The brake is loose."
+  },
+  "fix-it-today": {
+    "sentence": "The tap is dripping, but I'll fix it this weekend.",
+    "blank": "The tap is dripping, but I'll fix ___ this weekend."
+  },
+  "tell-someone-about": {
+    "sentence": "I told Ayşe about the surprise party yesterday.",
+    "blank": "I told Ayşe ___ the surprise party yesterday."
+  },
+  "ask-someone-to": {
+    "sentence": "I asked Deniz to turn the music down.",
+    "blank": "I asked Deniz ___ turn the music down."
+  },
+  "inform-someone-about": null,
+  "mention-something": {
+    "sentence": "Ayşe briefly mentioned her holiday and then changed the subject.",
+    "blank": "Ayşe briefly ___ her holiday and then changed the subject."
+  },
+  "update-someone-on": {
+    "sentence": "Text me tonight and I'll update you on the plan.",
+    "blank": "Text me tonight and I'll update you ___ the plan."
+  },
+  "data-uncountable": {
+    "sentence": "I'm almost out of mobile data this month.",
+    "blank": "I'm almost out of mobile ___ this month."
+  },
+  "feedback-uncountable": {
+    "sentence": "Deniz asked for honest feedback on his new playlist.",
+    "blank": "Deniz asked for honest ___ on his new playlist."
+  },
+  "information-uncountable": {
+    "sentence": "The hotel desk gave us all the information about the bus times.",
+    "blank": "The hotel desk gave us all the ___ about the bus times."
+  },
+  "software-uncountable": {
+    "sentence": "My laptop is slow because the software is out of date.",
+    "blank": "My laptop is slow because the ___ is out of date."
+  },
+  "deployment-was-successful": {
+    "sentence": "Our camping trip was a big success, even in the rain.",
+    "blank": "Our camping trip was a big ___, even in the rain."
+  },
+  "set-up-verb": {
+    "sentence": "Mert helped me set up my new TV.",
+    "blank": "Mert helped me set ___ my new TV."
+  },
+  "log-in-to": {
+    "sentence": "I can't log in to my bank app.",
+    "blank": "I can't log ___ to my bank app."
+  },
+  "reminder-noun": {
+    "sentence": "My phone showed a reminder about my dentist appointment.",
+    "blank": "My phone showed a ___ about my dentist appointment."
+  },
+  "waiting-for-approval": {
+    "sentence": "Mert's visa is still waiting for approval.",
+    "blank": "Mert's visa is still waiting for ___."
+  },
+  "failure-noun": {
+    "sentence": "Ayşe's first attempt at baking bread was a total failure.",
+    "blank": "Ayşe's first attempt at baking bread was a total ___."
+  },
+  "dependent-on": {
+    "sentence": "Our picnic is dependent on the weather.",
+    "blank": "Our picnic is dependent ___ the weather."
+  },
+  "analysis-of": {
+    "sentence": "My teacher gave a detailed analysis of the poem.",
+    "blank": "My teacher gave a detailed ___ of the poem."
+  },
+  "judgmental-question": {
+    "sentence": "Don't be so judgmental about what Mert eats.",
+    "blank": "Don't be so ___ about what Mert eats."
+  }
+}

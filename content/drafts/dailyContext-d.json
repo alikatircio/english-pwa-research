@@ -1,0 +1,96 @@
+{
+  "would-it-be-possible-to": {
+    "sentence": "Would it be possible to move our table by the window?",
+    "blank": "Would it be possible ___ move our table by the window?"
+  },
+  "be-supposed-to": {
+    "sentence": "Mert was supposed to bring snacks, but he forgot.",
+    "blank": "Mert was ___ ___ bring snacks, but he forgot."
+  },
+  "be-about-to": {
+    "sentence": "We were about to leave when it started to rain.",
+    "blank": "We were ___ ___ leave when it started to rain."
+  },
+  "used-to-do": {
+    "sentence": "Deniz used to live next to the sea.",
+    "blank": "Deniz ___ ___ live next to the sea."
+  },
+  "be-used-to-doing": {
+    "sentence": "I'm used to getting up early, so it's fine.",
+    "blank": "I'm ___ ___ getting up early, so it's fine."
+  },
+  "look-forward-to-doing": {
+    "sentence": "Ayşe is really looking forward to seeing her cousins.",
+    "blank": "Ayşe is really looking forward ___ seeing her cousins."
+  },
+  "suggest-doing": null,
+  "suggest-that-clause": null,
+  "prevent-from-doing": {
+    "sentence": "The gate prevents our dog from running onto the road.",
+    "blank": "The gate prevents our dog ___ running onto the road."
+  },
+  "verify-that-clause": null,
+  "ensure-that-clause": null,
+  "walk-someone-through": {
+    "sentence": "Could you walk me through the recipe step by step?",
+    "blank": "Could you walk me ___ the recipe step by step?"
+  },
+  "due-to-noun": {
+    "sentence": "Our flight was delayed due to heavy fog.",
+    "blank": "Our flight was delayed ___ to heavy fog."
+  },
+  "despite-doing": {
+    "sentence": "Despite feeling tired, Ayşe went for a run.",
+    "blank": "___ feeling tired, Ayşe went for a run."
+  },
+  "although-clause": null,
+  "given-that-clause": null,
+  "as-a-result-of-noun": {
+    "sentence": "Ayşe was late as a result of a traffic jam.",
+    "blank": "Ayşe was late as a ___ of a traffic jam."
+  },
+  "affect-vs-effect": {
+    "sentence": "The cough medicine has a few side effects, like feeling sleepy.",
+    "blank": "The cough medicine has a few side ___, like feeling sleepy."
+  },
+  "impact-on": {
+    "sentence": "Moving to the coast had a big impact on Ayşe's health.",
+    "blank": "Moving to the coast had a big impact ___ Ayşe's health."
+  },
+  "reason-for": {
+    "sentence": "The reason for Mert's good mood is obvious: it's Friday.",
+    "blank": "The reason ___ Mert's good mood is obvious: it's Friday."
+  },
+  "solution-to": {
+    "sentence": "We found a simple solution to the noisy neighbour problem.",
+    "blank": "We found a simple solution ___ the noisy neighbour problem."
+  },
+  "have-access-to": {
+    "sentence": "Guests have free access to the garden.",
+    "blank": "Guests have free access ___ the garden."
+  },
+  "increase-in": {
+    "sentence": "There was a sharp increase in ticket prices this summer.",
+    "blank": "There was a sharp increase ___ ticket prices this summer."
+  },
+  "result-in": {
+    "sentence": "The storm resulted in a power cut.",
+    "blank": "The storm resulted ___ a power cut."
+  },
+  "mitigate-the-risk": null,
+  "address-an-issue": null,
+  "raise-a-concern": null,
+  "it-might-be-worth-doing": {
+    "sentence": "It might be worth taking an umbrella today.",
+    "blank": "It might be ___ taking an umbrella today."
+  },
+  "i-see-your-point-but": {
+    "sentence": "I see your point, but I still want pasta.",
+    "blank": "I see your ___, but I still want pasta."
+  },
+  "to-sum-up": {
+    "sentence": "To sum up, we need tickets, a hotel and a car.",
+    "blank": "To sum ___, we need tickets, a hotel and a car."
+  },
+  "whereas-contrast": null
+}

@@ -1,0 +1,89 @@
+{
+  "could-you-base-verb": {
+    "sentence": "I wish I could swim as fast as Deniz.",
+    "blank": "I wish I ___ swim as fast as Deniz."
+  },
+  "will-base-verb": {
+    "sentence": "I promise I will call you tonight, Ayşe.",
+    "blank": "I promise I ___ call you tonight, Ayşe."
+  },
+  "need-to-do": {
+    "sentence": "I need to buy milk on the way home.",
+    "blank": "I need ___ buy milk on the way home."
+  },
+  "let-me-check": {
+    "sentence": "Let me carry that bag, Ayşe. I insist.",
+    "blank": "Let ___ carry that bag, Ayşe. I insist."
+  },
+  "i-agree-with-you": {
+    "sentence": "I completely agree with Deniz about this restaurant.",
+    "blank": "I completely agree ___ Deniz about this restaurant."
+  },
+  "didnt-fail": {
+    "sentence": "Mert didn't like the film, but I loved it.",
+    "blank": "Mert ___ like the film, but I loved it."
+  },
+  "the-test-passed": null,
+  "be-able-to": {
+    "sentence": "Last night I just wasn't able to sleep at all.",
+    "blank": "Last night I just wasn't ___ ___ sleep at all."
+  },
+  "want-someone-to": {
+    "sentence": "Mom wants me to call her every Sunday.",
+    "blank": "Mom wants me ___ call her every Sunday."
+  },
+  "explain-something-to-someone": {
+    "sentence": "Can you explain the board game rules to Deniz?",
+    "blank": "Can you explain the board game rules ___ Deniz?"
+  },
+  "discuss-something": null,
+  "remind-someone-to": {
+    "sentence": "Can you remind me to buy milk on the way home?",
+    "blank": "Can you remind me ___ buy milk on the way home?"
+  },
+  "share-something-with-someone": {
+    "sentence": "I shared my umbrella with Ayşe on the way home.",
+    "blank": "I shared my umbrella ___ Ayşe on the way home."
+  },
+  "take-a-look-at-it": {
+    "sentence": "Could you take a look at my bike, Mert? The brake is loose.",
+    "blank": "Could you take a look ___ my bike, Mert? The brake is loose."
+  },
+  "fix-it-today": null,
+  "tell-someone-about": {
+    "sentence": "I told Ayşe about the surprise party yesterday.",
+    "blank": "I told Ayşe ___ the surprise party yesterday."
+  },
+  "ask-someone-to": {
+    "sentence": "I asked Deniz to turn the music down.",
+    "blank": "I asked Deniz ___ turn the music down."
+  },
+  "inform-someone-about": null,
+  "mention-something": {
+    "sentence": "Ayşe only mentioned her holiday in passing and then changed the subject.",
+    "blank": "Ayşe only ___ her holiday in passing and then changed the subject."
+  },
+  "update-someone-on": null,
+  "data-uncountable": {
+    "sentence": "I've already used up my 10 GB of mobile data this month.",
+    "blank": "I've already used up my 10 GB of mobile ___ this month."
+  },
+  "feedback-uncountable": null,
+  "information-uncountable": null,
+  "software-uncountable": null,
+  "deployment-was-successful": null,
+  "set-up-verb": {
+    "sentence": "Mert helped me set up my new TV.",
+    "blank": "Mert helped me set ___ my new TV."
+  },
+  "log-in-to": null,
+  "reminder-noun": null,
+  "waiting-for-approval": null,
+  "failure-noun": null,
+  "dependent-on": {
+    "sentence": "Our picnic is dependent on the weather.",
+    "blank": "Our picnic is dependent ___ the weather."
+  },
+  "analysis-of": null,
+  "judgmental-question": null
+}

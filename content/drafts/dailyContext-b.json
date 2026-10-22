@@ -1,0 +1,120 @@
+{
+  "depend-on": {
+    "sentence": "Whether we go hiking depends on the weather.",
+    "blank": "Whether we go hiking depends ___ the weather."
+  },
+  "responsible-for": {
+    "sentence": "Deniz is responsible for watering the plants.",
+    "blank": "Deniz is responsible ___ watering the plants."
+  },
+  "wait-for": {
+    "sentence": "We're waiting for the bus to arrive.",
+    "blank": "We're waiting ___ the bus to arrive."
+  },
+  "join-call-no-to": {
+    "sentence": "Ayşe decided to join the local running club.",
+    "blank": "Ayşe decided to ___ the local running club."
+  },
+  "related-to": {
+    "sentence": "Is Deniz related to the café owner?",
+    "blank": "Is Deniz related ___ the café owner?"
+  },
+  "during-the-daily": {
+    "sentence": "Please keep your phone off during the film.",
+    "blank": "Please keep your phone off ___ the film."
+  },
+  "ask-for-access": {
+    "sentence": "I asked for a window seat on the train.",
+    "blank": "I asked ___ a window seat on the train."
+  },
+  "comment-on": {
+    "sentence": "Ayşe commented on my new haircut.",
+    "blank": "Ayşe commented ___ my new haircut."
+  },
+  "reply-to": {
+    "sentence": "I forgot to reply to Mert's message.",
+    "blank": "I forgot to reply ___ Mert's message."
+  },
+  "help-with": {
+    "sentence": "Could you help me with the shopping bags?",
+    "blank": "Could you help me ___ the shopping bags?"
+  },
+  "attend-meeting-no-to": {
+    "sentence": "Deniz can't attend the wedding because he's abroad.",
+    "blank": "Deniz can't ___ the wedding because he's abroad."
+  },
+  "reach-out-to": {
+    "sentence": "If you feel lonely, reach out to a friend.",
+    "blank": "If you feel lonely, reach ___ ___ a friend."
+  },
+  "by-deadline": {
+    "sentence": "I need the dress back by Friday at the latest.",
+    "blank": "I need the dress back ___ Friday at the latest."
+  },
+  "until-duration": {
+    "sentence": "Deniz will be abroad until the end of June.",
+    "blank": "Deniz will be abroad ___ the end of June."
+  },
+  "agree-with-someone": {
+    "sentence": "I rarely agree with Mert about food.",
+    "blank": "I rarely agree ___ Mert about food."
+  },
+  "consist-of": {
+    "sentence": "The set menu consists of three courses.",
+    "blank": "The set menu consists ___ three courses."
+  },
+  "reproduce-the-issue": null,
+  "assign-something-to-someone": {
+    "sentence": "Ayşe assigned the washing-up to Mert.",
+    "blank": "Ayşe assigned the washing-up ___ Mert."
+  },
+  "get-back-to-someone": {
+    "sentence": "I'll get back to you about dinner tonight.",
+    "blank": "I'll get ___ ___ you about dinner tonight."
+  },
+  "log-a-bug": null,
+  "have-a-meeting": {
+    "sentence": "We're having a meeting with Deniz's teacher at 3.",
+    "blank": "We're ___ a meeting with Deniz's teacher at 3."
+  },
+  "look-into-it": {
+    "sentence": "The washing machine keeps leaking, so I'll look into it.",
+    "blank": "The washing machine keeps leaking, so I'll look ___ it."
+  },
+  "escalate-issue-to": null,
+  "follow-up-on": {
+    "sentence": "I need to follow up on my online order; it hasn't arrived.",
+    "blank": "I need to follow ___ ___ my online order; it hasn't arrived."
+  },
+  "blocked-by": {
+    "sentence": "The driveway is blocked by a delivery van.",
+    "blank": "The driveway is blocked ___ a delivery van."
+  },
+  "roll-back-release": {
+    "sentence": "Mert rolled back the update on his phone.",
+    "blank": "Mert rolled ___ the update on his phone."
+  },
+  "flaky-test": null,
+  "keep-me-in-the-loop": {
+    "sentence": "Please keep me in the loop about the wedding plans.",
+    "blank": "Please keep me ___ ___ loop about the wedding plans."
+  },
+  "a-heads-up": {
+    "sentence": "Thanks for the heads-up about the traffic, Mert.",
+    "blank": "Thanks for the ___ about the traffic, Mert."
+  },
+  "issue-has-come-up-again": {
+    "sentence": "That old topic has come up again at family dinner.",
+    "blank": "That old topic has come ___ again at family dinner."
+  },
+  "address-review-comments": null,
+  "sign-off-on": {
+    "sentence": "Deniz's dad finally signed off on the holiday plan.",
+    "blank": "Deniz's dad finally signed ___ ___ the holiday plan."
+  },
+  "edge-case": null,
+  "grant-someone-access-to": {
+    "sentence": "The landlord granted us access to the garden.",
+    "blank": "The landlord granted us access ___ the garden."
+  }
+}

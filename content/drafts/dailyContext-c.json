@@ -1,0 +1,119 @@
+{
+  "does-the-test-pass-question": {
+    "sentence": "Does Ayşe like spicy food, or should I cook something mild?",
+    "blank": "___ Ayşe like spicy food, or should I cook something mild?"
+  },
+  "has-been-failing-since": {
+    "sentence": "Mert has been learning guitar since March.",
+    "blank": "Mert ___ ___ learning guitar ___ March."
+  },
+  "it-turned-out-that": {
+    "sentence": "It turned out that the shop was closed on Sundays.",
+    "blank": "It ___ ___ that the shop was closed on Sundays."
+  },
+  "not-sure-whether": {
+    "sentence": "I'm not sure whether or not Deniz is coming.",
+    "blank": "I'm not sure ___ or not Deniz is coming."
+  },
+  "had-to-rerun": {
+    "sentence": "Yesterday I had to wait an hour for the train.",
+    "blank": "Yesterday I ___ ___ wait an hour for the train."
+  },
+  "should-have-tested": {
+    "sentence": "We should have booked a table; the place is full.",
+    "blank": "We ___ ___ booked a table; the place is full."
+  },
+  "make-sure-the-tests-pass": {
+    "sentence": "Make sure you lock the door when you leave.",
+    "blank": "___ ___ you lock the door when you leave."
+  },
+  "describe-something-to-someone": {
+    "sentence": "Ayşe described the hotel to us in detail.",
+    "blank": "Ayşe described the hotel ___ us in detail."
+  },
+  "point-it-out": {
+    "sentence": "Mert noticed the stain on her shirt and pointed it out to her.",
+    "blank": "Mert noticed the stain on her shirt and pointed it ___ to her."
+  },
+  "investigate-the-failure": null,
+  "clarify-the-requirements": null,
+  "attach-logs-to-the-ticket": {
+    "sentence": "Ayşe attached the photos to her email.",
+    "blank": "Ayşe attached the photos ___ her email."
+  },
+  "hand-over-to": {
+    "sentence": "Deniz handed over the keys to the new tenant.",
+    "blank": "Deniz handed ___ the keys ___ the new tenant."
+  },
+  "contact-someone": null,
+  "fails-intermittently": {
+    "sentence": "The wifi in our flat drops out intermittently.",
+    "blank": "The wifi in our flat drops out ___."
+  },
+  "progress-uncountable": {
+    "sentence": "Mert is making good progress with his Spanish lessons.",
+    "blank": "Mert is making good ___ with his Spanish lessons."
+  },
+  "documentation-uncountable": null,
+  "a-lot-of-work": {
+    "sentence": "I have a lot of work to do in the garden this weekend.",
+    "blank": "I have a lot of ___ to do in the garden this weekend."
+  },
+  "in-terms-of": {
+    "sentence": "In terms of price, this phone plan is the best.",
+    "blank": "In ___ of price, this phone plan is the best."
+  },
+  "prioritise-verb": {
+    "sentence": "Mert needs to prioritise sleep over video games.",
+    "blank": "Mert needs to ___ sleep over video games."
+  },
+  "clarification-noun": null,
+  "on-leave": {
+    "sentence": "Deniz is on leave this week, so we're going camping.",
+    "blank": "Deniz is ___ leave this week, so we're going camping."
+  },
+  "in-charge-of": {
+    "sentence": "Mert is in charge of the barbecue.",
+    "blank": "Mert is in ___ of the barbecue."
+  },
+  "get-rid-of": {
+    "sentence": "We should get rid of the old sofa.",
+    "blank": "We should get ___ of the old sofa."
+  },
+  "familiar-with": {
+    "sentence": "I'm not familiar with this neighbourhood.",
+    "blank": "I'm not familiar ___ this neighbourhood."
+  },
+  "similar-to": {
+    "sentence": "Your jacket is similar to mine.",
+    "blank": "Your jacket is similar ___ mine."
+  },
+  "focus-on": {
+    "sentence": "Ayşe is trying to focus on her book.",
+    "blank": "Ayşe is trying to focus ___ her book."
+  },
+  "catch-up-on": {
+    "sentence": "I need to catch up on sleep this weekend.",
+    "blank": "I need to catch ___ ___ sleep this weekend."
+  },
+  "run-tests-against-staging": null,
+  "merge-pr-into-main": null,
+  "revert-the-change": null,
+  "take-over-from": {
+    "sentence": "Deniz is taking over the driving from Mert.",
+    "blank": "Deniz is taking ___ the driving ___ Mert."
+  },
+  "double-check": {
+    "sentence": "I'll double-check the oven is off before we leave.",
+    "blank": "I'll ___ the oven is off before we leave."
+  },
+  "run-out-of-time": {
+    "sentence": "We ran out of milk, so I went to the shop.",
+    "blank": "We ran ___ ___ milk, so I went to the shop."
+  },
+  "as-far-as-i-know": {
+    "sentence": "As far as I know, the shop closes at six.",
+    "blank": "As ___ as I know, the shop closes at six."
+  },
+  "mention-someone-in-a-comment": null
+}

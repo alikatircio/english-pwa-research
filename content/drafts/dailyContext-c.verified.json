@@ -1,0 +1,98 @@
+{
+  "does-the-test-pass-question": {
+    "sentence": "Does Ayşe like spicy food? I can never remember.",
+    "blank": "___ Ayşe like spicy food? I can never remember."
+  },
+  "has-been-failing-since": {
+    "sentence": "Mert has been learning guitar since March.",
+    "blank": "Mert ___ ___ learning guitar ___ March."
+  },
+  "it-turned-out-that": {
+    "sentence": "We drove all the way there, but it turned out that the shop was closed on Sundays.",
+    "blank": "We drove all the way there, but it ___ ___ that the shop was closed on Sundays."
+  },
+  "not-sure-whether": {
+    "sentence": "I'm not sure whether or not Deniz is coming.",
+    "blank": "I'm not sure ___ or not Deniz is coming."
+  },
+  "had-to-rerun": {
+    "sentence": "Yesterday I had to wait an hour for the train, so I was late.",
+    "blank": "Yesterday I ___ ___ wait an hour for the train, so I was late."
+  },
+  "should-have-tested": null,
+  "make-sure-the-tests-pass": null,
+  "describe-something-to-someone": {
+    "sentence": "Ayşe described the hotel to us in detail.",
+    "blank": "Ayşe described the hotel ___ us in detail."
+  },
+  "point-it-out": {
+    "sentence": "Mert noticed the stain on her shirt and pointed it out to her.",
+    "blank": "Mert noticed the stain on her shirt and pointed it ___ to her."
+  },
+  "investigate-the-failure": null,
+  "clarify-the-requirements": null,
+  "attach-logs-to-the-ticket": {
+    "sentence": "Ayşe attached the photos to her email.",
+    "blank": "Ayşe attached the photos ___ her email."
+  },
+  "hand-over-to": {
+    "sentence": "Deniz handed over the keys to the new tenant.",
+    "blank": "Deniz handed ___ the keys ___ the new tenant."
+  },
+  "contact-someone": null,
+  "fails-intermittently": null,
+  "progress-uncountable": {
+    "sentence": "Mert is making good progress with his Spanish lessons.",
+    "blank": "Mert is making good ___ with his Spanish lessons."
+  },
+  "documentation-uncountable": null,
+  "a-lot-of-work": null,
+  "in-terms-of": {
+    "sentence": "In terms of price, this phone plan is the best.",
+    "blank": "In ___ of price, this phone plan is the best."
+  },
+  "prioritise-verb": null,
+  "clarification-noun": null,
+  "on-leave": null,
+  "in-charge-of": {
+    "sentence": "Who is in charge of the kids while Ayşe is out?",
+    "blank": "Who is in ___ of the kids while Ayşe is out?"
+  },
+  "get-rid-of": {
+    "sentence": "We should get rid of the old sofa.",
+    "blank": "We should get ___ of the old sofa."
+  },
+  "familiar-with": {
+    "sentence": "I'm not familiar with this neighbourhood.",
+    "blank": "I'm not familiar ___ this neighbourhood."
+  },
+  "similar-to": {
+    "sentence": "Your jacket is similar to mine.",
+    "blank": "Your jacket is similar ___ mine."
+  },
+  "focus-on": {
+    "sentence": "Ayşe is trying to focus on her book.",
+    "blank": "Ayşe is trying to focus ___ her book."
+  },
+  "catch-up-on": {
+    "sentence": "I need to catch up on sleep this weekend.",
+    "blank": "I need to catch ___ ___ sleep this weekend."
+  },
+  "run-tests-against-staging": null,
+  "merge-pr-into-main": null,
+  "revert-the-change": null,
+  "take-over-from": {
+    "sentence": "Deniz is taking over the driving from Mert.",
+    "blank": "Deniz is taking ___ the driving ___ Mert."
+  },
+  "double-check": null,
+  "run-out-of-time": {
+    "sentence": "We ran out of milk, so I went to the shop.",
+    "blank": "We ran ___ ___ milk, so I went to the shop."
+  },
+  "as-far-as-i-know": {
+    "sentence": "As far as I know, the shop closes at six.",
+    "blank": "As ___ as I know, the shop closes at six."
+  },
+  "mention-someone-in-a-comment": null
+}
