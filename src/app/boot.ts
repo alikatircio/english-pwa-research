@@ -49,6 +49,6 @@ export async function boot({ bundle, clock, openDb }: BootDeps): Promise<BootRes
   const session = resumed ?? freshRound({ catalog, progress, flags }, data.counter, clock);
   return {
     db,
-    state: { screen: session ? 'card' : 'done', catalog, progress, flags, counter: data.counter, session },
+    state: { screen: session ? 'card' : 'done', catalog, progress, flags, counter: data.counter, session, notebook: data.notebook },
   };
 }

@@ -1,11 +1,15 @@
 import { useEffect, useRef } from 'react';
+import { flushSync } from 'react-dom';
 import { useApp } from '../../app/AppContext.tsx';
 import { applyUpdateOnHome } from '../../pwa/registerSW.ts';
 import { t } from '../strings.tr.ts';
 
-/** Acts as Home until Slice 4 (T4.3): the only screen where a waiting SW update is applied (07 §6.2). */
+/**
+ * Acts as Home until Slice 4 (T4.3): the only screen where a waiting SW update
+ * is applied (07 §6.2), and the notebook is one tap away (02 "+ Deftere ekle").
+ */
 export function DoneScreen() {
-  const { state } = useApp();
+  const { state, actions } = useApp();
   const session = state.status === 'ready' ? state.session : undefined;
   useEffect(() => applyUpdateOnHome({ hasSession: session !== undefined }), [session]);
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -18,6 +22,13 @@ export function DoneScreen() {
         </h2>
         <p className="muted">{t.allDoneDetail}</p>
       </div>
+      {actions && (
+        <div className="screen__footer">
+          <button type="button" className="btn btn--text btn--wide" onClick={() => flushSync(() => actions.openNotebook('home'))}>
+            {t.notebookAdd}
+          </button>
+        </div>
+      )}
     </div>
   );
 }

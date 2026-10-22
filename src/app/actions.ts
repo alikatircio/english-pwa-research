@@ -4,10 +4,11 @@ import type { Clock } from '../domain/clock.ts';
 import { hintStageFor } from '../domain/hints.ts';
 import { isAccepted } from '../domain/normalize.ts';
 import { applyGrade } from '../domain/scheduler.ts';
+import { cleanNotebookText, createNotebookEntry, isDuplicateEntry } from '../domain/notebook.ts';
 import { countFirstAnswer, currentEntry, onFirstAnswer } from '../domain/session.ts';
 import type { AnswerLog, CardPhase, Flag, Grade, GradedBy, SessionState, UndoSnapshot } from '../domain/types.ts';
 import type { AppDb } from '../storage/db.ts';
-import { clearSession, commitGrade, loadCounter, saveSession, toggleFlag, undoGrade } from '../storage/repo.ts';
+import { addNotebookEntry, clearSession, commitGrade, loadCounter, saveSession, toggleFlag, undoGrade } from '../storage/repo.ts';
 import { nextCard, poolsOf } from './round.ts';
 import type { Action, AppState, ReadyState } from './state.ts';
 
@@ -199,6 +200,52 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       } catch {
         dispatch({ type: 'error', error: 'save-failed' });
       }
+    },
+
+    // --- Notebook (Slice 3) -------------------------------------------------
+
+    /**
+     * Open the capture sheet. From a card the card's situation becomes the
+     * context; the session (incl. draft) is untouched, so closing returns to
+     * the same card. Synchronous so the caller can focus in the same tap.
+     */
+    openNotebook(from: 'card' | 'home'): void {
+      const s = ready(getState);
+      if (!s) return;
+      const entry = from === 'card' && s.session ? currentEntry(s.session) : undefined;
+      const item = entry && s.catalog.byId.get(entry.itemId);
+      const context = item ? { contextTr: item.situationTr, contextItemId: item.id } : undefined;
+      dispatch({ type: 'overlay', overlay: { kind: 'notebook', context } });
+    },
+
+    closeNotebook(): void {
+      dispatch({ type: 'overlay', overlay: undefined });
+    },
+
+    /**
+     * Save one entry (IndexedDB only, works offline). A text already in the
+     * notebook is saved anyway and flagged in the notice (03 H3.1: never block).
+     * Resolves false when the write failed; the sheet then stays open.
+     */
+    async saveNotebook(text: string): Promise<boolean> {
+      const s = ready(getState);
+      if (!s || s.busy || s.overlay?.kind !== 'notebook' || cleanNotebookText(text) === '') return false;
+      const now = clock.now();
+      const entry = createNotebookEntry(text, s.overlay.context, crypto.randomUUID(), now);
+      const duplicate = isDuplicateEntry(entry.textTr, s.notebook);
+      dispatch({ type: 'busy' });
+      try {
+        await addNotebookEntry(db, entry);
+        dispatch({ type: 'notebookAdded', entry, notice: { kind: 'notebook-saved', duplicate, at: now } });
+        return true;
+      } catch {
+        dispatch({ type: 'error', error: 'save-failed' });
+        return false;
+      }
+    },
+
+    dismissNotice(): void {
+      dispatch({ type: 'notice', notice: undefined });
     },
 
     dismissError(): void {

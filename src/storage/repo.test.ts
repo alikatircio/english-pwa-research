@@ -2,7 +2,7 @@ import 'fake-indexeddb/auto';
 import { afterEach, describe, expect, it } from 'vitest';
 import type { AnswerLog, DailyCounter, Progress } from '../domain/types.ts';
 import { DB_VERSION, openAppDb, STORE_NAMES, type AppDb } from './db.ts';
-import { clearSession, commitGrade, loadAll, loadCounter, saveSession, toggleFlag, undoGrade } from './repo.ts';
+import { addNotebookEntry, clearSession, commitGrade, loadAll, loadCounter, saveSession, toggleFlag, undoGrade } from './repo.ts';
 import { newSession } from '../domain/session.ts';
 
 let n = 0;
@@ -153,5 +153,23 @@ describe('toggleFlag (T2.5)', () => {
     expect((await loadAll(db, day)).flags).toEqual([flag]);
     expect(await toggleFlag(db, { ...flag, flaggedAt: 2 })).toBe(false);
     expect((await loadAll(db, day)).flags).toEqual([]);
+  });
+});
+
+describe('notebook', () => {
+  it('addNotebookEntry stores the entry; loadAll returns entries oldest first', async () => {
+    const db = await freshDb();
+    await addNotebookEntry(db, { id: 'b', textTr: 'ikinci', createdAt: 2, status: 'open' });
+    await addNotebookEntry(db, { id: 'a', textTr: 'birinci', contextTr: 'durum', contextItemId: 'x', createdAt: 1, status: 'open' });
+    const data = await loadAll(db, day);
+    expect(data.notebook.map((e) => e.id)).toEqual(['a', 'b']);
+    expect(data.notebook[0]?.contextTr).toBe('durum');
+  });
+
+  it('refuses a second entry with the same id (nothing overwritten)', async () => {
+    const db = await freshDb();
+    await addNotebookEntry(db, { id: 'a', textTr: 'birinci', createdAt: 1, status: 'open' });
+    await expect(addNotebookEntry(db, { id: 'a', textTr: 'başka', createdAt: 2, status: 'open' })).rejects.toThrow();
+    expect((await db.get('notebook', 'a'))?.textTr).toBe('birinci');
   });
 });

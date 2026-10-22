@@ -36,4 +36,16 @@ export const t = {
   saveFailed: 'Kaydedilemedi. Tekrar dene.',
   allDone: 'Şimdilik bu kadar.',
   allDoneDetail: 'Tüm kartları cevapladın. Yeni kartlar sonraki sürümde.',
+
+  // Notebook (Slice 3). No counts or badges for open entries (05 §4).
+  notebookFromCard: 'Bulamadım → deftere',
+  notebookAdd: '+ Deftere ekle',
+  notebookTitle: 'Deftere ekle',
+  notebookLabel: 'Bulamadığın ifade (Türkçe)',
+  notebookPlaceholder: 'ör. sorunu ekibe yükseltmek',
+  notebookContext: 'Bağlam',
+  notebookSave: 'Kaydet',
+  notebookCancel: 'Vazgeç',
+  notebookSaved: 'Deftere kaydedildi.',
+  notebookDuplicate: 'Bu ifade defterde zaten var.',
 } as const;

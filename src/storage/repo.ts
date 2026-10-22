@@ -110,3 +110,8 @@ export async function saveSession(db: AppDb, session: SessionState): Promise<voi
 export async function clearSession(db: AppDb): Promise<void> {
   await db.delete('session', 'current');
 }
+
+/** One notebook entry (Slice 3, T3.1). Works offline: IndexedDB only. */
+export async function addNotebookEntry(db: AppDb, entry: NotebookEntry): Promise<void> {
+  await db.add('notebook', entry);
+}

@@ -1,8 +1,13 @@
-import type { DailyCounter, Progress, SessionState } from '../domain/types.ts';
+import type { NotebookContext } from '../domain/notebook.ts';
+import type { DailyCounter, NotebookEntry, Progress, SessionState } from '../domain/types.ts';
 import type { Catalog } from '../content/catalog.ts';
 
 export type Screen = 'card' | 'done';
 export type AppError = 'save-failed';
+/** Overlay drawn over the current screen; the screen's state (session, draft) is kept. */
+export type Overlay = { kind: 'notebook'; context?: NotebookContext | undefined };
+/** Short confirmation shown after an overlay closes. */
+export type Notice = { kind: 'notebook-saved'; duplicate: boolean; at: number };
 
 export type AppState =
   | { status: 'loading' }
@@ -21,6 +26,10 @@ export interface ReadyState {
    */
   counter: DailyCounter;
   session: SessionState | undefined;
+  /** Notebook entries, oldest first (Slice 3). */
+  notebook: readonly NotebookEntry[];
+  overlay?: Overlay | undefined;
+  notice?: Notice | undefined;
   /** A write is in flight; buttons that write are disabled. */
   busy: boolean;
   error?: AppError;
@@ -35,6 +44,9 @@ export type Action =
   | { type: 'undone'; itemId: string; progress: Progress | null; counter: DailyCounter; session: SessionState }
   | { type: 'flags'; flags: ReadonlySet<string> }
   | { type: 'error'; error: AppError }
+  | { type: 'overlay'; overlay: Overlay | undefined }
+  | { type: 'notebookAdded'; entry: NotebookEntry; notice: Notice }
+  | { type: 'notice'; notice: Notice | undefined }
   | { type: 'clearError' };
 
 /** A grade only updates the in-memory counter of the day it belongs to. */
@@ -74,5 +86,18 @@ export function appReducer(state: AppState, action: Action): AppState {
       return { ...state, busy: false, error: action.error };
     case 'clearError':
       return { ...state, error: undefined };
+    case 'overlay':
+      return { ...state, error: undefined, overlay: action.overlay };
+    case 'notebookAdded':
+      return {
+        ...state,
+        busy: false,
+        error: undefined,
+        overlay: undefined,
+        notebook: [...state.notebook, action.entry],
+        notice: action.notice,
+      };
+    case 'notice':
+      return { ...state, notice: action.notice };
   }
 }
