@@ -16,6 +16,7 @@ import {
 } from '../domain/backup.ts';
 import { buildClaudePrompt } from '../domain/claudePrompt.ts';
 import type { Clock } from '../domain/clock.ts';
+import { msUntilNextDay } from '../domain/dates.ts';
 import { extractJson } from '../domain/extractJson.ts';
 import { hintStageFor } from '../domain/hints.ts';
 import { isAccepted } from '../domain/normalize.ts';
@@ -321,6 +322,11 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       if (!now || now.screen !== 'home' || now.session !== s.session) return; // the user moved on meanwhile
       if (stale) persistSession(undefined);
       dispatch({ type: 'day', counter, session: stale ? undefined : s.session, screen: 'home' });
+    },
+
+    /** Milliseconds until the next local day, so Home can refresh at midnight while it stays open (09 #7). */
+    msUntilNextDay(): number {
+      return msUntilNextDay(clock.now());
     },
 
     /** "Kontrol et": exact match after normalisation → auto "correct", saved immediately. */

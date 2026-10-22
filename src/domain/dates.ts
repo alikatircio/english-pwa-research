@@ -41,3 +41,13 @@ export function toDayKey(epochMs: number): DayKey {
   const date = new Date(epochMs);
   return `${pad(date.getFullYear(), 4)}-${pad(date.getMonth() + 1, 2)}-${pad(date.getDate(), 2)}`;
 }
+
+/**
+ * Milliseconds from `epochMs` to the next device-local midnight (the next DayKey).
+ * Uses the local calendar, so a DST day of 23 or 25 hours is handled.
+ */
+export function msUntilNextDay(epochMs: number): number {
+  const next = new Date(epochMs);
+  next.setHours(24, 0, 0, 0);
+  return next.getTime() - epochMs;
+}

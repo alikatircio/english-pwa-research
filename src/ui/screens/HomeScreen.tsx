@@ -34,7 +34,20 @@ export function HomeScreen({ state, actions }: Props) {
       if (document.visibilityState === 'visible') void actions.refreshHome();
     };
     document.addEventListener('visibilitychange', onVisibility);
-    return () => document.removeEventListener('visibilitychange', onVisibility);
+    // Left open in the foreground over midnight: switch to the new day then (09 #7).
+    // A timer delayed in the background is covered by visibilitychange above.
+    let timer: ReturnType<typeof setTimeout>;
+    const armMidnight = () => {
+      timer = setTimeout(() => {
+        void actions.refreshHome();
+        armMidnight();
+      }, actions.msUntilNextDay() + 1000);
+    };
+    armMidnight();
+    return () => {
+      clearTimeout(timer);
+      document.removeEventListener('visibilitychange', onVisibility);
+    };
   }, [actions]);
 
   const headingRef = useRef<HTMLHeadingElement>(null);

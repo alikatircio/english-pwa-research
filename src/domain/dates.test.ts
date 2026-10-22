@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { addDays, compareDays, isDayKey, toDayKey } from './dates.ts';
+import { addDays, compareDays, isDayKey, msUntilNextDay, toDayKey } from './dates.ts';
 import { fixedClock } from './clock.ts';
 
 describe('addDays', () => {
@@ -54,5 +54,20 @@ describe('toDayKey / clock', () => {
     expect(c.today()).toBe('2026-11-02');
     c.advance(86_400_000);
     expect(c.today()).toBe('2026-11-03');
+  });
+});
+
+describe('msUntilNextDay (review 09 #7)', () => {
+  it('reaches the next local day exactly at midnight', () => {
+    const at = new Date(2026, 10, 2, 23, 58, 30).getTime();
+    expect(msUntilNextDay(at)).toBe(90_000);
+    expect(toDayKey(at + msUntilNextDay(at))).toBe('2026-11-03');
+    expect(toDayKey(at + msUntilNextDay(at) - 1)).toBe('2026-11-02');
+  });
+
+  it('is a full day at midnight itself', () => {
+    const midnight = new Date(2026, 10, 3).getTime();
+    expect(toDayKey(midnight + msUntilNextDay(midnight))).toBe('2026-11-04');
+    expect(msUntilNextDay(midnight)).toBeGreaterThanOrEqual(23 * 3_600_000);
   });
 });
