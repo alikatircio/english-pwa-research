@@ -2,7 +2,7 @@ import type { NotebookContext } from '../domain/notebook.ts';
 import type { DailyCounter, NotebookEntry, Progress, SessionState } from '../domain/types.ts';
 import type { Catalog } from '../content/catalog.ts';
 
-export type Screen = 'card' | 'done';
+export type Screen = 'card' | 'done' | 'settings';
 export type AppError = 'save-failed';
 /** Overlay drawn over the current screen; the screen's state (session, draft) is kept. */
 export type Overlay = { kind: 'notebook'; context?: NotebookContext | undefined };
@@ -47,6 +47,7 @@ export type Action =
   | { type: 'overlay'; overlay: Overlay | undefined }
   | { type: 'notebookAdded'; entry: NotebookEntry; notice: Notice }
   | { type: 'notice'; notice: Notice | undefined }
+  | { type: 'screen'; screen: Screen }
   | { type: 'clearError' };
 
 /** A grade only updates the in-memory counter of the day it belongs to. */
@@ -99,5 +100,7 @@ export function appReducer(state: AppState, action: Action): AppState {
       };
     case 'notice':
       return { ...state, notice: action.notice };
+    case 'screen':
+      return { ...state, error: undefined, screen: action.screen };
   }
 }

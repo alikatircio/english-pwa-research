@@ -48,4 +48,19 @@ export const t = {
   notebookCancel: 'Vazgeç',
   notebookSaved: 'Deftere kaydedildi.',
   notebookDuplicate: 'Bu ifade defterde zaten var.',
+
+  // Settings (first version, T3.3).
+  settings: 'Ayarlar',
+  back: 'Geri',
+  notebookSection: 'Defter',
+  notebookPending: 'Çözülmeyi bekleyen ifadeler var → dışa aktar',
+  notebookNothingPending: 'Çözülmeyi bekleyen ifade yok.',
+  notebookExport: 'Defteri dışa aktar',
+  flagsSection: 'Yanlış olabilir işaretleri',
+  flagsHint: 'İşaretlediğin kartlar inceleme için dosyaya çıkar.',
+  flagsNone: 'İşaretli kart yok.',
+  flagsExport: 'İşaret raporunu dışa aktar',
+  exportShared: 'Dosya paylaşıldı.',
+  exportDownloaded: 'Dosya indirildi.',
+  exportFailed: 'Dosya hazırlanamadı. Tekrar dene.',
 } as const;

@@ -6,7 +6,7 @@ import { t } from '../strings.tr.ts';
 
 /**
  * Acts as Home until Slice 4 (T4.3): the only screen where a waiting SW update
- * is applied (07 §6.2), and the notebook is one tap away (02 "+ Deftere ekle").
+ * is applied (07 §6.2), and notebook + Settings are one tap away (02 §Ana).
  */
 export function DoneScreen() {
   const { state, actions } = useApp();
@@ -26,6 +26,9 @@ export function DoneScreen() {
         <div className="screen__footer">
           <button type="button" className="btn btn--text btn--wide" onClick={() => flushSync(() => actions.openNotebook('home'))}>
             {t.notebookAdd}
+          </button>
+          <button type="button" className="btn btn--text btn--wide" onClick={() => actions.openSettings()}>
+            {t.settings}
           </button>
         </div>
       )}

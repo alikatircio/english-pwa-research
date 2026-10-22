@@ -3,6 +3,7 @@ import { NotebookSheet } from '../ui/components/NotebookSheet.tsx';
 import { NoticeBar } from '../ui/components/NoticeBar.tsx';
 import { CardScreen } from '../ui/screens/CardScreen.tsx';
 import { DoneScreen } from '../ui/screens/DoneScreen.tsx';
+import { SettingsScreen } from '../ui/screens/SettingsScreen.tsx';
 import { t } from '../ui/strings.tr.ts';
 import type { Actions } from './actions.ts';
 import { AppProvider, useApp } from './AppContext.tsx';
@@ -41,6 +42,7 @@ function CurrentScreen() {
 function ScreenOrOverlay({ state, actions }: { state: ReadyState; actions: Actions }) {
   // The overlay replaces the screen view; the screen's state lives in the store, so it comes back unchanged.
   if (state.overlay?.kind === 'notebook') return <NotebookSheet state={state} actions={actions} />;
+  if (state.screen === 'settings') return <SettingsScreen state={state} actions={actions} />;
   if (state.screen === 'done' || !state.session) return <DoneScreen />;
   return <CardScreen state={state} actions={actions} />;
 }

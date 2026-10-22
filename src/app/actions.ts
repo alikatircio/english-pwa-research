@@ -1,5 +1,6 @@
 // The only side-effecting layer: domain → storage transaction → dispatch.
 // Write first, then change the screen: what is shown is what is on disk.
+import { buildNotebookExport } from '../domain/backup.ts';
 import type { Clock } from '../domain/clock.ts';
 import { hintStageFor } from '../domain/hints.ts';
 import { isAccepted } from '../domain/normalize.ts';
@@ -7,10 +8,24 @@ import { applyGrade } from '../domain/scheduler.ts';
 import { cleanNotebookText, createNotebookEntry, isDuplicateEntry } from '../domain/notebook.ts';
 import { countFirstAnswer, currentEntry, onFirstAnswer } from '../domain/session.ts';
 import type { AnswerLog, CardPhase, Flag, Grade, GradedBy, SessionState, UndoSnapshot } from '../domain/types.ts';
+import { exportFlagsReport } from '../storage/backupIO.ts';
 import type { AppDb } from '../storage/db.ts';
 import { addNotebookEntry, clearSession, commitGrade, loadCounter, saveSession, toggleFlag, undoGrade } from '../storage/repo.ts';
 import { nextCard, poolsOf } from './round.ts';
 import type { Action, AppState, ReadyState } from './state.ts';
+
+/** A file ready to share or download (ui/share.ts). */
+export interface ExportFile {
+  filename: string;
+  text: string;
+}
+
+/** `english-pwa-<kind>-YYYY-MM-DD.json` (07 §3.8). */
+export function exportFilename(kind: 'backup' | 'notebook' | 'flags', day: string): string {
+  return `english-pwa-${kind}-${day}.json`;
+}
+
+const toJson = (v: unknown): string => `${JSON.stringify(v, null, 2)}\n`;
 
 export interface ActionDeps {
   db: AppDb;
@@ -242,6 +257,37 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
         dispatch({ type: 'error', error: 'save-failed' });
         return false;
       }
+    },
+
+    // --- Settings: export (Slice 3, T3.3) ------------------------------------
+
+    openSettings(): void {
+      dispatch({ type: 'screen', screen: 'settings' });
+    },
+
+    /** Back from Settings: the card if a round is open, else the done screen. */
+    closeSettings(): void {
+      const s = ready(getState);
+      if (s) dispatch({ type: 'screen', screen: s.session ? 'card' : 'done' });
+    },
+
+    /**
+     * Notebook export for solving in Claude: open entries only. Built from
+     * memory without awaiting, so the share sheet still opens inside the tap.
+     */
+    exportNotebook(): ExportFile | undefined {
+      const s = ready(getState);
+      if (!s) return undefined;
+      const file = buildNotebookExport(s.notebook, clock.now());
+      return { filename: exportFilename('notebook', clock.today()), text: toJson(file) };
+    },
+
+    /** Flags report for content review (decision 12). */
+    async exportFlags(): Promise<ExportFile | undefined> {
+      const s = ready(getState);
+      if (!s) return undefined;
+      const report = await exportFlagsReport(db, s.catalog.byId, s.catalog.contentVersion, clock.now());
+      return { filename: exportFilename('flags', clock.today()), text: toJson(report) };
     },
 
     dismissNotice(): void {
