@@ -18,6 +18,8 @@ export type Item = {
   situationTr: string;
   acceptedAnswers: string[];
   modelSentences: string[];
+  /** Decision 42: aligned with modelSentences[1..]; the sentence with critical words replaced by "___", or null. */
+  modelBlanks?: (string | null)[];
   commonMistake?: string;
   checklistTr: string[];
   noteTr: string;
