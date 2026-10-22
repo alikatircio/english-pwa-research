@@ -103,6 +103,11 @@ export function HomeScreen({ state, actions }: Props) {
         {done && <p className="muted">{t.todayDoneDetail}</p>}
         {practiceOffered && <p className="muted">{t.practiceDetail}</p>}
         {session && <p className="muted">{t.resumeDetail}</p>}
+        {state.notebook.length === 0 && (
+          <p className="muted" data-testid="notebook-hint">
+            {t.notebookEmptyHint}
+          </p>
+        )}
       </div>
       <div className="screen__footer">
         {/* Notebook and Settings: text buttons, one tap away (07 §5.1). */}

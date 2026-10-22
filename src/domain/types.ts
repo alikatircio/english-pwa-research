@@ -149,7 +149,9 @@ export type MetaKey =
   /** "Yedeğin 1 haftadan eski" dismissed at (epoch ms); hidden for 7 days (decision 27). */
   | 'backupReminderDismissedAt'
   /** Daily new-card cap, 5 / 10 / 15 / 20 (decision 29). */
-  | 'dailyNewCap';
+  | 'dailyNewCap'
+  /** Notebook sheet's "Nasıl kullanılır" box closed for good (decision 32). */
+  | 'notebookHelpDismissed';
 export interface MetaRecord {
   key: MetaKey;
   value: unknown;

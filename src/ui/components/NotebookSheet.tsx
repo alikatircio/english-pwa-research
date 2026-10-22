@@ -21,6 +21,7 @@ export function NotebookSheet({ state, actions }: Props) {
   useVisualViewportHeight();
   const [text, setText] = useState('');
   const titleId = useId();
+  const helpId = useId();
   const context = state.overlay?.kind === 'notebook' ? state.overlay.context : undefined;
   const canSave = !state.busy && cleanNotebookText(text) !== '';
 
@@ -70,6 +71,22 @@ export function NotebookSheet({ state, actions }: Props) {
             <p className="label">{t.notebookContext}</p>
             <p className="muted notebook-sheet__context">{context.contextTr}</p>
           </div>
+        )}
+
+        {state.meta.notebookHelpDismissed !== true && (
+          <aside className="block notebook-help" data-testid="notebook-help" aria-labelledby={helpId}>
+            <p id={helpId} className="label">
+              {t.notebookHelpTitle}
+            </p>
+            <ol className="notebook-help__steps">
+              {t.notebookHelpSteps.map((step) => (
+                <li key={step}>{step}</li>
+              ))}
+            </ol>
+            <button type="button" className="btn btn--text" onClick={() => void actions.dismissNotebookHelp()}>
+              {t.dismiss}
+            </button>
+          </aside>
         )}
 
         {state.error === 'save-failed' && (

@@ -16,6 +16,8 @@ export interface AppMeta {
   backupReminderDismissedAt?: number | undefined;
   /** Daily new-card cap chosen in Settings (decision 29); undefined = default. */
   dailyNewCap?: number | undefined;
+  /** Notebook sheet's help box closed for good (decision 32). */
+  notebookHelpDismissed?: boolean | undefined;
 }
 
 const num = (v: unknown): number | undefined => (typeof v === 'number' && Number.isFinite(v) ? v : undefined);
@@ -32,5 +34,6 @@ export function metaFromRecords(records: readonly MetaRecord[]): AppMeta {
     installHintDismissed: bool(byKey.get('installHintDismissed')),
     backupReminderDismissedAt: num(byKey.get('backupReminderDismissedAt')),
     dailyNewCap: newCap(byKey.get('dailyNewCap')),
+    notebookHelpDismissed: bool(byKey.get('notebookHelpDismissed')),
   };
 }

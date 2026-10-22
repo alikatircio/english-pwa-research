@@ -303,6 +303,11 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       return saveMeta({ installHintDismissed: true });
     },
 
+    /** Notebook sheet: close the "Nasıl kullanılır" box for good (decision 32). */
+    dismissNotebookHelp(): Promise<boolean> {
+      return saveMeta({ notebookHelpDismissed: true });
+    },
+
     /** Home's "Yedeğin 1 haftadan eski" line (decision 27). */
     isBackupReminderDue(): boolean {
       const s = ready(getState);

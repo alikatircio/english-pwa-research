@@ -63,6 +63,14 @@ export const t = {
   notebookSave: 'Kaydet',
   notebookCancel: 'Vazgeç',
   notebookSaved: 'Deftere kaydedildi.',
+  // Notebook help (decision 32).
+  notebookHelpTitle: 'Nasıl kullanılır',
+  notebookHelpSteps: [
+    'İşte bulamadığın ifadeyi Türkçe yaz, Kaydet.',
+    'Haftada bir Ayarlar → “Claude’a yapıştır”, claude.ai’de gönder.',
+    'Cevabı Ayarlar → “JSON’u yapıştır” → İçe aktar; ifadeler “İngilizcesi neydi?” kartı olur.',
+  ],
+  notebookEmptyHint: 'İşte İngilizcesini bulamadığın ifadeyi + Deftere ekle ile kaydet.',
   notebookDuplicate: 'Bu ifade defterde zaten var.',
 
   // Settings (first version, T3.3).

@@ -40,6 +40,7 @@ test.describe('free practice (decision 30)', () => {
     await expect(page.locator('.answer-input')).toBeFocused();
     await app.answer('something else entirely');
     await app.grade(t.gradeCorrect);
+    await expect.poll(async () => (await readStore(page, 'answerLog')).length).toBe(1); // written before the reload
 
     // Resume: reload mid-round, "Devam et" brings the same practice round back.
     await app.reloadAndResume();
@@ -70,5 +71,30 @@ test.describe('free practice (decision 30)', () => {
     await app.open('2026-11-02T08:00:00', { start: false });
     await expect(app.startButton).toBeVisible();
     await expect(page.getByRole('button', { name: t.practice })).toHaveCount(0);
+  });
+});
+
+test.describe('notebook help (decision 32)', () => {
+  test('empty notebook: one hint line on Home; the sheet shows the 3 steps until dismissed, for good', async ({ page }) => {
+    const app = new App(page);
+    const help = page.getByTestId('notebook-help');
+    await app.open('2026-11-02T08:00:00', { start: false });
+    await expect(page.getByTestId('notebook-hint')).toHaveText(t.notebookEmptyHint);
+
+    await page.getByRole('button', { name: t.notebookAdd }).click();
+    await expect(help).toBeVisible();
+    await expect(help.getByRole('listitem')).toHaveText([...t.notebookHelpSteps]);
+    await help.getByRole('button', { name: t.dismiss }).click();
+    await expect(help).toHaveCount(0);
+    await page.getByRole('button', { name: t.notebookCancel }).click();
+
+    await page.reload();
+    await page.getByRole('button', { name: t.notebookAdd }).click();
+    await expect(page.getByRole('textbox', { name: t.notebookLabel })).toBeVisible();
+    await expect(help).toHaveCount(0); // stays closed after a reload
+
+    await page.getByRole('textbox', { name: t.notebookLabel }).fill('sorunu ekibe yükseltmek');
+    await page.getByRole('button', { name: t.notebookSave }).click();
+    await expect(page.getByTestId('notebook-hint')).toHaveCount(0); // the notebook is not empty any more
   });
 });

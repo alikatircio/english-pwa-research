@@ -376,3 +376,14 @@ describe('actions — free practice (decision 30)', () => {
     app.db.close();
   });
 });
+
+describe('actions — notebook help (decision 32)', () => {
+  it('dismissNotebookHelp is stored in meta', async () => {
+    const app = await setup();
+    expect(app.ready().meta.notebookHelpDismissed).toBeUndefined();
+    expect(await app.actions.dismissNotebookHelp()).toBe(true);
+    expect(app.ready().meta.notebookHelpDismissed).toBe(true);
+    expect(await app.db.get('meta', 'notebookHelpDismissed')).toEqual({ key: 'notebookHelpDismissed', value: true });
+    app.db.close();
+  });
+});
