@@ -256,6 +256,9 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
   return {
     startRound,
 
+    /** The injected clock, for UI timers that must agree with the actions (UndoBar, 09 #14). */
+    now: (): number => clock.now(),
+
     // --- First run, persistent storage, hints (Slice 5, T5.5) -----------------
 
     /**

@@ -147,6 +147,21 @@ test.describe('produce-first card', () => {
     expect(progress).toEqual([expect.objectContaining({ itemId: items[0]?.id, lastGrade: 'wrong' })]);
   });
 
+  test('a "Geri al" whose window passed while its timer was late does nothing and goes away (09 #14)', async ({ page }) => {
+    const app = new App(page);
+    await app.open();
+    await app.answer('I will to send the report');
+    await app.grade(t.gradeWrong);
+    const undo = page.getByRole('button', { name: t.undo });
+    await expect(undo).toBeVisible();
+    // Time jumps past the window without the timer firing (as after a stretch in the background).
+    await page.clock.setSystemTime(new Date('2026-11-02T08:00:30'));
+    await undo.click();
+    await expect(undo).toHaveCount(0);
+    await expect(app.next).toBeVisible();
+    expect(await readStore<Progress>(page, 'progress')).toEqual([expect.objectContaining({ itemId: items[0]?.id, lastGrade: 'wrong' })]);
+  });
+
   test('an auto match offers no undo', async ({ page }) => {
     const app = new App(page);
     await app.open();

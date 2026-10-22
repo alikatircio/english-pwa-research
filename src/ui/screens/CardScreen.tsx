@@ -173,7 +173,7 @@ export function CardScreen({ state, actions }: Props) {
         ) : (
           <>
             {session.undo && (
-              <UndoBar key={session.undo.logId} expiresAt={session.undo.expiresAt} onUndo={() => {
+              <UndoBar key={session.undo.logId} expiresAt={session.undo.expiresAt} now={actions.now} onUndo={() => {
                   pendingFocus.current = 'verdict';
                   void actions.undo();
                 }} disabled={state.busy} />
