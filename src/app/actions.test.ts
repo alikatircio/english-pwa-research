@@ -252,6 +252,15 @@ describe('actions — busy gate (review 09 #6)', () => {
     expect(app.ready().busy).toBe(false);
     app.db.close();
   });
+
+  it('an import picked while another write is in flight reports busy, not a save failure (09 #12)', async () => {
+    const app = await setup();
+    const flagging = app.actions.toggleFlag();
+    expect(await app.actions.importItemsFile('{}')).toEqual({ status: 'busy' });
+    expect(app.ready().error).toBeUndefined();
+    await flagging;
+    app.db.close();
+  });
 });
 
 describe('actions — stale round on the card screen (review 09 #5)', () => {

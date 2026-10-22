@@ -50,7 +50,9 @@ const toJson = (v: unknown): string => `${JSON.stringify(v, null, 2)}\n`;
 export type ImportItemsResult =
   | { status: 'imported'; importedIds: string[]; rejected: RejectedItem[] }
   | { status: 'invalid'; errors: ImportError[] }
-  | { status: 'save-failed' };
+  | { status: 'save-failed' }
+  /** Another write was in flight; nothing was tried (09 #12). */
+  | { status: 'busy' };
 
 /** "Birleştir" (merge, 07 §3.8) or "Tümünü değiştir" (replace, after a second confirmation). */
 export type RestoreMode = 'merge' | 'replace';
@@ -58,7 +60,7 @@ export type RestoreMode = 'merge' | 'replace';
 /** A chosen backup file, validated as a whole before anything is written. */
 export type BackupFileCheck = { status: 'valid'; file: BackupFileV1 } | { status: 'invalid'; errors: ImportError[] };
 
-export type RestoreResult = { status: 'restored'; rejected: RejectedItem[] } | { status: 'save-failed' };
+export type RestoreResult = { status: 'restored'; rejected: RejectedItem[] } | { status: 'save-failed' } | { status: 'busy' };
 
 /** Catalog with exactly `imported` as the user's items (after a restore); bundled ids stay reserved. */
 function catalogWith(catalog: Catalog, imported: readonly ImportedItem[]): Catalog {
@@ -187,7 +189,8 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
    */
   async function importItemsJson(text: string): Promise<ImportItemsResult> {
     const s = ready(getState);
-    if (!s || s.busy) return { status: 'save-failed' };
+    if (!s) return { status: 'save-failed' };
+    if (s.busy) return { status: 'busy' };
     const parsed = parseFile(text, [FORMATS.items]);
     if (!parsed.ok) return { status: 'invalid', errors: parsed.errors };
 
@@ -584,7 +587,8 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
      */
     async restoreBackup(file: BackupFileV1, mode: RestoreMode): Promise<RestoreResult> {
       const s = ready(getState);
-      if (!s || s.busy) return { status: 'save-failed' };
+      if (!s) return { status: 'save-failed' };
+      if (s.busy) return { status: 'busy' };
       dispatch({ type: 'busy' });
       try {
         let data: BackupData;

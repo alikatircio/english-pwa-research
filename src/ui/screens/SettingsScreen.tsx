@@ -132,6 +132,8 @@ function ItemsImport({ actions, busy }: { actions: Actions; busy: boolean }) {
 }
 
 function ImportOutcome({ result }: { result: ImportItemsResult }) {
+  // Another write was in flight and nothing was tried: no error to show; the buttons are disabled meanwhile.
+  if (result.status === 'busy') return null;
   if (result.status === 'save-failed') {
     return (
       <p className="error" role="alert">

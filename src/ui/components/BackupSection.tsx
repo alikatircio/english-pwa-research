@@ -103,6 +103,7 @@ export function BackupRestore({ actions, busy, buttonClass = 'btn' }: { actions:
 
   async function restore(file: BackupFileV1, mode: RestoreMode) {
     const result = await actions.restoreBackup(file, mode);
+    if (result.status === 'busy') return; // nothing was tried: keep the choice on screen
     setStep(result.status === 'restored' ? { step: 'restored', rejected: result.rejected } : { step: 'save-failed' });
   }
 
