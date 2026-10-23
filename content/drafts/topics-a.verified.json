@@ -1,0 +1,2566 @@
+[
+  {
+    "id": "past-simple-negatives-questions",
+    "area": "present-past",
+    "titleTr": "Past simple: olumsuz ve soru",
+    "summaryTr": "Bitmiş geçmiş için past simple; olumsuz ve soruda did + yalın fiil.",
+    "sections": [
+      {
+        "headingTr": "Did ile kurulur",
+        "bodyTr": [
+          "Bitmiş bir olay için past simple kullanırız. Olumsuzda ve soruda did / didn't gelir, asıl fiil yalın kalır.",
+          "Türkçede \"-medi\" fiile eklenir. İngilizcede zaman did'e geçer, fiil değişmez."
+        ],
+        "examples": [
+          {
+            "en": "The build didn't fail last night.",
+            "tr": "Build dün gece patlamadı.",
+            "highlight": "didn't fail"
+          },
+          {
+            "en": "Did you check the logs after the deploy?",
+            "tr": "Deploy'dan sonra logları kontrol ettin mi?",
+            "highlight": "Did you check"
+          },
+          {
+            "en": "The login test passed on the second run.",
+            "tr": "Login testi ikinci çalıştırmada geçti.",
+            "highlight": "passed"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "Mert didn't failed the regression run.",
+        "rightEn": "Mert didn't fail the regression run.",
+        "noteTr": "didn't'ten sonra fiil yalın olur; -ed ikinci kez eklenmez."
+      }
+    ],
+    "itemIds": [
+      "didnt-fail",
+      "the-test-passed"
+    ],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 5,
+        "titleTr": "Bitmiş geçmişte olanı anlatmak"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram 5 checked (contents p.iii, PDF 22); Gram 6 removed (past continuous not covered); no 5-gram overlap with either book; examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "present-perfect-vs-past-simple",
+    "area": "present-perfect",
+    "titleTr": "Present perfect mi, past simple mı?",
+    "summaryTr": "Zamanı belli geçmiş için past simple; şimdiyle bağı olan iş için present perfect.",
+    "sections": [
+      {
+        "headingTr": "İki zaman, iki bakış",
+        "bodyTr": [
+          "Zaman belliyse (yesterday, two days ago, last week) past simple kullan. Zaman belli değilse ve sonuç şimdiyi ilgilendiriyorsa present perfect kullan.",
+          "Türkçe \"-di\" iki durumu da karşılar. İngilizce ayırır. Ago ile present perfect kullanılmaz."
+        ],
+        "examples": [
+          {
+            "en": "I've just sent the report, so please have a look.",
+            "tr": "Raporu az önce gönderdim, bir bakar mısın?",
+            "highlight": "'ve just sent"
+          },
+          {
+            "en": "We merged the fix two days ago.",
+            "tr": "Düzeltmeyi iki gün önce merge ettik.",
+            "highlight": "merged the fix two days ago"
+          },
+          {
+            "en": "We haven't had any outages so far this month.",
+            "tr": "Bu ay şimdiye kadar hiç kesinti yaşamadık.",
+            "highlight": "haven't had any outages so far"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "Ayşe has finished the review yesterday.",
+        "rightEn": "Ayşe finished the review yesterday.",
+        "noteTr": "\"yesterday\" gibi belli zamanla present perfect olmaz."
+      }
+    ],
+    "itemIds": [
+      "present-perfect-just-sent",
+      "past-simple-with-ago",
+      "present-perfect-so-far"
+    ],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 7,
+        "titleTr": "Geçmişte başlayıp şimdiyi etkileyen iş"
+      },
+      {
+        "book": "Gram",
+        "unit": 8,
+        "titleTr": "Bu hafta, bugün gibi süren zaman dilimleri"
+      },
+      {
+        "book": "Gram",
+        "unit": 13,
+        "titleTr": "Zamanı belli olan ve olmayan geçmiş"
+      },
+      {
+        "book": "Gram",
+        "unit": 14,
+        "titleTr": "Bitmiş bir zamanda olan iş için past simple"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram 7, 8, 13, 14 checked (PDF 26, 28, 38, 40); so-far example rewritten (too close to a Gram 8 example); Unit 14 title rewritten; examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "for-since-how-long",
+    "area": "present-perfect",
+    "titleTr": "for, since ve how long",
+    "summaryTr": "Süren durumda \"ne zamandır\" present perfect ile sorulur ve anlatılır.",
+    "sections": [
+      {
+        "headingTr": "\"-dir\" ifadesi",
+        "bodyTr": [
+          "Hâlâ süren bir durum için present perfect kullan. For süre verir (for two weeks). Since başlangıç noktası verir (since Monday).",
+          "Türkçede \"ne zamandır çalışıyorsun\" şimdiki zamanla kurulur. İngilizcede how long are you working denmez, how long have you been working denir."
+        ],
+        "examples": [
+          {
+            "en": "The test has been failing since Tuesday.",
+            "tr": "Test salıdan beri patlıyor.",
+            "highlight": "has been failing since Tuesday"
+          },
+          {
+            "en": "I've worked on this module for three weeks.",
+            "tr": "Üç haftadır bu modül üzerinde çalışıyorum.",
+            "highlight": "for three weeks"
+          },
+          {
+            "en": "How long have you been waiting for the fix?",
+            "tr": "Düzeltmeyi ne zamandır bekliyorsun?",
+            "highlight": "How long have you been waiting"
+          },
+          {
+            "en": "It's two weeks since we released the update.",
+            "tr": "Güncellemeyi çıkaralı iki hafta oldu.",
+            "highlight": "two weeks since we released"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "Deniz is working here since January.",
+        "rightEn": "Deniz has worked here since January.",
+        "noteTr": "Süren durum için present perfect gerekir; since ile şimdiki zaman kullanma."
+      },
+      {
+        "wrongEn": "I've worked on this bug since six months.",
+        "rightEn": "I've worked on this bug for six months.",
+        "noteTr": "Süre için for kullanılır, since değil."
+      }
+    ],
+    "itemIds": [
+      "has-been-failing-since",
+      "have-worked-since",
+      "have-lived-for",
+      "its-weeks-since",
+      "how-long-have-you-been"
+    ],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 11,
+        "titleTr": "Bir durumun ne zamandır sürdüğünü sormak"
+      },
+      {
+        "book": "Gram",
+        "unit": 12,
+        "titleTr": "Süre mi, başlangıç mı: for ile since"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram 11, 12 checked (PDF 34, 36); trap 2 reduced to one error (for vs since); examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "used-to-past-habits",
+    "area": "present-perfect",
+    "titleTr": "used to: eski alışkanlıklar",
+    "summaryTr": "Artık olmayan geçmiş alışkanlık ve durum için used to + yalın fiil.",
+    "sections": [
+      {
+        "headingTr": "Eskiden böyleydi",
+        "bodyTr": [
+          "Used to, geçmişte sürekli olan ama artık olmayan iş ve durumları anlatır. Arkasından yalın fiil gelir.",
+          "Olumsuz ve soruda did kullanılır. Standart yazımda didn't use to ve did you use to yazılır."
+        ],
+        "examples": [
+          {
+            "en": "We used to test everything by hand.",
+            "tr": "Eskiden her şeyi elle test ederdik.",
+            "highlight": "used to test"
+          },
+          {
+            "en": "Our team didn't use to have a staging server.",
+            "tr": "Ekibimizin eskiden staging sunucusu yoktu.",
+            "highlight": "didn't use to have"
+          },
+          {
+            "en": "Did you use to work night shifts?",
+            "tr": "Eskiden gece vardiyasında çalışır mıydın?",
+            "highlight": "Did you use to work"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "We use to deploy on Fridays, but now we don't.",
+        "rightEn": "We used to deploy on Fridays, but now we don't.",
+        "noteTr": "Olumlu cümlede geçmiş alışkanlık için used to yazılır; use to tek başına kullanılmaz."
+      }
+    ],
+    "itemIds": [
+      "used-to-do"
+    ],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 18,
+        "titleTr": "Geçmişteki alışkanlıklar ve artık geçerli olmayan durumlar"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram 18 checked (PDF 48); old trap replaced: Cambridge Grammar (used to) lists didn't used to as common, so not clearly wrong; new trap 'use to' is wrong per the same page; examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "plans-and-timetables",
+    "area": "future",
+    "titleTr": "Plan ve tarife: gelecek anlatımı",
+    "summaryTr": "Kesin plan için present continuous, karar için going to, tarife için present simple.",
+    "sections": [
+      {
+        "headingTr": "Üç yol",
+        "bodyTr": [
+          "Ayarlanmış plan için present continuous kullan (I'm meeting Mert at 3). Önceden verilmiş karar için going to kullan. Tarife ve program için present simple kullan.",
+          "Türkçe üçünü de çoğu zaman -iyor ya da -ecek ile söyler. İngilizcede will her yerde uymaz."
+        ],
+        "examples": [
+          {
+            "en": "I'm presenting the test results on Friday.",
+            "tr": "Cuma günü test sonuçlarını sunuyorum.",
+            "highlight": "'m presenting"
+          },
+          {
+            "en": "We're going to rewrite the login tests next sprint.",
+            "tr": "Gelecek sprintte login testlerini yeniden yazacağız.",
+            "highlight": "'re going to rewrite"
+          },
+          {
+            "en": "The release call starts at ten tomorrow.",
+            "tr": "Release toplantısı yarın saat ona başlıyor.",
+            "highlight": "starts at ten"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "What do you do after the demo tomorrow?",
+        "rightEn": "What are you doing after the demo tomorrow?",
+        "noteTr": "Kişisel plan için present simple değil present continuous kullan."
+      }
+    ],
+    "itemIds": [
+      "arrangement-present-continuous",
+      "going-to-prior-decision",
+      "timetable-present-simple"
+    ],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 19,
+        "titleTr": "Takvime girmiş planlar"
+      },
+      {
+        "book": "Gram",
+        "unit": 20,
+        "titleTr": "Önceden verilmiş kararlar"
+      },
+      {
+        "book": "Gram",
+        "unit": 23,
+        "titleTr": "Plan ile anlık kararın farkı"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram 19, 20, 23 checked (PDF 50, 52, 58); will-trap replaced (not clearly wrong) by present simple for a personal plan; examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "will-offers-and-decisions",
+    "area": "future",
+    "titleTr": "will: anlık karar ve teklif",
+    "summaryTr": "Konuşurken verilen karar, teklif ve söz için will + yalın fiil.",
+    "sections": [
+      {
+        "headingTr": "Anında karar",
+        "bodyTr": [
+          "Konuşurken verdiğin karar ve yaptığın teklif için will kullan. Arkasından yalın fiil gelir.",
+          "Çok yakın gelecek için be about to kullanılır. Anlamı \"tam şimdi yapacağım\" gibidir."
+        ],
+        "examples": [
+          {
+            "en": "I'll check the ticket and let you know.",
+            "tr": "Ticket'a bakıp sana haber vereceğim.",
+            "highlight": "'ll check"
+          },
+          {
+            "en": "Don't worry, I'll fix the test data.",
+            "tr": "Merak etme, test verisini ben düzeltirim.",
+            "highlight": "I'll fix"
+          },
+          {
+            "en": "We're about to start the demo.",
+            "tr": "Demoyu başlatmak üzereyiz.",
+            "highlight": "'re about to start"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "I will to send you the file now.",
+        "rightEn": "I'll send you the file now.",
+        "noteTr": "will'den sonra to gelmez."
+      }
+    ],
+    "itemIds": [
+      "will-base-verb",
+      "be-about-to"
+    ],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 21,
+        "titleTr": "O an verilen karar, teklif ve söz"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram 21 checked (PDF 54); Gram 22 removed (predictions); let-me-check dropped (not a will pattern); examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "time-clauses-if-when",
+    "area": "future",
+    "titleTr": "when, if, as soon as: gelecekte şimdiki zaman",
+    "summaryTr": "Zaman ve koşul cümlesinde gelecek anlamı için present simple.",
+    "sections": [
+      {
+        "headingTr": "\"-ince\" ve \"-irse\"",
+        "bodyTr": [
+          "When, if ve as soon as ile kurulan yan cümlede will kullanma. Present simple kullan. Ana cümle will ile devam eder.",
+          "Türkçe \"yapınca / yaparsa\" der. Aynı sırayı İngilizcede de kur: when I finish, I'll tell you."
+        ],
+        "examples": [
+          {
+            "en": "As soon as the build finishes, I'll start the smoke test.",
+            "tr": "Build biter bitmez smoke testi başlatırım.",
+            "highlight": "As soon as the build finishes"
+          },
+          {
+            "en": "If the API times out, we'll retry the call.",
+            "tr": "API zaman aşımına uğrarsa çağrıyı yeniden deneriz.",
+            "highlight": "If the API times out"
+          },
+          {
+            "en": "When I get access, I'll update the ticket.",
+            "tr": "Erişimi alınca ticket'ı güncelleyeceğim.",
+            "highlight": "When I get access"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "If the test will fail, I will call Ayşe.",
+        "rightEn": "If the test fails, I'll call Ayşe.",
+        "noteTr": "Yan cümlede will yok."
+      }
+    ],
+    "itemIds": [
+      "as-soon-as-present",
+      "if-present-will",
+      "when-present-will"
+    ],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 25,
+        "titleTr": "Zaman ve koşul cümlelerinde şimdiki zaman"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram 25 checked (PDF 62); 'get the access' corrected to 'get access'; examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "able-to-and-managed-to",
+    "area": "modals",
+    "titleTr": "be able to ve manage to",
+    "summaryTr": "Tek bir olayda başarı için was able to / managed to; could değil.",
+    "sections": [
+      {
+        "headingTr": "Belli bir başarı",
+        "bodyTr": [
+          "Genel yetenek için could kullanabilirsin. Ama belli bir durumda başardığın tek iş için was able to ya da managed to kullan.",
+          "Manage to bir zorluğu aştığını da gösterir. Gelecekte will be able to kullan."
+        ],
+        "examples": [
+          {
+            "en": "We were able to reproduce the crash on Android.",
+            "tr": "Çökmeyi Android'de yeniden üretebildik.",
+            "highlight": "were able to reproduce"
+          },
+          {
+            "en": "Mert managed to fix it before the demo.",
+            "tr": "Mert demodan önce düzeltmeyi başardı.",
+            "highlight": "managed to fix"
+          },
+          {
+            "en": "After the update, you will be able to retest.",
+            "tr": "Güncellemeden sonra tekrar test edebileceksin.",
+            "highlight": "will be able to retest"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "Yesterday I could finish the whole suite.",
+        "rightEn": "Yesterday I was able to finish the whole suite.",
+        "noteTr": "Tek seferlik başarı için could değil, was able to."
+      }
+    ],
+    "itemIds": [
+      "be-able-to",
+      "manage-to-do"
+    ],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 26,
+        "titleTr": "Bir işi başarabilmek"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram 26 checked (PDF 64); Cambridge Grammar (could): single past achievement uses was able to / managed to; examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "obligation-and-advice",
+    "area": "modals",
+    "titleTr": "Zorunluluk, öneri ve pişmanlık",
+    "summaryTr": "Geçmiş zorunluluk için had to, öneri için should, pişmanlık için should have.",
+    "sections": [
+      {
+        "headingTr": "Üç kip",
+        "bodyTr": [
+          "Geçmiş zorunluluk için had to kullan (must geçmişte yok). Öneri için should, geçmişteki pişmanlık için should have + V3 kullan.",
+          "Need to bir ihtiyacı gösterir. Be supposed to ise beklenen ya da planlanan işi anlatır."
+        ],
+        "examples": [
+          {
+            "en": "We had to rerun the whole suite.",
+            "tr": "Tüm paketi yeniden çalıştırmak zorunda kaldık.",
+            "highlight": "had to rerun"
+          },
+          {
+            "en": "I should have tested the edge cases earlier.",
+            "tr": "Uç durumları daha erken test etmeliydim.",
+            "highlight": "should have tested"
+          },
+          {
+            "en": "You're supposed to update the ticket after the call.",
+            "tr": "Görüşmeden sonra ticket'ı güncellemen bekleniyor.",
+            "highlight": "'re supposed to update"
+          },
+          {
+            "en": "I need to check the config first.",
+            "tr": "Önce konfigürasyona bakmam lazım.",
+            "highlight": "need to check"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "Yesterday I must stay late.",
+        "rightEn": "Yesterday I had to stay late.",
+        "noteTr": "Must geçmiş için kullanılmaz; had to kullan."
+      }
+    ],
+    "itemIds": [
+      "had-to-rerun",
+      "should-have-tested",
+      "be-supposed-to",
+      "need-to-do"
+    ],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 31,
+        "titleTr": "Zorunluluk: have to"
+      },
+      {
+        "book": "Gram",
+        "unit": 33,
+        "titleTr": "Öneri vermek: should"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram 31, 33 checked (PDF 74, 78; Unit 33 covers should have); no change; examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "polite-requests",
+    "area": "modals",
+    "titleTr": "Rica ve izin isteme",
+    "summaryTr": "Nazik rica için could / would; can daha yakın tonda.",
+    "sections": [
+      {
+        "headingTr": "Nazik rica",
+        "bodyTr": [
+          "Rica için could you ya da would it be possible to kullan. Sipariş ya da küçük istekte could I have uygun düşer.",
+          "Do you mind kalıbından sonra -ing gelir. Cevap \"No, not at all\" ise karşı taraf kabul ediyor demektir."
+        ],
+        "examples": [
+          {
+            "en": "Could you send me the test data?",
+            "tr": "Test verisini bana gönderebilir misin?",
+            "highlight": "Could you send"
+          },
+          {
+            "en": "Would it be possible to move the call to four?",
+            "tr": "Görüşmeyi dörde almak mümkün olur mu?",
+            "highlight": "Would it be possible to move"
+          },
+          {
+            "en": "Do you mind checking my pull request?",
+            "tr": "Pull request'ime bakmanın bir sakıncası var mı?",
+            "highlight": "Do you mind checking"
+          },
+          {
+            "en": "Could I have the report by noon?",
+            "tr": "Raporu öğlene kadar alabilir miyim?",
+            "highlight": "Could I have"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "Do you mind to check this ticket?",
+        "rightEn": "Do you mind checking this ticket?",
+        "noteTr": "Do you mind'dan sonra to değil -ing gelir."
+      }
+    ],
+    "itemIds": [
+      "could-you-base-verb",
+      "would-it-be-possible-to",
+      "do-you-mind-doing",
+      "could-i-have"
+    ],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 37,
+        "titleTr": "Rica ve izin cümleleri"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram 37 checked (PDF 86); answer to 'Do you mind -ing' corrected; examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "conditionals-and-wish",
+    "area": "if-wish",
+    "titleTr": "if cümleleri ve wish",
+    "summaryTr": "Gerçek olmayan durumda if + past, would; şimdiki duruma dair istekte wish + past.",
+    "sections": [
+      {
+        "headingTr": "Gerçek dışı durumlar",
+        "bodyTr": [
+          "Olması muhtemel durumda if + present, will kullan. Hayal ettiğin durumda if + past simple, would + yalın fiil kullan.",
+          "Wish de hayalde kalan isteği anlatır: I wish I had more time. If cümlesinde would kullanılmaz."
+        ],
+        "examples": [
+          {
+            "en": "If we had more testers, we would finish earlier.",
+            "tr": "Daha çok test uzmanımız olsa daha erken bitirirdik.",
+            "highlight": "If we had more testers, we would finish"
+          },
+          {
+            "en": "If I were you, I would report it today.",
+            "tr": "Yerinde olsam bugün bildirirdim.",
+            "highlight": "If I were you, I would report"
+          },
+          {
+            "en": "I wish we had better test data.",
+            "tr": "Keşke daha iyi test verimiz olsa.",
+            "highlight": "I wish we had"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "If we would have more time, we would test it.",
+        "rightEn": "If we had more time, we would test it.",
+        "noteTr": "If tarafında would kullanılmaz; past simple gerekir."
+      }
+    ],
+    "itemIds": [],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 38,
+        "titleTr": "Gerçekleşmesi muhtemel koşullar"
+      },
+      {
+        "book": "Gram",
+        "unit": 39,
+        "titleTr": "Gerçek olmayan şimdi ve gelecek"
+      },
+      {
+        "book": "Gram",
+        "unit": 41,
+        "titleTr": "Keşke: wish cümleleri"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram 38, 39, 41 checked (PDF 88, 90, 94); trap reduced to one error; wish translation fixed; examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "passive-voice-basics",
+    "area": "passive",
+    "titleTr": "Edilgen yapı: be + V3",
+    "summaryTr": "Yapan belli değilse ya da önemli değilse be + V3 kullan.",
+    "sections": [
+      {
+        "headingTr": "Ne yapıldı?",
+        "bodyTr": [
+          "Edilgende önemli olan, yapılan iştir; yapan kişi değil. Yapı: be + V3 (is done, was done, has been done).",
+          "Yapan belli değilse by kullanma. Türkçedeki \"-ildi\" yapısına benzer. Bir işi başkasına yaptırmak için have / get + nesne + V3 kullan."
+        ],
+        "examples": [
+          {
+            "en": "The release has been postponed until Monday.",
+            "tr": "Release pazartesiye ertelendi.",
+            "highlight": "has been postponed"
+          },
+          {
+            "en": "I wasn't told about the change.",
+            "tr": "Değişiklik bana söylenmedi.",
+            "highlight": "wasn't told"
+          },
+          {
+            "en": "The login page is being tested right now.",
+            "tr": "Login sayfası şu anda test ediliyor.",
+            "highlight": "is being tested"
+          },
+          {
+            "en": "We need to get the test laptop repaired.",
+            "tr": "Test laptopunu tamir ettirmemiz lazım.",
+            "highlight": "get the test laptop repaired"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "The ticket was close yesterday.",
+        "rightEn": "The ticket was closed yesterday.",
+        "noteTr": "Edilgende was / were'den sonra fiil V3 olur."
+      }
+    ],
+    "itemIds": [
+      "has-been-postponed",
+      "wasnt-told",
+      "get-something-fixed"
+    ],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 42,
+        "titleTr": "Yapanı belli olmayan işler"
+      },
+      {
+        "book": "Gram",
+        "unit": 43,
+        "titleTr": "Süren ve tamamlanmış işlerin edilgeni"
+      },
+      {
+        "book": "Gram",
+        "unit": 46,
+        "titleTr": "Bir işi başkasına yaptırmak"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram 42, 43, 46 checked (PDF 96, 98, 104); 'by someone' trap replaced (not ungrammatical); have/get something done example added; examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "subject-and-yes-no-questions",
+    "area": "questions-reported-speech",
+    "titleTr": "Soru kurmak: did gerekir mi?",
+    "summaryTr": "Konu soruluyorsa did yok; diğer sorularda yardımcı fiil gelir.",
+    "sections": [
+      {
+        "headingTr": "Soruda yardımcı fiil",
+        "bodyTr": [
+          "Kim ya da ne olduğunu soruyorsan (Who, What) ve bu kelime özne ise did kullanma. Diğer sorularda yardımcı fiil özneden önce gelir.",
+          "Yes/no sorusunda da fiil yalın kalır: Does the test pass?"
+        ],
+        "examples": [
+          {
+            "en": "What happened to the login test?",
+            "tr": "Login testine ne oldu?",
+            "highlight": "What happened"
+          },
+          {
+            "en": "Does the regression suite pass on staging?",
+            "tr": "Regresyon paketi staging'de geçiyor mu?",
+            "highlight": "Does the regression suite pass"
+          },
+          {
+            "en": "Who reviewed the pull request?",
+            "tr": "Pull request'i kim inceledi?",
+            "highlight": "Who reviewed"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "Is the login test pass on staging?",
+        "rightEn": "Does the login test pass on staging?",
+        "noteTr": "Asıl fiil varsa soru do / does ile kurulur, is ile değil."
+      }
+    ],
+    "itemIds": [
+      "what-happened-subject-question",
+      "does-the-test-pass-question"
+    ],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 49,
+        "titleTr": "Soru cümlesinde sıra ve özne soruları"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram 49 checked (PDF 110, covers subject questions); Gram 50 removed (indirect questions); old trap echoed a Unit 49 note, replaced; Cambridge Grammar (questions: what/who as subject); examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "indirect-questions",
+    "area": "questions-reported-speech",
+    "titleTr": "Dolaylı soru",
+    "summaryTr": "Do you know / Could you tell me ardından cümle sırası düz olur.",
+    "sections": [
+      {
+        "headingTr": "Düz sıra",
+        "bodyTr": [
+          "Dolaylı soruda soru kelimesinden sonra düz sıra gelir: özne, fiil. Do ya da does tekrar gelmez.",
+          "Yes/no bilgisini whether ya da if ile bağla."
+        ],
+        "examples": [
+          {
+            "en": "Do you know where the logs are stored?",
+            "tr": "Logların nerede tutulduğunu biliyor musun?",
+            "highlight": "where the logs are stored"
+          },
+          {
+            "en": "Could you tell me how the deploy works?",
+            "tr": "Deploy'un nasıl çalıştığını söyler misin?",
+            "highlight": "how the deploy works"
+          },
+          {
+            "en": "I'm not sure whether the fix is ready.",
+            "tr": "Düzeltmenin hazır olup olmadığından emin değilim.",
+            "highlight": "whether the fix is ready"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "Do you know where is the test report?",
+        "rightEn": "Do you know where the test report is?",
+        "noteTr": "Dolaylı soruda fiil özneden sonra gelir."
+      }
+    ],
+    "itemIds": [
+      "do-you-know-where",
+      "could-you-tell-me-how",
+      "not-sure-whether"
+    ],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 50,
+        "titleTr": "Soruyu başka bir cümlenin içine yerleştirmek"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: ref corrected Gram 49 to Gram 50 (PDF 112, indirect questions); examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "reported-speech-say-tell",
+    "area": "questions-reported-speech",
+    "titleTr": "Söyleneni aktarmak: say ve tell",
+    "summaryTr": "Tell kişiyle, say kişi olmadan; aktarmada zaman bir adım geriye gider.",
+    "sections": [
+      {
+        "headingTr": "Kime söyledin?",
+        "bodyTr": [
+          "Tell arkasında kişi ister (told me). Say'den sonra kişi gelmez; doğrudan that cümlesi gelir.",
+          "Aktarırken fiil çoğu zaman bir adım geriye gider (is → was). Emir ve rica için tell / ask + kişi + to kullan."
+        ],
+        "examples": [
+          {
+            "en": "Mert told me that the build was ready.",
+            "tr": "Mert bana build'in hazır olduğunu söyledi.",
+            "highlight": "told me that"
+          },
+          {
+            "en": "I asked Ayşe to send the screenshot.",
+            "tr": "Ayşe'den ekran görüntüsünü göndermesini istedim.",
+            "highlight": "asked Ayşe to send"
+          },
+          {
+            "en": "Deniz reminded us to update the ticket.",
+            "tr": "Deniz bize ticket'ı güncellememizi hatırlattı.",
+            "highlight": "reminded us to update"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "She said me that the test failed.",
+        "rightEn": "She told me that the test failed.",
+        "noteTr": "Say'den sonra kişi gelmez; kişi varsa tell."
+      }
+    ],
+    "itemIds": [
+      "tell-someone-about",
+      "ask-someone-to",
+      "remind-someone-to"
+    ],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 47,
+        "titleTr": "Başkasının sözünü aktarmak"
+      },
+      {
+        "book": "Gram",
+        "unit": 48,
+        "titleTr": "say, tell ve emir aktarımı"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram 47, 48 checked (PDF 106, 108); backshift stated as usual, not absolute; examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "verbs-followed-by-ing",
+    "area": "ing-to",
+    "titleTr": "-ing alan fiiller",
+    "summaryTr": "Avoid, consider, postpone, suggest gibi fiillerden sonra -ing gelir.",
+    "sections": [
+      {
+        "headingTr": "Fiil + -ing",
+        "bodyTr": [
+          "Bazı fiillerden sonra to değil -ing gelir: avoid, consider, postpone, suggest, finish, keep. Bunları ezberle.",
+          "Türkçe \"kaçınmak / ertelemek\" mastar ile kurulur, bu yüzden to ekleme hatası sık görülür."
+        ],
+        "examples": [
+          {
+            "en": "We should avoid deploying on Fridays.",
+            "tr": "Cuma günleri deploy etmekten kaçınmalıyız.",
+            "highlight": "avoid deploying"
+          },
+          {
+            "en": "Deniz is considering switching to Playwright.",
+            "tr": "Deniz Playwright'a geçmeyi düşünüyor.",
+            "highlight": "considering switching"
+          },
+          {
+            "en": "Let's postpone releasing until the fix is verified.",
+            "tr": "Düzeltme doğrulanana kadar çıkarmayı erteleyelim.",
+            "highlight": "postpone releasing"
+          },
+          {
+            "en": "Mert suggested running the tests again.",
+            "tr": "Mert testleri tekrar çalıştırmayı önerdi.",
+            "highlight": "suggested running"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "I avoid to push on Fridays.",
+        "rightEn": "I avoid pushing on Fridays.",
+        "noteTr": "Avoid'dan sonra to değil -ing."
+      }
+    ],
+    "itemIds": [
+      "avoid-doing",
+      "consider-doing",
+      "postpone-doing",
+      "suggest-doing"
+    ],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 53,
+        "titleTr": "Arkasından -ing alan fiiller"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram 53 checked (PDF 118); Gram 54 removed (verb + to); examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "verbs-followed-by-to",
+    "area": "ing-to",
+    "titleTr": "to alan fiiller",
+    "summaryTr": "Fail, tend, want, ask gibi fiillerden sonra to + yalın fiil gelir.",
+    "sections": [
+      {
+        "headingTr": "Fiil + to",
+        "bodyTr": [
+          "Bazı fiillerden sonra to + yalın fiil gelir: fail, tend, decide, want someone to, ask someone to.",
+          "Try iki anlam taşır. Try to deneyip çaba göstermek, try -ing farklı yöntem denemek demektir."
+        ],
+        "examples": [
+          {
+            "en": "The script failed to connect to the database.",
+            "tr": "Betik veritabanına bağlanamadı.",
+            "highlight": "failed to connect"
+          },
+          {
+            "en": "Our builds tend to break after merges.",
+            "tr": "Build'lerimiz merge'lerden sonra bozulma eğiliminde.",
+            "highlight": "tend to break"
+          },
+          {
+            "en": "I want you to review my test plan.",
+            "tr": "Test planımı incelemeni istiyorum.",
+            "highlight": "want you to review"
+          },
+          {
+            "en": "Try clearing the cache first.",
+            "tr": "Önce cache'i temizlemeyi dene.",
+            "highlight": "Try clearing"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "I want that you review the report.",
+        "rightEn": "I want you to review the report.",
+        "noteTr": "Want + kişi + to kalıbını kullan; that cümlesi kurma."
+      }
+    ],
+    "itemIds": [
+      "fail-to-do",
+      "tend-to-do",
+      "want-someone-to"
+    ],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 54,
+        "titleTr": "Arkasından to + yalın fiil alan fiiller"
+      },
+      {
+        "book": "Gram",
+        "unit": 55,
+        "titleTr": "Fiil + kişi + to"
+      },
+      {
+        "book": "Gram",
+        "unit": 57,
+        "titleTr": "try, need, help: iki kalıbı da alan fiiller"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram 54, 55, 57 checked (PDF 120, 122, 126); unit titles corrected; try-doing dropped (not shipped); examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "preposition-plus-ing",
+    "area": "ing-to",
+    "titleTr": "Edat + -ing",
+    "summaryTr": "Edattan sonra fiil -ing alır: thanks for, succeed in, insist on.",
+    "sections": [
+      {
+        "headingTr": "Edat sonrası fiil",
+        "bodyTr": [
+          "Edattan sonra fiil kullanacaksan -ing ekle: thank for, apologise for, succeed in, insist on, prevent from.",
+          "Türkçe isim-fiil ekini (\"-mek için\", \"-mekten\") kullandığı için to + fiil denemek yaygın hatadır."
+        ],
+        "examples": [
+          {
+            "en": "Thanks for fixing the bug so quickly.",
+            "tr": "Bug'ı bu kadar hızlı düzelttiğin için sağ ol.",
+            "highlight": "Thanks for fixing"
+          },
+          {
+            "en": "I apologise for missing the standup.",
+            "tr": "Standup'ı kaçırdığım için özür dilerim.",
+            "highlight": "apologise for missing"
+          },
+          {
+            "en": "We succeeded in reproducing the issue.",
+            "tr": "Sorunu yeniden üretmeyi başardık.",
+            "highlight": "succeeded in reproducing"
+          },
+          {
+            "en": "Deniz insisted on testing it again.",
+            "tr": "Deniz tekrar test etmekte ısrar etti.",
+            "highlight": "insisted on testing"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "Ayşe succeeded to fix the flaky test.",
+        "rightEn": "Ayşe succeeded in fixing the flaky test.",
+        "noteTr": "Succeed'den sonra to değil in + -ing gelir."
+      }
+    ],
+    "itemIds": [
+      "thanks-for-doing",
+      "apologise-for-doing",
+      "succeed-in-doing",
+      "insist-on-doing"
+    ],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 60,
+        "titleTr": "Edattan sonra fiil kalıpları"
+      },
+      {
+        "book": "Gram",
+        "unit": 62,
+        "titleTr": "Fiil + edat + -ing"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram 60, 62 checked (PDF 132, 136); trap replaced with succeed to (real learner error); examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "look-forward-used-to-prevent",
+    "area": "ing-to",
+    "titleTr": "look forward to, be used to, prevent from",
+    "summaryTr": "Bu üç kalıpta to ya da from bir edattır; fiil -ing alır.",
+    "sections": [
+      {
+        "headingTr": "Karışan to",
+        "bodyTr": [
+          "Look forward to ve be used to kalıplarındaki to bir edattır. Bu yüzden arkasından -ing gelir. Prevent ... from de -ing alır.",
+          "Used to + yalın fiil ise farklı bir kalıptır (eski alışkanlık)."
+        ],
+        "examples": [
+          {
+            "en": "I look forward to seeing the results.",
+            "tr": "Sonuçları görmeyi dört gözle bekliyorum.",
+            "highlight": "look forward to seeing"
+          },
+          {
+            "en": "We're used to working with Jira.",
+            "tr": "Jira ile çalışmaya alışığız.",
+            "highlight": "'re used to working"
+          },
+          {
+            "en": "The check prevents us from releasing broken builds.",
+            "tr": "Bu kontrol bozuk build çıkarmamızı engelliyor.",
+            "highlight": "prevents us from releasing"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "I look forward to see you at the demo.",
+        "rightEn": "I look forward to seeing you at the demo.",
+        "noteTr": "Bu to bir edattır; fiil -ing olur."
+      }
+    ],
+    "itemIds": [
+      "look-forward-to-doing",
+      "be-used-to-doing",
+      "prevent-from-doing"
+    ],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 61,
+        "titleTr": "Bir şeye alışık olmak ve alışmak"
+      },
+      {
+        "book": "Gram",
+        "unit": 62,
+        "titleTr": "Fiil + edat + -ing: look forward to, prevent from"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram 61 added (be used to, PDF 134); Gram 62 covers look forward to and prevent from (PDF 136); examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "purpose-and-difficulty",
+    "area": "ing-to",
+    "titleTr": "Amaç ve zorluk",
+    "summaryTr": "Amaç için to + fiil ya da so that; zorluk için have trouble + -ing.",
+    "sections": [
+      {
+        "headingTr": "Neden, ne için",
+        "bodyTr": [
+          "Bir işin amacını to + yalın fiil ile söyle. For + yalın fiil kullanma. Başka bir özne varsa so that + can / will kullan.",
+          "Zorlanmayı have trouble / difficulty + -ing ile söyle. Burada to kullanılmaz."
+        ],
+        "examples": [
+          {
+            "en": "I added logs to see where the request fails.",
+            "tr": "İsteğin nerede hata verdiğini görmek için log ekledim.",
+            "highlight": "to see where the request fails"
+          },
+          {
+            "en": "Please log the steps so that we can reproduce the bug.",
+            "tr": "Bug'ı yeniden üretebilmemiz için lütfen adımları yaz.",
+            "highlight": "so that we can reproduce"
+          },
+          {
+            "en": "Ayşe has trouble reproducing the crash.",
+            "tr": "Ayşe çökmeyi yeniden üretmekte zorlanıyor.",
+            "highlight": "has trouble reproducing"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "I joined the call for ask about the release.",
+        "rightEn": "I joined the call to ask about the release.",
+        "noteTr": "Amaç için for + yalın fiil kullanılmaz; to + fiil kullan."
+      }
+    ],
+    "itemIds": [
+      "to-infinitive-of-purpose",
+      "so-that-purpose",
+      "have-trouble-doing"
+    ],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 63,
+        "titleTr": "Zorlanmak ve değip değmediğini söylemek"
+      },
+      {
+        "book": "Gram",
+        "unit": 64,
+        "titleTr": "Bir işin amacını söylemek"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram 63/64 titles swapped to match content (PDF 138 difficulty, PDF 140 purpose); purpose example rewritten (close to a Unit 64 line); for + -ing nuance fixed; examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "articles-a-the",
+    "area": "articles-nouns",
+    "titleTr": "a ve the",
+    "summaryTr": "İlk söz a / an, ikinci söz the; meslekte a; most ile the yok.",
+    "sections": [
+      {
+        "headingTr": "İlk söz, ikinci söz",
+        "bodyTr": [
+          "Bir şeyden ilk kez söz ediyorsan a / an kullan. Aynı şeyi tekrar anıyorsan the kullan. Meslek adından önce a / an gelir.",
+          "Genel anlamda \"çoğu\" için most + çoğul isim kullan. The most shops denmez."
+        ],
+        "examples": [
+          {
+            "en": "I found a bug in the checkout flow, and the bug blocks payment.",
+            "tr": "Ödeme akışında bir bug buldum ve bu bug ödemeyi engelliyor.",
+            "highlight": "a bug in the checkout flow, and the bug"
+          },
+          {
+            "en": "Deniz is a test engineer.",
+            "tr": "Deniz bir test mühendisi.",
+            "highlight": "is a test engineer"
+          },
+          {
+            "en": "Most teams use Jira.",
+            "tr": "Çoğu ekip Jira kullanır.",
+            "highlight": "Most teams"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "Ayşe is test engineer.",
+        "rightEn": "Ayşe is a test engineer.",
+        "noteTr": "Meslek adından önce a / an gerekir; Türkçede ayrı bir söz yok."
+      }
+    ],
+    "itemIds": [
+      "article-second-mention",
+      "a-before-job",
+      "most-without-the"
+    ],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 71,
+        "titleTr": "Ne tür bir şey ya da kişi olduğunu a / an ile söylemek"
+      },
+      {
+        "book": "Gram",
+        "unit": 72,
+        "titleTr": "İlk söz ve bilinen şey: a / an ile the"
+      },
+      {
+        "book": "Gram",
+        "unit": 75,
+        "titleTr": "Genel anlamda the kullanmama"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram 69 replaced by Gram 71 (a/an for jobs, PDF 154); Gram 72, 75 checked; examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "uncountable-nouns",
+    "area": "articles-nouns",
+    "titleTr": "Sayılamayan isimler",
+    "summaryTr": "Data, feedback, information gibi isimlere s eklenmez ve a gelmez.",
+    "sections": [
+      {
+        "headingTr": "Çoğul olmayan isimler",
+        "bodyTr": [
+          "Bazı isimler sayılamaz: information, feedback, advice, software, documentation, progress. Bunlara a / an ya da çoğul eki getirme.",
+          "Sayı belirtmek için bir parça kelimesi kullan: a piece of advice, two pieces of feedback."
+        ],
+        "examples": [
+          {
+            "en": "We need more information about the failing test.",
+            "tr": "Başarısız test hakkında daha fazla bilgiye ihtiyacımız var.",
+            "highlight": "more information"
+          },
+          {
+            "en": "The feedback from QA was very helpful.",
+            "tr": "QA'dan gelen geri bildirim çok yararlıydı.",
+            "highlight": "The feedback from QA was"
+          },
+          {
+            "en": "There is a lot of work left before the release.",
+            "tr": "Release'den önce çok iş kaldı.",
+            "highlight": "a lot of work"
+          },
+          {
+            "en": "Is there any documentation for this API?",
+            "tr": "Bu API için herhangi bir dokümantasyon var mı?",
+            "highlight": "any documentation"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "Mert gave me a good advice and many informations.",
+        "rightEn": "Mert gave me good advice and a lot of information.",
+        "noteTr": "Advice ve information sayılamaz; \"an advice / informations\" denmez. Doğru: good advice and a lot of information."
+      }
+    ],
+    "itemIds": [
+      "data-uncountable",
+      "feedback-uncountable",
+      "information-uncountable",
+      "software-uncountable",
+      "progress-uncountable",
+      "documentation-uncountable",
+      "a-lot-of-work",
+      "advice-uncountable",
+      "luggage-uncountable"
+    ],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 69,
+        "titleTr": "Sayılamayan isimlere a ve çoğul eki gelmemesi"
+      },
+      {
+        "book": "Gram",
+        "unit": 70,
+        "titleTr": "information, advice gibi sık karışan isimler"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram 69, 70 checked (PDF 150, 152); Gram 71/72 removed; trap rightEn was Turkish, now English; examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "there-it-and-negatives",
+    "area": "pronouns-determiners",
+    "titleTr": "there, it ve any / no",
+    "summaryTr": "Varlık için there is; olumsuzda any ya da no, çifte olumsuz yok.",
+    "sections": [
+      {
+        "headingTr": "\"Var\" ve \"yok\"",
+        "bodyTr": [
+          "Bir şeyin var ya da yok olduğunu there is / there was ile söyle. Türkçe \"var\" yüzünden it was demek yaygın hatadır.",
+          "Olumsuz cümlede ya not ... any ya da no kullan. İngilizce çifte olumsuz sevmez."
+        ],
+        "examples": [
+          {
+            "en": "There was a delay in the pipeline.",
+            "tr": "Pipeline'da bir gecikme oldu.",
+            "highlight": "There was a delay"
+          },
+          {
+            "en": "There is no response from the server.",
+            "tr": "Sunucudan cevap yok.",
+            "highlight": "There is no response"
+          },
+          {
+            "en": "There will be time for questions at the end.",
+            "tr": "Sonda soru için zaman olacak.",
+            "highlight": "There will be time"
+          },
+          {
+            "en": "I didn't find anything in the logs.",
+            "tr": "Loglarda hiçbir şey bulamadım.",
+            "highlight": "didn't find anything"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "It is no response from the server.",
+        "rightEn": "There is no response from the server.",
+        "noteTr": "Var / yok derken it is değil there is kullan."
+      },
+      {
+        "wrongEn": "I didn't find nothing in the logs.",
+        "rightEn": "I didn't find anything in the logs.",
+        "noteTr": "Çifte olumsuz yok: not ... anything."
+      }
+    ],
+    "itemIds": [
+      "there-was-a-delay",
+      "there-is-no-response",
+      "there-will-be-time",
+      "not-anything-double-negative"
+    ],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 84,
+        "titleTr": "Varlık: there ile it"
+      },
+      {
+        "book": "Gram",
+        "unit": 85,
+        "titleTr": "Olumlu, olumsuz ve soruda belirsiz miktar"
+      },
+      {
+        "book": "Gram",
+        "unit": 86,
+        "titleTr": "Hiç, hiçbiri anlamı ve olumsuz sözcükler"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram 84-86 checked (PDF 180-184); 'It was a problem' trap replaced (can be grammatical); examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "relative-clauses-who-that-which",
+    "area": "relative-clauses",
+    "titleTr": "İlgi cümleleri: who, that, which",
+    "summaryTr": "Kişi için who, nesne için which ya da that; yan cümlede özne tekrarlanmaz.",
+    "sections": [
+      {
+        "headingTr": "Kim ya da ne?",
+        "bodyTr": [
+          "Kişiyi tanımlarken who kullan. Nesneyi tanımlarken which ya da that kullan. Bu söz yan cümlenin öznesiyse aynı özneyi bir daha yazma.",
+          "Türkçe sıfat-fiil (\"bulan kişi\") ile kurar. İngilizcede sıfat cümlesi ismin arkasına gelir."
+        ],
+        "examples": [
+          {
+            "en": "The tester who found the bug works in Berlin.",
+            "tr": "Bug'ı bulan test uzmanı Berlin'de çalışıyor.",
+            "highlight": "who found the bug"
+          },
+          {
+            "en": "This is the script that runs the smoke tests.",
+            "tr": "Bu, smoke testleri çalıştıran betik.",
+            "highlight": "that runs the smoke tests"
+          },
+          {
+            "en": "We use a tool which checks the API responses.",
+            "tr": "API cevaplarını kontrol eden bir araç kullanıyoruz.",
+            "highlight": "which checks the API responses"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "The engineer who she reviewed the code works with me.",
+        "rightEn": "The engineer who reviewed the code works with me.",
+        "noteTr": "Who zaten özne olduğu için she eklenmez."
+      }
+    ],
+    "itemIds": [],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 92,
+        "titleTr": "Kişiyi ve şeyi tanımlayan yan cümle"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram 92 checked (PDF 196); Gram 94 removed (whose/whom/where); subject rule made precise; examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "word-forms-noun-verb-adjective",
+    "area": "adjectives-adverbs",
+    "titleTr": "Sözcük biçimi: isim, fiil, sıfat",
+    "summaryTr": "Aynı kökün biçimini cümledeki göreve göre seç.",
+    "sections": [
+      {
+        "headingTr": "Doğru biçim",
+        "bodyTr": [
+          "Cümlede isim, fiil ya da sıfat gerektiğine bak. Success isimdir, succeed fiildir, successful sıfattır. Fail / failure, analyse / analysis, approve / approval de aynıdır.",
+          "Bazı çiftlerin yazımı ayrıdır: set up (fiil), setup (isim); log in (fiil), login (isim)."
+        ],
+        "examples": [
+          {
+            "en": "The deployment was successful.",
+            "tr": "Deployment başarılıydı.",
+            "highlight": "successful"
+          },
+          {
+            "en": "We are waiting for approval from the client.",
+            "tr": "Müşteriden onay bekliyoruz.",
+            "highlight": "waiting for approval"
+          },
+          {
+            "en": "Please set up the test environment.",
+            "tr": "Lütfen test ortamını kur.",
+            "highlight": "set up the test environment"
+          }
+        ]
+      },
+      {
+        "headingTr": "Sıfat mı, zarf mı?",
+        "bodyTr": [
+          "Fiili zarf niteler, çoğu zaman -ly ile: fails intermittently. -ed ile biten sıfat hissi (bored), -ing ile biten sıfat hissettiren şeyi (boring) anlatır."
+        ],
+        "examples": [
+          {
+            "en": "The login test fails intermittently.",
+            "tr": "Login testi ara ara patlıyor.",
+            "highlight": "fails intermittently"
+          },
+          {
+            "en": "The manual check is boring, so the team is bored.",
+            "tr": "Elle kontrol sıkıcı, bu yüzden ekip sıkılmış durumda.",
+            "highlight": "boring, so the team is bored"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "The upgrade was success.",
+        "rightEn": "The upgrade was successful.",
+        "noteTr": "was'tan sonra sıfat gelir: successful. Success isimdir."
+      }
+    ],
+    "itemIds": [
+      "deployment-was-successful",
+      "set-up-verb",
+      "log-in-to",
+      "reminder-noun",
+      "waiting-for-approval",
+      "failure-noun",
+      "dependent-on",
+      "analysis-of",
+      "judgmental-question",
+      "clarification-noun",
+      "prioritise-verb",
+      "bored-vs-boring",
+      "fails-intermittently"
+    ],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 98,
+        "titleTr": "Hissi ve hissettireni anlatan sıfat çiftleri"
+      },
+      {
+        "book": "Gram",
+        "unit": 100,
+        "titleTr": "Sıfat mı zarf mı: -ly eki"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram 99 removed (adjective order); Gram 98 and 100 added with matching examples; trap replaced; examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "adverb-position-still-yet",
+    "area": "adjectives-adverbs",
+    "titleTr": "Zarf yeri: probably, still, yet",
+    "summaryTr": "Probably ve still olumsuzdan önce; yet cümle sonunda.",
+    "sections": [
+      {
+        "headingTr": "Zarf nerede durur?",
+        "bodyTr": [
+          "Probably olumlu cümlede will'den sonra gelir (will probably). Olumsuzda won't'tan önce gelir (probably won't).",
+          "Hâlâ olmadı için still hasn't ya da hasn't ... yet kullan. Artık yok için no longer ya da not ... any more."
+        ],
+        "examples": [
+          {
+            "en": "The fix will probably be ready tomorrow.",
+            "tr": "Düzeltme büyük ihtimalle yarın hazır olur.",
+            "highlight": "will probably be"
+          },
+          {
+            "en": "I probably won't finish today.",
+            "tr": "Muhtemelen bugün bitiremem.",
+            "highlight": "probably won't finish"
+          },
+          {
+            "en": "Mert hasn't replied yet.",
+            "tr": "Mert henüz cevap vermedi.",
+            "highlight": "hasn't replied yet"
+          },
+          {
+            "en": "This test no longer works.",
+            "tr": "Bu test artık çalışmıyor.",
+            "highlight": "no longer works"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "I won't probably join the call.",
+        "rightEn": "I probably won't join the call.",
+        "noteTr": "Probably, won't'tan önce gelir."
+      }
+    ],
+    "itemIds": [
+      "probably-before-wont",
+      "no-longer-works",
+      "hasnt-replied-yet"
+    ],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 110,
+        "titleTr": "Sıklık ve olasılık zarflarının yeri"
+      },
+      {
+        "book": "Gram",
+        "unit": 111,
+        "titleTr": "Hâlâ, artık, henüz: süreyle ilgili zarflar"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram 110, 111 checked (PDF 232, 234); Gram 109 removed; example 1 was a Gram 110 sentence verbatim, rewritten; examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "contrast-although-despite",
+    "area": "conjunctions",
+    "titleTr": "Karşıtlık: although, despite, whereas",
+    "summaryTr": "Although arkasında cümle, despite arkasında isim ya da -ing gelir.",
+    "sections": [
+      {
+        "headingTr": "Karşıtlık bağlaçları",
+        "bodyTr": [
+          "Although ve even though cümle ister. Despite isim ya da -ing ister. Despite of denmez.",
+          "Whereas iki durumu karşılaştırır: biri şöyle, diğeri böyle."
+        ],
+        "examples": [
+          {
+            "en": "Although the test passed, we found a bug.",
+            "tr": "Test geçmesine rağmen bir bug bulduk.",
+            "highlight": "Although the test passed"
+          },
+          {
+            "en": "Despite testing twice, we missed the error.",
+            "tr": "İki kez test etmemize rağmen hatayı kaçırdık.",
+            "highlight": "Despite testing twice"
+          },
+          {
+            "en": "Manual tests are slow, whereas automated tests are fast.",
+            "tr": "Manuel testler yavaş, otomatik testler ise hızlı.",
+            "highlight": "whereas automated tests are fast"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "Despite of the delay, we released on time.",
+        "rightEn": "Despite the delay, we released on time.",
+        "noteTr": "Despite ile of kullanılmaz."
+      }
+    ],
+    "itemIds": [
+      "despite-doing",
+      "although-clause",
+      "whereas-contrast"
+    ],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 113,
+        "titleTr": "Birbirine ters düşen iki bilgi"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram 113 checked (PDF 238); Gram 116 removed (as); Cambridge Grammar (despite): not despite of; examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "reasons-due-to-given-that",
+    "area": "conjunctions",
+    "titleTr": "Neden bağlaçları",
+    "summaryTr": "Due to ve as a result of isimle, given that cümleyle kullanılır.",
+    "sections": [
+      {
+        "headingTr": "Neden bildirmek",
+        "bodyTr": [
+          "Due to, because of ve as a result of arkasından isim ya da -ing alır, cümle almaz. Cümle bağlamak için because ya da given that kullan.",
+          "Given that, nedenin zaten bilindiğini gösterir."
+        ],
+        "examples": [
+          {
+            "en": "The release was delayed due to a database issue.",
+            "tr": "Release bir veritabanı sorunu yüzünden gecikti.",
+            "highlight": "due to a database issue"
+          },
+          {
+            "en": "As a result of the outage, we lost two hours.",
+            "tr": "Kesinti yüzünden iki saat kaybettik.",
+            "highlight": "As a result of the outage"
+          },
+          {
+            "en": "Given that the deadline is Friday, we should start now.",
+            "tr": "Son tarih cuma olduğuna göre hemen başlamalıyız.",
+            "highlight": "Given that the deadline is Friday"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "Due to the server was down, we stopped the tests.",
+        "rightEn": "Because the server was down, we stopped the tests.",
+        "noteTr": "Due to'dan sonra cümle gelmez; cümle için because, isim için due to (due to the outage)."
+      }
+    ],
+    "itemIds": [
+      "due-to-noun",
+      "as-a-result-of-noun",
+      "given-that-clause"
+    ],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 113,
+        "titleTr": "because ile because of farkı: cümle mi isim mi"
+      },
+      {
+        "book": "Coll",
+        "unit": 53,
+        "titleTr": "Sebep ve sonucu anlatan kalıplar"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram 118 removed (like/as if); Gram 113 (because vs because of, PDF 238) + Coll 53 (PDF 114); Cambridge (due to) used; trap rightEn made natural; examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "in-case-and-unless",
+    "area": "conjunctions",
+    "titleTr": "in case ve unless",
+    "summaryTr": "In case \"olur da diye\", unless \"yapmazsa\" demektir; ikisinde de present simple.",
+    "sections": [
+      {
+        "headingTr": "İki bağlaç",
+        "bodyTr": [
+          "In case, olası bir sorun için önceden önlem alırken kullanılır. Arkasından present simple gelir, will gelmez.",
+          "Unless \"if ... not\" demektir. Unless cümlesinde olumsuz kullanma."
+        ],
+        "examples": [
+          {
+            "en": "I saved a copy in case the update fails.",
+            "tr": "Güncelleme başarısız olursa diye bir kopya aldım.",
+            "highlight": "in case the update fails"
+          },
+          {
+            "en": "We won't release unless the tests pass.",
+            "tr": "Testler geçmedikçe release çıkarmayacağız.",
+            "highlight": "unless the tests pass"
+          },
+          {
+            "en": "Take notes in case you forget the details.",
+            "tr": "Ayrıntıları unutursan diye not al.",
+            "highlight": "in case you forget"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "Unless the test doesn't pass, we won't release.",
+        "rightEn": "Unless the test passes, we won't release.",
+        "noteTr": "Unless zaten olumsuz anlam taşır; ikinci kez olumsuz kurma."
+      }
+    ],
+    "itemIds": [
+      "in-case-clause",
+      "unless-clause"
+    ],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 114,
+        "titleTr": "Önlem için: in case"
+      },
+      {
+        "book": "Gram",
+        "unit": 115,
+        "titleTr": "Olmazsa, yapmazsa: unless"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram 114, 115 checked (PDF 240, 242); Cambridge Grammar (in case, unless); no change; examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "time-prepositions",
+    "area": "prepositions",
+    "titleTr": "Zaman edatları",
+    "summaryTr": "By son tarih, until süren iş; for süre, during olay; in, on, at ayrı kalıp.",
+    "sections": [
+      {
+        "headingTr": "Zaman edatı seçimi",
+        "bodyTr": [
+          "By son tarihi gösterir (by Friday: en geç cuma). Until süren bir işin bittiği anı gösterir (until Friday: cumaya kadar sürer).",
+          "For süre ister (for two days). During bir olay ya da dönemin adını ister (during the daily).",
+          "Hafta sonu için BrE at the weekend, AmE on the weekend der."
+        ],
+        "examples": [
+          {
+            "en": "Please send the report by Friday.",
+            "tr": "Lütfen raporu cumaya kadar (en geç) gönder.",
+            "highlight": "by Friday"
+          },
+          {
+            "en": "The server will be down until noon.",
+            "tr": "Sunucu öğlene kadar kapalı olacak.",
+            "highlight": "until noon"
+          },
+          {
+            "en": "We discussed it during the daily.",
+            "tr": "Bunu daily sırasında konuştuk.",
+            "highlight": "during the daily"
+          },
+          {
+            "en": "I'm off at the weekend.",
+            "tr": "Hafta sonu izinliyim.",
+            "highlight": "at the weekend"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "The tests ran during three hours.",
+        "rightEn": "The tests ran for three hours.",
+        "noteTr": "Süre için for; during olayın adıyla kullanılır."
+      }
+    ],
+    "itemIds": [
+      "by-deadline",
+      "until-duration",
+      "during-the-daily",
+      "at-the-weekend"
+    ],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 119,
+        "titleTr": "for, during ve while farkı"
+      },
+      {
+        "book": "Gram",
+        "unit": 120,
+        "titleTr": "Son tarih mi, süren iş mi: by ile until"
+      },
+      {
+        "book": "Gram",
+        "unit": 121,
+        "titleTr": "Saat, gün ve dönem için zaman edatları"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: refs corrected to Gram 119, 120, 121 (Unit 123/124 are place); Oxford Learner's (weekend): at BrE / on AmE noted; examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "noun-plus-preposition",
+    "area": "prepositions",
+    "titleTr": "İsim + edat",
+    "summaryTr": "Bazı isimler belli bir edatla kullanılır: damage to, reason for, solution to.",
+    "sections": [
+      {
+        "headingTr": "Hangi edat?",
+        "bodyTr": [
+          "Birçok isim sabit edatla gelir. Damage to, reason for, solution to, increase in, impact on, access to, difference between A and B.",
+          "Edatı Türkçe ek mantığıyla tahmin etme. İsmi edatıyla birlikte öğren."
+        ],
+        "examples": [
+          {
+            "en": "The update caused damage to the database.",
+            "tr": "Güncelleme veritabanına zarar verdi.",
+            "highlight": "damage to the database"
+          },
+          {
+            "en": "What's the reason for the timeout?",
+            "tr": "Zaman aşımının nedeni ne?",
+            "highlight": "reason for the timeout"
+          },
+          {
+            "en": "We need a solution to this problem.",
+            "tr": "Bu soruna bir çözüm lazım.",
+            "highlight": "solution to this problem"
+          },
+          {
+            "en": "There was an increase in failed logins.",
+            "tr": "Başarısız girişlerde artış oldu.",
+            "highlight": "increase in failed logins"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "What is the difference with these two builds?",
+        "rightEn": "What is the difference between these two builds?",
+        "noteTr": "Difference ile between kullanılır; with değil."
+      }
+    ],
+    "itemIds": [
+      "damage-to",
+      "demand-for",
+      "difference-between",
+      "invitation-to",
+      "reason-for",
+      "solution-to",
+      "increase-in",
+      "impact-on",
+      "have-access-to"
+    ],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 129,
+        "titleTr": "Bazı isimlerin hep aynı edatla kullanılması"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram 129 checked (PDF 270); Gram 130 removed (adjectives); 'reason for the delay' example was close to a Unit 129 line, rewritten; examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "adjective-plus-preposition",
+    "area": "prepositions",
+    "titleTr": "Sıfat + edat",
+    "summaryTr": "Be aware of, familiar with, responsible for gibi sıfat + edat kalıpları.",
+    "sections": [
+      {
+        "headingTr": "Sıfatın edatı",
+        "bodyTr": [
+          "Sıfatlar da belli edatla gelir: aware of, responsible for, familiar with, similar to, related to, short of, interested in, good at.",
+          "Edattan sonra isim ya da -ing gelir."
+        ],
+        "examples": [
+          {
+            "en": "I wasn't aware of the change.",
+            "tr": "Değişiklikten haberdar değildim.",
+            "highlight": "aware of the change"
+          },
+          {
+            "en": "Deniz is responsible for the release notes.",
+            "tr": "Release notlarından Deniz sorumlu.",
+            "highlight": "responsible for the release notes"
+          },
+          {
+            "en": "Are you familiar with this tool?",
+            "tr": "Bu aracı tanıyor musun?",
+            "highlight": "familiar with this tool"
+          },
+          {
+            "en": "We are short of testers this week.",
+            "tr": "Bu hafta test uzmanı sıkıntısı var.",
+            "highlight": "short of testers"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "I am not aware about this bug.",
+        "rightEn": "I am not aware of this bug.",
+        "noteTr": "Aware ile of kullanılır; about değil."
+      }
+    ],
+    "itemIds": [
+      "aware-of",
+      "short-of",
+      "responsible-for",
+      "familiar-with",
+      "similar-to",
+      "related-to",
+      "in-charge-of",
+      "be-interested-in",
+      "be-good-at",
+      "be-afraid-of"
+    ],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 131,
+        "titleTr": "Sıfatların ardından gelen of, for, in, at gibi edatlar"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram 131 checked (PDF 274: aware, short, responsible, similar, interested, good at); Gram 130 removed; examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "verb-plus-preposition",
+    "area": "prepositions",
+    "titleTr": "Fiil + edat",
+    "summaryTr": "Depend on, wait for, comment on, reply to gibi fiillerin edatı sabit.",
+    "sections": [
+      {
+        "headingTr": "Fiilin edatı",
+        "bodyTr": [
+          "Fiillerin edatı sabit kalır: depend on, wait for, comment on, reply to, help with, focus on, agree with, pay for, blame ... on.",
+          "Bir edat Türkçede ek olarak gizlenir; İngilizcede ayrı kelime olarak yazılmalıdır."
+        ],
+        "examples": [
+          {
+            "en": "The result depends on the test data.",
+            "tr": "Sonuç test verisine bağlı.",
+            "highlight": "depends on"
+          },
+          {
+            "en": "I'm waiting for the build to finish.",
+            "tr": "Build'in bitmesini bekliyorum.",
+            "highlight": "waiting for"
+          },
+          {
+            "en": "Please comment on the pull request.",
+            "tr": "Lütfen pull request hakkında yorum yap.",
+            "highlight": "comment on"
+          },
+          {
+            "en": "Mert helped me with the script.",
+            "tr": "Mert betikte bana yardım etti.",
+            "highlight": "helped me with"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "I'm waiting the approval.",
+        "rightEn": "I'm waiting for the approval.",
+        "noteTr": "Wait fiilinden sonra for gerekir."
+      }
+    ],
+    "itemIds": [
+      "depend-on",
+      "wait-for",
+      "comment-on",
+      "reply-to",
+      "help-with",
+      "focus-on",
+      "consist-of",
+      "agree-with-someone",
+      "pay-for-something",
+      "blame-something-on",
+      "provide-someone-with",
+      "explain-something-to-someone",
+      "share-something-with-someone",
+      "apologise-to-someone-for",
+      "remind-someone-about",
+      "borrow-from-someone",
+      "listen-to-music",
+      "ask-for-access",
+      "wait-for-the-bus"
+    ],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 132,
+        "titleTr": "to ve at alan fiiller"
+      },
+      {
+        "book": "Gram",
+        "unit": 133,
+        "titleTr": "about, for, of, after alan fiiller"
+      },
+      {
+        "book": "Gram",
+        "unit": 135,
+        "titleTr": "of, for, from, on alan fiiller"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram 132, 133, 135 checked (PDF 276, 278, 282); Gram 134 removed (about/of only); examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "verbs-without-preposition",
+    "area": "prepositions",
+    "titleTr": "Edatsız kullanılan fiiller",
+    "summaryTr": "Discuss, mention, attend, contact, join, answer fiillerinden sonra edat gelmez.",
+    "sections": [
+      {
+        "headingTr": "Edat koyma",
+        "bodyTr": [
+          "Türkçede bu fiillerin çoğu \"-e / hakkında\" gibi ek alır. İngilizcede doğrudan nesne gelir: discuss the plan, mention the bug, attend a meeting, contact Mert.",
+          "Varış için de aynı: enter the room, arrive in / at (to yok)."
+        ],
+        "examples": [
+          {
+            "en": "We discussed the release plan.",
+            "tr": "Release planını konuştuk.",
+            "highlight": "discussed the release plan"
+          },
+          {
+            "en": "Please attend the planning meeting.",
+            "tr": "Lütfen planlama toplantısına katıl.",
+            "highlight": "attend the planning meeting"
+          },
+          {
+            "en": "I'll contact the support team.",
+            "tr": "Destek ekibiyle iletişime geçeceğim.",
+            "highlight": "contact the support team"
+          },
+          {
+            "en": "Ayşe answered my email this morning.",
+            "tr": "Ayşe e-postama bu sabah cevap verdi.",
+            "highlight": "answered my email"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "We discussed about the release plan.",
+        "rightEn": "We discussed the release plan.",
+        "noteTr": "Discuss ile about kullanılmaz."
+      }
+    ],
+    "itemIds": [
+      "discuss-something",
+      "mention-something",
+      "join-call-no-to",
+      "attend-meeting-no-to",
+      "contact-someone",
+      "call-someone",
+      "marry-someone",
+      "investigate-the-failure",
+      "answer-someone-no-to",
+      "enter-the-room",
+      "arrive-in-at"
+    ],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 126,
+        "titleTr": "Bir yere varmak ve girmek"
+      },
+      {
+        "book": "Gram",
+        "unit": 132,
+        "titleTr": "Edatsız nesne alan iletişim fiilleri"
+      },
+      {
+        "book": "Gram",
+        "unit": 133,
+        "titleTr": "discuss gibi edat almayan fiiller"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram 126 (arrive/enter, PDF 264), 132 (call/answer), 133 (discuss) checked; Gram 135 removed; examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "phrasal-verbs-object-position",
+    "area": "phrasal-verbs",
+    "titleTr": "Phrasal verb: nesne nerede?",
+    "summaryTr": "Nesne zamirse fiil ile parçacık arasına girer: sort it out.",
+    "sections": [
+      {
+        "headingTr": "Zamir ortada",
+        "bodyTr": [
+          "Ayrılabilen phrasal verb'lerde isim nesne ya iki kelimenin arasında ya sonunda durur. Zamir (it, them) her zaman arada durur.",
+          "Sort out, point out, try on, put off, call off bu gruptadır."
+        ],
+        "examples": [
+          {
+            "en": "I'll sort it out after the standup.",
+            "tr": "Standup'tan sonra hallederim.",
+            "highlight": "sort it out"
+          },
+          {
+            "en": "Mert pointed the issue out in the review.",
+            "tr": "Mert sorunu incelemede belirtti.",
+            "highlight": "pointed the issue out"
+          },
+          {
+            "en": "They called the meeting off.",
+            "tr": "Toplantıyı iptal ettiler.",
+            "highlight": "called the meeting off"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "Please sort out it today.",
+        "rightEn": "Please sort it out today.",
+        "noteTr": "Zamir, fiil ile parçacığın arasına girer."
+      }
+    ],
+    "itemIds": [
+      "sort-it-out",
+      "point-it-out",
+      "call-off",
+      "put-off",
+      "try-it-on"
+    ],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 137,
+        "titleTr": "Phrasal verb yapısı ve nesnenin yeri"
+      },
+      {
+        "book": "Gram",
+        "unit": 139,
+        "titleTr": "out parçacığıyla kurulan fiiller"
+      },
+      {
+        "book": "Gram",
+        "unit": 140,
+        "titleTr": "Erteleme ve iptal: on / off ile kurulan fiiller"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram 137 (word order), 139, 140 (call off/put off) checked; fix-it-today dropped (not a phrasal verb); examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "phrasal-verbs-for-work",
+    "area": "phrasal-verbs",
+    "titleTr": "İş phrasal verb'leri",
+    "summaryTr": "Find out, work out, carry out, look into gibi günlük iş fiilleri.",
+    "sections": [
+      {
+        "headingTr": "Sık kullanılanlar",
+        "bodyTr": [
+          "Bu fiiller iş yazışmasında çok geçer. Find out öğrenmek, work out hesaplayıp çözmek, carry out yürütmek, look into araştırmak demektir.",
+          "Resmî yazıda tek kelimelik karşılık da kullanılabilir (look into → investigate)."
+        ],
+        "examples": [
+          {
+            "en": "Can you find out what caused the crash?",
+            "tr": "Çökmeye neyin sebep olduğunu öğrenebilir misin?",
+            "highlight": "find out what caused"
+          },
+          {
+            "en": "We carried out a full regression test.",
+            "tr": "Tam bir regresyon testi yürüttük.",
+            "highlight": "carried out"
+          },
+          {
+            "en": "Deniz will look into the failing job.",
+            "tr": "Deniz başarısız olan job'a bakacak.",
+            "highlight": "look into"
+          },
+          {
+            "en": "We came up with a workaround.",
+            "tr": "Geçici bir çözüm bulduk.",
+            "highlight": "came up with"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "Can you look it into today?",
+        "rightEn": "Can you look into it today?",
+        "noteTr": "Look into ayrılmaz; zamir sona gelir."
+      }
+    ],
+    "itemIds": [
+      "find-out",
+      "work-out-what",
+      "carry-out",
+      "look-into-it",
+      "come-up-with",
+      "fill-in-a-form",
+      "get-held-up",
+      "follow-up-on",
+      "roll-back-release",
+      "hand-over-to",
+      "take-over-from",
+      "catch-up-on",
+      "reach-out-to",
+      "get-back-to-someone",
+      "issue-has-come-up-again"
+    ],
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 139,
+        "titleTr": "out parçacığıyla kurulan fiiller"
+      },
+      {
+        "book": "Gram",
+        "unit": 144,
+        "titleTr": "up ile fikir ve konu getirmek"
+      },
+      {
+        "book": "Gram",
+        "unit": 145,
+        "titleTr": "Geri dönüş: back ile kurulan fiiller"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: refs corrected to Gram 139, 144, 145 (find/carry/work out, come up with, get back to); find-it-out trap replaced; Cambridge (look into) inseparable; non-phrasal items dropped; examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "make-and-do",
+    "area": "work-collocations",
+    "titleTr": "make ve do",
+    "summaryTr": "Make bir şey üretmek; do iş ya da etkinlik yapmak.",
+    "sections": [
+      {
+        "headingTr": "Hangisi?",
+        "bodyTr": [
+          "Make bir sonuç üretirken kullanılır: make a decision, make a mistake, make progress. Do işin kendisini anlatır: do some testing, do the shopping, do your best.",
+          "Türkçe \"yapmak\" tek fiil olduğu için kelime kelime çeviri hataya götürür."
+        ],
+        "examples": [
+          {
+            "en": "The team lead has to make a decision about the release date.",
+            "tr": "Takım liderinin release tarihi hakkında karar vermesi gerekiyor.",
+            "highlight": "make a decision"
+          },
+          {
+            "en": "Ayşe made a mistake in the test script.",
+            "tr": "Ayşe test betiğinde bir hata yaptı.",
+            "highlight": "made a mistake"
+          },
+          {
+            "en": "Let's do some exploratory testing today.",
+            "tr": "Bugün biraz keşif testi yapalım.",
+            "highlight": "do some exploratory testing"
+          },
+          {
+            "en": "We are making good progress.",
+            "tr": "İyi ilerleme kaydediyoruz.",
+            "highlight": "making good progress"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "Can you make the code review today?",
+        "rightEn": "Can you do the code review today?",
+        "noteTr": "İşin kendisi için do kullanılır: do the review."
+      },
+      {
+        "wrongEn": "I did a mistake in the config.",
+        "rightEn": "I made a mistake in the config.",
+        "noteTr": "Mistake ile make kullanılır."
+      }
+    ],
+    "itemIds": [
+      "make-a-reservation",
+      "do-the-shopping"
+    ],
+    "refs": [
+      {
+        "book": "Coll",
+        "unit": 7,
+        "titleTr": "make ve do ile kurulan eşdizimler"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Coll 7 checked (PDF 22); Coll 8 removed (get/go/become); decision example rewritten (close to a Gram exercise line); make-a-test trap replaced; examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "have-take-and-meetings",
+    "area": "work-collocations",
+    "titleTr": "have, take ve toplantılar",
+    "summaryTr": "Have a meeting, take a look, take a photo: fiil ve isim birlikte öğrenilir.",
+    "sections": [
+      {
+        "headingTr": "Fiil + isim eşleşmesi",
+        "bodyTr": [
+          "İngilizcede bazı isimler belli bir fiille gelir. Meeting için have ya da hold, look için take, photo için take kullanılır.",
+          "Bu kalıpları tek parça olarak öğren, çünkü çeviri yoluyla bulunamaz."
+        ],
+        "examples": [
+          {
+            "en": "We have a meeting with the client at three.",
+            "tr": "Saat üçte müşteriyle toplantımız var.",
+            "highlight": "have a meeting"
+          },
+          {
+            "en": "Could you take a look at the failing test?",
+            "tr": "Başarısız teste bir bakar mısın?",
+            "highlight": "take a look at"
+          },
+          {
+            "en": "I took a photo of the error message.",
+            "tr": "Hata mesajının fotoğrafını çektim.",
+            "highlight": "took a photo of"
+          },
+          {
+            "en": "Let's have a short break.",
+            "tr": "Kısa bir ara verelim.",
+            "highlight": "have a short break"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "I made a meeting with the team.",
+        "rightEn": "I had a meeting with the team.",
+        "noteTr": "Toplantı için make değil have ya da hold."
+      }
+    ],
+    "itemIds": [
+      "have-a-meeting",
+      "take-a-look-at-it",
+      "take-a-photo",
+      "have-breakfast"
+    ],
+    "refs": [
+      {
+        "book": "Coll",
+        "unit": 9,
+        "titleTr": "have, take, pay ile kalıplar"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Coll 9 checked (PDF 26); no change; examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "bug-reporting-collocations",
+    "area": "work-collocations",
+    "titleTr": "Bug ve ticket dili",
+    "summaryTr": "Log a bug, give a heads-up, keep someone in the loop: iş dili.",
+    "sections": [
+      {
+        "headingTr": "Takım dili",
+        "bodyTr": [
+          "QA işinde sabit kalıplar var. Bir hatayı raise, log ya da file edersin. Bilgi için a heads-up ya da keep someone in the loop dersin.",
+          "Bunları yazışmalarda olduğu gibi kullan. Kelime kelime çevirme."
+        ],
+        "examples": [
+          {
+            "en": "I logged a bug for the crash on startup.",
+            "tr": "Açılışta çökme için bir bug kaydı açtım.",
+            "highlight": "logged a bug"
+          },
+          {
+            "en": "Just a heads-up: the staging server is down.",
+            "tr": "Ufak bir uyarı: staging sunucusu kapalı.",
+            "highlight": "Just a heads-up"
+          },
+          {
+            "en": "Please keep me in the loop on this ticket.",
+            "tr": "Bu ticket'ta beni bilgilendirmeye devam et.",
+            "highlight": "keep me in the loop"
+          },
+          {
+            "en": "We escalated the issue to the platform team.",
+            "tr": "Sorunu platform ekibine ilettik.",
+            "highlight": "escalated the issue to"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "I opened a failure for this crash.",
+        "rightEn": "I logged a bug for this crash.",
+        "noteTr": "Hata kaydı için log, raise ya da file a bug kullan."
+      }
+    ],
+    "itemIds": [
+      "log-a-bug",
+      "a-heads-up",
+      "keep-me-in-the-loop",
+      "escalate-issue-to",
+      "flaky-test",
+      "edge-case",
+      "reproduce-the-issue",
+      "assign-something-to-someone",
+      "blocked-by",
+      "double-check"
+    ],
+    "refs": [
+      {
+        "book": "Coll",
+        "unit": 30,
+        "titleTr": "İş ve kariyerle ilgili kalıplar"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Coll 30 (Work, PDF 68) is the closest unit (roadmap §1.1 area 16); QA terms come from items already verified; examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "cause-effect-language",
+    "area": "work-collocations",
+    "titleTr": "Neden ve sonuç dili",
+    "summaryTr": "Affect fiildir, effect isimdir; result in sonuç, result from neden.",
+    "sections": [
+      {
+        "headingTr": "Rapor dili",
+        "bodyTr": [
+          "Affect bir şeyi etkilemek (fiil). Effect etkidir (isim). Result in sonucu, result from nedeni gösterir.",
+          "Riski azaltmak için mitigate, sorunu ele almak için address kullan. Bunlar olay raporlarında sık geçer."
+        ],
+        "examples": [
+          {
+            "en": "The bug affects only Android users.",
+            "tr": "Bug yalnızca Android kullanıcılarını etkiliyor.",
+            "highlight": "affects only Android users"
+          },
+          {
+            "en": "The change resulted in slower response times.",
+            "tr": "Değişiklik yanıt sürelerinin yavaşlamasıyla sonuçlandı.",
+            "highlight": "resulted in slower response times"
+          },
+          {
+            "en": "We added a check to mitigate the risk.",
+            "tr": "Riski azaltmak için bir kontrol ekledik.",
+            "highlight": "mitigate the risk"
+          },
+          {
+            "en": "We need to address this issue before the release.",
+            "tr": "Bu sorunu release'ten önce ele almalıyız.",
+            "highlight": "address this issue"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "The update had a bad affect on speed.",
+        "rightEn": "The update had a bad effect on speed.",
+        "noteTr": "Isim olan effect; fiil olan affect."
+      }
+    ],
+    "itemIds": [
+      "affect-vs-effect",
+      "result-in",
+      "mitigate-the-risk",
+      "address-an-issue",
+      "address-review-comments"
+    ],
+    "refs": [
+      {
+        "book": "Coll",
+        "unit": 53,
+        "titleTr": "sebep ve sonucu anlatan kalıplar"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Coll 53 checked (PDF 114: cause, effect, result); no change; examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  },
+  {
+    "id": "diplomatic-agreeing-and-summing-up",
+    "area": "work-collocations",
+    "titleTr": "Nazik itiraz ve özet",
+    "summaryTr": "I see your point, but ...; it might be worth ...; to sum up.",
+    "sections": [
+      {
+        "headingTr": "Diplomatik dil",
+        "bodyTr": [
+          "Karşı çıkarken önce karşıdakini kabul et: I see your point, but ... Sonra kendi görüşünü söyle. Öneriyi yumuşak yapmak için it might be worth + -ing kullan.",
+          "Konuşmayı bitirirken to sum up ile özetle. Katılırken I agree with you de; I am agree denmez.",
+          "Endişeni raise a concern ile dile getir."
+        ],
+        "examples": [
+          {
+            "en": "I see your point, but we should test it first.",
+            "tr": "Ne demek istediğini anlıyorum ama önce test etmeliyiz.",
+            "highlight": "I see your point, but"
+          },
+          {
+            "en": "It might be worth checking the logs again.",
+            "tr": "Logları yeniden kontrol etmeye değebilir.",
+            "highlight": "might be worth checking"
+          },
+          {
+            "en": "To sum up, the fix works but needs a retest.",
+            "tr": "Özetle, düzeltme çalışıyor ama yeniden test gerekiyor.",
+            "highlight": "To sum up"
+          },
+          {
+            "en": "I'd like to raise a concern about the timeline.",
+            "tr": "Takvim konusunda bir endişemi dile getirmek istiyorum.",
+            "highlight": "raise a concern about"
+          }
+        ]
+      }
+    ],
+    "traps": [
+      {
+        "wrongEn": "I am agree with you about the timeline.",
+        "rightEn": "I agree with you about the timeline.",
+        "noteTr": "Agree bir fiildir; önüne am gelmez."
+      }
+    ],
+    "itemIds": [
+      "i-agree-with-you",
+      "i-see-your-point-but",
+      "to-sum-up",
+      "it-might-be-worth-doing",
+      "raise-a-concern"
+    ],
+    "refs": [
+      {
+        "book": "Coll",
+        "unit": 55,
+        "titleTr": "Bir görüşü desteklemek ya da reddetmek için kalıplar"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Coll 55 checked (PDF 118); Coll 57 removed; tone-only trap replaced by 'I am agree'; sign-off-on dropped (not diplomatic language); examples checked for 5-word overlap with both books; grammar checked against Cambridge / Oxford Learner's"
+  }
+]
