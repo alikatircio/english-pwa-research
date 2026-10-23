@@ -6,6 +6,7 @@ import { describe, expect, it } from 'vitest';
 import type { ContentBundle, Item } from '../src/domain/types.ts';
 import {
   canonicalJson,
+  countByCategory,
   checkCloze,
   checkCommonMistake,
   applyModelBlanks,
@@ -398,5 +399,17 @@ describe('build-content CLI', () => {
     const r = run([good], ['could-you-base-verb', 'gone'], ['--allow-remove', 'gone']);
     expect(r.code).toBe(0);
     expect(JSON.parse(readFileSync(r.lockFile, 'utf8'))).toEqual(['could-you-base-verb']);
+  });
+});
+
+describe('countByCategory', () => {
+  it('lists every category in CATEGORIES order, zero when absent', () => {
+    expect(countByCategory([item({ category: 'object' }), item({ id: 'b', category: 'object' })])).toEqual({
+      aux_to: 0,
+      object: 2,
+      word_form: 0,
+      preposition: 0,
+      work_vocab: 0,
+    });
   });
 });

@@ -1,7 +1,7 @@
 // Pure content checks (07 §4). Each check returns findings; the build script
 // decides what to do with them (any 'error' → exit 1).
 // Imports the app's own schema and normaliser so the build and the app agree.
-import { ItemSchema, KEBAB_CASE } from '../src/domain/itemSchema.ts';
+import { CATEGORIES, ItemSchema, KEBAB_CASE } from '../src/domain/itemSchema.ts';
 import { blankAnswers, BLANK_TOKEN, refillBlanks } from '../src/domain/blankAnswers.ts';
 import { normalizeAnswer } from '../src/domain/normalize.ts';
 import type { Category, Item } from '../src/domain/types.ts';
@@ -410,7 +410,7 @@ export function hasErrors(findings: readonly Finding[]): boolean {
 }
 
 export function countByCategory(items: readonly Item[]): Record<Category, number> {
-  const counts: Record<Category, number> = { aux_to: 0, object: 0, word_form: 0, preposition: 0, work_vocab: 0 };
+  const counts = Object.fromEntries(CATEGORIES.map((c) => [c, 0])) as Record<Category, number>;
   for (const i of items) counts[i.category]++;
   return counts;
 }
