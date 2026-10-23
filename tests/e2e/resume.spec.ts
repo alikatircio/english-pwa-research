@@ -70,4 +70,34 @@ test.describe('resume after reload', () => {
     await app.start();
     await expect(app.input).toHaveValue('');
   });
+
+  test('"← Ana ekran" mid-card keeps the draft; "Devam et" returns to the same card', async ({ page }) => {
+    const app = new App(page);
+    await app.open();
+    await app.input.fill('Could you che');
+    const back = page.getByRole('button', { name: t.backHomeLabel });
+    expect((await back.boundingBox())?.height).toBeGreaterThanOrEqual(44);
+    expect((await back.boundingBox())?.width).toBeGreaterThanOrEqual(44);
+    await back.click(); // inside the 300 ms debounce: the tap flushes the draft
+    await expect(app.resumeButton).toBeVisible();
+    await expect.poll(() => storedDraft(app)).toBe('Could you che');
+
+    await app.resumeButton.click();
+    await expect(app.situation).toHaveText(app.situationOf(0));
+    await expect(app.input).toHaveValue('Could you che');
+  });
+
+  test('"← Ana ekran" from the result phase resumes on the same result', async ({ page }) => {
+    const app = new App(page);
+    await app.open();
+    await app.answer('Totally different');
+    await expect(page.getByRole('heading', { name: t.notMatched })).toBeVisible();
+    await page.getByRole('button', { name: t.backHomeLabel }).click();
+    await expect(app.resumeButton).toBeVisible();
+
+    await app.resumeButton.click();
+    await expect(page.getByRole('heading', { name: t.notMatched })).toBeVisible();
+    await expect(page.locator('.answers__mine')).toHaveText('Totally different');
+    await expect(page.getByRole('group', { name: t.howWasIt })).toBeVisible();
+  });
 });

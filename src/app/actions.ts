@@ -528,6 +528,21 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       setSession({ ...moved, updatedAt: clock.now() });
     },
 
+    /**
+     * "← Ana ekran": stop mid-round and continue later. Persists the session as it is (the caller
+     * flushes the pending draft first), closes an open undo window (the grade stays) and goes Home;
+     * "Devam et" then resumes the same card and phase. Grades nothing, touches no box or counter.
+     * Ignored while a write is in flight (the button is disabled then).
+     */
+    leaveRound(): void {
+      const s = ready(getState);
+      const session = s?.session;
+      if (!s || !session || s.busy) return;
+      const kept: SessionState = { ...session };
+      delete kept.undo;
+      setSession(kept, 'home');
+    },
+
     /** Debounced by the caller. Ignored if the card moved on meanwhile. */
     saveDraft(cursor: number, text: string): void {
       const session = ready(getState)?.session;

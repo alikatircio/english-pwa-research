@@ -33,6 +33,8 @@ export const t = {
   /** Decision 33: a new card's study view and its "ready" button. */
   studyHeading: 'Önce kalıbı gör',
   studyReady: 'Hazırım',
+  backHome: '← Ana ekran',
+  backHomeLabel: 'Ana ekrana dön',
   /** Decision 34. */
   dontKnow: 'Bilmiyorum',
   noAnswer: '(cevap yok)',

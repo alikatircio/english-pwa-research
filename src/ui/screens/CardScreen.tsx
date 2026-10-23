@@ -106,10 +106,29 @@ export function CardScreen({ state, actions }: Props) {
     focusAnswer();
   }
 
+  // In the header, in normal flow (never fixed, iOS keyboard). Saves the typed draft first, then leaves without grading.
+  const header = (
+    <header className="card-header">
+      <button
+        type="button"
+        className="btn btn--text card-back"
+        aria-label={t.backHomeLabel}
+        disabled={state.busy}
+        onClick={() => {
+          persistDraft.flush();
+          actions.leaveRound();
+        }}
+      >
+        {t.backHome}
+      </button>
+    </header>
+  );
+
   if (phase.tag === 'study') {
     // Decision 33: look first. "Hazırım" hides the card and opens the question with the keyboard (same tap, iOS rule).
     return (
       <div className="screen card-screen">
+        {header}
         <div className="screen__body">
           <RoundDots total={session.queue.length} cursor={session.cursor} reaskAt={reaskAt} label={t.roundProgress(session.cursor + 1, session.queue.length)} />
           <section className="question">
@@ -148,6 +167,7 @@ export function CardScreen({ state, actions }: Props) {
 
   return (
     <div className="screen card-screen">
+      {header}
       <div className="screen__body">
         <RoundDots total={session.queue.length} cursor={session.cursor} reaskAt={reaskAt} label={t.roundProgress(session.cursor + 1, session.queue.length)} />
         <section className="question">

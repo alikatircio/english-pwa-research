@@ -553,3 +553,51 @@ describe('actions — notebook help (decision 32)', () => {
     app.db.close();
   });
 });
+
+describe('actions — leaveRound ("← Ana ekran")', () => {
+  it('goes Home with the session as it is, the draft saved, nothing graded', async () => {
+    const app = await setup();
+    app.actions.startWriting();
+    const cursor = app.ready().session?.cursor ?? 0;
+    app.actions.saveDraft(cursor, 'Could you che');
+    const before = app.ready();
+    app.actions.leaveRound();
+    const after = app.ready();
+    expect(after.screen).toBe('home');
+    expect(after.session).toEqual(before.session);
+    expect(after.session?.draft).toBe('Could you che');
+    expect(after.progress).toEqual(before.progress);
+    expect(after.counter).toEqual(before.counter);
+    await expect.poll(async () => (await app.db.getAll('session'))[0]?.draft).toBe('Could you che');
+    app.actions.resume();
+    expect(app.ready().screen).toBe('card');
+    expect(app.ready().session?.draft).toBe('Could you che');
+    app.db.close();
+  });
+
+  it('closes an open undo window but keeps the grade', async () => {
+    const app = await setup();
+    const first = app.current()?.itemId ?? '';
+    app.actions.startWriting();
+    await app.actions.submitAnswer('something else entirely');
+    await app.actions.selfGrade('wrong');
+    expect(app.ready().session?.undo).toBeDefined();
+    const counter = app.ready().counter;
+    app.actions.leaveRound();
+    expect(app.ready().screen).toBe('home');
+    expect(app.ready().session?.undo).toBeUndefined();
+    expect(app.ready().counter).toEqual(counter);
+    expect(app.ready().progress.has(first)).toBe(true);
+    app.db.close();
+  });
+
+  it('is ignored while a write is in flight', async () => {
+    const app = await setup();
+    app.actions.startWriting();
+    const flagging = app.actions.toggleFlag();
+    app.actions.leaveRound();
+    expect(app.ready().screen).toBe('card');
+    await flagging;
+    app.db.close();
+  });
+});
