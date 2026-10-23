@@ -15,3 +15,18 @@ src/content/extras.json
 content/privacy-denylist.local.txt
 .claude/
 research_notes/
+
+# Raw drafts and author notes for v1.4 content stay local: they may sit too close
+# to the source books before verification (decision 50). Verified files and
+# verify reports are committed.
+content/drafts/diagnostic-?.json
+content/drafts/topics-?.json
+content/drafts/messages-?.json
+content/drafts/batch-[fgh].json
+content/drafts/modelBlanks-[fgh].json
+content/drafts/dailyContext-[fgh].json
+content/drafts/*-[fgh]-notes.md
+content/drafts/batch-[fgh]-notes.md
+content/drafts/diagnostic-?-notes.md
+content/drafts/topics-?-notes.md
+content/drafts/messages-?-notes.md

@@ -1,0 +1,1916 @@
+[
+  {
+    "id": "dq-present-past-1",
+    "area": "present-past",
+    "category": "grammar",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 1
+      }
+    ],
+    "relatedItemIds": [],
+    "promptTr": "Daily'de şu anda üzerinde çalıştığın işi anlatıyorsun.",
+    "stem": "Right now I ___ the login flow on staging.",
+    "options": [
+      {
+        "id": "a",
+        "text": "am testing"
+      },
+      {
+        "id": "b",
+        "text": "test"
+      },
+      {
+        "id": "c",
+        "text": "tested"
+      },
+      {
+        "id": "d",
+        "text": "am test"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "Şu anda süren iş için present continuous (am testing) kullanılır; yalın şimdiki zaman alışkanlık içindir.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram unit 1 (PDF 14) covers present continuous for actions in progress now; distractors ungrammatical or wrong time reference. Original wording; no overlap with Study guide/exercises."
+  },
+  {
+    "id": "dq-present-past-2",
+    "area": "present-past",
+    "category": "grammar",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 6
+      }
+    ],
+    "relatedItemIds": [],
+    "promptTr": "Alarm geldiğinde sen smoke testlerini çalıştırıyordun, bu yüzden alarmı hemen gördün.",
+    "stem": "When the alert fired, I ___ the smoke tests, so I saw it straight away.",
+    "options": [
+      {
+        "id": "a",
+        "text": "was running"
+      },
+      {
+        "id": "b",
+        "text": "am running"
+      },
+      {
+        "id": "c",
+        "text": "were running"
+      },
+      {
+        "id": "d",
+        "text": "have run"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "Geçmişte bir olay olduğu anda süren eylem için past continuous kullanılır: I was running. Özne I olduğu için were olmaz.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Draft frame (someone phoned while we were having a meal) was close to a Gram Study guide item for unit 6; rewritten with new context. Gram unit 6 (PDF 24) covers past continuous for an action in progress when something happened. Distractors: wrong tense or agreement."
+  },
+  {
+    "id": "dq-present-past-3",
+    "area": "present-past",
+    "category": "grammar",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 2
+      },
+      {
+        "book": "Gram",
+        "unit": 3
+      }
+    ],
+    "relatedItemIds": [],
+    "promptTr": "Gece çalışan otomatik build'in saatini anlatıyorsun.",
+    "stem": "The nightly build usually ___ around 2 a.m.",
+    "options": [
+      {
+        "id": "a",
+        "text": "starts"
+      },
+      {
+        "id": "b",
+        "text": "is starting"
+      },
+      {
+        "id": "c",
+        "text": "start"
+      },
+      {
+        "id": "d",
+        "text": "are starting"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "Düzenli tekrar eden durumlar için present simple kullanılır; özne tekil olduğu için starts gelir.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Added Gram unit 2 (PDF 16, present simple for routines with usually); unit 3 (PDF 18) contrasts present simple and continuous. Singular subject makes starts the only correct form."
+  },
+  {
+    "id": "dq-present-perfect-1",
+    "area": "present-perfect",
+    "category": "grammar",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 7
+      }
+    ],
+    "relatedItemIds": [],
+    "promptTr": "Deniz'e build'in yeşile döndüğünü yazıyorsun; düzeltmeyi az önce yaptın.",
+    "stem": "Deniz, the build is green now. I ___ the failing config.",
+    "options": [
+      {
+        "id": "a",
+        "text": "have just fixed"
+      },
+      {
+        "id": "b",
+        "text": "just fixed"
+      },
+      {
+        "id": "c",
+        "text": "am just fixing"
+      },
+      {
+        "id": "d",
+        "text": "had just fixed"
+      }
+    ],
+    "correct": [
+      "a",
+      "b"
+    ],
+    "explanationTr": "Az önce biten ve şimdiyi etkileyen iş için have just fixed kullanılır; Amerikan İngilizcesinde just fixed de kabul edilir.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram unit 7 (PDF 26) covers present perfect with just and notes the AmE past simple alternative; both a and b kept per rule 6b. had just fixed and am just fixing contradict the context (build already green)."
+  },
+  {
+    "id": "dq-present-perfect-2",
+    "area": "present-perfect",
+    "category": "grammar",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 12
+      },
+      {
+        "book": "Gram",
+        "unit": 9
+      }
+    ],
+    "relatedItemIds": [
+      "has-been-failing-since"
+    ],
+    "promptTr": "Jira'da bir testin ne zamandır kırık olduğunu yazıyorsun.",
+    "stem": "The login test has been failing ___ Monday.",
+    "options": [
+      {
+        "id": "a",
+        "text": "since"
+      },
+      {
+        "id": "b",
+        "text": "for"
+      },
+      {
+        "id": "c",
+        "text": "from"
+      },
+      {
+        "id": "d",
+        "text": "during"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "Başlangıç noktası (Monday) verilirken since kullanılır; for bir süre ile kullanılır (for three days).",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Unit fixed: for/since is Gram unit 12 (PDF 36), not unit 10; unit 9 (PDF 30) covers the present perfect continuous form. from/during are not used with a starting point and the perfect continuous."
+  },
+  {
+    "id": "dq-present-perfect-3",
+    "area": "present-perfect",
+    "category": "grammar",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 16
+      }
+    ],
+    "relatedItemIds": [],
+    "promptTr": "Sen ticket'ı açtığında Ayşe onu zaten kapatmıştı.",
+    "stem": "Ayşe ___ already closed the ticket by the time I opened it.",
+    "options": [
+      {
+        "id": "a",
+        "text": "had"
+      },
+      {
+        "id": "b",
+        "text": "has"
+      },
+      {
+        "id": "c",
+        "text": "was"
+      },
+      {
+        "id": "d",
+        "text": "did"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "Geçmişteki bir andan (ticket'ı açtığın an) önce tamamlanmış iş için past perfect kullanılır: had already closed.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Unit fixed: past perfect is Gram unit 15 (PDF 42), not unit 16 (past perfect continuous). Sentence reordered with by the time so it no longer follows the when-clause frame of the unit example. has/was/did are wrong with a past reference point."
+  },
+  {
+    "id": "dq-future-1",
+    "area": "future",
+    "category": "grammar",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 19
+      },
+      {
+        "book": "Gram",
+        "unit": 20
+      }
+    ],
+    "relatedItemIds": [],
+    "promptTr": "Yarın sabah regresyon testlerini çalıştıracaksın; bunu önceden ayarladın ve ortamı da ayırttın.",
+    "stem": "I ___ the regression suite tomorrow morning; the environment is already booked.",
+    "options": [
+      {
+        "id": "a",
+        "text": "am running"
+      },
+      {
+        "id": "b",
+        "text": "am going to run"
+      },
+      {
+        "id": "c",
+        "text": "have run"
+      },
+      {
+        "id": "d",
+        "text": "ran"
+      }
+    ],
+    "correct": [
+      "a",
+      "b"
+    ],
+    "explanationTr": "Önceden kararlaştırılmış plan için present continuous (am running) ya da going to kullanılır.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Removed the unexplained \"Yes,\" from the stem. Replaced distractor \"run\" (present simple future is a timetable use, borderline here) with \"have run\", which is clearly wrong with tomorrow. Gram unit 19 (PDF 50) covers present continuous for arrangements; added unit 20 (PDF 52) for going to."
+  },
+  {
+    "id": "dq-future-2",
+    "area": "future",
+    "category": "grammar",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 21
+      }
+    ],
+    "relatedItemIds": [
+      "will-base-verb",
+      "take-a-look-at-it"
+    ],
+    "promptTr": "Pipeline kırmızı olunca anında karar verip yardım ediyorsun.",
+    "stem": "A: The pipeline is red again.  B: Oh no, I ___ a look.",
+    "options": [
+      {
+        "id": "a",
+        "text": "will take"
+      },
+      {
+        "id": "b",
+        "text": "take"
+      },
+      {
+        "id": "c",
+        "text": "took"
+      },
+      {
+        "id": "d",
+        "text": "have taken"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "Konuşma anında verilen karar için will (I'll) kullanılır. Yalın take ya da geçmiş zaman burada yanlıştır.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Option \"'ll take\" after \"I\" in the stem produced \"I 'll take\"; changed the option to \"will take\". Gram unit 21 (PDF 54) covers will for a decision made at the moment of speaking. take/took/have taken are wrong in this reply. Added related items will-base-verb and take-a-look-at-it."
+  },
+  {
+    "id": "dq-future-3",
+    "area": "future",
+    "category": "grammar",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 25
+      }
+    ],
+    "relatedItemIds": [],
+    "promptTr": "Deploy bitince arayacağını söylüyorsun.",
+    "stem": "I will call you as soon as the deployment ___.",
+    "options": [
+      {
+        "id": "a",
+        "text": "finishes"
+      },
+      {
+        "id": "b",
+        "text": "will finish"
+      },
+      {
+        "id": "c",
+        "text": "finished"
+      },
+      {
+        "id": "d",
+        "text": "would finish"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "as soon as gibi zaman bağlaçlarından sonra gelecek için present simple kullanılır, will kullanılmaz.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram unit 25 (PDF 62) covers present simple after when/as soon as for the future. will finish/would finish/finished are wrong after as soon as here."
+  },
+  {
+    "id": "dq-modals-1",
+    "area": "modals",
+    "category": "aux_to",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 37
+      }
+    ],
+    "relatedItemIds": [
+      "could-you-base-verb"
+    ],
+    "promptTr": "Teams'te iş arkadaşından nazikçe PR'ını incelemesini istiyorsun.",
+    "stem": "___ you review my PR before lunch, please?",
+    "options": [
+      {
+        "id": "a",
+        "text": "Could"
+      },
+      {
+        "id": "b",
+        "text": "Would"
+      },
+      {
+        "id": "c",
+        "text": "Must"
+      },
+      {
+        "id": "d",
+        "text": "Are"
+      }
+    ],
+    "correct": [
+      "a",
+      "b"
+    ],
+    "explanationTr": "Nazik rica için Could you / Would you kalıpları kullanılır.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram unit 37 (PDF 86) covers Could you / Would you for requests; both kept. Must you and Are you + base verb are not possible requests. Related item could-you-base-verb fits."
+  },
+  {
+    "id": "dq-modals-2",
+    "area": "modals",
+    "category": "aux_to",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 28
+      }
+    ],
+    "relatedItemIds": [],
+    "promptTr": "Deniz beş dakika önce masandaydı; tatilde olduğunu söyleyen biri var.",
+    "stem": "Deniz was at my desk five minutes ago, so he ___ be on holiday.",
+    "options": [
+      {
+        "id": "a",
+        "text": "can't"
+      },
+      {
+        "id": "b",
+        "text": "must"
+      },
+      {
+        "id": "c",
+        "text": "would"
+      },
+      {
+        "id": "d",
+        "text": "mustn't"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "Bir şeyin doğru olamayacağından emin olduğumuzda can't be kullanılır. mustn't yasak bildirir, çıkarım için kullanılmaz.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram unit 28 (PDF 68) covers can't for something believed impossible. must contradicts the evidence; mustn't is prohibition, not deduction; would does not fit. Explanation made more precise."
+  },
+  {
+    "id": "dq-modals-3",
+    "area": "modals",
+    "category": "aux_to",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 33
+      }
+    ],
+    "relatedItemIds": [
+      "should-have-tested"
+    ],
+    "promptTr": "Production bozulunca ekip olarak yapılmayan bir şeyi eleştiriyorsun.",
+    "stem": "The release broke production. We ___ tested it on staging first.",
+    "options": [
+      {
+        "id": "a",
+        "text": "should have"
+      },
+      {
+        "id": "b",
+        "text": "should"
+      },
+      {
+        "id": "c",
+        "text": "have to"
+      },
+      {
+        "id": "d",
+        "text": "can have"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "Geçmişte yapılmayan ama yapılması gereken şey için should have + past participle kullanılır.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Option set (should have vs must have) echoed a Gram Study guide item; replaced distractor \"must have\" with \"have to\". Gram unit 33 (PDF 78) covers should have + past participle. should/have to/can have + tested are ungrammatical."
+  },
+  {
+    "id": "dq-if-wish-1",
+    "area": "if-wish",
+    "category": "grammar",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 38
+      },
+      {
+        "book": "Gram",
+        "unit": 25
+      }
+    ],
+    "relatedItemIds": [],
+    "promptTr": "Build bu gece geçerse yarın release çıkacağını söylüyorsun.",
+    "stem": "If the build ___ tonight, we will release tomorrow.",
+    "options": [
+      {
+        "id": "a",
+        "text": "passes"
+      },
+      {
+        "id": "b",
+        "text": "will pass"
+      },
+      {
+        "id": "c",
+        "text": "would pass"
+      },
+      {
+        "id": "d",
+        "text": "passed"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "Gerçekçi koşul cümlesinde if kısmı present simple olur; will if cümleciğine girmez.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram unit 38 (PDF 88) and unit 25 (PDF 62, if + present for the future) cover the point. will pass/would pass/passed are wrong in a first conditional if-clause."
+  },
+  {
+    "id": "dq-if-wish-2",
+    "area": "if-wish",
+    "category": "grammar",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 39
+      }
+    ],
+    "relatedItemIds": [],
+    "promptTr": "Ekipte yeterince test uzmanı olmadığı için regresyon testlerinin çoğunu otomatikleştiremiyorsunuz.",
+    "stem": "If we ___ more testers, we would automate more of the regression suite.",
+    "options": [
+      {
+        "id": "a",
+        "text": "had"
+      },
+      {
+        "id": "b",
+        "text": "have"
+      },
+      {
+        "id": "c",
+        "text": "would have"
+      },
+      {
+        "id": "d",
+        "text": "will have"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "Şimdiki gerçek dışı durum için if + past simple (had), ana cümlede would kullanılır.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Draft clause \"if I had more time\" matched a unit 39 example; rewritten with new content. Gram unit 39 (PDF 90) covers if + past for unreal present. have/would have/will have are wrong in this if-clause."
+  },
+  {
+    "id": "dq-if-wish-3",
+    "area": "if-wish",
+    "category": "grammar",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 40
+      }
+    ],
+    "relatedItemIds": [],
+    "promptTr": "Gereksinimleri geç okuduğun için şimdi her şeyi baştan yapıyorsunuz.",
+    "stem": "I wish I ___ the requirements earlier; now we have to redo everything.",
+    "options": [
+      {
+        "id": "a",
+        "text": "had read"
+      },
+      {
+        "id": "b",
+        "text": "have read"
+      },
+      {
+        "id": "c",
+        "text": "would read"
+      },
+      {
+        "id": "d",
+        "text": "read"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "Geçmişteki pişmanlık için wish + past perfect (had read) kullanılır.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Unit fixed: wish + past perfect is Gram unit 40 (PDF 92), not unit 41. have read/would read/read do not express regret about the past here."
+  },
+  {
+    "id": "dq-passive-1",
+    "area": "passive",
+    "category": "grammar",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 42
+      }
+    ],
+    "relatedItemIds": [],
+    "promptTr": "Geçen hafta bir hatayı Deniz'in düzelttiğini anlatıyorsun.",
+    "stem": "The bug ___ by Deniz last week.",
+    "options": [
+      {
+        "id": "a",
+        "text": "was fixed"
+      },
+      {
+        "id": "b",
+        "text": "fixed"
+      },
+      {
+        "id": "c",
+        "text": "has fixed"
+      },
+      {
+        "id": "d",
+        "text": "was fix"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "Hatayı düzelten kişiden çok hatanın kendisi öne çıktığı için edilgen yapı kullanılır: was + past participle (was fixed).",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram unit 42 (PDF 96) covers past simple passive. Explanation fixed: it said the person who made the bug, but Deniz fixed it."
+  },
+  {
+    "id": "dq-passive-2",
+    "area": "passive",
+    "category": "grammar",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 43
+      }
+    ],
+    "relatedItemIds": [],
+    "promptTr": "API dokümanlarının şu anda yeniden yazıldığını söylüyorsun; sonra tekrar bakmalarını istiyorsun.",
+    "stem": "The API docs ___ at the moment; please check back later.",
+    "options": [
+      {
+        "id": "a",
+        "text": "are being rewritten"
+      },
+      {
+        "id": "b",
+        "text": "are rewriting"
+      },
+      {
+        "id": "c",
+        "text": "rewrite"
+      },
+      {
+        "id": "d",
+        "text": "have rewrite"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "Şu anda süren edilgen iş için present continuous passive (are being rewritten) kullanılır.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram unit 43 (PDF 98) covers being done (present continuous passive). are rewriting is active (docs cannot rewrite), rewrite and have rewrite are wrong. promptTr made to match \"rewritten\"."
+  },
+  {
+    "id": "dq-passive-3",
+    "area": "passive",
+    "category": "grammar",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 46
+      }
+    ],
+    "relatedItemIds": [
+      "get-something-fixed"
+    ],
+    "promptTr": "Monitörün bozuk; onu bir teknisyene değiştirteceksin.",
+    "stem": "My monitor is broken, so I'm going to ___ it replaced.",
+    "options": [
+      {
+        "id": "a",
+        "text": "have"
+      },
+      {
+        "id": "b",
+        "text": "get"
+      },
+      {
+        "id": "c",
+        "text": "make"
+      },
+      {
+        "id": "d",
+        "text": "do"
+      }
+    ],
+    "correct": [
+      "a",
+      "b"
+    ],
+    "explanationTr": "İşi başkasına yaptırmak için have / get + nesne + past participle kullanılır.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram unit 46 (PDF 104) covers have something done and get something done; both kept. make/do + object + past participle are wrong here."
+  },
+  {
+    "id": "dq-questions-reported-speech-1",
+    "area": "questions-reported-speech",
+    "category": "grammar",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 50
+      }
+    ],
+    "relatedItemIds": [
+      "not-sure-whether"
+    ],
+    "promptTr": "Mert'e build'in neden kırıldığını nazikçe soruyorsun.",
+    "stem": "Can you tell me why ___?",
+    "options": [
+      {
+        "id": "a",
+        "text": "the build failed"
+      },
+      {
+        "id": "b",
+        "text": "did the build fail"
+      },
+      {
+        "id": "c",
+        "text": "failed the build"
+      },
+      {
+        "id": "d",
+        "text": "did the build failed"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "Can you tell me / Do you know gibi kalıplardan sonra gelen dolaylı soruda düz cümle sırası kullanılır: the build failed. did eklenmez, özne ile fiil yer değiştirmez.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Unit fixed: indirect questions are Gram unit 50 (PDF 112), not unit 51. Draft option set (starts the X / does start the X / does the X start) mirrored a Gram Study guide item; rewritten with a past-tense why question and new options. Only statement word order is correct."
+  },
+  {
+    "id": "dq-questions-reported-speech-2",
+    "area": "questions-reported-speech",
+    "category": "grammar",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 48
+      },
+      {
+        "book": "Gram",
+        "unit": 47
+      }
+    ],
+    "relatedItemIds": [
+      "tell-someone-about"
+    ],
+    "promptTr": "Ayşe'nin ticket'ın kapandığını sana bildirdiğini anlatıyorsun.",
+    "stem": "She ___ me that the ticket was closed.",
+    "options": [
+      {
+        "id": "a",
+        "text": "told"
+      },
+      {
+        "id": "b",
+        "text": "said"
+      },
+      {
+        "id": "c",
+        "text": "spoke"
+      },
+      {
+        "id": "d",
+        "text": "asked"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "Kişi nesnesi (me) varsa told kullanılır. say doğrudan kişi nesnesi almaz (said to me olur).",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Unit fixed: say vs tell is Gram unit 48 (PDF 108), not unit 52 (question tags). said/spoke/asked + me + that-clause are wrong here."
+  },
+  {
+    "id": "dq-questions-reported-speech-3",
+    "area": "questions-reported-speech",
+    "category": "grammar",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 49
+      }
+    ],
+    "relatedItemIds": [
+      "does-the-test-pass-question"
+    ],
+    "promptTr": "Gece çalışan işin ne sıklıkla hata verdiğini soruyorsun.",
+    "stem": "How often ___ the nightly job fail?",
+    "options": [
+      {
+        "id": "a",
+        "text": "does"
+      },
+      {
+        "id": "b",
+        "text": "is"
+      },
+      {
+        "id": "c",
+        "text": "do"
+      },
+      {
+        "id": "d",
+        "text": "has"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "Present simple soruda tekil özneyle (the nightly job) does kullanılır; fail yalın kalır. is ya da has ile fail olmaz.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Unit fixed: questions with do/does are Gram unit 49 (PDF 110), not unit 47. Draft distractor \"is\" was grammatical (passive \"How often is the nightly job run?\") and \"has\" was also possible; verb changed to fail so is/has/do are all wrong. Added related item does-the-test-pass-question."
+  },
+  {
+    "id": "dq-ing-to-1",
+    "area": "ing-to",
+    "category": "aux_to",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 60
+      }
+    ],
+    "relatedItemIds": [
+      "look-forward-to-doing"
+    ],
+    "promptTr": "Resmî bir e-postada, test planı için geri bildirimlerini beklediğinizi yazıyorsun.",
+    "stem": "We look forward to ___ your feedback on the test plan.",
+    "options": [
+      {
+        "id": "a",
+        "text": "receiving"
+      },
+      {
+        "id": "b",
+        "text": "receive"
+      },
+      {
+        "id": "c",
+        "text": "received"
+      },
+      {
+        "id": "d",
+        "text": "be receiving"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "look forward to kalıbındaki to bir edattır; arkasından -ing gelir: to receiving.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Unit fixed: look forward to + -ing is Gram unit 60 (PDF 132), not unit 63. Draft frame (looking forward ___ with to see/to seeing options) was close to a Gram Study guide item; rewritten as a formal email sentence. Only the -ing form is correct after to here."
+  },
+  {
+    "id": "dq-ing-to-2",
+    "area": "ing-to",
+    "category": "aux_to",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 54
+      }
+    ],
+    "relatedItemIds": [],
+    "promptTr": "Release'i ertelemeye karar verdiniz.",
+    "stem": "We decided ___ the release until Monday.",
+    "options": [
+      {
+        "id": "a",
+        "text": "to postpone"
+      },
+      {
+        "id": "b",
+        "text": "postponing"
+      },
+      {
+        "id": "c",
+        "text": "postpone"
+      },
+      {
+        "id": "d",
+        "text": "to postponing"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "decide fiilinden sonra to + yalın fiil gelir.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram unit 54 (PDF 120) covers decide + to-infinitive. postponing/postpone/to postponing are wrong after decided."
+  },
+  {
+    "id": "dq-ing-to-3",
+    "area": "ing-to",
+    "category": "aux_to",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 53
+      }
+    ],
+    "relatedItemIds": [
+      "suggest-doing",
+      "suggest-that-clause"
+    ],
+    "promptTr": "Deniz demo öncesi test verisinin yenilenmesini önerdi.",
+    "stem": "Deniz suggested ___ the test data before the demo.",
+    "options": [
+      {
+        "id": "a",
+        "text": "refreshing"
+      },
+      {
+        "id": "b",
+        "text": "to refresh"
+      },
+      {
+        "id": "c",
+        "text": "refresh"
+      },
+      {
+        "id": "d",
+        "text": "for refreshing"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "suggest fiilinden sonra -ing gelir (ya da that we refresh). to + fiil, yalın fiil ve for + -ing kullanılmaz.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Unit fixed: suggest + -ing is Gram unit 53 (PDF 118), not unit 56. Draft option set (that-clause / object + to) echoed a Gram Study guide item; replaced options so only the -ing form is correct (that-clause stays mentioned in the explanation)."
+  },
+  {
+    "id": "dq-articles-nouns-1",
+    "area": "articles-nouns",
+    "category": "grammar",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 70
+      }
+    ],
+    "relatedItemIds": [
+      "information-uncountable"
+    ],
+    "promptTr": "Yeni API hakkında bilgi istiyorsun.",
+    "stem": "I need some ___ about the new API.",
+    "options": [
+      {
+        "id": "a",
+        "text": "information"
+      },
+      {
+        "id": "b",
+        "text": "informations"
+      },
+      {
+        "id": "c",
+        "text": "an information"
+      },
+      {
+        "id": "d",
+        "text": "a information"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "information sayılamayan bir isimdir; çoğul eki ve a/an almaz.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram unit 70 (PDF 152) lists information as uncountable (no plural, no a/an). Distractors all wrong."
+  },
+  {
+    "id": "dq-articles-nouns-2",
+    "area": "articles-nouns",
+    "category": "grammar",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 71
+      }
+    ],
+    "relatedItemIds": [],
+    "promptTr": "Bu uç durum için yeni bir unit test eklemeyi öneriyorsun.",
+    "stem": "We should add ___ unit test for this edge case.",
+    "options": [
+      {
+        "id": "a",
+        "text": "a"
+      },
+      {
+        "id": "b",
+        "text": "an"
+      },
+      {
+        "id": "c",
+        "text": "no article"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "a/an seçimi yazıya değil okunuşa göre yapılır. unit \"yu\" sesiyle (ünsüz) başladığı için a gelir. Tekil sayılabilen isim tanımlıksız kullanılmaz.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Draft promptTr gave away the answer (said QA starts with a consonant sound), and \"QA\" has no a/an trap. The job-article frame also echoed a Gram Study guide item. Rewritten with \"unit test\" (vowel letter, consonant sound /j/). Gram unit 71 (PDF 154) covers a/an with singular countable nouns. \"an\" and no article are wrong."
+  },
+  {
+    "id": "dq-articles-nouns-3",
+    "area": "articles-nouns",
+    "category": "grammar",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 72
+      },
+      {
+        "book": "Gram",
+        "unit": 73
+      }
+    ],
+    "relatedItemIds": [],
+    "promptTr": "Ortamda tek bir staging sunucusu var ve ikiniz de onu biliyorsunuz.",
+    "stem": "Ayşe, can you check ___ staging server? It looks slow.",
+    "options": [
+      {
+        "id": "a",
+        "text": "the"
+      },
+      {
+        "id": "b",
+        "text": "a"
+      },
+      {
+        "id": "c",
+        "text": "an"
+      },
+      {
+        "id": "d",
+        "text": "some"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "Konuşanların ikisi de hangisinden söz edildiğini bildiği için the kullanılır.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Unit fixed: the for something both speakers know is Gram unit 72 (PDF 156, section D) and unit 73, not unit 74 (school/the school). a/an/some are wrong for the one known server."
+  },
+  {
+    "id": "dq-pronouns-determiners-1",
+    "area": "pronouns-determiners",
+    "category": "grammar",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 84
+      }
+    ],
+    "relatedItemIds": [],
+    "promptTr": "Sprint'te kaç açık hata olduğunu söylüyorsun.",
+    "stem": "There ___ two open bugs in this sprint.",
+    "options": [
+      {
+        "id": "a",
+        "text": "are"
+      },
+      {
+        "id": "b",
+        "text": "is"
+      },
+      {
+        "id": "c",
+        "text": "have"
+      },
+      {
+        "id": "d",
+        "text": "it is"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "there + be yapısında fiil sonraki isme uyar; two bugs çoğuldur, bu yüzden are gelir.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Unit fixed: there is/are is Gram unit 84 (PDF 180), not unit 82 (reflexive pronouns). is/have/it is are wrong with two open bugs."
+  },
+  {
+    "id": "dq-pronouns-determiners-2",
+    "area": "pronouns-determiners",
+    "category": "grammar",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 85
+      }
+    ],
+    "relatedItemIds": [],
+    "promptTr": "Bugün incelemeye vakit ayıramayacağını söylüyorsun.",
+    "stem": "I don't have ___ time to review it today.",
+    "options": [
+      {
+        "id": "a",
+        "text": "any"
+      },
+      {
+        "id": "b",
+        "text": "some"
+      },
+      {
+        "id": "c",
+        "text": "no"
+      },
+      {
+        "id": "d",
+        "text": "none"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "Olumsuz cümlede some yerine any kullanılır; no ile don't birlikte kullanılmaz.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Unit fixed: some/any is Gram unit 85 (PDF 182), not unit 83. some is wrong in this negative, no/none would double the negative."
+  },
+  {
+    "id": "dq-pronouns-determiners-3",
+    "area": "pronouns-determiners",
+    "category": "grammar",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 91
+      },
+      {
+        "book": "Gram",
+        "unit": 90
+      }
+    ],
+    "relatedItemIds": [],
+    "promptTr": "Ekipteki herkesin kendi ticket'ını güncellemesini istiyorsun.",
+    "stem": "___ team member has to update their ticket.",
+    "options": [
+      {
+        "id": "a",
+        "text": "Every"
+      },
+      {
+        "id": "b",
+        "text": "Each"
+      },
+      {
+        "id": "c",
+        "text": "All"
+      },
+      {
+        "id": "d",
+        "text": "Both"
+      }
+    ],
+    "correct": [
+      "a",
+      "b"
+    ],
+    "explanationTr": "Every ve each tekil isimle kullanılır. All ve both burada çoğul isim ister (all team members, both team members).",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Unit fixed: each/every is Gram unit 91 (PDF 194) (all/every unit 90), not unit 88. Every and Each both take a singular noun; All/Both need a plural (all team members). Explanation tightened."
+  },
+  {
+    "id": "dq-relative-clauses-1",
+    "area": "relative-clauses",
+    "category": "grammar",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 92
+      }
+    ],
+    "relatedItemIds": [],
+    "promptTr": "Hatayı bulan test uzmanının tatilde olduğunu söylüyorsun.",
+    "stem": "The tester ___ found the bug is on holiday.",
+    "options": [
+      {
+        "id": "a",
+        "text": "who"
+      },
+      {
+        "id": "b",
+        "text": "that"
+      },
+      {
+        "id": "c",
+        "text": "which"
+      },
+      {
+        "id": "d",
+        "text": "whose"
+      }
+    ],
+    "correct": [
+      "a",
+      "b"
+    ],
+    "explanationTr": "Kişiler için tanımlayıcı ilgi cümleciğinde who ya da that kullanılır.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram unit 92 (PDF 196) covers who/that for people in defining clauses; both kept. which (things) and whose (possession) are wrong."
+  },
+  {
+    "id": "dq-relative-clauses-2",
+    "area": "relative-clauses",
+    "category": "grammar",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 93
+      },
+      {
+        "book": "Gram",
+        "unit": 92
+      }
+    ],
+    "relatedItemIds": [],
+    "promptTr": "Dün bahsettiğin ticket'ı gösteriyorsun.",
+    "stem": "This is the ticket ___ I mentioned yesterday.",
+    "options": [
+      {
+        "id": "a",
+        "text": "that"
+      },
+      {
+        "id": "b",
+        "text": "which"
+      },
+      {
+        "id": "c",
+        "text": "who"
+      },
+      {
+        "id": "d",
+        "text": "what"
+      }
+    ],
+    "correct": [
+      "a",
+      "b"
+    ],
+    "explanationTr": "Şeyler için tanımlayıcı ilgi cümleciğinde that ya da which kullanılır; who kişiler içindir.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Unit fixed: object relative clauses with that/which are Gram unit 93 (PDF 198) and unit 92, not unit 94 (whose/whom/where). who (people) and what are wrong."
+  },
+  {
+    "id": "dq-relative-clauses-3",
+    "area": "relative-clauses",
+    "category": "grammar",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 95
+      }
+    ],
+    "relatedItemIds": [],
+    "promptTr": "Test planının sahibi Ayşe'den ek bilgi olarak söz ediyorsun.",
+    "stem": "Ayşe, ___ owns the test plan, is on leave.",
+    "options": [
+      {
+        "id": "a",
+        "text": "who"
+      },
+      {
+        "id": "b",
+        "text": "that"
+      },
+      {
+        "id": "c",
+        "text": "which"
+      },
+      {
+        "id": "d",
+        "text": "whose"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "Virgüllü (ek bilgi veren) cümlecikte kişi için who kullanılır; that kullanılmaz.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Unit fixed: extra-information clauses with who (not that) are Gram unit 95 (PDF 202), not unit 96. that/which/whose are wrong here."
+  },
+  {
+    "id": "dq-adjectives-adverbs-1",
+    "area": "adjectives-adverbs",
+    "category": "word_form",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 100
+      }
+    ],
+    "relatedItemIds": [
+      "deployment-was-successful"
+    ],
+    "promptTr": "Deploy'un sorunsuz geçtiğini bildiriyorsun.",
+    "stem": "The deployment was ___.",
+    "options": [
+      {
+        "id": "a",
+        "text": "successful"
+      },
+      {
+        "id": "b",
+        "text": "success"
+      },
+      {
+        "id": "c",
+        "text": "succeed"
+      },
+      {
+        "id": "d",
+        "text": "successfully"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "was fiilinden sonra sıfat gerekir: successful.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Unit fixed: adjective after be is Gram unit 100 (PDF 212, section B), not unit 98 (-ing/-ed adjectives). success/succeed/successfully are wrong word forms after was."
+  },
+  {
+    "id": "dq-adjectives-adverbs-2",
+    "area": "adjectives-adverbs",
+    "category": "word_form",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 105
+      },
+      {
+        "book": "Gram",
+        "unit": 106
+      }
+    ],
+    "relatedItemIds": [],
+    "promptTr": "Yeni sürümün eskisinden çok daha hızlı olduğunu söylüyorsun.",
+    "stem": "This version is much ___ than the old one.",
+    "options": [
+      {
+        "id": "a",
+        "text": "faster"
+      },
+      {
+        "id": "b",
+        "text": "more fast"
+      },
+      {
+        "id": "c",
+        "text": "fastest"
+      },
+      {
+        "id": "d",
+        "text": "fast"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "Kısa sıfatlarda karşılaştırma -er ile yapılır: faster than.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram unit 105 (PDF 222) covers short-adjective comparatives; added unit 106 (PDF 224) for much + comparative. more fast/fastest/fast are wrong with much ... than."
+  },
+  {
+    "id": "dq-adjectives-adverbs-3",
+    "area": "adjectives-adverbs",
+    "category": "word_form",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 111
+      }
+    ],
+    "relatedItemIds": [],
+    "promptTr": "Mert'in PR'ını henüz onaylamadığını yazıyorsun.",
+    "stem": "Mert hasn't approved my PR ___.",
+    "options": [
+      {
+        "id": "a",
+        "text": "yet"
+      },
+      {
+        "id": "b",
+        "text": "still"
+      },
+      {
+        "id": "c",
+        "text": "already"
+      },
+      {
+        "id": "d",
+        "text": "ever"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "Olumsuz cümle sonunda beklenen ama henüz olmayan şey için yet kullanılır.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Draft sentence matched an example in Gram unit 43 almost word for word; rewritten. Gram unit 111 (PDF 234) covers yet at the end of a negative; still goes before the negative auxiliary, already and ever do not fit."
+  },
+  {
+    "id": "dq-conjunctions-1",
+    "area": "conjunctions",
+    "category": "grammar",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 113
+      }
+    ],
+    "relatedItemIds": [
+      "although-clause",
+      "despite-doing"
+    ],
+    "promptTr": "Testler geçtiği halde QA bir arayüz hatası buldu.",
+    "stem": "___ the tests passed, QA found a UI bug.",
+    "options": [
+      {
+        "id": "a",
+        "text": "Although"
+      },
+      {
+        "id": "b",
+        "text": "Despite"
+      },
+      {
+        "id": "c",
+        "text": "Because"
+      },
+      {
+        "id": "d",
+        "text": "Unless"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "Although ardından tam bir cümle gelir; despite ise isim ya da -ing ister.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Gram unit 113 (PDF 238) covers although vs despite. Despite + clause is wrong; Because/Unless give the wrong meaning. Added related item despite-doing."
+  },
+  {
+    "id": "dq-conjunctions-2",
+    "area": "conjunctions",
+    "category": "grammar",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 114
+      }
+    ],
+    "relatedItemIds": [],
+    "promptTr": "Hata geri gelirse diye önceden log kaydı açık bırakıyorsun.",
+    "stem": "I'll keep the logs open ___ the error comes back.",
+    "options": [
+      {
+        "id": "a",
+        "text": "in case"
+      },
+      {
+        "id": "b",
+        "text": "in case of"
+      },
+      {
+        "id": "c",
+        "text": "unless"
+      },
+      {
+        "id": "d",
+        "text": "as if"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "in case + cümle, 'olur da olursa diye önlem' anlamı verir; in case of ise isim ister.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Unit fixed: in case is Gram unit 114 (PDF 240), not unit 115. in case of needs a noun; unless/as if give the wrong meaning."
+  },
+  {
+    "id": "dq-conjunctions-3",
+    "area": "conjunctions",
+    "category": "grammar",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 117
+      }
+    ],
+    "relatedItemIds": [],
+    "promptTr": "Bir arkadaşının mesleğini söylüyorsun.",
+    "stem": "She works ___ a tester at a startup.",
+    "options": [
+      {
+        "id": "a",
+        "text": "as"
+      },
+      {
+        "id": "b",
+        "text": "like"
+      },
+      {
+        "id": "c",
+        "text": "such as"
+      },
+      {
+        "id": "d",
+        "text": "alike"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "Meslek ya da rol belirtirken as kullanılır; like benzerlik bildirir.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Unit fixed: as for a job/role vs like is Gram unit 117 (PDF 246), not unit 118 (like/as if). like = similar to, so it changes the meaning; such as/alike are wrong here."
+  },
+  {
+    "id": "dq-prepositions-1",
+    "area": "prepositions",
+    "category": "preposition",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 121
+      }
+    ],
+    "relatedItemIds": [
+      "at-the-weekend"
+    ],
+    "promptTr": "Ekip arkadaşına hafta sonu nöbette olmayacağını söylüyorsun.",
+    "stem": "I'm not on call ___ the weekend.",
+    "options": [
+      {
+        "id": "a",
+        "text": "at"
+      },
+      {
+        "id": "b",
+        "text": "on"
+      },
+      {
+        "id": "c",
+        "text": "by"
+      },
+      {
+        "id": "d",
+        "text": "since"
+      }
+    ],
+    "correct": [
+      "a",
+      "b"
+    ],
+    "explanationTr": "İngiliz İngilizcesinde at the weekend, Amerikan İngilizcesinde on the weekend kullanılır. by son tarih, since başlangıç noktası bildirir.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Unit fixed: at/on the weekend is Gram unit 121 (PDF 254, notes the AmE on the weekend), not unit 123. Draft frame \"See you ___ + time\" with at/on/in echoed a Gram Study guide item; rewritten. \"in the weekend\" replaced (regional NZ use); by/since are clearly wrong here."
+  },
+  {
+    "id": "dq-prepositions-2",
+    "area": "prepositions",
+    "category": "preposition",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 131
+      }
+    ],
+    "relatedItemIds": [
+      "be-interested-in"
+    ],
+    "promptTr": "Performans testi öğrenmek istediğini söylüyorsun.",
+    "stem": "I'm interested ___ learning more about performance testing.",
+    "options": [
+      {
+        "id": "a",
+        "text": "in"
+      },
+      {
+        "id": "b",
+        "text": "on"
+      },
+      {
+        "id": "c",
+        "text": "at"
+      },
+      {
+        "id": "d",
+        "text": "for"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "interested sıfatı in ile kullanılır: interested in.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Unit fixed: interested in is Gram unit 131 (PDF 274), not unit 130. on/at/for are wrong after interested."
+  },
+  {
+    "id": "dq-prepositions-3",
+    "area": "prepositions",
+    "category": "object",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 133
+      }
+    ],
+    "relatedItemIds": [
+      "discuss-something"
+    ],
+    "promptTr": "Toplantı notunda release planının konuşulduğunu yazıyorsun.",
+    "stem": "Choose the correct sentence.",
+    "options": [
+      {
+        "id": "a",
+        "text": "We discussed the release plan."
+      },
+      {
+        "id": "b",
+        "text": "We discussed about the release plan."
+      },
+      {
+        "id": "c",
+        "text": "We discussed on the release plan."
+      },
+      {
+        "id": "d",
+        "text": "We talked the release plan."
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "discuss geçişli bir fiildir ve doğrudan nesne alır; about ya da on gerekmez.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Unit fixed: discuss + object (no preposition) is Gram unit 133 (PDF 278), not unit 135. Draft sentence is original; only option a is correct (talked needs about)."
+  },
+  {
+    "id": "dq-phrasal-verbs-1",
+    "area": "phrasal-verbs",
+    "category": "work_vocab",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 137
+      },
+      {
+        "book": "Gram",
+        "unit": 139
+      }
+    ],
+    "relatedItemIds": [
+      "point-it-out"
+    ],
+    "promptTr": "Gereksinim belgesinde bir yazım hatası fark ettin ve bunu Ayşe'ye gösterdin.",
+    "stem": "I noticed a typo in the spec, so I ___ to Ayşe.",
+    "options": [
+      {
+        "id": "a",
+        "text": "pointed it out"
+      },
+      {
+        "id": "b",
+        "text": "pointed out it"
+      },
+      {
+        "id": "c",
+        "text": "pointed it"
+      },
+      {
+        "id": "d",
+        "text": "pointed it off"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "Ayrılabilen phrasal verb'lerde nesne zamiri (it) fiil ile parçacığın arasına girer: pointed it out.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Unit fixed: pronoun position in phrasal verbs is Gram unit 137 (PDF 286), and the draft used the same verb and contrast as that unit's example and exercise; rewritten with point out (Gram unit 139, PDF 290), which matches related item point-it-out. Only \"pointed it out\" is correct."
+  },
+  {
+    "id": "dq-phrasal-verbs-2",
+    "area": "phrasal-verbs",
+    "category": "work_vocab",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 144
+      }
+    ],
+    "relatedItemIds": [
+      "issue-has-come-up-again"
+    ],
+    "promptTr": "Demo sırasında beklenmedik bir sorun ortaya çıktı.",
+    "stem": "A new problem came ___ during the demo.",
+    "options": [
+      {
+        "id": "a",
+        "text": "up"
+      },
+      {
+        "id": "b",
+        "text": "to"
+      },
+      {
+        "id": "c",
+        "text": "at"
+      },
+      {
+        "id": "d",
+        "text": "by"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "come up, bir sorun ya da konunun ortaya çıkması anlamına gelir.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Unit fixed: come up (be introduced / happen) is Gram unit 144 (PDF 300), not unit 138. Cambridge Dictionary: come up = to happen, usually unexpectedly. to/at/by are wrong."
+  },
+  {
+    "id": "dq-phrasal-verbs-3",
+    "area": "phrasal-verbs",
+    "category": "work_vocab",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 140
+      }
+    ],
+    "relatedItemIds": [],
+    "promptTr": "Staging çalışmadığı için bugünkü demoyu iptal ettiniz.",
+    "stem": "Staging is down, so we've ___ today's demo.",
+    "options": [
+      {
+        "id": "a",
+        "text": "called off"
+      },
+      {
+        "id": "b",
+        "text": "called up"
+      },
+      {
+        "id": "c",
+        "text": "called back"
+      },
+      {
+        "id": "d",
+        "text": "called out"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "call off, planlanan bir etkinliği iptal etmek demektir. call up (telefonla aramak), call back (geri aramak) ve call out (seslenmek) bu anlamı vermez.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: go over / go through are not covered by any Gram unit (unit 141 is on/off), so the question was rewritten with call off = cancel (Gram unit 140, PDF 292; Cambridge Dictionary: to decide that a planned event will not happen). called up/back/out do not mean cancel. Dropped related item walk-someone-through (no longer relevant)."
+  },
+  {
+    "id": "dq-work-collocations-1",
+    "area": "work-collocations",
+    "category": "work_vocab",
+    "refs": [
+      {
+        "book": "Coll",
+        "unit": 7
+      }
+    ],
+    "relatedItemIds": [
+      "log-a-bug"
+    ],
+    "promptTr": "Checkout akışında bulduğun hatayı Jira'ya kaydediyorsun.",
+    "stem": "We need to ___ a bug in the checkout flow.",
+    "options": [
+      {
+        "id": "a",
+        "text": "log"
+      },
+      {
+        "id": "b",
+        "text": "raise"
+      },
+      {
+        "id": "c",
+        "text": "make"
+      },
+      {
+        "id": "d",
+        "text": "do"
+      }
+    ],
+    "correct": [
+      "a",
+      "b"
+    ],
+    "explanationTr": "Hata kaydı açmak için log / raise (ya da file) a bug denir; make a bug demek yanlıştır.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Unit fixed: Coll unit 6 is intensifying adverbs; Coll unit 7 (PDF 22, make and do) covers the make/do distractors. log/raise a bug: Cambridge Dictionary log = to officially record; both attested in Google Ngram (2010-19). make/do a bug are wrong here."
+  },
+  {
+    "id": "dq-work-collocations-2",
+    "area": "work-collocations",
+    "category": "work_vocab",
+    "refs": [
+      {
+        "book": "Coll",
+        "unit": 55
+      }
+    ],
+    "relatedItemIds": [
+      "i-see-your-point-but"
+    ],
+    "promptTr": "Mert testi atlayıp hemen yayına almayı öneriyor; sen kibarca karşı çıkıyorsun.",
+    "stem": "I see your point, ___ I think we should test it first.",
+    "options": [
+      {
+        "id": "a",
+        "text": "but"
+      },
+      {
+        "id": "b",
+        "text": "so"
+      },
+      {
+        "id": "c",
+        "text": "or"
+      },
+      {
+        "id": "d",
+        "text": "then"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "I see your point, but ... kalıbı karşı görüşü nazik şekilde dile getirir.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Unit fixed: see someone's point is in Coll unit 55 (PDF 118, agreeing and disagreeing), not unit 30. promptTr now says Mert wants to skip testing, so \"so\" is clearly illogical; or/then are wrong."
+  },
+  {
+    "id": "dq-work-collocations-3",
+    "area": "work-collocations",
+    "category": "work_vocab",
+    "refs": [
+      {
+        "book": "Gram",
+        "unit": 63
+      }
+    ],
+    "relatedItemIds": [
+      "it-might-be-worth-doing"
+    ],
+    "promptTr": "Sorunu üst seviyeye taşımadan önce log kontrol etmeyi öneriyorsun.",
+    "stem": "It might be ___ checking the logs before we escalate.",
+    "options": [
+      {
+        "id": "a",
+        "text": "worth"
+      },
+      {
+        "id": "b",
+        "text": "worthy"
+      },
+      {
+        "id": "c",
+        "text": "worth of"
+      },
+      {
+        "id": "d",
+        "text": "value"
+      }
+    ],
+    "correct": [
+      "a"
+    ],
+    "explanationTr": "it might be worth + -ing, yumuşatılmış bir öneri kalıbıdır.",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Unit fixed: it's worth + -ing is Gram unit 63 (PDF 138); Coll unit 53 (cause and effect) does not cover it. Distractor \"good\" replaced (informal \"it might be good checking\" is borderline) with \"worth of\", a typical learner error. worthy/value are wrong. Google Ngram: \"might be worth checking\" well attested."
+  }
+]
