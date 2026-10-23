@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
-import type { Actions } from '../../app/actions.ts';
+import type { Actions, ExportFile } from '../../app/actions.ts';
 import { poolsOf } from '../../app/round.ts';
 import type { ReadyState } from '../../app/state.ts';
 import { canPractice, todayCount } from '../../domain/session.ts';
@@ -11,6 +11,7 @@ import { buildId, shouldShowUpdatedNote, takeUpdateFlag } from '../../pwa/update
 import { isStandalone } from '../../pwa/standalone.ts';
 import { BackupRestore } from '../components/BackupSection.tsx';
 import { homeVersionLine, updatedNoteText } from '../buildLines.ts';
+import { exportPreparedBackup } from '../backupExport.ts';
 import { focusCard } from '../focusCard.ts';
 import { t } from '../strings.tr.ts';
 
@@ -69,6 +70,35 @@ export function HomeScreen({ state, actions }: Props) {
   const showInstallHint = !standalone && state.meta.installHintDismissed !== true;
   const showBackupReminder = !firstRun && actions.isBackupReminderDue();
 
+  // While the reminder is due, read the backup ahead of the tap (as Settings does): on iOS the share
+  // sheet only opens inside the gesture, and an IndexedDB read between tap and navigator.share() loses it.
+  const [prepared, setPrepared] = useState<ExportFile>();
+  const { progress, notebook, catalog, flags } = state;
+  useEffect(() => {
+    if (!showBackupReminder) return;
+    let live = true;
+    actions
+      .prepareBackup()
+      .then((file) => {
+        if (live) setPrepared(file);
+      })
+      .catch(() => {
+        if (live) setPrepared(undefined);
+      });
+    return () => {
+      live = false;
+    };
+  }, [actions, showBackupReminder, progress, notebook, catalog, flags]);
+
+  const [backupFailed, setBackupFailed] = useState(false);
+  async function backupNow() {
+    if (!prepared) return;
+    setBackupFailed(false);
+    // On success markBackupExported updates lastExportAt, which hides the note.
+    const outcome = await exportPreparedBackup(prepared, () => actions.markBackupExported());
+    if (outcome === 'failed') setBackupFailed(true);
+  }
+
   // After an applied update: one dismissible note, only when the stored build id differs.
   const currentBuild = buildId(BUILD);
   const [updatedNote, setUpdatedNote] = useState(() =>
@@ -110,7 +140,12 @@ export function HomeScreen({ state, actions }: Props) {
           <Note id="install-hint" text={t.installHint} onDismiss={() => void actions.dismissInstallHint()} />
         )}
         {showBackupReminder && (
-          <Note id="backup-reminder" text={t.backupReminder} onDismiss={() => void actions.dismissBackupReminder()} />
+          <Note
+            id="backup-reminder"
+            text={backupFailed ? t.exportFailed : t.backupReminder}
+            onDismiss={() => void actions.dismissBackupReminder()}
+            action={{ label: t.backupNow, disabled: !prepared, onClick: () => void backupNow() }}
+          />
         )}
         <h2 ref={headingRef} tabIndex={-1} className="done__title" data-testid="today-count">
           {count > 0 ? t.todayCount(count) : done ? t.todayDone : t.resume}
@@ -158,10 +193,25 @@ export function HomeScreen({ state, actions }: Props) {
 }
 
 /** A plain dismissible line on Home (install hint, backup reminder). No counts (05 §1). */
-function Note({ id, text, onDismiss }: { id: string; text: string; onDismiss: () => void }) {
+function Note({
+  id,
+  text,
+  onDismiss,
+  action,
+}: {
+  id: string;
+  text: string;
+  onDismiss: () => void;
+  action?: { label: string; disabled?: boolean; onClick: () => void };
+}) {
   return (
     <div className="home-note" data-testid={id}>
       <p id={`${id}-text`}>{text}</p>
+      {action && (
+        <button type="button" className="btn btn--primary" disabled={action.disabled} aria-describedby={`${id}-text`} onClick={action.onClick}>
+          {action.label}
+        </button>
+      )}
       <button type="button" className="btn btn--text" aria-describedby={`${id}-text`} onClick={onDismiss}>
         {t.dismiss}
       </button>

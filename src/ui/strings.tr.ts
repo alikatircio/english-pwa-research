@@ -157,6 +157,7 @@ export const t = {
   // Full backup (Slice 5, T5.4). Error codes come from domain/backup.ts (ImportErrorCode).
   backupSection: 'Yedek',
   backupHint: 'Tüm ilerlemen, defterin ve item’ların tek bir dosyada. Dosyalar’a ya da iCloud Drive’a kaydet.',
+  backupHintDated: 'Her yedek tarihli yeni bir dosyadır; eskisinin üstüne yazmaz. Geri yüklerken en yenisini seç ve Birleştir’i kullan.',
   backupExport: 'Yedeği dışa aktar',
   backupRestore: 'Yedekten geri yükle',
   backupChooseMode: 'Yedek dosyası geçerli. Nasıl yükleyelim?',
@@ -185,6 +186,7 @@ export const t = {
   welcomeRestore: 'Başka bir cihazdan yedeğin varsa önce onu yükle.',
   installHint: 'Safari → Paylaş → Ana Ekrana Ekle. Ana ekrana eklemezsen iOS verilerini silebilir.',
   backupReminder: 'Yedeğin 1 haftadan eski',
+  backupNow: 'Şimdi yedekle',
   dismiss: 'Kapat',
 
   // Build/version display.

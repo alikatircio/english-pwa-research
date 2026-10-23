@@ -3,7 +3,7 @@ import type { Actions, ExportFile, RestoreMode } from '../../app/actions.ts';
 import type { ReadyState } from '../../app/state.ts';
 import type { BackupFileV1, ImportError, RejectedItem } from '../../domain/backup.ts';
 import { formatDate } from '../format.ts';
-import { shareOrDownload } from '../share.ts';
+import { exportPreparedBackup } from '../backupExport.ts';
 import { t } from '../strings.tr.ts';
 
 const MAX_ERRORS = 8;
@@ -39,14 +39,10 @@ export function BackupSection({ state, actions }: { state: ReadyState; actions: 
   async function onExport() {
     if (!prepared) return;
     setStatus(undefined);
-    try {
-      const outcome = await shareOrDownload(prepared);
-      if (outcome === 'cancelled') return;
-      await actions.markBackupExported();
-      setStatus({ tone: 'ok', text: outcome === 'shared' ? t.exportShared : t.exportDownloaded });
-    } catch {
-      setStatus({ tone: 'error', text: t.exportFailed });
-    }
+    const outcome = await exportPreparedBackup(prepared, () => actions.markBackupExported());
+    if (outcome === 'cancelled') return;
+    if (outcome === 'failed') setStatus({ tone: 'error', text: t.exportFailed });
+    else setStatus({ tone: 'ok', text: outcome === 'shared' ? t.exportShared : t.exportDownloaded });
   }
 
   return (
@@ -56,6 +52,7 @@ export function BackupSection({ state, actions }: { state: ReadyState; actions: 
       </h3>
       <p data-testid="last-backup">{state.meta.lastExportAt === undefined ? t.lastBackupNever : t.lastBackup(formatDate(state.meta.lastExportAt))}</p>
       <p className="muted">{t.backupHint}</p>
+      <p className="muted">{t.backupHintDated}</p>
       <button type="button" className="btn" disabled={!prepared} onClick={() => void onExport()}>
         {t.backupExport}
       </button>

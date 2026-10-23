@@ -133,3 +133,40 @@ test('Settings shows persistent storage as one line and can ask for it', async (
   const granted = (await metaValue(page, 'persist')) === true;
   await expect(line).toHaveText(granted ? t.persistOn : t.persistOff);
 });
+
+test.describe('backup reminder: "Şimdi yedekle"', () => {
+  test('taps share with the full backup, records lastExportAt and hides the note', async ({ page }) => {
+    // A working Web Share: the call must happen inside the tap (iOS), so it is recorded with the file name.
+    await page.addInitScript(() => {
+      const w = window as unknown as { __shared: string[] };
+      w.__shared = [];
+      Object.defineProperty(Navigator.prototype, 'canShare', { value: () => true, configurable: true });
+      Object.defineProperty(Navigator.prototype, 'share', {
+        value: (data: { files?: File[] }) => {
+          w.__shared.push(...(data.files ?? []).map((f) => f.name));
+          return Promise.resolve();
+        },
+        configurable: true,
+      });
+    });
+    const app = new App(page);
+    await app.open('2026-11-12T08:00:00', { start: false });
+    const oldExport = new Date('2026-11-01T08:00:00').getTime();
+    await seedStores(page, {
+      put: { progress: [prog(items[0]?.id ?? '', '2026-11-02')], meta: [{ key: 'lastExportAt', value: oldExport }] },
+    });
+    await page.reload();
+
+    const reminder = page.getByTestId('backup-reminder');
+    const button = reminder.getByRole('button', { name: t.backupNow });
+    await expect(button).toBeEnabled();
+    await button.click();
+
+    await expect(reminder).toHaveCount(0);
+    expect(await page.evaluate(() => (window as unknown as { __shared: string[] }).__shared)).toEqual(['english-pwa-backup-2026-11-12.json']);
+    expect(await metaValue(page, 'lastExportAt')).toBeGreaterThan(oldExport);
+    await page.reload();
+    await expect(app.todayCount).toBeVisible();
+    await expect(reminder).toHaveCount(0);
+  });
+});
