@@ -68,6 +68,8 @@ export type Action =
   | { type: 'graded'; progress?: Progress; counter: DailyCounter; session: SessionState }
   | { type: 'undone'; itemId: string; progress: Progress | null; counter: DailyCounter; session: SessionState }
   | { type: 'flags'; flags: ReadonlySet<string> }
+  /** Message step checked (decision 49): answer-log rows only; stamps the message's last practice time. */
+  | { type: 'messageAnswered'; messageId: string; at: number; session: SessionState }
   /** Day switch or round start: today's counter and the session to show. */
   | { type: 'day'; counter: DailyCounter; session: SessionState | undefined; screen: Screen }
   | { type: 'roundEnded'; summary: RoundSummary }
@@ -123,6 +125,11 @@ export function appReducer(state: AppState, action: Action): AppState {
       if (action.progress) progress.set(action.itemId, action.progress);
       else progress.delete(action.itemId);
       return { ...state, busy: false, error: undefined, progress, counter: sameDay(state.counter, action.counter), session: action.session };
+    }
+    case 'messageAnswered': {
+      const messageLastAt = new Map(state.messageLastAt ?? []);
+      messageLastAt.set(action.messageId, action.at);
+      return { ...state, busy: false, error: undefined, messageLastAt, session: action.session };
     }
     case 'flags':
       return { ...state, busy: false, error: undefined, flags: action.flags };

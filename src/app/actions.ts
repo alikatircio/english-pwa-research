@@ -27,11 +27,12 @@ import type { AnswerLog, CardPhase, DiagnosticAttempt, DailyCounter, DayKey, Fla
 import { createCatalog, withImported, type Catalog } from '../content/catalog.ts';
 import { exportFlagsReport, importItems, readBackupData, writeRestore } from '../storage/backupIO.ts';
 import { fixedConnection, type AppDb, type DbConnection, type ImportedItem } from '../storage/db.ts';
-import { addNotebookEntry, clearSession, commitGrade, loadCounter, putMeta, saveDiagnosticAttempt, saveSession, toggleFlag, undoGrade } from '../storage/repo.ts';
+import { addNotebookEntry, appendLogs, clearSession, commitGrade, loadCounter, putMeta, saveDiagnosticAttempt, saveSession, toggleFlag, undoGrade } from '../storage/repo.ts';
 import { loadReadyState } from './boot.ts';
 import { answerQuestion, diagnosticAvailable, finishAttempt, nextQuestion, prevQuestion, startAttempt, type Selection } from '../domain/diagnostic.ts';
 import type { DiagnosticQuestion } from '../domain/extrasSchema.ts';
 import type { ExtrasBundle } from '../domain/extrasSchema.ts';
+import { blankAnswers } from '../domain/blankAnswers.ts';
 import { contextAnswer, gradeContext } from '../domain/exerciseMode.ts';
 import { contextForEntry, modeForEntry } from './mode.ts';
 import type { AppMeta } from './meta.ts';
@@ -146,7 +147,8 @@ export function createActions({ db, clock, getState, dispatch, extras = NO_EXTRA
     const s = ready(getState);
     const session = s?.session;
     const entry = session && currentEntry(session);
-    if (!s || !session || !entry || s.busy) return;
+    // A message step is never graded: it only writes answer-log rows (answerMessage).
+    if (!s || !session || !entry || s.busy || entry.kind === 'message') return;
 
     // Decision 35: a correct answer given with a hint counts as partial (the box stays).
     const hintUsed = session.hint ?? 0;
@@ -462,6 +464,55 @@ export function createActions({ db, clock, getState, dispatch, extras = NO_EXTRA
     },
 
     /**
+     * "Kontrol et" on the message step (decisions 49, 59): one answer-log row per blank,
+     * nothing else. No progress, counter, flag or session grade; the phase only records
+     * the checked result so a reload shows it again.
+     */
+    async answerMessage(values: readonly string[]): Promise<void> {
+      const s = ready(getState);
+      const session = s?.session;
+      const entry = session && currentEntry(session);
+      if (!s || !session || !entry || entry.kind !== 'message' || s.busy || session.phase.tag !== 'question') return;
+      const message = s.messages?.find((m) => m.id === entry.itemId);
+      const answers = message ? blankAnswers(message.blanked, message.text) : null;
+      if (!message || !answers || answers.length !== message.blanks.length) return;
+      const typed = values.map((v) => v.trim());
+      if (typed.length !== answers.length || typed.some((v) => v === '')) return;
+      const now = clock.now();
+      const day = clock.today();
+      const logs: AnswerLog[] = message.blanks.map(({ itemId }, i) => {
+        const box = s.progress.get(itemId)?.box ?? null;
+        return {
+          at: now,
+          day,
+          itemId,
+          answer: typed[i] ?? '',
+          grade: gradeContext([typed[i] ?? ''], [answers[i] ?? '']) ? 'correct' : 'wrong',
+          gradedBy: 'auto',
+          hintUsed: 0,
+          isRepeat: false,
+          mode: 'message',
+          messageId: message.id,
+          boxBefore: box,
+          boxAfter: box,
+        };
+      });
+      const matched = logs.every((l) => l.grade === 'correct');
+      const next: SessionState = { ...session, draft: typed.join('\n'), phase: { tag: 'result', answer: typed.join('\n'), matched }, updatedAt: now };
+      dispatch({ type: 'busy' });
+      try {
+        await run(async (d) => {
+          await appendLogs(d, logs);
+          await saveSession(d, next);
+        });
+      } catch {
+        dispatch({ type: 'error', error: 'save-failed' });
+        return;
+      }
+      dispatch({ type: 'messageAnswered', messageId: message.id, at: now, session: next });
+    },
+
+    /**
      * "İpucu" (decision 35): 1st tap opens the cloze, 2nd adds the initials of the chunk.
      * Only on an open question that is not a re-ask (re-asks are hint-free) or "Sırala".
      */
@@ -469,7 +520,7 @@ export function createActions({ db, clock, getState, dispatch, extras = NO_EXTRA
       const s = ready(getState);
       const session = s?.session;
       const entry = session && currentEntry(session);
-      if (!s || !session || !entry || s.busy || session.phase.tag !== 'question' || entry.kind === 'repeat') return;
+      if (!s || !session || !entry || s.busy || session.phase.tag !== 'question' || entry.kind === 'repeat' || entry.kind === 'message') return;
       const shape = modeForEntry(s, entry, session.cursor, session.queue.length);
       if (shape === 'order' || shape === 'context') return; // the blanked sentence never counts as a hint (decision 42)
       const level = session.hint ?? 0;
@@ -548,7 +599,7 @@ export function createActions({ db, clock, getState, dispatch, extras = NO_EXTRA
       const session = s?.session;
       const phase = session?.phase;
       if (!s || !session || !phase || phase.tag !== 'result' || s.busy) return;
-      if (!phase.matched && !phase.grade) return; // must self-grade first
+      if (!phase.matched && !phase.grade && session.queue[session.cursor]?.kind !== 'message') return; // must self-grade first (a checked message step needs no grade)
       const moved = nextCard(session, s);
       if (moved === 'round-end') {
         const today = clock.today();

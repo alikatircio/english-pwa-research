@@ -601,3 +601,46 @@ describe('actions — leaveRound ("← Ana ekran")', () => {
     app.db.close();
   });
 });
+
+describe('actions — message step (decisions 49, 59)', () => {
+  const msgs = [
+    { id: 'msg-t', channel: 'teams' as const, contextTr: 'x', text: 'Hi.\nI will get back to you.', blanked: 'Hi.\nI will get ___ to you.', blanks: [{ itemId: ids[0] ?? '' }], verified: true, verifiedNote: 'n' },
+    { id: 'msg-u', channel: 'jira' as const, contextTr: 'x', text: 'Look into it for me.', blanked: 'Look ___ it for ___.', blanks: [{ itemId: ids[0] ?? '' }, { itemId: ids[1] ?? '' }], verified: true, verifiedNote: 'n' },
+  ];
+  const box4 = (id: string): Progress => ({ itemId: id, box: 4, dueOn: '2026-11-05', introducedOn: '2026-11-01', lastAnsweredOn: '2026-11-01', lastGrade: 'correct', updatedAt: 1 });
+
+  it('answerMessage writes one log row per blank and nothing else', async () => {
+    const name = `msg-${Date.now()}`;
+    const seed = await openAppDb({ name });
+    for (const id of ids) await seed.put('progress', box4(id));
+    seed.close();
+    const clock = fixedClock(T0);
+    const { db, state } = await boot({ bundle, clock, openDb: () => openAppDb({ name }), extras: { diagnostic: [], messages: [msgs[1] as never] } });
+    const store = createStore();
+    store.dispatch({ type: 'booted', state });
+    const actions = createActions({ db, clock, getState: store.getState, dispatch: store.dispatch });
+    actions.startPractice();
+    const s0 = store.getState();
+    if (s0.status !== 'ready' || !s0.session) throw new Error('no session');
+    expect(s0.session.queue.at(-1)).toEqual({ itemId: 'msg-u', kind: 'message' });
+    // jump to the message step
+    store.dispatch({ type: 'session', session: { ...s0.session, cursor: s0.session.queue.length - 1, phase: { tag: 'question' } } });
+    const progressBefore = await db.getAll('progress');
+    const counterBefore = await db.getAll('dailyCounters');
+
+    await actions.answerMessage(['into', 'nope']);
+    const logs = await db.getAll('answerLog');
+    expect(logs).toHaveLength(2);
+    expect(logs[0]).toMatchObject({ mode: 'message', messageId: 'msg-u', itemId: ids[0], answer: 'into', grade: 'correct', boxBefore: 4, boxAfter: 4 });
+    expect(logs[1]).toMatchObject({ mode: 'message', messageId: 'msg-u', itemId: ids[1], answer: 'nope', grade: 'wrong', boxBefore: 4, boxAfter: 4 });
+    expect(await db.getAll('progress')).toEqual(progressBefore);
+    expect(await db.getAll('dailyCounters')).toEqual(counterBefore);
+    const s1 = store.getState();
+    if (s1.status !== 'ready') throw new Error('not ready');
+    expect(s1.messageLastAt?.get('msg-u')).toBe(T0);
+    expect(s1.session?.phase).toMatchObject({ tag: 'result', matched: false });
+    actions.next();
+    expect(store.getState()).toMatchObject({ screen: 'roundEnd' });
+    db.close();
+  });
+});

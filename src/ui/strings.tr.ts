@@ -21,6 +21,12 @@ export const t = {
   dailyContext: 'Günlük hayat',
   contextHeading: 'Boşlukları doldur:',
   blankLabel: (n: number, total: number) => `${n}. boşluk, ${total} boşluktan`,
+  blankRight: 'doğru',
+  blankWrong: 'yanlış, doğrusu:',
+  /** Decision 49: message step (free practice). */
+  messageHeading: 'Mesajı tamamla',
+  messageChannel: { teams: 'Teams mesajı', jira: 'Jira yorumu' },
+  messageDone: 'Devam',
   /** Decision 31: "Sırala" shape. */
   orderHeading: 'Kelimeleri sıraya diz',
   orderPlacedLabel: 'Kurduğun cümle',

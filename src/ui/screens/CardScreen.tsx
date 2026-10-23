@@ -7,6 +7,7 @@ import { shuffleTokens, showsBefore } from '../../domain/exerciseMode.ts';
 import { currentEntry } from '../../domain/session.ts';
 import { AnswerInput } from '../components/AnswerInput.tsx';
 import { ContextBlanks } from '../components/ContextBlanks.tsx';
+import { MessageStep } from '../components/MessageStep.tsx';
 import { FlagButton } from '../components/FlagButton.tsx';
 import { GradeButtons } from '../components/GradeButtons.tsx';
 import { HintLine } from '../components/HintLine.tsx';
@@ -69,6 +70,7 @@ export function CardScreen({ state, actions }: Props) {
     return () => document.removeEventListener('visibilitychange', onVisibility);
   }, [persistDraft, actions]);
 
+  if (entry?.kind === 'message') return <MessageStep state={state} actions={actions} />;
   if (!session || !item) return null;
   const phase = session.phase;
   const { tag, text } = splitSituation(item.situationTr);

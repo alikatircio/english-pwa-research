@@ -14,6 +14,12 @@ interface Props {
   /** Visible heading that names the group (a11y). */
   labelledBy: string;
   describedBy: string;
+  /** Message step: keep the line breaks of `blanked`. */
+  multiline?: boolean;
+  /** Per-blank verdict after "Kontrol et": inputs lock, ✓/✗ shows. Needs `answers`. */
+  results?: readonly boolean[];
+  /** The expected word per blank, shown next to a wrong one. */
+  answers?: readonly string[];
 }
 
 /**
@@ -21,9 +27,9 @@ interface Props {
  * answer field: no autocorrect, spellcheck or auto-capitalisation, ≥16px, ≥44px tall.
  * Enter moves to the next blank, on the last one it submits.
  */
-export function ContextBlanks({ blanked, values, onChange, onSubmit, disabled, labelledBy, describedBy }: Props) {
-  const parts = blanked.split(BLANK_TOKEN);
-  const count = parts.length - 1;
+export function ContextBlanks({ blanked, values, onChange, onSubmit, disabled, labelledBy, describedBy, multiline, results, answers }: Props) {
+  const lines = multiline ? blanked.split('\n') : [blanked];
+  const count = blanked.split(BLANK_TOKEN).length - 1;
   const refs = useRef<(HTMLInputElement | null)[]>([]);
   const at = (i: number): string => values[i] ?? '';
 
@@ -41,31 +47,55 @@ export function ContextBlanks({ blanked, values, onChange, onSubmit, disabled, l
 
   return (
     <div className="context-blanks" role="group" aria-labelledby={labelledBy} aria-describedby={describedBy} lang="en" data-testid="context-blanks">
-      {parts.map((part, i) => (
-        <Fragment key={i}>
-          {part !== '' && <span className="context-blanks__text">{part}</span>}
-          {i < count && (
-            <input
-              ref={(el) => {
-                refs.current[i] = el;
-              }}
-              className="context-blank"
-              type="text"
-              value={at(i)}
-              onChange={(e) => onChange(Array.from({ length: count }, (_, k) => (k === i ? e.target.value : at(k))))}
-              onKeyDown={(e) => onKeyDown(e, i)}
-              disabled={disabled}
-              aria-label={t.blankLabel(i + 1, count)}
-              autoCorrect="off"
-              autoCapitalize="off"
-              autoComplete="off"
-              spellCheck={false}
-              enterKeyHint={i < count - 1 ? 'next' : 'go'}
-              size={8}
-            />
-          )}
-        </Fragment>
-      ))}
+      {lines.map((line, li) => {
+        const parts = line.split(BLANK_TOKEN);
+        const start = lines.slice(0, li).reduce((n, l) => n + l.split(BLANK_TOKEN).length - 1, 0);
+        const body = parts.map((part, pi) => {
+          const i = start + pi;
+          return (
+            <Fragment key={pi}>
+              {part !== '' && <span className="context-blanks__text">{part}</span>}
+              {pi < parts.length - 1 && (
+                <>
+                  <input
+                    ref={(el) => {
+                      refs.current[i] = el;
+                    }}
+                    className={`context-blank${results ? (results[i] ? ' context-blank--ok' : ' context-blank--wrong') : ''}`}
+                    type="text"
+                    value={at(i)}
+                    onChange={(e) => onChange(Array.from({ length: count }, (_, k) => (k === i ? e.target.value : at(k))))}
+                    onKeyDown={(e) => onKeyDown(e, i)}
+                    disabled={disabled}
+                    readOnly={results !== undefined}
+                    aria-label={t.blankLabel(i + 1, count)}
+                    autoCorrect="off"
+                    autoCapitalize="off"
+                    autoComplete="off"
+                    spellCheck={false}
+                    enterKeyHint={i < count - 1 ? 'next' : 'go'}
+                    size={8}
+                  />
+                  {results && (
+                    <span className="context-blank__result" data-testid="context-blank-result" data-correct={results[i] ? 'true' : 'false'}>
+                      <span aria-hidden="true">{results[i] ? '✓' : '✗'}</span>
+                      <span className="visually-hidden">{results[i] ? t.blankRight : t.blankWrong}</span>
+                      {!results[i] && <span className="context-blank__expected">{answers?.[i]}</span>}
+                    </span>
+                  )}
+                </>
+              )}
+            </Fragment>
+          );
+        });
+        return multiline ? (
+          <div key={li} className="context-blanks__line">
+            {body}
+          </div>
+        ) : (
+          body
+        );
+      })}
     </div>
   );
 }
