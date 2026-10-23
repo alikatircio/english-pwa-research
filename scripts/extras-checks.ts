@@ -114,6 +114,13 @@ export function checkTopic(t: Topic, itemIds: ReadonlySet<string>): ExtrasFindin
     if (s.bodyTr.length < 1 || s.bodyTr.length > 3) err(`sections[${i}].bodyTr must have 1–3 paragraphs (has ${s.bodyTr.length})`);
     if (s.examples.length < 1 || s.examples.length > 4) err(`sections[${i}].examples must have 1–4 entries (has ${s.examples.length})`);
   });
+  const examples = t.sections.flatMap((s) => s.examples);
+  if (examples.length < 3 || examples.length > 5) err(`topic must have 3–5 examples in total (has ${examples.length})`);
+  for (const e of examples) if (!e.en.includes(e.highlight)) err(`example highlight "${e.highlight}" is not in "${e.en}"`);
+  const words = t.sections.flatMap((s) => s.bodyTr).join(' ').split(/\s+/).filter(Boolean).length;
+  if (words > 150) err(`explanation must be at most 150 words (has ${words})`);
+  if (t.traps.length < 1 || t.traps.length > 2) err(`traps must have 1–2 entries (has ${t.traps.length})`);
+  if (t.refs.length < 1) err('refs must have at least one book reference');
   for (const id of t.itemIds) if (!itemIds.has(id)) err(`itemIds: "${id}" is not a shipped item`);
   return f;
 }

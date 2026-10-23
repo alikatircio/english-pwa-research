@@ -27,6 +27,12 @@ export const DiagnosticQuestionSchema = z.strictObject({
 });
 
 /** topics-*.verified.json record (§1.4). Rules: C17. */
+/** Topic book reference: the unit title is written in our own words (decision 50). */
+const TopicRefSchema = z
+  .strictObject({ book: z.enum(['Gram', 'Coll']), unit: z.number().int().min(1), titleTr: text })
+  .refine((r) => r.unit <= (r.book === 'Gram' ? 145 : 60), 'unit out of range (Gram 1–145, Coll 1–60)');
+
+/** topics-*.verified.json record (§1.4). `highlight` is the pattern inside `en`; `traps` is the "Türkçe tuzağı" box. */
 export const TopicSchema = z.strictObject({
   id: kebab,
   area,
@@ -36,11 +42,12 @@ export const TopicSchema = z.strictObject({
     z.strictObject({
       headingTr: text,
       bodyTr: z.array(text),
-      examples: z.array(z.strictObject({ en: text, tr: text })),
+      examples: z.array(z.strictObject({ en: text, tr: text, highlight: text })),
     }),
   ),
+  traps: z.array(z.strictObject({ wrongEn: text, rightEn: text, noteTr: text })),
   itemIds: z.array(kebab),
-  refs: z.array(BookRefSchema),
+  refs: z.array(TopicRefSchema),
   verified: z.boolean(),
   verifiedNote: text,
 });

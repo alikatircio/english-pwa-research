@@ -1745,7 +1745,18 @@
           "examples": [
             {
               "en": "I will call you later.",
-              "tr": "Seni sonra ararım."
+              "tr": "Seni sonra ararım.",
+              "highlight": "will call"
+            },
+            {
+              "en": "I will call you later.",
+              "tr": "Seni sonra ararım.",
+              "highlight": "will call"
+            },
+            {
+              "en": "I will call you later.",
+              "tr": "Seni sonra ararım.",
+              "highlight": "will call"
             }
           ]
         }
@@ -1757,11 +1768,19 @@
       "refs": [
         {
           "book": "Gram",
-          "unit": 19
+          "unit": 19,
+          "titleTr": "[e2e] ünite"
         }
       ],
       "verified": true,
-      "verifiedNote": "e2e fixture (fictional, not shipped)"
+      "verifiedNote": "e2e fixture (fictional, not shipped)",
+      "traps": [
+        {
+          "wrongEn": "[e2e] wrong",
+          "rightEn": "[e2e] right",
+          "noteTr": "[e2e] not"
+        }
+      ]
     },
     {
       "id": "e2e-topic-prepositions",
@@ -1777,7 +1796,18 @@
           "examples": [
             {
               "en": "We wait for the result.",
-              "tr": "Sonucu bekleriz."
+              "tr": "Sonucu bekleriz.",
+              "highlight": "wait for"
+            },
+            {
+              "en": "We wait for the result.",
+              "tr": "Sonucu bekleriz.",
+              "highlight": "wait for"
+            },
+            {
+              "en": "We wait for the result.",
+              "tr": "Sonucu bekleriz.",
+              "highlight": "wait for"
             }
           ]
         }
@@ -1788,11 +1818,19 @@
       "refs": [
         {
           "book": "Gram",
-          "unit": 121
+          "unit": 121,
+          "titleTr": "[e2e] ünite"
         }
       ],
       "verified": true,
-      "verifiedNote": "e2e fixture (fictional, not shipped)"
+      "verifiedNote": "e2e fixture (fictional, not shipped)",
+      "traps": [
+        {
+          "wrongEn": "[e2e] wrong",
+          "rightEn": "[e2e] right",
+          "noteTr": "[e2e] not"
+        }
+      ]
     }
   ],
   "messages": [

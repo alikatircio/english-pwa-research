@@ -42,9 +42,20 @@ const topic: Topic = {
   area: 'future',
   titleTr: 'Başlık',
   summaryTr: 'Özet',
-  sections: [{ headingTr: 'Bölüm', bodyTr: ['Paragraf.'], examples: [{ en: 'We will go.', tr: 'Gideriz.' }] }],
+  sections: [
+    {
+      headingTr: 'Bölüm',
+      bodyTr: ['Paragraf.'],
+      examples: [
+        { en: 'We will go.', tr: 'Gideriz.', highlight: 'will go' },
+        { en: 'I will call.', tr: 'Ararım.', highlight: 'will call' },
+        { en: 'It will rain.', tr: 'Yağmur yağacak.', highlight: 'will rain' },
+      ],
+    },
+  ],
+  traps: [{ wrongEn: 'I call you tomorrow.', rightEn: "I'll call you tomorrow.", noteTr: 'Not.' }],
   itemIds: ['a-heads-up'],
-  refs: [],
+  refs: [{ book: 'Gram', unit: 20, titleTr: 'Başlık' }],
   verified: true,
   verifiedNote: 'n',
 };
@@ -100,6 +111,13 @@ describe('C16 diagnostic', () => {
 
 describe('C17 topics', () => {
   it('passes a valid topic', () => expect(checkTopic(topic, itemIds)).toEqual([]));
+  it('needs 3–5 examples, highlights inside the sentence, 1–2 traps, a book ref and ≤150 words', () => {
+    const s = topic.sections[0]!;
+    const one = { ...s, examples: [{ ...s.examples[0]!, highlight: 'shall go' }] };
+    const long = { ...s, bodyTr: [Array(151).fill('söz').join(' ')], examples: [] };
+    const msg = errors(checkTopic({ ...topic, sections: [one, long], traps: [], refs: [] }, itemIds)).join();
+    for (const part of ['3–5 examples', 'highlight "shall go"', '150 words', 'traps', 'book reference']) expect(msg).toContain(part);
+  });
   it('rejects 5 sections', () => {
     const s = topic.sections[0]!;
     expect(errors(checkTopic({ ...topic, sections: [s, s, s, s, s] }, itemIds)).join()).toContain('1–4');
