@@ -186,6 +186,12 @@ export const t = {
   installHint: 'Safari → Paylaş → Ana Ekrana Ekle. Ana ekrana eklemezsen iOS verilerini silebilir.',
   backupReminder: 'Yedeğin 1 haftadan eski',
   dismiss: 'Kapat',
+
+  // Build/version display.
+  versionSettings: (version: string, date: string, sha: string, content: string) =>
+    `Sürüm ${version} · ${date} · ${sha} · içerik ${content}`,
+  versionHome: (version: string, date: string) => `v${version} · ${date}`,
+  updatedNote: (version: string, date: string) => `Güncellendi: sürüm ${version} (${date})`,
   storageSection: 'Depolama',
   persistOn: 'Kalıcı depolama: açık',
   persistOff: 'Kalıcı depolama: kapalı',

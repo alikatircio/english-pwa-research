@@ -5,9 +5,12 @@ import { poolsOf } from '../../app/round.ts';
 import type { ReadyState } from '../../app/state.ts';
 import { canPractice, todayCount } from '../../domain/session.ts';
 import { isFirstRun } from '../../domain/reminders.ts';
+import { BUILD } from '../../buildInfo.ts';
 import { applyUpdateOnHome } from '../../pwa/registerSW.ts';
+import { buildId, shouldShowUpdatedNote, takeUpdateFlag } from '../../pwa/updateNote.ts';
 import { isStandalone } from '../../pwa/standalone.ts';
 import { BackupRestore } from '../components/BackupSection.tsx';
+import { homeVersionLine, updatedNoteText } from '../buildLines.ts';
 import { focusCard } from '../focusCard.ts';
 import { t } from '../strings.tr.ts';
 
@@ -66,6 +69,17 @@ export function HomeScreen({ state, actions }: Props) {
   const showInstallHint = !standalone && state.meta.installHintDismissed !== true;
   const showBackupReminder = !firstRun && actions.isBackupReminderDue();
 
+  // After an applied update: one dismissible note, only when the stored build id differs.
+  const currentBuild = buildId(BUILD);
+  const [updatedNote, setUpdatedNote] = useState(() =>
+    shouldShowUpdatedNote({ flagged: takeUpdateFlag(true), lastSeen: state.meta.lastSeenBuild, current: currentBuild }),
+  );
+  const lastSeenBuild = state.meta.lastSeenBuild;
+  useEffect(() => {
+    takeUpdateFlag();
+    if (lastSeenBuild !== currentBuild) void actions.markBuildSeen(currentBuild);
+  }, [actions, lastSeenBuild, currentBuild]);
+
   function go(action: () => void) {
     flushSync(action);
     focusCard();
@@ -91,6 +105,7 @@ export function HomeScreen({ state, actions }: Props) {
             <BackupRestore actions={actions} busy={state.busy} buttonClass="btn btn--text" />
           </div>
         )}
+        {updatedNote && <Note id="updated-note" text={updatedNoteText(BUILD)} onDismiss={() => setUpdatedNote(false)} />}
         {showInstallHint && (
           <Note id="install-hint" text={t.installHint} onDismiss={() => void actions.dismissInstallHint()} />
         )}
@@ -134,6 +149,9 @@ export function HomeScreen({ state, actions }: Props) {
             {t.start(count)}
           </button>
         )}
+        <p className="version-line version-line--home muted" data-testid="version-home">
+          {homeVersionLine(BUILD)}
+        </p>
       </div>
     </div>
   );

@@ -177,7 +177,9 @@ export type MetaKey =
   /** Daily new-card cap, 5 / 10 / 15 / 20 (decision 29). */
   | 'dailyNewCap'
   /** Notebook sheet's "Nasıl kullanılır" box closed for good (decision 32). */
-  | 'notebookHelpDismissed';
+  | 'notebookHelpDismissed'
+  /** Build id (version+sha) last shown on Home; compared to detect an applied update. */
+  | 'lastSeenBuild';
 export interface MetaRecord {
   key: MetaKey;
   value: unknown;

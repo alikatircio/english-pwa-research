@@ -1,3 +1,5 @@
+import { execSync } from 'node:child_process';
+import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
@@ -7,6 +9,28 @@ import { VitePWA } from 'vite-plugin-pwa';
 const base = process.env.BASE_PATH ?? '/english-pwa-research/';
 
 const path = (p: string) => fileURLToPath(new URL(p, import.meta.url));
+
+// --- Build info (shown in Settings/Home so the installed app's version is visible) -----
+function gitSha(): string {
+  const fromCi = process.env.GITHUB_SHA?.slice(0, 7);
+  if (fromCi) return fromCi;
+  try {
+    return execSync('git rev-parse --short HEAD', { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim() || 'dev';
+  } catch {
+    return 'dev';
+  }
+}
+
+function contentVersionOf(file: string): string {
+  try {
+    if (existsSync(file)) return (JSON.parse(readFileSync(file, 'utf8')) as { contentVersion?: string }).contentVersion ?? 'dev';
+  } catch {
+    // fall through
+  }
+  return 'dev';
+}
+
+const pkg = JSON.parse(readFileSync(path('./package.json'), 'utf8')) as { version: string };
 
 // --- PWA (07 §6.1) ----------------------------------------------------------
 // Same value as `--bg` in src/ui/styles/tokens.css (light theme): calm neutral.
@@ -52,6 +76,14 @@ const pwa = VitePWA({
 
 export default defineConfig(({ mode }) => ({
   base,
+  define: {
+    __APP_VERSION__: JSON.stringify(pkg.version),
+    __BUILD_DATE__: JSON.stringify(new Date().toISOString().slice(0, 10)),
+    __GIT_SHA__: JSON.stringify(gitSha()),
+    __CONTENT_VERSION__: JSON.stringify(
+      contentVersionOf(mode === 'e2e' ? path('./content/fixtures/e2e-items.json') : path('./src/content/items.json')),
+    ),
+  },
   plugins: [react(), pwa],
   // Agent worktrees under .claude/ must not trigger dev-server reloads.
   server: { watch: { ignored: ['**/.claude/**'] } },

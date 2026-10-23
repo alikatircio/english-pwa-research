@@ -18,10 +18,14 @@ export interface AppMeta {
   dailyNewCap?: number | undefined;
   /** Notebook sheet's help box closed for good (decision 32). */
   notebookHelpDismissed?: boolean | undefined;
+  /** Build id last seen on Home ("Güncellendi" note). */
+  lastSeenBuild?: string | undefined;
 }
 
 const num = (v: unknown): number | undefined => (typeof v === 'number' && Number.isFinite(v) ? v : undefined);
 const bool = (v: unknown): boolean | undefined => (typeof v === 'boolean' ? v : undefined);
+
+const str = (v: unknown): string | undefined => (typeof v === 'string' ? v : undefined);
 
 const newCap = (v: unknown): number | undefined => (NEW_CAP_OPTIONS as readonly unknown[]).includes(v) ? (v as number) : undefined;
 
@@ -35,5 +39,6 @@ export function metaFromRecords(records: readonly MetaRecord[]): AppMeta {
     backupReminderDismissedAt: num(byKey.get('backupReminderDismissedAt')),
     dailyNewCap: newCap(byKey.get('dailyNewCap')),
     notebookHelpDismissed: bool(byKey.get('notebookHelpDismissed')),
+    lastSeenBuild: str(byKey.get('lastSeenBuild')),
   };
 }

@@ -331,6 +331,11 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
       });
     },
 
+    /** Remember the running build id (Home's "Güncellendi" note compares against it). */
+    markBuildSeen(id: string): Promise<boolean> {
+      return saveMeta({ lastSeenBuild: id });
+    },
+
     dismissBackupReminder(): Promise<boolean> {
       return saveMeta({ backupReminderDismissedAt: clock.now() });
     },

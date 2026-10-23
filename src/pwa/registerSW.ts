@@ -13,6 +13,7 @@
 // new SW finally takes control, Home is checked again before reloading: if the user has
 // left Home (or started a round) meanwhile, the reload waits for the next safe Home moment.
 import { registerSW } from 'virtual:pwa-register';
+import { markUpdateApplied } from './updateNote.ts';
 import { mayReloadNow, shouldCheckForUpdate } from './updatePolicy.ts';
 
 let started = false;
@@ -78,6 +79,7 @@ function safeToReload(): boolean {
 
 function reload(): void {
   applying = true;
+  markUpdateApplied();
   window.location.reload();
 }
 

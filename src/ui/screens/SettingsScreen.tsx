@@ -5,6 +5,8 @@ import { BackupSection } from '../components/BackupSection.tsx';
 import { StorageSection } from '../components/StorageSection.tsx';
 import { ClaudePaste } from '../components/ClaudePaste.tsx';
 import { PasteImport } from '../components/PasteImport.tsx';
+import { BUILD } from '../../buildInfo.ts';
+import { settingsVersionLine } from '../buildLines.ts';
 import { DAILY_NEW_CAP, NEW_CAP_OPTIONS } from '../../domain/session.ts';
 import { shareOrDownload } from '../share.ts';
 import { t } from '../strings.tr.ts';
@@ -90,6 +92,10 @@ export function SettingsScreen({ state, actions }: Props) {
         {/* Slice 5: full backup (T5.4) and persistent storage (T5.5), in their own components. */}
         <BackupSection state={state} actions={actions} />
         <StorageSection state={state} actions={actions} />
+
+        <p className="version-line muted" data-testid="version-settings">
+          {settingsVersionLine(BUILD)}
+        </p>
 
         {status && (
           <p className={status.tone === 'error' ? 'error' : 'graded'} role={status.tone === 'error' ? 'alert' : 'status'}>
