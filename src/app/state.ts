@@ -1,5 +1,5 @@
 import type { NotebookContext } from '../domain/notebook.ts';
-import type { DailyCounter, NotebookEntry, Progress, SessionState } from '../domain/types.ts';
+import type { DailyCounter, DiagnosticAttempt, NotebookEntry, Progress, SessionState } from '../domain/types.ts';
 import type { Catalog } from '../content/catalog.ts';
 import type { AppMeta } from './meta.ts';
 
@@ -15,6 +15,12 @@ export interface RoundSummary {
   studiedChunks: readonly string[];
   /** Cards are left today, so "Bir tur daha" makes sense. */
   moreToday: boolean;
+}
+
+/** Seviye testi: every attempt (oldest first) and the unfinished one, if any. Never touches progress or counters. */
+export interface DiagnosticState {
+  attempts: readonly DiagnosticAttempt[];
+  open?: DiagnosticAttempt | undefined;
 }
 
 export type AppState =
@@ -40,6 +46,7 @@ export interface ReadyState {
   notebook: readonly NotebookEntry[];
   overlay?: Overlay | undefined;
   notice?: Notice | undefined;
+  diagnostic?: DiagnosticState | undefined;
   /** The `meta` store (last export, …). */
   meta: AppMeta;
   /** A write is in flight; buttons that write are disabled. */
@@ -67,6 +74,8 @@ export type Action =
   | { type: 'meta'; meta: AppMeta }
   /** After a backup restore: everything reloaded from disk; overlay and notice are kept as they are. */
   | { type: 'restored'; state: Omit<ReadyState, 'status' | 'busy'> }
+  /** Diagnostic attempts changed (start, answer, move, finish). */
+  | { type: 'diagnostic'; diagnostic: DiagnosticState }
   | { type: 'clearError' };
 
 /** A grade only updates the in-memory counter of the day it belongs to. */
@@ -138,6 +147,8 @@ export function appReducer(state: AppState, action: Action): AppState {
       return { ...state, busy: false, error: undefined, catalog: action.catalog, notebook: action.notebook, session: action.session, counter: action.counter };
     case 'meta':
       return { ...state, meta: action.meta };
+    case 'diagnostic':
+      return { ...state, busy: false, error: undefined, diagnostic: action.diagnostic };
     case 'restored':
       return { ...state, ...action.state, busy: false, error: undefined, lastRound: undefined };
   }

@@ -23,12 +23,15 @@ import { backupReminderDue, firstAnswerDay } from '../domain/reminders.ts';
 import { applyGrade } from '../domain/scheduler.ts';
 import { cleanNotebookText, createNotebookEntry, isDuplicateEntry } from '../domain/notebook.ts';
 import { countFirstAnswer, currentEntry, emptyCounter, isSessionStale, onFirstAnswer, todayCount } from '../domain/session.ts';
-import type { AnswerLog, CardPhase, DailyCounter, DayKey, Flag, Grade, GradedBy, HintLevel, MetaKey, MetaRecord, SessionState, UndoSnapshot } from '../domain/types.ts';
+import type { AnswerLog, CardPhase, DiagnosticAttempt, DailyCounter, DayKey, Flag, Grade, GradedBy, HintLevel, MetaKey, MetaRecord, SessionState, UndoSnapshot } from '../domain/types.ts';
 import { createCatalog, withImported, type Catalog } from '../content/catalog.ts';
 import { exportFlagsReport, importItems, readBackupData, writeRestore } from '../storage/backupIO.ts';
 import { fixedConnection, type AppDb, type DbConnection, type ImportedItem } from '../storage/db.ts';
-import { addNotebookEntry, clearSession, commitGrade, loadCounter, putMeta, saveSession, toggleFlag, undoGrade } from '../storage/repo.ts';
+import { addNotebookEntry, clearSession, commitGrade, loadCounter, putMeta, saveDiagnosticAttempt, saveSession, toggleFlag, undoGrade } from '../storage/repo.ts';
 import { loadReadyState } from './boot.ts';
+import { answerQuestion, diagnosticAvailable, finishAttempt, nextQuestion, prevQuestion, startAttempt, type Selection } from '../domain/diagnostic.ts';
+import type { DiagnosticQuestion } from '../domain/extrasSchema.ts';
+import type { ExtrasBundle } from '../domain/extrasSchema.ts';
 import { contextAnswer, gradeContext } from '../domain/exerciseMode.ts';
 import { contextForEntry, modeForEntry } from './mode.ts';
 import type { AppMeta } from './meta.ts';
@@ -75,6 +78,8 @@ export interface ActionDeps {
   clock: Clock;
   getState: () => AppState;
   dispatch: (a: Action) => void;
+  /** Diagnostic bundle ('@extras', passed in by AppContext; the alias is not resolvable in unit tests). Default: none, so the test is unavailable. */
+  extras?: Pick<ExtrasBundle, 'extrasVersion' | 'diagnostic'>;
 }
 
 function ready(getState: () => AppState): ReadyState | undefined {
@@ -83,11 +88,35 @@ function ready(getState: () => AppState): ReadyState | undefined {
 }
 
 /** Decision 10: "Geri al" stays for 4 s after a self-grade. */
+const NO_EXTRAS: Pick<ExtrasBundle, 'extrasVersion' | 'diagnostic'> = { extrasVersion: '', diagnostic: [] };
+
 export const UNDO_WINDOW_MS = 4000;
 
-export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
+export function createActions({ db, clock, getState, dispatch, extras = NO_EXTRAS }: ActionDeps) {
+  const questions: readonly DiagnosticQuestion[] = extras.diagnostic;
   const conn = 'run' in db ? db : fixedConnection(db);
   const run = <T>(fn: (d: AppDb) => Promise<T>): Promise<T> => conn.run(fn);
+
+  const getDiag = () => ready(getState)?.diagnostic ?? { attempts: [] };
+  const openAttempt = () => {
+    const s = ready(getState);
+    return s && !s.busy ? s.diagnostic?.open : undefined;
+  };
+  /** Write the attempt, then publish it (write first, 07 §3). */
+  async function saveDiagnostic(attempts: readonly DiagnosticAttempt[], attempt: DiagnosticAttempt): Promise<void> {
+    dispatch({ type: 'busy' });
+    try {
+      await run((d) => saveDiagnosticAttempt(d, attempt));
+    } catch {
+      dispatch({ type: 'error', error: 'save-failed' });
+      return;
+    }
+    const rest = attempts.filter((a) => a.id !== attempt.id);
+    dispatch({
+      type: 'diagnostic',
+      diagnostic: { attempts: [...rest, attempt].toSorted((a, b) => a.startedAt - b.startedAt), open: attempt.finishedAt === undefined ? attempt : undefined },
+    });
+  }
 
   /**
    * Session-only writes (draft, cursor, phase) are write-behind: losing one costs
@@ -732,6 +761,37 @@ export function createActions({ db, clock, getState, dispatch }: ActionDeps) {
         dispatch({ type: 'error', error: 'save-failed' });
         return { status: 'save-failed' };
       }
+    },
+
+    /** Whether the Seviye testi can be taken (false while the bundle ships no questions). */
+    diagnosticAvailable: (): boolean => diagnosticAvailable(questions),
+
+    /** Resume the unfinished attempt, or start a new one. Only the diagnosticAttempts store is written. */
+    async openDiagnostic(): Promise<void> {
+      const s = ready(getState);
+      if (!s || s.busy || !diagnosticAvailable(questions)) return;
+      const cur = s.diagnostic ?? { attempts: [] };
+      if (cur.open) return;
+      const now = clock.now();
+      const attempt = startAttempt(questions, { id: `da-${now}`, now, extrasVersion: extras.extrasVersion });
+      await saveDiagnostic(cur.attempts, attempt);
+    },
+
+    /** Records the answer and writes it before returning; the cursor stays. */
+    async answerDiagnostic(questionId: string, selected: Selection): Promise<void> {
+      const open = openAttempt();
+      if (open) await saveDiagnostic(getDiag().attempts, answerQuestion(open, questionId, selected));
+    },
+
+    async moveDiagnostic(direction: 'next' | 'prev'): Promise<void> {
+      const open = openAttempt();
+      if (open) await saveDiagnostic(getDiag().attempts, direction === 'next' ? nextQuestion(open) : prevQuestion(open));
+    },
+
+    /** Freezes areaResults, sets finishedAt, saves. */
+    async finishDiagnostic(): Promise<void> {
+      const open = openAttempt();
+      if (open) await saveDiagnostic(getDiag().attempts, finishAttempt(open, questions, clock.now()));
     },
 
     dismissNotice(): void {

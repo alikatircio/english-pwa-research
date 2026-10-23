@@ -5,7 +5,7 @@ import { isSessionStale } from '../domain/session.ts';
 import type { ContentBundle, SessionState } from '../domain/types.ts';
 import { createCatalog, type Catalog } from '../content/catalog.ts';
 import type { AppDb } from '../storage/db.ts';
-import { clearSession, loadAll, type LoadedData } from '../storage/repo.ts';
+import { clearSession, loadAll, loadDiagnosticAttempts, type LoadedData } from '../storage/repo.ts';
 import { metaFromRecords } from './meta.ts';
 import { onShowableCard } from './round.ts';
 import type { ReadyState, Screen } from './state.ts';
@@ -49,6 +49,8 @@ export async function loadReadyState(
   screen: Screen,
 ): Promise<BootResult['state']> {
   const data = await loadAll(db, clock.today());
+  // Attempts are read separately from loadAll (roadmap 2.3).
+  const attempts = await loadDiagnosticAttempts(db);
   const catalog = catalogOf(data.importedItems);
   const progress = new Map(data.progress.map((p) => [p.itemId, p]));
   const flags = new Set(data.flags.map((f) => f.itemId));
@@ -63,6 +65,7 @@ export async function loadReadyState(
     session: resumed,
     notebook: data.notebook,
     meta: metaFromRecords(data.meta),
+    diagnostic: { attempts, open: attempts.findLast((a) => a.finishedAt === undefined) },
   };
 }
 
