@@ -1,0 +1,110 @@
+{
+  "present-perfect-just-sent": {
+    "sentence": "I've just made some tea; do you want a cup?",
+    "blank": "___ just ___ some tea; do you want a cup?"
+  },
+  "past-simple-with-ago": {
+    "sentence": "My sister arrived an hour ago.",
+    "blank": "My sister ___ an hour ago."
+  },
+  "present-perfect-so-far": {
+    "sentence": "We haven't had any rain so far this week.",
+    "blank": "We ___ had any rain so far this week."
+  },
+  "have-worked-since": {
+    "sentence": "I've known Ayşe since primary school.",
+    "blank": "I've ___ Ayşe since primary school."
+  },
+  "have-lived-for": {
+    "sentence": "I've had this bike for ten years.",
+    "blank": "I've ___ this bike for ten years."
+  },
+  "its-weeks-since": {
+    "sentence": "It's been a year since I saw my cousin.",
+    "blank": "It's been a year ___ I ___ my cousin."
+  },
+  "arrangement-present-continuous": {
+    "sentence": "We're having dinner with my parents on Sunday.",
+    "blank": "We're ___ dinner with my parents on Sunday."
+  },
+  "going-to-prior-decision": {
+    "sentence": "I'm going to repaint the kitchen this weekend.",
+    "blank": "I'm ___ ___ repaint the kitchen this weekend."
+  },
+  "timetable-present-simple": {
+    "sentence": "My flight leaves at seven tomorrow morning.",
+    "blank": "My flight ___ at seven tomorrow morning."
+  },
+  "as-soon-as-present": {
+    "sentence": "As soon as I get home, I'll call my mum.",
+    "blank": "As soon as I ___ home, I'll call my mum."
+  },
+  "if-present-will": {
+    "sentence": "If it rains tomorrow, we'll stay at home.",
+    "blank": "If it ___ tomorrow, we'll stay at home."
+  },
+  "when-present-will": {
+    "sentence": "When the kettle boils, I'll make the tea.",
+    "blank": "When the kettle ___, I'll make the tea."
+  },
+  "do-you-know-where": {
+    "sentence": "Do you know where the nearest chemist is?",
+    "blank": "Do you know where the nearest chemist ___?"
+  },
+  "could-you-tell-me-how": {
+    "sentence": "Could you tell me how I can get to the station?",
+    "blank": "Could you tell me how ___ ___ get to the station?"
+  },
+  "what-happened-subject-question": {
+    "sentence": "What happened to the bus this morning?",
+    "blank": "What ___ to the bus this morning?"
+  },
+  "article-second-mention": {
+    "sentence": "I bought a jacket and a scarf. The jacket was on sale.",
+    "blank": "I bought ___ jacket and a scarf. ___ jacket was on sale."
+  },
+  "a-before-job": {
+    "sentence": "My brother is an electrician.",
+    "blank": "My brother is ___ electrician."
+  },
+  "most-without-the": {
+    "sentence": "Most cafés near here close at six.",
+    "blank": "___ cafés near here close at six."
+  },
+  "there-was-a-delay": {
+    "sentence": "There was a strange noise in the kitchen last night.",
+    "blank": "___ ___ a strange noise in the kitchen last night."
+  },
+  "there-is-no-response": {
+    "sentence": "There's no milk in the fridge.",
+    "blank": "___ no milk in the fridge."
+  },
+  "there-will-be-time": {
+    "sentence": "There will be fireworks at midnight.",
+    "blank": "___ ___ ___ fireworks at midnight."
+  },
+  "has-been-postponed": {
+    "sentence": "My parcel has been delivered to the neighbour.",
+    "blank": "My parcel has ___ delivered to the neighbour."
+  },
+  "wasnt-told": {
+    "sentence": "I wasn't invited to the party.",
+    "blank": "I ___ invited to the party."
+  },
+  "not-anything-double-negative": {
+    "sentence": "She didn't say anything about the trip.",
+    "blank": "She ___ say ___ about the trip."
+  },
+  "probably-before-wont": {
+    "sentence": "The shop will probably be closed on Monday.",
+    "blank": "The shop will ___ be closed on Monday."
+  },
+  "no-longer-works": {
+    "sentence": "I don't drink coffee in the evening any more.",
+    "blank": "I don't drink coffee in the evening any ___."
+  },
+  "hasnt-replied-yet": {
+    "sentence": "My parcel hasn't arrived yet.",
+    "blank": "My parcel ___ arrived ___."
+  }
+}

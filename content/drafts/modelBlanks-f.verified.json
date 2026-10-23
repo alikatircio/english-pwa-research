@@ -1,0 +1,110 @@
+{
+  "present-perfect-just-sent": [
+    "___ just ___ the ticket with the new logs.",
+    "___ just ___ the regression run."
+  ],
+  "past-simple-with-ago": [
+    "We ___ to the new office three days ago.",
+    "Mert ___ me ten minutes ago."
+  ],
+  "present-perfect-so-far": [
+    "We ___ had any complaints so far.",
+    "There ___ ___ any delays so far."
+  ],
+  "have-worked-since": [
+    "Deniz ___ been on leave since Monday.",
+    "___ ___ Jira since the start of the year."
+  ],
+  "have-lived-for": [
+    "Mert ___ worked in QA for five years.",
+    "We've ___ for the approval for two days."
+  ],
+  "its-weeks-since": [
+    "___ two days since the build last passed.",
+    "___ ___ a month since we released the hotfix."
+  ],
+  "arrangement-present-continuous": [
+    "I'm ___ the product owner at four.",
+    "Deniz is ___ the afternoon off on Friday."
+  ],
+  "going-to-prior-decision": [
+    "We're ___ to rerun the suite after lunch.",
+    "Deniz ___ going ___ write the test plan."
+  ],
+  "timetable-present-simple": [
+    "The sprint review ___ at ten tomorrow.",
+    "The demo ___ at four on Friday."
+  ],
+  "as-soon-as-present": [
+    "As soon as I ___ the logs, I'll look at them.",
+    "I'll ping you as soon as Deniz ___."
+  ],
+  "if-present-will": [
+    "If you ___ the logs, I'll send them over.",
+    "If the deploy ___ anything, we'll roll back."
+  ],
+  "when-present-will": [
+    "When the release ___ ready, I'll tell the team.",
+    "When Deniz ___ the call, we'll begin."
+  ],
+  "do-you-know-where": [
+    "Do you know when the stand-up ___?",
+    "Could you tell me which environment ___ ___ using?"
+  ],
+  "could-you-tell-me-how": [
+    "Could you tell me when the release ___ ___?",
+    "Can you tell me ___ the build ___?"
+  ],
+  "what-happened-subject-question": [
+    "What ___ in the last release?",
+    "Who ___ the change?"
+  ],
+  "article-second-mention": [
+    "I saw ___ bug on the login page. ___ bug only happens in Chrome.",
+    "Mert wrote ___ script. ___ script restarts the server."
+  ],
+  "a-before-job": [
+    "Mert is ___ developer on the payments team.",
+    "Ayşe is ___ automation engineer."
+  ],
+  "most-without-the": [
+    "___ bugs appear after a deployment.",
+    "___ teams use Jira for planning."
+  ],
+  "there-was-a-delay": [
+    "___ ___ a problem with the login page.",
+    "___ ___ three failures in the last run."
+  ],
+  "there-is-no-response": [
+    "___ no data for that date.",
+    "___ ___ any documentation for this endpoint."
+  ],
+  "there-will-be-time": [
+    "___ ___ ___ a short break after the first session.",
+    "___ be an update on Friday."
+  ],
+  "has-been-postponed": [
+    "The bug has ___ fixed in the latest build.",
+    "The tests ___ been rescheduled for tomorrow."
+  ],
+  "wasnt-told": [
+    "We ___ given enough time to test it.",
+    "The team ___ asked about the new process."
+  ],
+  "not-anything-double-negative": [
+    "I haven't changed ___ in the config.",
+    "We didn't find ___ unusual in the logs."
+  ],
+  "probably-before-wont": [
+    "I ___ ___ finish the review today.",
+    "Deniz will ___ join the call late."
+  ],
+  "no-longer-works": [
+    "The old test environment ___ ___ exists.",
+    "We don't use that script any ___."
+  ],
+  "hasnt-replied-yet": [
+    "The build ___ finished ___.",
+    "I ___ received the approval ___."
+  ]
+}

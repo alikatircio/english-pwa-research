@@ -1,0 +1,849 @@
+[
+  {
+    "id": "present-perfect-just-sent",
+    "category": "grammar",
+    "level": 1,
+    "targetChunk": "have + just + past participle (news just now)",
+    "patternSlots": "I've just ___ ...",
+    "clozeTemplate": "___ ___ ___ the report to Deniz.",
+    "situationTr": "[Ayşe'ye Teams mesajı] Raporu Deniz'e az önce gönderdin ve haber veriyorsun: \"Raporu Deniz'e daha yeni gönderdim.\"",
+    "acceptedAnswers": [
+      "I've just sent the report to Deniz.",
+      "I've just sent Deniz the report.",
+      "I just sent the report to Deniz.",
+      "I just sent Deniz the report."
+    ],
+    "modelSentences": [
+      "I've just sent the report to Deniz.",
+      "I've just updated the ticket with the new logs.",
+      "We've just finished the regression run."
+    ],
+    "commonMistake": "I have just send the report to Deniz.",
+    "checklistTr": [
+      "Doğru yapıyı seçtin mi? (have + V3: sent, send değil)",
+      "Yardımcı fiil doğru mu? (I've / I have)",
+      "just, have'den sonra ve V3'ten önce mi?"
+    ],
+    "noteTr": "Türkçe 'gönderdim' hem 'sent' hem 'have sent' karşılığıdır; haberi şimdiye bağlayan just ile have + V3 kullanılır. Bağlama göre AmE'de just / already / yet ile yalın geçmiş (I just sent) de yaygındır.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge Grammar present perfect simple: recent past events 'often use words like just or recently'. Oxford yet, usage note already/just/yet: in North American English also used with the simple past (rule 6b, so 'I just sent' is accepted). SkELL 'I've just sent' = 8 natural lines. Mistake (have + base form) is a common learner error, never correct. Fix: noteTr ellipsis removed and the too-absolute 'no other freedom' claim dropped."
+  },
+  {
+    "id": "past-simple-with-ago",
+    "category": "grammar",
+    "level": 1,
+    "targetChunk": "past simple with ago (finished time)",
+    "patternSlots": "I ___ ... two weeks ago",
+    "clozeTemplate": "I ___ this phone two weeks ago.",
+    "situationTr": "[Arkadaşına] Telefonunu iki hafta önce aldığını söylüyorsun: \"Bu telefonu iki hafta önce aldım.\"",
+    "acceptedAnswers": [
+      "I bought this phone two weeks ago.",
+      "I bought this phone 2 weeks ago.",
+      "I got this phone two weeks ago.",
+      "I got this phone 2 weeks ago."
+    ],
+    "modelSentences": [
+      "I bought this phone two weeks ago.",
+      "We moved to the new office three days ago.",
+      "Mert called me ten minutes ago."
+    ],
+    "commonMistake": "I have bought this phone two weeks ago.",
+    "checklistTr": [
+      "ago ile yalın geçmiş zaman kullandın mı? (bought, have bought değil)",
+      "Fiilin düzensiz geçmiş biçimini yazdın mı? (buy -> bought)",
+      "ago, süreden sonra mı? (two weeks ago)"
+    ],
+    "noteTr": "Türkçe '-dim' hem yalın geçmişi hem present perfect'i karşılar; ama 'iki hafta önce' gibi bitmiş bir zamanla yalnız past simple kullanılır. Bağlama göre bought yerine got da denir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge Grammar ago: 'We normally use ago with the past simple. We don't use it with the present perfect.' Longman ago GRAMMAR: present perfect with ago is a Don't-say form, so the mistake is genuine. Fix: added 'got ... 2 weeks ago' to match the existing digit variant."
+  },
+  {
+    "id": "present-perfect-so-far",
+    "category": "grammar",
+    "level": 2,
+    "targetChunk": "There haven't been + noun + so far",
+    "patternSlots": "There haven't been ... so far",
+    "clozeTemplate": "There ___ ___ any failures so far.",
+    "situationTr": "[Stand-up] Şu ana kadar hiç test hatası çıkmadığını söylüyorsun: \"Şimdiye kadar hiç hata olmadı.\"",
+    "acceptedAnswers": [
+      "There haven't been any failures so far.",
+      "There haven't been any test failures so far.",
+      "There haven't been any errors so far.",
+      "There have been no failures so far.",
+      "There have been no test failures so far.",
+      "So far there haven't been any failures."
+    ],
+    "modelSentences": [
+      "There haven't been any failures so far.",
+      "We haven't had any complaints so far.",
+      "There haven't been any delays so far."
+    ],
+    "checklistTr": [
+      "so far ile present perfect kullandın mı? (have been, were değil)",
+      "there + have mi? (çoğul isim -> There have/haven't been)",
+      "Olumsuzda any (haven't ... any) ya da no (have been no) seçtin mi?"
+    ],
+    "noteTr": "Türkçe 'olmadı' geçmiş kipiyle söylenir; 'şimdiye kadar' süreci bugüne bağladığı için İngilizcede present perfect kullanılır. Bağlama göre failures yerine errors da olur; AmE konuşmada yalın geçmiş de duyulur ama burada kabul edilmez (kural 6b).",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge Grammar present perfect simple lists 'so far' with this use. Ngram (en-2019, 2010-19): 'were no problems so far' = 36% of 'been no problems so far', 'so far there were' = 51% of 'so far there have been', so the past simple with so far is too frequent in print to be shown as a clear error: commonMistake removed (rule 6b still keeps it out of the accepted list). Fixes: 'problems' variant replaced (its wording matched a book exercise line) by errors / test failures variants, word-order variant added, noteTr says AmE past simple is heard."
+  },
+  {
+    "id": "have-worked-since",
+    "category": "grammar",
+    "level": 2,
+    "targetChunk": "have + past participle + since + point in time",
+    "patternSlots": "I've ___ ... since March",
+    "clozeTemplate": "___ ___ on this project since March.",
+    "situationTr": "[Yeni birine] Bu projede Mart'tan beri çalıştığını söylüyorsun: \"Mart'tan beri bu proje üzerinde çalışıyorum.\"",
+    "acceptedAnswers": [
+      "I've worked on this project since March.",
+      "I've been working on this project since March.",
+      "I've been on this project since March."
+    ],
+    "modelSentences": [
+      "I've worked on this project since March.",
+      "Deniz has been on leave since Monday.",
+      "We've used Jira since the start of the year."
+    ],
+    "commonMistake": "I am working on this project since March.",
+    "checklistTr": [
+      "since ile present perfect kullandın mı? (have worked / have been working, am working değil)",
+      "have / has doğru mu? (I've, he has)",
+      "since sonrasında başlangıç noktası mı? (March; süre için for)"
+    ],
+    "noteTr": "Türkçe 'Mart'tan beri çalışıyorum' şimdiki zamanla söylenir; İngilizcede since ile present perfect gerekir. Bağlama göre worked ve been working ikisi de olur.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge Grammar present perfect typical errors: 'They've known each other since January. Not: They know / They're knowing each other since January' (same error as the mistake). Longman since GRAMMAR: since + point in time. Ngram 'am working here since' = 0 vs 'have been working here since'. No change."
+  },
+  {
+    "id": "have-lived-for",
+    "category": "grammar",
+    "level": 2,
+    "targetChunk": "have + past participle + for + duration",
+    "patternSlots": "We've ___ ... for two years",
+    "clozeTemplate": "___ ___ in this flat for two years.",
+    "situationTr": "[Komşuna] Bu dairede iki yıldır oturduğunuzu söylüyorsun: \"Bu dairede iki yıldır oturuyoruz.\"",
+    "acceptedAnswers": [
+      "We've lived in this flat for two years.",
+      "We've been living in this flat for two years.",
+      "We've lived in this apartment for two years.",
+      "We've been living in this apartment for two years."
+    ],
+    "modelSentences": [
+      "We've lived in this flat for two years.",
+      "Mert has worked in QA for five years.",
+      "We've waited for the approval for two days."
+    ],
+    "commonMistake": "We live in this flat for two years.",
+    "checklistTr": [
+      "for ile present perfect kullandın mı? (have lived, live değil)",
+      "have / has doğru mu? (We have)",
+      "for süreden önce mi? (for two years; since değil)"
+    ],
+    "noteTr": "Türkçe 'iki yıldır oturuyoruz' şimdiki zamanla söylenir; İngilizcede süre için for ile present perfect gerekir. Bağlama göre flat BrE, apartment AmE'dir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge Grammar present perfect typical errors: present simple/continuous are not used for time up to now; Cambridge past simple page: present perfect + for + period ('has been empty for three years'). Fixes: situationTr 'oturduğunu' -> 'oturduğunuzu' (we), added 'been living in this apartment'."
+  },
+  {
+    "id": "its-weeks-since",
+    "category": "grammar",
+    "level": 3,
+    "targetChunk": "It's + time + since + past simple",
+    "patternSlots": "It's ___ since we ...",
+    "clozeTemplate": "___ ___ ___ since we last updated the test data.",
+    "situationTr": "[Ayşe'ye] Test verisini en son üç hafta önce güncellediğinizi söylüyorsun: \"Test verisini en son güncelleyeli üç hafta oldu.\"",
+    "acceptedAnswers": [
+      "It's three weeks since we last updated the test data.",
+      "It's been three weeks since we last updated the test data.",
+      "It has been three weeks since we last updated the test data.",
+      "It's been three weeks since we updated the test data.",
+      "It's three weeks since we updated the test data."
+    ],
+    "modelSentences": [
+      "It's three weeks since we last updated the test data.",
+      "It's two days since the build last passed.",
+      "It's been a month since we released the hotfix."
+    ],
+    "commonMistake": "We haven't updated the test data since three weeks.",
+    "checklistTr": [
+      "Kalıp It's / It's been + süre + since mi? (since three weeks değil)",
+      "since'ten sonra yalın geçmiş kullandın mı? (we last updated)",
+      "Süre çoğul mu? (three weeks)"
+    ],
+    "noteTr": "Türkçe '-eli üç hafta oldu' kalıbı İngilizcede It's / It's been + süre + since + yalın geçmiş olur; since'ten sonra süre (three weeks) gelmez. Bağlama göre It's ve It's been ikisi de olur, last da atlanabilir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge Grammar since: 'It's been years since I rode a bike (it's = it has)' and 'It's years since I rode a bike (it's = it is)'. Old mistake 'Three weeks passed since...' replaced: Ngram 'three years passed since' = 3.7% of 'three years have passed since' and it can be read as narrative past. New mistake uses since + period, which Cambridge marks wrong ('Not: ... since three years') and Longman since GRAMMAR says not to use. Fixes: added two variants without 'last', checklist reordered so the main clause (critical point, blanked in the cloze) is first, modelBlanks now blank It's / It's been."
+  },
+  {
+    "id": "arrangement-present-continuous",
+    "category": "grammar",
+    "level": 2,
+    "targetChunk": "present continuous for fixed arrangements (future)",
+    "patternSlots": "We're ___ing ... tomorrow",
+    "clozeTemplate": "___ ___ the fix to staging tomorrow morning.",
+    "situationTr": "[Ayşe'ye] Takvimde yazılı kesin plan: yarın sabah düzeltmeyi staging'e alıyorsunuz. \"Yarın sabah düzeltmeyi staging'e alıyoruz.\"",
+    "acceptedAnswers": [
+      "We're deploying the fix to staging tomorrow morning.",
+      "Tomorrow morning we're deploying the fix to staging.",
+      "We're deploying the fix to the staging environment tomorrow morning.",
+      "We're pushing the fix to staging tomorrow morning."
+    ],
+    "modelSentences": [
+      "We're deploying the fix to staging tomorrow morning.",
+      "I'm meeting the product owner at four.",
+      "Deniz is taking the afternoon off on Friday."
+    ],
+    "checklistTr": [
+      "Ayarlanmış plan için be + -ing kullandın mı? (We're deploying)",
+      "be doğru mu? (We're / We are; Deniz is)",
+      "Gelecek zaman belirteci var mı? (tomorrow morning)"
+    ],
+    "noteTr": "Türkçede ayarlanmış plan '-iyoruz' ya da '-eceğiz' ile söylenebilir; İngilizcede önceden ayarlanmış plan için en doğal biçim present continuous'tır (We're deploying). Bağlama göre will ya da going to da yanlış değildir ama bu kalıbı sınamaz.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge Grammar future: present continuous 'shows that we have already decided something and usually that we have already made a plan or arrangements'. Old commonMistake 'We will deploy the fix...' is correct English (the old noteTr itself said will is heard), so it was removed. Fixes: added 'pushing' variant (staging'e almak has no fixed verb), noteTr rewritten ('aynı ekle' was wrong: -iyoruz and -eceğiz are two suffixes)."
+  },
+  {
+    "id": "going-to-prior-decision",
+    "category": "grammar",
+    "level": 2,
+    "targetChunk": "be going to + base verb (decision already made)",
+    "patternSlots": "I'm going to ___ ...",
+    "clozeTemplate": "___ ___ ___ ask Ayşe to review the PR this afternoon.",
+    "situationTr": "[Mert'e] Dün karar vermiştin: bu öğleden sonra Ayşe'den PR'ı incelemesini isteyeceksin. \"Bu öğleden sonra Ayşe'den PR'ı incelemesini isteyeceğim.\"",
+    "acceptedAnswers": [
+      "I'm going to ask Ayşe to review the PR this afternoon.",
+      "I'm going to ask Ayşe to review my PR this afternoon.",
+      "I'm going to ask Ayşe to look at the PR this afternoon.",
+      "I'm going to ask Ayşe to review the pull request this afternoon."
+    ],
+    "modelSentences": [
+      "I'm going to ask Ayşe to review the PR this afternoon.",
+      "We're going to rerun the suite after lunch.",
+      "Deniz is going to write the test plan."
+    ],
+    "commonMistake": "I going to ask Ayşe to review the PR this afternoon.",
+    "checklistTr": [
+      "Önceden verilmiş karar için be going to kullandın mı? (will değil)",
+      "be unutulmadı mı? (I'm going to)",
+      "going to'dan sonra yalın fiil mi? (ask)"
+    ],
+    "noteTr": "Türkçe '-eceğim' hem anlık hem önceden verilmiş kararı karşılar; önceden verilmiş karar için İngilizcede be going to kullanılır. Bağlama göre konuşmada I'm gonna duyulur, ama yazıda going to yazılır.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge Grammar be going to: 'Usually the decision about the future plans has already been made'; will is used for decisions at the moment of speaking. Missing 'be' (I going to) is a common learner error, never correct. Fix: noteTr wording ('yazıda to' -> 'yazıda going to')."
+  },
+  {
+    "id": "timetable-present-simple",
+    "category": "grammar",
+    "level": 2,
+    "targetChunk": "present simple for timetables (future)",
+    "patternSlots": "The last train ___ at ...",
+    "clozeTemplate": "The last train ___ at eleven tonight.",
+    "situationTr": "[Arkadaşına] Tarifeye göre son tren bu gece saat on birde kalkıyor: \"Son tren bu gece on birde kalkıyor.\"",
+    "acceptedAnswers": [
+      "The last train leaves at eleven tonight.",
+      "The last train leaves at 11 tonight.",
+      "The last train departs at eleven tonight.",
+      "The last train leaves tonight at eleven.",
+      "The last train is at eleven tonight.",
+      "The last train goes at eleven tonight."
+    ],
+    "modelSentences": [
+      "The last train leaves at eleven tonight.",
+      "The sprint review starts at ten tomorrow.",
+      "The demo ends at four on Friday."
+    ],
+    "checklistTr": [
+      "Tarifedeki olay için yalın şimdiki zaman kullandın mı? (leaves)",
+      "Üçüncü tekil -s var mı? (the train leaves)",
+      "Saat edatı at doğru mu?"
+    ],
+    "noteTr": "Türkçede tarifeye bağlı gelecek olay '-ıyor' ya da '-ecek' ile söylenir; İngilizcede tarife ve programdaki olaylar için yalın şimdiki zaman (leaves) kullanılır. Bağlama göre departs daha resmîdir; will leave yanlış değildir ama bu kalıbı sınamaz.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge Grammar future present simple: used for 'a clear or fixed schedule or timetable: The train arrives at 20.12'. SkELL 'the last train leaves' has natural lines. Fixes: commonMistake null removed (the schema rejects null; no mistake is right because will leave is correct), added BrE 'goes', noteTr rewritten, dailyContext changed from a habitual sentence (opens on Saturdays) to a future timetable sentence."
+  },
+  {
+    "id": "as-soon-as-present",
+    "category": "grammar",
+    "level": 2,
+    "targetChunk": "as soon as + present simple, will + base verb",
+    "patternSlots": "As soon as the build ___, I'll ...",
+    "clozeTemplate": "As soon as the build ___, I'll send you the link.",
+    "situationTr": "[Mert'e] Build bitince linki göndereceksin: \"Build biter bitmez sana linki göndereceğim.\"",
+    "acceptedAnswers": [
+      "As soon as the build finishes, I'll send you the link.",
+      "I'll send you the link as soon as the build finishes.",
+      "As soon as the build is done, I'll send you the link.",
+      "I'll send you the link as soon as the build is done.",
+      "As soon as the build is finished, I'll send you the link.",
+      "I'll send you the link as soon as the build is finished.",
+      "As soon as the build has finished, I'll send you the link.",
+      "I'll send you the link as soon as the build has finished."
+    ],
+    "modelSentences": [
+      "As soon as the build finishes, I'll send you the link.",
+      "As soon as I get the logs, I'll look at them.",
+      "I'll ping you as soon as Deniz replies."
+    ],
+    "commonMistake": "As soon as the build will finish, I'll send you the link.",
+    "checklistTr": [
+      "as soon as'tan sonra yalın şimdiki zaman kullandın mı? (finishes, will finish değil)",
+      "Ana cümlede will / 'll var mı? (I'll send)",
+      "Üçüncü tekil -es doğru mu? (the build finishes)"
+    ],
+    "noteTr": "Türkçe 'biter bitmez' gelecekteki bir olayı anlatsa da İngilizcede as soon as / when / if'ten sonra gelecek için will kullanılmaz; yalın şimdiki zaman gelir. Bağlama göre finishes yerine is done, is finished ya da has finished de olur.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge Grammar Conjunctions: time: 'We don't use will after conjunctions referring to future time ... Not: ... as soon as I will get to the office'; Cambridge when: present simple or present perfect in the time clause. Ngram 'as soon as it will' = 0.51% of 'as soon as it is'. Fixes: added is finished / has finished variants (correct, were marked wrong); model 3 reworded because it matched a book exercise frame."
+  },
+  {
+    "id": "if-present-will",
+    "category": "grammar",
+    "level": 2,
+    "targetChunk": "if + present simple, will + base verb",
+    "patternSlots": "If the test ___, I'll ...",
+    "clozeTemplate": "If the test ___ again, I'll open a bug.",
+    "situationTr": "[Ayşe'ye] Test tekrar kalırsa bug açacaksın: \"Test yine kalırsa bir bug açacağım.\"",
+    "acceptedAnswers": [
+      "If the test fails again, I'll open a bug.",
+      "If the test fails again, I'll log a bug.",
+      "I'll open a bug if the test fails again.",
+      "I'll log a bug if the test fails again.",
+      "If the test fails again, I'll raise a bug.",
+      "I'll raise a bug if the test fails again.",
+      "If the test fails again, I'll file a bug.",
+      "I'll file a bug if the test fails again."
+    ],
+    "modelSentences": [
+      "If the test fails again, I'll open a bug.",
+      "If you need the logs, I'll send them over.",
+      "If the deploy breaks anything, we'll roll back."
+    ],
+    "commonMistake": "If the test will fail again, I'll open a bug.",
+    "checklistTr": [
+      "if'ten sonra yalın şimdiki zaman kullandın mı? (fails, will fail değil)",
+      "Sonuç cümlesinde will / 'll var mı? (I'll open)",
+      "Üçüncü tekil -s var mı? (the test fails)"
+    ],
+    "noteTr": "Türkçe '-ırsa / -erse' ekinden sonra gelecek anlamı olsa da İngilizcede if cümlesinde will kullanılmaz, yalın şimdiki zaman gelir. Bağlama göre open a bug yerine log, raise ya da file a bug da denir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge Grammar Conditionals: if: 'Not: If a lawyer will read the document'. Ngram 'if it will rain' = 4.3% of 'if it rains' (includes correct indirect questions like 'I wonder if it will rain'), so the dictionary rule is the main evidence. Fixes: added raise / file a bug (established bug collocations used in earlier batches), noteTr wording."
+  },
+  {
+    "id": "when-present-will",
+    "category": "grammar",
+    "level": 2,
+    "targetChunk": "when + present simple, will + base verb",
+    "patternSlots": "When Ayşe ___, we'll ...",
+    "clozeTemplate": "When Ayşe ___, we'll start dinner.",
+    "situationTr": "[Arkadaşına] Ayşe gelince akşam yemeğine başlayacaksınız: \"Ayşe gelince yemeğe başlarız.\"",
+    "acceptedAnswers": [
+      "When Ayşe arrives, we'll start dinner.",
+      "When Ayşe gets here, we'll start dinner.",
+      "When Ayşe comes, we'll start dinner.",
+      "We'll start dinner when Ayşe arrives.",
+      "We'll start dinner when Ayşe gets here.",
+      "We'll start dinner when Ayşe comes.",
+      "When Ayşe arrives, we'll start eating.",
+      "We'll start eating when Ayşe arrives."
+    ],
+    "modelSentences": [
+      "When Ayşe arrives, we'll start dinner.",
+      "When the release is ready, I'll tell the team.",
+      "When Deniz joins the call, we'll begin."
+    ],
+    "commonMistake": "When Ayşe will arrive, we'll start dinner.",
+    "checklistTr": [
+      "when'den sonra yalın şimdiki zaman kullandın mı? (arrives, will arrive değil)",
+      "Ana cümlede will / 'll var mı? (we'll start)",
+      "Üçüncü tekil -s var mı? (Ayşe arrives / gets)"
+    ],
+    "noteTr": "Türkçe 'gelince' gelecekteki olayı anlatır, ama İngilizcede when'den sonra will gelmez; yalın şimdiki zaman kullanılır. Bağlama göre arrives yerine gets here ya da comes, start dinner yerine start eating da olur.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge Grammar when: 'we use the present simple or the present perfect in the when-clause ... Not: When the new park will open, I'll go there every day'. Ngram 'start dinner when' / 'start eating when' both attested. Fixes: added comes and start eating variants (direct translations of gelince / yemeğe başlamak)."
+  },
+  {
+    "id": "do-you-know-where",
+    "category": "grammar",
+    "level": 2,
+    "targetChunk": "Do you know where + subject + verb (indirect question)",
+    "patternSlots": "Do you know where ___ ...?",
+    "clozeTemplate": "Do you know where ___ ___ ___ ___ saved?",
+    "situationTr": "[Deniz'e Teams'te] Test raporunun nereye kaydedildiğini soruyorsun: \"Test raporunun nereye kaydedildiğini biliyor musun?\"",
+    "acceptedAnswers": [
+      "Do you know where the test report is saved?",
+      "Do you know where the test report is stored?",
+      "Do you know where the test report is kept?",
+      "Do you know where the test report was saved?",
+      "Could you tell me where the test report is saved?",
+      "Can you tell me where the test report is saved?"
+    ],
+    "modelSentences": [
+      "Do you know where the test report is saved?",
+      "Do you know when the stand-up ends?",
+      "Could you tell me which environment Deniz is using?"
+    ],
+    "commonMistake": "Do you know where is the test report saved?",
+    "checklistTr": [
+      "where'den sonra düz cümle sırası kullandın mı? (the test report is, is the test report değil)",
+      "İç soruda do/does/is öne alınmadı, değil mi?",
+      "Giriş kalıbı doğru mu? (Do you know / Could you tell me)"
+    ],
+    "noteTr": "Türkçe 'nereye kaydedildiğini biliyor musun' kalıbında soru sırası yoktur; İngilizcede dolaylı soruda özne fiilden önce gelir (where the report is). Bağlama göre saved yerine stored / kept, Do you know yerine daha kibar Could you tell me da olur.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge Grammar reported speech (indirect speech): the reported question is in statement form (subject + verb), with Not: examples for inverted order. Longman tell: 'Can you tell us where the nearest garage is?'. Ngram 'know where is the' = 0.23% of 'know where the'. Fixes: added 'was saved' (kaydedildiğini), noteTr names the order."
+  },
+  {
+    "id": "could-you-tell-me-how",
+    "category": "grammar",
+    "level": 2,
+    "targetChunk": "Could you tell me how + subject + verb (polite indirect question)",
+    "patternSlots": "Could you tell me how I ___ ...?",
+    "clozeTemplate": "Could you tell me how ___ ___ get access to the staging environment?",
+    "situationTr": "[Ayşe'ye Teams'te] Staging ortamına nasıl erişim alabileceğini kibarca soruyorsun: \"Staging ortamına nasıl erişim alabileceğimi söyleyebilir misin?\"",
+    "acceptedAnswers": [
+      "Could you tell me how I can get access to the staging environment?",
+      "Can you tell me how I can get access to the staging environment?",
+      "Could you tell me how I could get access to the staging environment?",
+      "Could you tell me how I can access the staging environment?",
+      "Could you let me know how I can get access to the staging environment?",
+      "Can you let me know how I can get access to the staging environment?",
+      "Would you tell me how I can get access to the staging environment?"
+    ],
+    "modelSentences": [
+      "Could you tell me how I can get access to the staging environment?",
+      "Could you tell me when the release is planned?",
+      "Can you tell me why the build failed?"
+    ],
+    "commonMistake": "Could you tell me how can I get access to the staging environment?",
+    "checklistTr": [
+      "how'dan sonra özne + yardımcı fiil sırası mı? (how I can, how can I değil)",
+      "Kibar giriş kalıbı doğru mu? (Could you tell me)",
+      "get access to: to unutulmadı mı?"
+    ],
+    "noteTr": "İngilizcede Could you tell me ile başlayan soruda içteki soru düz cümle sırasına döner (how I can, how can I değil). Bağlama göre Could you let me know da kullanılır; how to get access da doğrudur ama bu kalıbı sınamaz.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge Grammar reported speech: statement word order with when, where, why and how, Not: inverted. Ngram 'tell me how can I' = 4.3% of 'tell me how I can' (part is direct speech after a comma). Fixes: added 'how I could get access' and 'how I can access'; noteTr explains that 'how to get access' is correct but skips the target (rule 2.2/2)."
+  },
+  {
+    "id": "what-happened-subject-question",
+    "category": "grammar",
+    "level": 2,
+    "targetChunk": "What happened + to (question without did)",
+    "patternSlots": "What ___ to ...?",
+    "clozeTemplate": "What ___ to your laptop?",
+    "situationTr": "[Ayşe'ye] Ayşe'nin laptopu bozuk görünüyor; ne olduğunu soruyorsun: \"Laptopuna ne oldu?\"",
+    "acceptedAnswers": [
+      "What happened to your laptop?",
+      "What's happened to your laptop?",
+      "What has happened to your laptop?",
+      "What happened with your laptop?"
+    ],
+    "modelSentences": [
+      "What happened to your laptop?",
+      "What changed in the last release?",
+      "Who approved the change?"
+    ],
+    "commonMistake": "What did happen to your laptop?",
+    "checklistTr": [
+      "Özne sorusunda did kullanmadın mı? (What happened, What did happen değil)",
+      "Fiil geçmiş biçimde mi? (happened)",
+      "Edat to doğru mu? (happened to)"
+    ],
+    "noteTr": "Türkçe 'ne oldu' tek fiille sorulur; İngilizcede sorulan şey özneyse did eklenmez (What happened?). Bağlama göre happened to ile happened with ikisi de duyulur.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge Grammar wh-questions: 'When what, who, which or whose is the subject ... we do not use the auxiliary'. Cambridge happen: happen + to + object ('What's happened to your jacket?'). Ngram 'what did happen to' = 0.23% of 'what happened to' (rest is contrastive emphasis, not a neutral question). No change."
+  },
+  {
+    "id": "article-second-mention",
+    "category": "grammar",
+    "level": 3,
+    "targetChunk": "a for first mention, the for second mention",
+    "patternSlots": "I opened ___ ticket. ___ ticket is ...",
+    "clozeTemplate": "I opened ___ ticket yesterday. ___ ticket is still unassigned.",
+    "situationTr": "[Mert'e] Dün bir ticket açtın ve onun hâlâ kimseye atanmadığını söylüyorsun: \"Dün bir ticket açtım. Ticket hâlâ kimseye atanmadı.\"",
+    "acceptedAnswers": [
+      "I opened a ticket yesterday. The ticket is still unassigned.",
+      "Yesterday I opened a ticket. The ticket is still unassigned.",
+      "I opened a ticket yesterday. The ticket still isn't assigned.",
+      "I opened a ticket yesterday. The ticket still hasn't been assigned.",
+      "I opened a ticket yesterday. The ticket isn't assigned yet.",
+      "I opened a ticket yesterday. The ticket hasn't been assigned yet.",
+      "Yesterday I opened a ticket. The ticket still hasn't been assigned."
+    ],
+    "modelSentences": [
+      "I opened a ticket yesterday. The ticket is still unassigned.",
+      "I saw a bug on the login page. The bug only happens in Chrome.",
+      "Mert wrote a script. The script restarts the server."
+    ],
+    "commonMistake": "I opened ticket yesterday. Ticket is still unassigned.",
+    "checklistTr": [
+      "İlk sözde a, ikinci sözde the kullandın mı?",
+      "Tekil sayılabilir isimden önce tanımlık var mı? (a ticket, ticket değil)",
+      "İkinci cümlede fiil uyumu doğru mu? (the ticket is)"
+    ],
+    "noteTr": "Türkçede a / the karşılığı yoktur, 'bir' de çoğu zaman düşer; İngilizcede tekil sayılabilir isim ilk geçişte a, aynı şeye ikinci kez değinirken the alır. Bağlama göre ikinci cümle isn't assigned yet ya da hasn't been assigned ile de kurulur.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge Grammar A/an and the: a/an when the thing is 'not already known', the when it is 'already known' to the listener. Fixes: noteTr had 3 sentences and said Turkish 'bir' is only for emphasis (wrong); one-sentence 'and/but the ticket' variants (unnatural repeat of the noun) replaced by the natural ways to say atanmadı (isn't assigned yet / hasn't been assigned); model 2 'in the login page' -> 'on the login page' (Ngram on = 2.8x in)."
+  },
+  {
+    "id": "a-before-job",
+    "category": "grammar",
+    "level": 1,
+    "targetChunk": "a / an before a job title",
+    "patternSlots": "Deniz is ___ ... engineer",
+    "clozeTemplate": "Deniz is ___ test engineer in our team.",
+    "situationTr": "[Yeni gelen birine] Deniz'in ekibinizde test mühendisi olduğunu söylüyorsun: \"Deniz ekibimizde bir test mühendisi.\"",
+    "acceptedAnswers": [
+      "Deniz is a test engineer in our team.",
+      "Deniz is a test engineer on our team.",
+      "Deniz is a QA engineer in our team.",
+      "Deniz is a QA engineer on our team.",
+      "Deniz's a test engineer in our team."
+    ],
+    "modelSentences": [
+      "Deniz is a test engineer in our team.",
+      "Mert is a developer on the payments team.",
+      "Ayşe is an automation engineer."
+    ],
+    "commonMistake": "Deniz is test engineer in our team.",
+    "checklistTr": [
+      "Meslekten önce a / an kullandın mı? (a test engineer)",
+      "a / an seçimi sesli harfe göre mi? (a test, an engineer)",
+      "Edat doğru mu? (in / on our team)"
+    ],
+    "noteTr": "Türkçede 'mühendis' önünde tanımlık gerekmez; İngilizcede meslek tekil sayılabilir isimdir ve a / an alır. Bağlama göre QA engineer de denir; in our team daha çok BrE, on our team AmE'dir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge Grammar A/an and the: 'When we talk about a person's job, we use a: She's a gardener'. Ngram 'on our team' = 3.3x 'in our team'; SkELL 'on our team' 259 lines, both accepted. Article omission before a job is a common learner error. Fix: noteTr names the in/on team BrE/AmE difference."
+  },
+  {
+    "id": "most-without-the",
+    "category": "grammar",
+    "level": 2,
+    "targetChunk": "Most + plural noun (no the)",
+    "patternSlots": "Most ___ ...",
+    "clozeTemplate": "___ users don't read the release notes.",
+    "situationTr": "[Ayşe'ye] Kullanıcıların çoğunun sürüm notlarını okumadığını söylüyorsun: \"Kullanıcıların çoğu sürüm notlarını okumuyor.\"",
+    "acceptedAnswers": [
+      "Most users don't read the release notes.",
+      "Most users don't read release notes.",
+      "Most users don't bother to read the release notes.",
+      "Most users don't bother reading the release notes.",
+      "Most of our users don't read the release notes.",
+      "Most of the users don't read the release notes."
+    ],
+    "modelSentences": [
+      "Most users don't read the release notes.",
+      "Most bugs appear after a deployment.",
+      "Most teams use Jira for planning."
+    ],
+    "commonMistake": "The most users don't read the release notes.",
+    "checklistTr": [
+      "Genel anlamda most'tan önce the kullanmadın mı? (Most users, The most users değil)",
+      "most + çoğul isim ve çoğul fiil mi? (users don't)",
+      "Olumsuz yapı doğru mu? (don't + yalın fiil)"
+    ],
+    "noteTr": "The most en üstünlük bildirir (the most important); 'çoğu' anlamında genel konuşurken most + çoğul isim kullanılır ve the gelmez. Bağlama göre most of our / most of the users da doğrudur.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge Grammar Most, the most, mostly: most + noun for the majority in general, 'Not: ... on the most days'; Oxford most: 'Most of the people I had invited turned up'. SkELL 'most users don't' = 11 natural lines; Ngram 'the most people' = 0.78% of 'most people'. Fixes: 'Kullanıcıların çoğu' directly elicits most of the / most of our users, which are correct, so both added; noteTr rewritten (old reason 'Türkçe çoğu has no article' did not explain the error)."
+  },
+  {
+    "id": "there-was-a-delay",
+    "category": "grammar",
+    "level": 2,
+    "targetChunk": "There was / were + noun (existence)",
+    "patternSlots": "There was ___ ...",
+    "clozeTemplate": "___ ___ a delay on the metro this morning.",
+    "situationTr": "[Geç kalınca arkadaşına] Bu sabah metroda gecikme olduğunu söylüyorsun: \"Bu sabah metroda bir gecikme vardı.\"",
+    "acceptedAnswers": [
+      "There was a delay on the metro this morning.",
+      "There was a delay on the subway this morning.",
+      "There was a delay on the underground this morning.",
+      "There were delays on the metro this morning.",
+      "There were delays on the subway this morning.",
+      "There were delays on the underground this morning."
+    ],
+    "modelSentences": [
+      "There was a delay on the metro this morning.",
+      "There was a problem with the login page.",
+      "There were three failures in the last run."
+    ],
+    "commonMistake": "It was a delay on the metro this morning.",
+    "checklistTr": [
+      "'Vardı' için There was / were kullandın mı? (It was değil)",
+      "there'den sonra tekil / çoğul uyumu doğru mu? (a delay -> was; delays -> were)",
+      "Edat doğru mu? (on the metro)"
+    ],
+    "noteTr": "Türkçe 'vardı' tek sözcüktür ve özne gerektirmez; İngilizcede varlık için there özne olarak yazılır (It was değil). Bağlama göre metro, subway ve underground bölgeye göre değişir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge Grammar There is, there's and there are: 'There's a letter on your desk ... Not: It's a letter on your desk'. Ngram 'it was a delay' = 2% of 'there was a delay' (other meanings). Fixes: added 'delays on the underground'; dailyContext replaced twice (the draft line and a first replacement were both close to book example lines)."
+  },
+  {
+    "id": "there-is-no-response",
+    "category": "grammar",
+    "level": 2,
+    "targetChunk": "There's no / There isn't any + noun (absence)",
+    "patternSlots": "There's no ___ ...",
+    "clozeTemplate": "___ no response from the API.",
+    "situationTr": "[Deniz'e Teams'te] API'den hiç yanıt gelmediğini söylüyorsun: \"API'den hiç yanıt yok.\"",
+    "acceptedAnswers": [
+      "There's no response from the API.",
+      "There isn't any response from the API.",
+      "There's no reply from the API.",
+      "There isn't any reply from the API."
+    ],
+    "modelSentences": [
+      "There's no response from the API.",
+      "There's no data for that date.",
+      "There isn't any documentation for this endpoint."
+    ],
+    "commonMistake": "It's no response from the API.",
+    "checklistTr": [
+      "'Yok' için There is no / isn't any kullandın mı? (It's no değil)",
+      "no + isim ya da isn't any + isim; ikisini karıştırmadın mı?",
+      "from the API: edat from doğru mu?"
+    ],
+    "noteTr": "Türkçe 'yok' tek sözcüktür; İngilizcede yokluk there is no + isim ile söylenir, it ile söylenmez. Bağlama göre There's no ve There isn't any aynı anlamdadır.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge Grammar There is, there's: 'Not: It's a letter on your desk'; Cambridge No more: 'There's no more cake (or There isn't any more cake)' shows no = not any. SkELL 'there is no response from' = 12 lines. Fixes: targetChunk named the canonical form, added 'isn't any reply', noteTr ellipsis removed."
+  },
+  {
+    "id": "there-will-be-time",
+    "category": "grammar",
+    "level": 2,
+    "targetChunk": "There will be + noun (future existence)",
+    "patternSlots": "There will be ___ ...",
+    "clozeTemplate": "___ ___ ___ time for questions at the end of the demo.",
+    "situationTr": "[Katılımcılara] Demonun sonunda soru için zaman ayrılacağını söylüyorsun: \"Demonun sonunda soru sormak için zaman olacak.\"",
+    "acceptedAnswers": [
+      "There will be time for questions at the end of the demo.",
+      "There'll be time for questions at the end of the demo.",
+      "There will be time for questions after the demo.",
+      "There'll be time for questions after the demo.",
+      "There will be some time for questions at the end of the demo."
+    ],
+    "modelSentences": [
+      "There will be time for questions at the end of the demo.",
+      "There will be a short break after the first session.",
+      "There'll be an update on Friday."
+    ],
+    "commonMistake": "Will be time for questions at the end of the demo.",
+    "checklistTr": [
+      "'Olacak' için There will be kullandın mı? (will be tek başına değil)",
+      "there özne olarak yazıldı mı? (There will be ... / There'll be ...)",
+      "time sayılamaz mı? (time for questions; a time değil)"
+    ],
+    "noteTr": "Türkçede özne düşer ('zaman olacak'); İngilizcede varlık cümlesinde there özne olarak yazılır. Bağlama göre There will be ve There'll be aynıdır, kısaltma daha konuşma tarzıdır.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: SkELL 'There will be time for questions' = 5 natural lines; Cambridge There is, there's and there are: there as subject for existence. Dropping the dummy subject is a typical error of pro-drop L1 learners (Turkish). Normaliser does not expand there'll, so both forms stay listed. Fix: added 'some time' variant."
+  },
+  {
+    "id": "has-been-postponed",
+    "category": "grammar",
+    "level": 3,
+    "targetChunk": "has / have been + past participle (passive, current result)",
+    "patternSlots": "The ___ has been ___ ...",
+    "clozeTemplate": "The deployment ___ ___ postponed until Monday.",
+    "situationTr": "[Ekip kanalında] Deploy'un Pazartesi'ye ertelendiğini duyuruyorsun: \"Deploy Pazartesi gününe ertelendi.\"",
+    "acceptedAnswers": [
+      "The deployment has been postponed until Monday.",
+      "The deployment's been postponed until Monday.",
+      "The deployment has been postponed to Monday.",
+      "The deployment has been moved to Monday.",
+      "The deployment has been put off until Monday.",
+      "The deployment has been delayed until Monday.",
+      "The deploy has been postponed until Monday."
+    ],
+    "modelSentences": [
+      "The deployment has been postponed until Monday.",
+      "The bug has been fixed in the latest build.",
+      "The tests have been rescheduled for tomorrow."
+    ],
+    "commonMistake": "The deployment has postponed until Monday.",
+    "checklistTr": [
+      "Edilgen has / have been + V3 kullandın mı? (has been postponed)",
+      "has / have özneyle uyuşuyor mu? (deployment tekil -> has; tests çoğul -> have)",
+      "Fiil üçüncü biçimde mi? (postponed)"
+    ],
+    "noteTr": "Türkçe '-ildi' edilgeni İngilizcede be + V3 ile kurulur; bugüne etkisi süren bu duyuruda has been + V3 doğaldır (has postponed değil). Bağlama göre postponed yerine put off, delayed ya da moved da kullanılır.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Longman postpone: transitive, 'The match had to be postponed until next week'; Cambridge Passive: forms lists present perfect has/have been. Ngram 'has postponed until' = 2.4% of 'has been postponed until'; 'been moved to Monday' = 83% and 'been postponed to Monday' = 17% of 'until Monday', so both added; 'deploy' as a noun added (situationTr says Deploy). noteTr 'gerekir' softened. 'was postponed' left out per rule 6b."
+  },
+  {
+    "id": "wasnt-told",
+    "category": "grammar",
+    "level": 3,
+    "targetChunk": "was / wasn't + past participle (passive, no agent)",
+    "patternSlots": "I wasn't ___ about ...",
+    "clozeTemplate": "___ ___ told about the schedule change.",
+    "situationTr": "[Ekip kanalında] Takvim değişikliğinden sana haber verilmediğini söylüyorsun: \"Takvim değişikliğinden bana haber verilmedi.\"",
+    "acceptedAnswers": [
+      "I wasn't told about the schedule change.",
+      "I wasn't informed about the schedule change.",
+      "I wasn't informed of the schedule change.",
+      "I wasn't told about the change to the schedule.",
+      "I wasn't told about the change in the schedule."
+    ],
+    "modelSentences": [
+      "I wasn't told about the schedule change.",
+      "We weren't given enough time to test it.",
+      "The team wasn't asked about the new process."
+    ],
+    "commonMistake": "I didn't told about the schedule change.",
+    "checklistTr": [
+      "Edilgen was / wasn't + V3 kullandın mı? (I wasn't told)",
+      "Olumsuzda didn't yerine wasn't mi? (didn't told değil)",
+      "Edat doğru mu? (told about)"
+    ],
+    "noteTr": "Türkçe 'bana haber verilmedi' cümlesinde özne yoktur; İngilizcede kişi özne olur ve was not + V3 kullanılır (I wasn't told). Bağlama göre told yerine informed (about / of) daha resmîdir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge Grammar Passive: forms (past simple was/were + -ed form). SkELL 'wasn't told about' = 9 lines; 'didn't told' appears only in 3 non-native web lines, so the mistake is a real learner form. Ngram 'not informed of the' = 1.9x 'not informed about the'. Fixes: added 'informed of' and 'change in the schedule'; noteTr quoted 'söylenmedi' but the situationTr says 'haber verilmedi'."
+  },
+  {
+    "id": "not-anything-double-negative",
+    "category": "grammar",
+    "level": 2,
+    "targetChunk": "not ... anything (no double negative)",
+    "patternSlots": "I didn't ___ anything",
+    "clozeTemplate": "I ___ buy ___ at the market.",
+    "situationTr": "[Arkadaşına] Pazardan hiçbir şey almadığını söylüyorsun: \"Pazardan hiçbir şey almadım.\"",
+    "acceptedAnswers": [
+      "I didn't buy anything at the market.",
+      "I didn't buy anything from the market.",
+      "I bought nothing at the market.",
+      "I didn't buy a thing at the market."
+    ],
+    "modelSentences": [
+      "I didn't buy anything at the market.",
+      "I haven't changed anything in the config.",
+      "We didn't find anything unusual in the logs."
+    ],
+    "commonMistake": "I didn't buy nothing at the market.",
+    "checklistTr": [
+      "Olumsuz cümlede anything kullandın mı? (didn't ... anything; nothing ile çift olumsuz yapma)",
+      "Olumsuz yardımcı doğru mu? (didn't + yalın fiil: buy)",
+      "Ya da olumlu fiil + nothing kullandın mı? (I bought nothing)"
+    ],
+    "noteTr": "Türkçede 'hiçbir şey almadım' çift olumsuzdur; İngilizcede bir cümlede tek olumsuzluk olur: didn't + anything ya da bought + nothing. Bağlama göre ikisi de doğrudur, didn't buy anything daha yaygındır.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge Grammar Double negatives and usage: in standard English a negative word is not used with a negative verb ('Not: He hadn't nothing ...'). Ngram 'did not buy nothing' = 1.25% of 'did not buy anything'. Fixes: added 'from the market' (Pazardan), model 3 'Let me know if you need anything' replaced (not a negative sentence and it matched a book line), noteTr ellipses removed."
+  },
+  {
+    "id": "probably-before-wont",
+    "category": "grammar",
+    "level": 2,
+    "targetChunk": "probably + won't (adverb position)",
+    "patternSlots": "We probably won't ___ ...",
+    "clozeTemplate": "We ___ ___ go to the cinema tonight.",
+    "situationTr": "[Arkadaşına] Bu akşam sinemaya büyük ihtimalle gitmeyeceksiniz: \"Bu akşam büyük ihtimalle sinemaya gitmeyeceğiz.\"",
+    "acceptedAnswers": [
+      "We probably won't go to the cinema tonight.",
+      "We probably won't go to the movies tonight.",
+      "We probably won't go to the cinema this evening.",
+      "We probably won't go to the movies this evening.",
+      "We'll probably not go to the cinema tonight.",
+      "We'll probably not go to the movies tonight."
+    ],
+    "modelSentences": [
+      "We probably won't go to the cinema tonight.",
+      "I probably won't finish the review today.",
+      "Deniz will probably join the call late."
+    ],
+    "commonMistake": "We won't probably go to the cinema tonight.",
+    "checklistTr": [
+      "probably, won't'tan önce mi? (probably won't; won't probably değil)",
+      "Olumsuz kısaltma doğru mu? (won't = will not)",
+      "won't'tan sonra yalın fiil mi? (go)"
+    ],
+    "noteTr": "Türkçede sözcük sırası serbesttir ('gitmeyeceğiz büyük ihtimalle'); İngilizcede probably olumlu will'den sonra, olumsuzda won't'tan önce (ya da will probably not) gelir. Bağlama göre cinema BrE, movies AmE'dir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge Grammar Adverbs: position: probably goes in mid position ('It'll probably rain'). SkELL 'probably won't' = 2070 lines vs 'won't probably' = 8; Ngram 'will not probably' = 0.64% of 'probably will not', but 'will probably not' = 26%, so it is correct and was added. Fix: noteTr mentions will probably not."
+  },
+  {
+    "id": "no-longer-works",
+    "category": "grammar",
+    "level": 2,
+    "targetChunk": "no longer / not ... any more",
+    "patternSlots": "Ayşe no longer ___ ...",
+    "clozeTemplate": "Ayşe ___ ___ works on this project.",
+    "situationTr": "[Yeni gelen birine] Ayşe'nin artık bu projede çalışmadığını söylüyorsun: \"Ayşe artık bu projede çalışmıyor.\"",
+    "acceptedAnswers": [
+      "Ayşe no longer works on this project.",
+      "Ayşe doesn't work on this project any more.",
+      "Ayşe doesn't work on this project anymore.",
+      "Ayşe doesn't work on this project any longer.",
+      "Ayşe isn't working on this project any more.",
+      "Ayşe isn't working on this project anymore.",
+      "Ayşe is no longer working on this project."
+    ],
+    "modelSentences": [
+      "Ayşe no longer works on this project.",
+      "The old test environment no longer exists.",
+      "We don't use that script any more."
+    ],
+    "commonMistake": "Ayşe no more works on this project.",
+    "checklistTr": [
+      "no longer ya da not ... any more kullandın mı? (no more değil)",
+      "no longer ana fiilden önce mi? (no longer works); any more sonda mı?",
+      "Üçüncü tekil doğru mu? (works / doesn't work)"
+    ],
+    "noteTr": "Türkçe 'artık çalışmıyor' tek yapıdır; İngilizcede no longer ana fiilden önce, not + any more ise cümle sonunda gelir. Bağlama göre any more (BrE) ve anymore (AmE) ikisi de yazılır.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge Grammar No longer, not any longer: no longer in mid position; Cambridge Any more or anymore: adverb any more in end position, anymore especially AmE. Old mistake 'works no more' replaced: Oxford more marks 'no more (= no longer)' as formal and Ngram 'she lives no more' exists, so it can be correct. 'he no more works' = 0 in Ngram vs 'he no longer works', so the mid-position form is a clear error. Fixes: added any longer and present continuous variants, noteTr ellipsis removed."
+  },
+  {
+    "id": "hasnt-replied-yet",
+    "category": "grammar",
+    "level": 1,
+    "targetChunk": "hasn't + past participle + yet / still hasn't",
+    "patternSlots": "Mert ___ replied to ... ___",
+    "clozeTemplate": "Mert ___ replied to my message ___.",
+    "situationTr": "[Ayşe'ye Teams'te] Mert'in mesajına henüz yanıt vermediğini söylüyorsun: \"Mert mesajıma henüz yanıt vermedi.\"",
+    "acceptedAnswers": [
+      "Mert hasn't replied to my message yet.",
+      "Mert still hasn't replied to my message.",
+      "Mert hasn't answered my message yet.",
+      "Mert hasn't responded to my message yet.",
+      "Mert didn't reply to my message yet."
+    ],
+    "modelSentences": [
+      "Mert hasn't replied to my message yet.",
+      "The build hasn't finished yet.",
+      "I haven't received the approval yet."
+    ],
+    "commonMistake": "Mert has not reply to my message yet.",
+    "checklistTr": [
+      "hasn't + V3 kullandın mı? (hasn't replied, hasn't reply değil)",
+      "yet olumsuz cümlenin sonunda mı? (still ise hasn't'ten önce)",
+      "has / have özneyle uyuşuyor mu? (Mert -> has; I -> have)"
+    ],
+    "noteTr": "Türkçe 'henüz yanıt vermedi' geçmiş kipiyle söylenir; İngilizcede yet ile present perfect kullanılır. Bağlama göre replied yerine answered da olur; AmE'de didn't reply yet de duyulur, ama yazıda hasn't replied daha güvenlidir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford yet: '(British English) I haven't received a letter from him yet. (North American English) I didn't receive a letter from him yet'; Oxford usage note: some Americans do not accept the simple past here, which supports the noteTr advice. AmE form accepted per rule 6b. Have + base form is a common learner error. Fixes: added answered / responded variants."
+  }
+]
