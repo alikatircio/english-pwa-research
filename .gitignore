@@ -10,6 +10,7 @@ coverage/
 
 # Generated content bundle (scripts/build-content.ts)
 src/content/items.json
+src/content/extras.json
 # Real names for privacy checks; never commit
 content/privacy-denylist.local.txt
 .claude/

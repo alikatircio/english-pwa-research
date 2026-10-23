@@ -1,0 +1,1820 @@
+{
+  "extrasVersion": "e2e-fixture",
+  "diagnostic": [
+    {
+      "id": "dq-present-past-1",
+      "area": "present-past",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 1
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-explain-to"
+      ],
+      "promptTr": "[e2e] Soru 1.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-present-past-2",
+      "area": "present-past",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 1
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-could-you-check"
+      ],
+      "promptTr": "[e2e] Soru 2.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-present-past-3",
+      "area": "present-past",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 1
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-discuss"
+      ],
+      "promptTr": "[e2e] Soru 3.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-present-perfect-1",
+      "area": "present-perfect",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 2
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-could-you-check"
+      ],
+      "promptTr": "[e2e] Soru 4.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-present-perfect-2",
+      "area": "present-perfect",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 2
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-discuss"
+      ],
+      "promptTr": "[e2e] Soru 5.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-present-perfect-3",
+      "area": "present-perfect",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 2
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-depend-on"
+      ],
+      "promptTr": "[e2e] Soru 6.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-future-1",
+      "area": "future",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 3
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-discuss"
+      ],
+      "promptTr": "[e2e] Soru 7.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-future-2",
+      "area": "future",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 3
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-depend-on"
+      ],
+      "promptTr": "[e2e] Soru 8.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-future-3",
+      "area": "future",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 3
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-data"
+      ],
+      "promptTr": "[e2e] Soru 9.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-modals-1",
+      "area": "modals",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 4
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-depend-on"
+      ],
+      "promptTr": "[e2e] Soru 10.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-modals-2",
+      "area": "modals",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 4
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-data"
+      ],
+      "promptTr": "[e2e] Soru 11.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-modals-3",
+      "area": "modals",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 4
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-wait-for"
+      ],
+      "promptTr": "[e2e] Soru 12.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-if-wish-1",
+      "area": "if-wish",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 5
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-data"
+      ],
+      "promptTr": "[e2e] Soru 13.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-if-wish-2",
+      "area": "if-wish",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 5
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-wait-for"
+      ],
+      "promptTr": "[e2e] Soru 14.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-if-wish-3",
+      "area": "if-wish",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 5
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-reproduce"
+      ],
+      "promptTr": "[e2e] Soru 15.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-passive-1",
+      "area": "passive",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 6
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-wait-for"
+      ],
+      "promptTr": "[e2e] Soru 16.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-passive-2",
+      "area": "passive",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 6
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-reproduce"
+      ],
+      "promptTr": "[e2e] Soru 17.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-passive-3",
+      "area": "passive",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 6
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-feedback"
+      ],
+      "promptTr": "[e2e] Soru 18.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-questions-reported-speech-1",
+      "area": "questions-reported-speech",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 7
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-reproduce"
+      ],
+      "promptTr": "[e2e] Soru 19.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-questions-reported-speech-2",
+      "area": "questions-reported-speech",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 7
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-feedback"
+      ],
+      "promptTr": "[e2e] Soru 20.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-questions-reported-speech-3",
+      "area": "questions-reported-speech",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 7
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-look-into"
+      ],
+      "promptTr": "[e2e] Soru 21.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-ing-to-1",
+      "area": "ing-to",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 8
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-feedback"
+      ],
+      "promptTr": "[e2e] Soru 22.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-ing-to-2",
+      "area": "ing-to",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 8
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-look-into"
+      ],
+      "promptTr": "[e2e] Soru 23.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-ing-to-3",
+      "area": "ing-to",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 8
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-responsible-for"
+      ],
+      "promptTr": "[e2e] Soru 24.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-articles-nouns-1",
+      "area": "articles-nouns",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 9
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-look-into"
+      ],
+      "promptTr": "[e2e] Soru 25.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-articles-nouns-2",
+      "area": "articles-nouns",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 9
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-responsible-for"
+      ],
+      "promptTr": "[e2e] Soru 26.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-articles-nouns-3",
+      "area": "articles-nouns",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 9
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-get-back"
+      ],
+      "promptTr": "[e2e] Soru 27.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-pronouns-determiners-1",
+      "area": "pronouns-determiners",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 10
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-responsible-for"
+      ],
+      "promptTr": "[e2e] Soru 28.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-pronouns-determiners-2",
+      "area": "pronouns-determiners",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 10
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-get-back"
+      ],
+      "promptTr": "[e2e] Soru 29.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-pronouns-determiners-3",
+      "area": "pronouns-determiners",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 10
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-will-send"
+      ],
+      "promptTr": "[e2e] Soru 30.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-relative-clauses-1",
+      "area": "relative-clauses",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 11
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-get-back"
+      ],
+      "promptTr": "[e2e] Soru 31.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-relative-clauses-2",
+      "area": "relative-clauses",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 11
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-will-send"
+      ],
+      "promptTr": "[e2e] Soru 32.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-relative-clauses-3",
+      "area": "relative-clauses",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 11
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-explain-to"
+      ],
+      "promptTr": "[e2e] Soru 33.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-adjectives-adverbs-1",
+      "area": "adjectives-adverbs",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 12
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-will-send"
+      ],
+      "promptTr": "[e2e] Soru 34.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-adjectives-adverbs-2",
+      "area": "adjectives-adverbs",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 12
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-explain-to"
+      ],
+      "promptTr": "[e2e] Soru 35.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-adjectives-adverbs-3",
+      "area": "adjectives-adverbs",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 12
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-could-you-check"
+      ],
+      "promptTr": "[e2e] Soru 36.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-conjunctions-1",
+      "area": "conjunctions",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 13
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-explain-to"
+      ],
+      "promptTr": "[e2e] Soru 37.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-conjunctions-2",
+      "area": "conjunctions",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 13
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-could-you-check"
+      ],
+      "promptTr": "[e2e] Soru 38.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-conjunctions-3",
+      "area": "conjunctions",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 13
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-discuss"
+      ],
+      "promptTr": "[e2e] Soru 39.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-prepositions-1",
+      "area": "prepositions",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 14
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-could-you-check"
+      ],
+      "promptTr": "[e2e] Soru 40.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-prepositions-2",
+      "area": "prepositions",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 14
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-discuss"
+      ],
+      "promptTr": "[e2e] Soru 41.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-prepositions-3",
+      "area": "prepositions",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 14
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-depend-on"
+      ],
+      "promptTr": "[e2e] Soru 42.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-phrasal-verbs-1",
+      "area": "phrasal-verbs",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 15
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-discuss"
+      ],
+      "promptTr": "[e2e] Soru 43.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-phrasal-verbs-2",
+      "area": "phrasal-verbs",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 15
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-depend-on"
+      ],
+      "promptTr": "[e2e] Soru 44.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-phrasal-verbs-3",
+      "area": "phrasal-verbs",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 15
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-data"
+      ],
+      "promptTr": "[e2e] Soru 45.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-work-collocations-1",
+      "area": "work-collocations",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 16
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-depend-on"
+      ],
+      "promptTr": "[e2e] Soru 46.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-work-collocations-2",
+      "area": "work-collocations",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 16
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-data"
+      ],
+      "promptTr": "[e2e] Soru 47.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "dq-work-collocations-3",
+      "area": "work-collocations",
+      "category": "grammar",
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 16
+        }
+      ],
+      "relatedItemIds": [
+        "e2e-wait-for"
+      ],
+      "promptTr": "[e2e] Soru 48.",
+      "stem": "We ___ the build.",
+      "options": [
+        {
+          "id": "a",
+          "text": "checked"
+        },
+        {
+          "id": "b",
+          "text": "check"
+        },
+        {
+          "id": "c",
+          "text": "checking"
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanationTr": "[e2e] Kurgusal açıklama.",
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    }
+  ],
+  "topics": [
+    {
+      "id": "e2e-topic-future",
+      "area": "future",
+      "titleTr": "[e2e] Gelecek konusu",
+      "summaryTr": "[e2e] Kurgusal özet.",
+      "sections": [
+        {
+          "headingTr": "Bölüm",
+          "bodyTr": [
+            "Kısa paragraf."
+          ],
+          "examples": [
+            {
+              "en": "I will call you later.",
+              "tr": "Seni sonra ararım."
+            }
+          ]
+        }
+      ],
+      "itemIds": [
+        "e2e-will-send",
+        "e2e-look-into"
+      ],
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 19
+        }
+      ],
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    },
+    {
+      "id": "e2e-topic-prepositions",
+      "area": "prepositions",
+      "titleTr": "[e2e] Edat konusu",
+      "summaryTr": "[e2e] Kurgusal özet.",
+      "sections": [
+        {
+          "headingTr": "Bölüm",
+          "bodyTr": [
+            "Kısa paragraf."
+          ],
+          "examples": [
+            {
+              "en": "We wait for the result.",
+              "tr": "Sonucu bekleriz."
+            }
+          ]
+        }
+      ],
+      "itemIds": [
+        "e2e-wait-for"
+      ],
+      "refs": [
+        {
+          "book": "Gram",
+          "unit": 121
+        }
+      ],
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    }
+  ],
+  "messages": [
+    {
+      "id": "msg-e2e-status",
+      "channel": "teams",
+      "contextTr": "[e2e] Takım kanalına kısa not yazıyorsun.",
+      "text": "Hi team,\nI'll get back to you soon.\nI'll look into it today.\nI'm waiting for the deploy.",
+      "blanked": "Hi team,\nI'll get ___ to you soon.\nI'll look ___ it today.\nI'm ___ for the deploy.",
+      "blanks": [
+        {
+          "itemId": "e2e-get-back"
+        },
+        {
+          "itemId": "e2e-look-into"
+        },
+        {
+          "itemId": "e2e-wait-for"
+        }
+      ],
+      "verified": true,
+      "verifiedNote": "e2e fixture (fictional, not shipped)"
+    }
+  ]
+}

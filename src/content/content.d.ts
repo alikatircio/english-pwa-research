@@ -5,3 +5,11 @@ declare module '@content' {
   const bundle: ContentBundle;
   export default bundle;
 }
+
+// '@extras' is a Vite alias: src/content/extras.json, or content/fixtures/e2e-extras.json
+// in `--mode e2e`. Both have the ExtrasBundle shape.
+declare module '@extras' {
+  import type { ExtrasBundle } from '../domain/extrasSchema.ts';
+  const bundle: ExtrasBundle;
+  export default bundle;
+}
