@@ -8,13 +8,19 @@ import type { ReadyState } from './state.ts';
 type PoolSource = Pick<ReadyState, 'catalog' | 'progress' | 'flags' | 'meta'>;
 type ShowSource = Pick<ReadyState, 'catalog' | 'flags'>;
 
-/** newOrder per catalog, computed once (a catalog only changes on import). */
-const orderCache = new WeakMap<Catalog, readonly string[]>();
-function cachedOrder(catalog: Catalog): readonly string[] {
-  let order = orderCache.get(catalog);
+/** newOrder per catalog and priority set, computed once (a catalog only changes on import). */
+const orderCache = new WeakMap<Catalog, Map<string, readonly string[]>>();
+export function cachedOrder(catalog: Catalog, priority?: ReadonlySet<string>): readonly string[] {
+  let byKey = orderCache.get(catalog);
+  if (!byKey) {
+    byKey = new Map();
+    orderCache.set(catalog, byKey);
+  }
+  const key = priority ? [...priority].sort().join('\n') : '';
+  let order = byKey.get(key);
   if (!order) {
-    order = newOrder(catalog);
-    orderCache.set(catalog, order);
+    order = newOrder(catalog, priority);
+    byKey.set(key, order);
   }
   return order;
 }

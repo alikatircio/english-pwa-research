@@ -42,10 +42,11 @@ export function withImported(catalog: Catalog, incoming: readonly Item[]): Catal
 
 /**
  * New-card order (07 §3.6, decision 3): notebook (user-error) items first,
- * then level ascending, then catalog order. Pools filter answered/flagged ids.
+ * then `priority` ids, then the rest; each tier level ascending, then catalog order.
+ * Pools filter answered/flagged ids.
  */
-export function newOrder(catalog: Catalog): string[] {
-  const rank = (i: Item) => (i.source === 'user-error' ? 0 : 1);
+export function newOrder(catalog: Catalog, priority?: ReadonlySet<string>): string[] {
+  const rank = (i: Item) => (i.source === 'user-error' ? 0 : priority?.has(i.id) ? 1 : 2);
   // Array.prototype.sort is stable, so equal keys keep catalog order.
   return [...catalog.items].sort((a, b) => rank(a) - rank(b) || a.level - b.level).map((i) => i.id);
 }

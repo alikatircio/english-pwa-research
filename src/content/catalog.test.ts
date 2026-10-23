@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { ContentBundle, Item } from '../domain/types.ts';
+import { cachedOrder } from '../app/round.ts';
 import { createCatalog, newOrder, withImported } from './catalog.ts';
 
 const base: Item = {
@@ -29,6 +30,33 @@ describe('newOrder (07 §3.6)', () => {
       ]),
     );
     expect(newOrder(c)).toEqual(['mine', 'l1a', 'l1b', 'l2', 'l3']);
+  });
+
+  describe('priority set (Ö6)', () => {
+    const c = createCatalog(
+      bundle([
+        { ...base, id: 'l2', level: 2 },
+        { ...base, id: 'l1a', level: 1 },
+        { ...base, id: 'mine', level: 3, source: 'user-error' },
+        { ...base, id: 'l1b', level: 1 },
+        { ...base, id: 'l3', level: 3 },
+        { ...base, id: 'l3b', level: 3 },
+      ]),
+    );
+    it('no or empty set gives the same order', () => {
+      expect(newOrder(c, new Set())).toEqual(newOrder(c));
+      expect(newOrder(c, undefined)).toEqual(['mine', 'l1a', 'l1b', 'l2', 'l3', 'l3b']);
+    });
+    it('notebook first, then priority in level order, then the rest', () => {
+      expect(newOrder(c, new Set(['l3b', 'l2', 'mine']))).toEqual(['mine', 'l2', 'l3b', 'l1a', 'l1b', 'l3']);
+    });
+    it('cache returns the order for the current set', () => {
+      expect(cachedOrder(c)).toEqual(newOrder(c));
+      expect(cachedOrder(c, new Set(['l3']))).toEqual(['mine', 'l3', 'l1a', 'l1b', 'l2', 'l3b']);
+      expect(cachedOrder(c, new Set(['l2']))).toEqual(['mine', 'l2', 'l1a', 'l1b', 'l3', 'l3b']);
+      expect(cachedOrder(c, new Set())).toEqual(newOrder(c));
+      expect(cachedOrder(c, new Set(['l3']))).toEqual(['mine', 'l3', 'l1a', 'l1b', 'l2', 'l3b']);
+    });
   });
 });
 
