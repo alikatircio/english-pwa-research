@@ -80,7 +80,7 @@ export interface ActionDeps {
   getState: () => AppState;
   dispatch: (a: Action) => void;
   /** Diagnostic bundle ('@extras', passed in by AppContext; the alias is not resolvable in unit tests). Default: none, so the test is unavailable. */
-  extras?: Pick<ExtrasBundle, 'extrasVersion' | 'diagnostic'> & Partial<Pick<ExtrasBundle, 'topics'>>;
+  extras?: Pick<ExtrasBundle, 'extrasVersion' | 'diagnostic'> & Partial<Pick<ExtrasBundle, 'topics' | 'messages'>>;
 }
 
 function ready(getState: () => AppState): ReadyState | undefined {
@@ -89,7 +89,7 @@ function ready(getState: () => AppState): ReadyState | undefined {
 }
 
 /** Decision 10: "Geri al" stays for 4 s after a self-grade. */
-const NO_EXTRAS: Pick<ExtrasBundle, 'extrasVersion' | 'diagnostic'> & Partial<Pick<ExtrasBundle, 'topics'>> = { extrasVersion: '', diagnostic: [] };
+const NO_EXTRAS: Pick<ExtrasBundle, 'extrasVersion' | 'diagnostic'> & Partial<Pick<ExtrasBundle, 'topics' | 'messages'>> = { extrasVersion: '', diagnostic: [] };
 
 export const UNDO_WINDOW_MS = 4000;
 

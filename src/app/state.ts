@@ -1,4 +1,5 @@
 import type { NotebookContext } from '../domain/notebook.ts';
+import type { Message } from '../domain/extrasSchema.ts';
 import type { DailyCounter, DiagnosticAttempt, NotebookEntry, Progress, SessionState } from '../domain/types.ts';
 import type { Catalog } from '../content/catalog.ts';
 import type { AppMeta } from './meta.ts';
@@ -47,6 +48,9 @@ export interface ReadyState {
   overlay?: Overlay | undefined;
   notice?: Notice | undefined;
   diagnostic?: DiagnosticState | undefined;
+  /** Decision 49: verified messages (from extras) and the newest answer-log `at` per messageId; absent = no message step. */
+  messages?: readonly Message[] | undefined;
+  messageLastAt?: ReadonlyMap<string, number> | undefined;
   /** Phase 5: new-card priority from the latest finished Seviye testi (decision 48). Absent or empty = normal order. */
   newPriority?: ReadonlySet<string> | undefined;
   /** The `meta` store (last export, …). */

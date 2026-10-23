@@ -5,7 +5,7 @@ import { isSessionStale } from '../domain/session.ts';
 import type { ContentBundle, SessionState } from '../domain/types.ts';
 import { createCatalog, type Catalog } from '../content/catalog.ts';
 import type { AppDb } from '../storage/db.ts';
-import { clearSession, loadAll, loadDiagnosticAttempts, type LoadedData } from '../storage/repo.ts';
+import { clearSession, loadAll, loadDiagnosticAttempts, loadMessageLastAt, type LoadedData } from '../storage/repo.ts';
 import { metaFromRecords } from './meta.ts';
 import { latestFinished, priorityItems } from '../domain/priority.ts';
 import type { ExtrasBundle } from '../domain/extrasSchema.ts';
@@ -17,7 +17,7 @@ export interface BootDeps {
   clock: Clock;
   openDb: () => Promise<AppDb>;
   /** Diagnostic + topics, for the new-card priority (Phase 5). Default: none. */
-  extras?: Pick<ExtrasBundle, 'diagnostic'> & Partial<Pick<ExtrasBundle, 'topics'>>;
+  extras?: Pick<ExtrasBundle, 'diagnostic'> & Partial<Pick<ExtrasBundle, 'topics' | 'messages'>>;
 }
 
 export interface BootResult {
@@ -72,6 +72,8 @@ export async function loadReadyState(
     meta: metaFromRecords(data.meta),
     diagnostic: { attempts, open: attempts.findLast((a) => a.finishedAt === undefined) },
     newPriority: priorityItems(latestFinished(attempts), extras),
+    messages: extras.messages,
+    messageLastAt: await loadMessageLastAt(db),
   };
 }
 

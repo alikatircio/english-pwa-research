@@ -5,7 +5,7 @@ import type { StoreNames } from 'idb';
 import { DB_VERSION, openAppDb, type AppDb, type AppDbSchema } from './db.ts';
 
 const STORES: StoreNames<AppDbSchema>[] = ['answerLog', 'dailyCounters', 'diagnosticAttempts', 'flags', 'importedItems', 'meta', 'notebook', 'progress', 'session'];
-import { addNotebookEntry, clearSession, commitGrade, loadAll, loadCounter, loadDiagnosticAttempts, loadInProgressAttempt, saveDiagnosticAttempt, saveSession, toggleFlag, undoGrade } from './repo.ts';
+import { addNotebookEntry, appendLogs, clearSession, commitGrade, loadAll, loadCounter, loadDiagnosticAttempts, loadInProgressAttempt, loadMessageLastAt, saveDiagnosticAttempt, saveSession, toggleFlag, undoGrade } from './repo.ts';
 import { newSession } from '../domain/session.ts';
 
 let n = 0;
@@ -242,5 +242,15 @@ describe('diagnostic attempts (v2)', () => {
     expect((await loadInProgressAttempt(db))?.id).toBe('open');
     await saveDiagnosticAttempt(db, attempt('open', 20, 25));
     expect(await loadInProgressAttempt(db)).toBeUndefined();
+  });
+});
+
+describe('appendLogs', () => {
+  it('writes only answerLog rows', async () => {
+    const db = await freshDb();
+    await appendLogs(db, [{ ...log, mode: 'message', messageId: 'msg-x', at: 5 }, { ...log, mode: 'message', messageId: 'msg-x', itemId: 'b', at: 7 }]);
+    expect(await db.count('answerLog')).toBe(2);
+    for (const s of STORES.filter((x) => x !== 'answerLog')) expect(await db.count(s)).toBe(0);
+    expect(await loadMessageLastAt(db)).toEqual(new Map([['msg-x', 7]]));
   });
 });

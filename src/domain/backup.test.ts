@@ -496,3 +496,15 @@ describe('formatPath', () => {
     expect(formatPath(path)).toBe(out);
   });
 });
+
+describe('answer log mode message', () => {
+  const file = (l: AnswerLog) => buildBackupFile(data({ answerLog: [l] }), { now: NOW, appVersion: '0.0.0', contentVersion: 'abc123def456' });
+  it('round-trips mode and messageId', () => {
+    const l = log('a', 1, { mode: 'message', messageId: 'msg-x' });
+    const r = parseFile(JSON.parse(JSON.stringify(file(l))), ['english-pwa-backup']);
+    expect(r.ok && r.value.file.data.answerLog[0]).toMatchObject({ mode: 'message', messageId: 'msg-x' });
+  });
+  it('still accepts an old row without them', () => {
+    expect(parseFile(JSON.parse(JSON.stringify(file(log('a', 1)))), ['english-pwa-backup']).ok).toBe(true);
+  });
+});

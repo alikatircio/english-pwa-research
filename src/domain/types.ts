@@ -109,11 +109,13 @@ export interface AnswerLog {
   boxBefore: Box | null;
   boxAfter: Box | null;
   /** Exercise shape shown (decision 31); 'practice' for free practice (decision 30). Absent on older rows. */
-  mode?: 'write' | 'fix' | 'order' | 'context' | 'practice';
+  mode?: 'write' | 'fix' | 'order' | 'context' | 'practice' | 'message';
+  /** Decision 49: set on 'message' rows (one row per blank, itemId = the blank's item). */
+  messageId?: string;
 }
 
-/** 'practice' = decision 30 free practice: never touches progress or the daily counters. */
-export type QueueKind = 'due' | 'new' | 'repeat' | 'practice';
+/** 'practice' = decision 30 free practice: never touches progress or the daily counters. 'message' = decision 59 message step (itemId = message id). */
+export type QueueKind = 'due' | 'new' | 'repeat' | 'practice' | 'message';
 export interface QueueEntry {
   itemId: string;
   kind: QueueKind;

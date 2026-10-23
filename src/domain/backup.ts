@@ -138,7 +138,8 @@ export const AnswerLogSchema: z.ZodType<AnswerLog> = z.object({
   isRepeat: z.boolean(),
   boxBefore: box.nullable(),
   boxAfter: box.nullable(),
-  mode: z.enum(['write', 'fix', 'order', 'context', 'practice']).optional(),
+  mode: z.enum(['write', 'fix', 'order', 'context', 'practice', 'message']).optional(),
+  messageId: text.optional(),
 });
 
 const areaCounts = z.object({ correct: count, unsure: count, wrong: count });

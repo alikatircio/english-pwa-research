@@ -74,6 +74,23 @@ export async function commitGrade(db: AppDb, c: GradeCommit): Promise<number> {
   return (await logId) as number;
 }
 
+/** Decision 49: append answer-log rows only; no progress, counter or session write. */
+export async function appendLogs(db: AppDb, logs: readonly AnswerLog[]): Promise<void> {
+  const tx = db.transaction(['answerLog'], 'readwrite');
+  await writeAll(tx, (track) => {
+    for (const log of logs) track(tx.objectStore('answerLog').add(log));
+  });
+}
+
+/** Newest `at` per messageId over the answer log (decision 59 rotation). */
+export async function loadMessageLastAt(db: AppDb): Promise<Map<string, number>> {
+  const last = new Map<string, number>();
+  for (const l of await db.getAll('answerLog')) {
+    if (l.messageId !== undefined && l.at > (last.get(l.messageId) ?? -1)) last.set(l.messageId, l.at);
+  }
+  return last;
+}
+
 /**
  * Undo a grade (decision 10): restore or delete progress, restore the counter,
  * delete the answer-log row and store the session, in one transaction (all or nothing).
