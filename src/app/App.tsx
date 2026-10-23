@@ -6,12 +6,13 @@ import { HomeScreen } from '../ui/screens/HomeScreen.tsx';
 import { RoundEndScreen } from '../ui/screens/RoundEndScreen.tsx';
 import { SettingsScreen } from '../ui/screens/SettingsScreen.tsx';
 import { t } from '../ui/strings.tr.ts';
-import { useState } from 'react';
+import { Activity, useState } from 'react';
 import { DiagnosticResultScreen } from '../ui/screens/DiagnosticResultScreen.tsx';
 import { DiagnosticScreen } from '../ui/screens/DiagnosticScreen.tsx';
 import type { Actions } from './actions.ts';
 import { AppProvider, useApp } from './AppContext.tsx';
 import type { DiagnosticView } from './mode.ts';
+import { OverlayHost, OverlayProvider, useOverlay } from './overlay.tsx';
 import type { ReadyState } from './state.ts';
 
 function CurrentScreen() {
@@ -38,8 +39,21 @@ function CurrentScreen() {
   }
   return (
     <>
-      <ScreenOrOverlay state={state} actions={actions} />
+      <ScreenActivity state={state} actions={actions} />
       <NoticeBar notice={state.notice} onDismiss={actions.dismissNotice} />
+    </>
+  );
+}
+
+// Hidden (not unmounted) under an app overlay, so round, draft and diagnostic state survive.
+function ScreenActivity({ state, actions }: { state: ReadyState; actions: Actions }) {
+  const { overlay } = useOverlay();
+  return (
+    <>
+      <Activity mode={overlay ? 'hidden' : 'visible'}>
+        <ScreenOrOverlay state={state} actions={actions} />
+      </Activity>
+      <OverlayHost />
     </>
   );
 }
@@ -59,10 +73,12 @@ function ScreenOrOverlay({ state, actions }: { state: ReadyState; actions: Actio
 export function App() {
   return (
     <AppProvider>
-      <main>
-        <h1 className="visually-hidden">{t.appTitle}</h1>
-        <CurrentScreen />
-      </main>
+      <OverlayProvider>
+        <main>
+          <h1 className="visually-hidden">{t.appTitle}</h1>
+          <CurrentScreen />
+        </main>
+      </OverlayProvider>
     </AppProvider>
   );
 }
