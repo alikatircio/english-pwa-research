@@ -1,0 +1,302 @@
+[
+  {
+    "id": "msg-standup-blocked",
+    "channel": "teams",
+    "contextTr": "Günlük toplantı kanalına testlerdeki ilerlemeni ve bugünkü engelini yazıyorsun.",
+    "text": "Morning all,\nI'm making good progress on the regression tests.\nToday I'm blocked by the API issue, so I can't run them.\nI'll follow up on it after the daily.",
+    "blanked": "Morning all,\nI'm ___ good progress on the regression tests.\nToday I'm ___ by the API issue, so I can't run them.\nI'll follow up ___ it after the daily.",
+    "blanks": [
+      {
+        "itemId": "make-progress"
+      },
+      {
+        "itemId": "blocked-by"
+      },
+      {
+        "itemId": "follow-up-on"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: changed. Blank 1 moved from \"progress\" (headway also fits) to \"making\" (tests make vs do; commonMistake \"doing\"). Blank 2 moved from \"by\" to \"blocked\" because the item itself accepts \"blocked on\". \"up on\" unique. Item ids unchanged, all words in acceptedAnswers[0]. Original wording, not from Grammar/Collocations in Use; fictional names only."
+  },
+  {
+    "id": "msg-cannot-reproduce",
+    "channel": "teams",
+    "contextTr": "Bir meslektaşına, denediğin halde hatayı kendi makinende tekrarlayamadığını söylüyorsun.",
+    "text": "Hi Mert,\nI tried, but I wasn't able to reproduce the issue on my machine.\nCan you log in to staging and try the same steps?\nIt might be an edge case we didn't test.",
+    "blanked": "Hi Mert,\nI tried, but I wasn't able ___ reproduce the issue on my machine.\nCan you log in ___ staging and try the same steps?\nIt might be an ___ case we didn't test.",
+    "blanks": [
+      {
+        "itemId": "be-able-to"
+      },
+      {
+        "itemId": "log-in-to"
+      },
+      {
+        "itemId": "edge-case"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: changed. Blank \"reproduce\" removed: replicate/recreate fit naturally (Ngram 2000-22: reproduce the issue 1.4e-9, replicate 3.9e-10, recreate 2.3e-10). Replaced by be-able-to blank \"to\" (commonMistake drops to). \"log in to\" and \"an edge case\" (article an excludes corner) unique. Original wording, not from Grammar/Collocations in Use; fictional names only."
+  },
+  {
+    "id": "msg-handover-qa123",
+    "channel": "jira",
+    "contextTr": "Bilete, işi yarın bir meslektaşına devredeceğini yazıyorsun.",
+    "text": "Handover note:\nI'll hand over QA-123 to Mert tomorrow.\nI've attached the logs to the ticket.\nPlease keep me in the loop.",
+    "blanked": "Handover note:\nI'll hand ___ QA-123 to Mert tomorrow.\nI've attached the logs ___ the ticket.\nPlease keep me in the ___.",
+    "blanks": [
+      {
+        "itemId": "hand-over-to"
+      },
+      {
+        "itemId": "attach-logs-to-the-ticket"
+      },
+      {
+        "itemId": "keep-me-in-the-loop"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: changed wording only: removed triple \"the ticket\", used fictional key QA-123 (as in the item), present perfect for attached logs. \"hand off\" is possible but rarer (Ngram hand over the task 1.9e-9 vs hand off 3.2e-10) and the \"Handover note\" header primes over. \"to\", \"loop\" unique. Original wording, not from Grammar/Collocations in Use; fictional names only."
+  },
+  {
+    "id": "msg-access-request",
+    "channel": "teams",
+    "contextTr": "Bir meslektaşından erişim ve açıklama istiyorsun.",
+    "text": "Hi Ayşe,\nCould you grant me access to the bucket?\nI'm not familiar with this part of the code.\nCould you walk me through it when you have time?",
+    "blanked": "Hi Ayşe,\nCould you grant me access ___ the bucket?\nI'm not familiar ___ this part of the code.\nCould you walk me ___ it when you have time?",
+    "blanks": [
+      {
+        "itemId": "grant-someone-access-to"
+      },
+      {
+        "itemId": "familiar-with"
+      },
+      {
+        "itemId": "walk-someone-through"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: unchanged. to / with / through each the only natural fit; Turkish context correct; words in acceptedAnswers[0]. Original wording, not from Grammar/Collocations in Use; fictional names only."
+  },
+  {
+    "id": "msg-review-comment",
+    "channel": "jira",
+    "contextTr": "Bir pull request için gözden geçirme yorumu yazıyor ve test kararsız kalırsa önce logları kontrol etmeyi öneriyorsun.",
+    "text": "Thanks for the PR.\nThis change has a negative impact on page load time.\nWe should get rid of this hard-coded wait.\nIf the test is flaky without it, I'd suggest checking the logs.",
+    "blanked": "Thanks for the PR.\nThis change has a negative impact ___ page load time.\nWe should get ___ of this hard-coded wait.\nIf the test is flaky without it, I'd suggest ___ the logs.",
+    "blanks": [
+      {
+        "itemId": "impact-on"
+      },
+      {
+        "itemId": "get-rid-of"
+      },
+      {
+        "itemId": "suggest-doing"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: changed. \"I'd suggest ___ the logs\" allowed reviewing/reading; contextTr now names \"kontrol etmek\" (check) and the last line now follows from removing the wait. \"on\", \"rid\" unique. Original wording, not from Grammar/Collocations in Use; fictional names only."
+  },
+  {
+    "id": "msg-escalate-release",
+    "channel": "teams",
+    "contextTr": "Sürüm riski nedeniyle bir sorunu ekip liderine taşıdığını bildiriyorsun.",
+    "text": "Hi Deniz,\nI escalated the issue to the team lead.\nWe're running out of time, so the release is at risk.\nCould you fix it by Friday at the latest?",
+    "blanked": "Hi Deniz,\nI escalated the issue ___ the team lead.\nWe're running ___ of time, so the release is at risk.\nCould you fix it ___ Friday at the latest?",
+    "blanks": [
+      {
+        "itemId": "escalate-issue-to"
+      },
+      {
+        "itemId": "run-out-of-time"
+      },
+      {
+        "itemId": "by-deadline"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: changed tense: \"We ran out of time\" clashed with asking for a fix by Friday; now \"We're running out of time\". Answer \"out\" is in acceptedAnswers[0]. \"to\", \"by ... at the latest\" unique. Original wording, not from Grammar/Collocations in Use; fictional names only."
+  },
+  {
+    "id": "msg-deploy-postponed",
+    "channel": "jira",
+    "contextTr": "Bilete dağıtımın ertelendiğini ve bir yanıtın gelmediğini not ediyorsun.",
+    "text": "The deployment has been postponed until Monday.\nAs far as I know, the fix isn't on staging.\nMert hasn't replied to my message yet.",
+    "blanked": "The deployment has ___ postponed until Monday.\nAs ___ as I know, the fix isn't on staging.\nMert hasn't replied to my message ___.",
+    "blanks": [
+      {
+        "itemId": "has-been-postponed"
+      },
+      {
+        "itemId": "as-far-as-i-know"
+      },
+      {
+        "itemId": "hasnt-replied-yet"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: unchanged. \"has been\", \"as far as\", \"hasn't replied ... yet\" each have one natural fit; Turkish context correct. Original wording, not from Grammar/Collocations in Use; fictional names only."
+  },
+  {
+    "id": "msg-standup-staging",
+    "channel": "teams",
+    "contextTr": "Günlük toplantıda bugünkü durumunu kısaca özetliyorsun.",
+    "text": "Quick update:\nI finally managed to reproduce the bug locally.\nThe tests failed due to the API being down.\nI'm about to deploy to staging.\nAs soon as the build finishes, I'll send you the link.",
+    "blanked": "Quick update:\nI finally ___ to reproduce the bug locally.\nThe tests failed ___ to the API being down.\nI'm about to deploy to staging.\nAs ___ as the build finishes, I'll send you the link.",
+    "blanks": [
+      {
+        "itemId": "manage-to-do"
+      },
+      {
+        "itemId": "due-to-noun"
+      },
+      {
+        "itemId": "as-soon-as-present"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: changed. Removed blank \"about\" (be-about-to): \"I'm going to deploy\" fits equally. Now 3 blanks. \"owing to\" possible but rare (Ngram failed due to 1.1e-7 vs owing to 7.1e-9). \"managed\", \"soon\" unique. Original wording, not from Grammar/Collocations in Use; fictional names only."
+  },
+  {
+    "id": "msg-root-cause-update",
+    "channel": "jira",
+    "contextTr": "Bir hatanın kök nedenini bilette özetliyorsun; iş iki kez başarısız olmasına rağmen üçüncü denemede geçti.",
+    "text": "Update on the failed job.\nThe reason for the failure was an old configuration.\nThe config change resulted in a short outage.\nDespite failing twice, the job passed on the third run.",
+    "blanked": "Update on the failed job.\nThe reason ___ the failure was an old configuration.\nThe config change resulted ___ a short outage.\n___ failing twice, the job passed on the third run.",
+    "blanks": [
+      {
+        "itemId": "reason-for"
+      },
+      {
+        "itemId": "result-in"
+      },
+      {
+        "itemId": "despite-doing"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: changed contextTr only: \"rağmen\" excludes \"After failing twice\". \"reason behind\" rarer (Ngram reason for the failure 6.3e-8 vs behind 3.0e-9). \"in\" unique. Original wording, not from Grammar/Collocations in Use; fictional names only."
+  },
+  {
+    "id": "msg-restart-request",
+    "channel": "teams",
+    "contextTr": "Test ortamının yeniden başlatılmasını kibarca istiyor, sonuçları sonra bildireceğini söylüyorsun.",
+    "text": "Hi Mert,\nWould it be possible to restart staging before EOD?\nI need a clean environment for the regression run.\nPlease let me know when it's done, and I'll get back to you with the results.",
+    "blanked": "Hi Mert,\nWould it be ___ to restart staging before EOD?\nI need a clean environment for the regression run.\nPlease let me ___ when it's done, and I'll get ___ to you with the results.",
+    "blanks": [
+      {
+        "itemId": "would-it-be-possible-to"
+      },
+      {
+        "itemId": "let-me-know"
+      },
+      {
+        "itemId": "get-back-to-someone"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: changed. Blank \"waiting ___ the new build\" allowed \"on\" and did not test waiting-for-approval (approval vs approve); replaced by get-back-to-someone blank \"back\". \"possible\", \"know\" unique. Original wording, not from Grammar/Collocations in Use; fictional names only."
+  },
+  {
+    "id": "msg-weekly-summary",
+    "channel": "jira",
+    "contextTr": "Haftalık kalite özetinde dikkat edilecek noktaları yazıyorsun.",
+    "text": "Weekly QA summary:\nPlease pay attention to the error messages in the new build.\nWe need to take action before customers notice.\nTo sum up, we are not ready to release.",
+    "blanked": "Weekly QA summary:\nPlease pay ___ to the error messages in the new build.\nWe need to ___ action before customers notice.\nTo ___ up, we are not ready to release.",
+    "blanks": [
+      {
+        "itemId": "pay-attention-to"
+      },
+      {
+        "itemId": "take-action"
+      },
+      {
+        "itemId": "to-sum-up"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: unchanged. attention / take / sum each the only natural fit; Turkish context correct. Original wording, not from Grammar/Collocations in Use; fictional names only."
+  },
+  {
+    "id": "msg-staging-heads-up",
+    "channel": "teams",
+    "contextTr": "Ekibe, test ortamının saat 5'te kapanacağını önceden haber veriyorsun; bu bir hatırlatma değil, ilk duyuru.",
+    "text": "Hi all,\nJust a heads-up: staging will be down at 5.\nI'll send the test plan tonight so that everyone can prepare.\nMake sure the tests pass before you merge.",
+    "blanked": "Hi all,\nJust a ___: staging will be down at 5.\nI'll send the test plan tonight so ___ everyone can prepare.\nMake ___ the tests pass before you merge.",
+    "blanks": [
+      {
+        "itemId": "a-heads-up"
+      },
+      {
+        "itemId": "so-that-purpose"
+      },
+      {
+        "itemId": "make-sure-the-tests-pass"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: changed contextTr: \"Just a reminder\" also fits the first blank; context now says first announcement, not reminder. \"that\", \"sure\" unique. Original wording, not from Grammar/Collocations in Use; fictional names only."
+  },
+  {
+    "id": "msg-fix-verified",
+    "channel": "jira",
+    "contextTr": "Bir düzeltmenin test ortamında doğrulandığını bilete yazıyorsun.",
+    "text": "Verification note.\nI verified that the fix works on staging.\nWe should have tested this before the release.\nThanks for pointing this out, Ayşe.",
+    "blanked": "Verification note.\nI verified ___ the fix works on staging.\nWe should ___ tested this before the release.\nThanks for pointing this ___, Ayşe.",
+    "blanks": [
+      {
+        "itemId": "verify-that-clause"
+      },
+      {
+        "itemId": "should-have-tested"
+      },
+      {
+        "itemId": "point-it-out"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: changed wording: removed redundant \"earlier,\"; staging = \"test ortamı\" as in other messages. \"that\", \"have\", \"out\" unique. Original wording, not from Grammar/Collocations in Use; fictional names only."
+  },
+  {
+    "id": "msg-review-request",
+    "channel": "teams",
+    "contextTr": "Geç yanıt için özür diliyor, sorumluluğunu belirtiyor ve bir meslektaşından kod incelemesi istiyorsun.",
+    "text": "Hi Ayşe,\nSorry for the slow reply, I'm still catching up on my messages.\nI'm responsible for the regression tests this sprint, so I need a review on my PR.\nCould you take a look at it before lunch?",
+    "blanked": "Hi Ayşe,\nSorry for the slow reply, I'm still catching up ___ my messages.\nI'm responsible ___ the regression tests this sprint, so I need a review on my PR.\nCould you take a look ___ it before lunch?",
+    "blanks": [
+      {
+        "itemId": "catch-up-on"
+      },
+      {
+        "itemId": "responsible-for"
+      },
+      {
+        "itemId": "take-a-look-at-it"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: changed. \"catch up on the review notes\" was illogical before the review; now \"catching up on my messages\" (on vs with for messages/emails: Ngram ~9:1). Order of blanks changed with the text. \"for\", \"at\" unique. Original wording, not from Grammar/Collocations in Use; fictional names only."
+  },
+  {
+    "id": "msg-ticket-takeover",
+    "channel": "jira",
+    "contextTr": "Eski veriyle ilgili sorunu ve işi devralmanı bilete yazıyorsun.",
+    "text": "Users saw old data as a result of a missing migration.\nGiven that the deadline is tomorrow, we should merge the fix now.\nI'm taking over the ticket from Deniz after the release.",
+    "blanked": "Users saw old data as a ___ of a missing migration.\nGiven ___ the deadline is tomorrow, we should merge the fix now.\nI'm taking over the ticket ___ Deniz after the release.",
+    "blanks": [
+      {
+        "itemId": "as-a-result-of-noun"
+      },
+      {
+        "itemId": "given-that-clause"
+      },
+      {
+        "itemId": "take-over-from"
+      }
+    ],
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: changed. Blank 2 moved from \"Given\" (Considering/Seeing fit) to \"that\" (tests given that + clause). \"as a consequence of\" rarer (Ngram 1.5e-7 vs as a result of 1.5e-6). \"from\" unique. Original wording, not from Grammar/Collocations in Use; fictional names only."
+  }
+]
