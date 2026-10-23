@@ -1,0 +1,146 @@
+{
+  "avoid-doing": {
+    "sentence": "You should avoid eating heavy food late at night.",
+    "blank": "You should ___ ___ heavy food late at night."
+  },
+  "consider-doing": {
+    "sentence": "We're considering getting a dog next year.",
+    "blank": "We're ___ ___ a dog next year."
+  },
+  "postpone-doing": {
+    "sentence": "We postponed painting the kitchen until spring.",
+    "blank": "We ___ ___ the kitchen until spring."
+  },
+  "manage-to-do": {
+    "sentence": "I finally managed to open the jar with a spoon.",
+    "blank": "I finally ___ ___ open the jar with a spoon."
+  },
+  "fail-to-do": {
+    "sentence": "The old car failed to start this morning.",
+    "blank": "The old car ___ ___ start this morning."
+  },
+  "tend-to-do": {
+    "sentence": "My little brother tends to forget his keys.",
+    "blank": "My little brother ___ ___ forget his keys."
+  },
+  "try-doing": {
+    "sentence": "Try adding a little more salt to the soup.",
+    "blank": "___ ___ a little more salt to the soup."
+  },
+  "to-infinitive-of-purpose": {
+    "sentence": "She went to the pharmacy to get some cough syrup.",
+    "blank": "She went to the pharmacy ___ ___ some cough syrup."
+  },
+  "so-that-purpose": {
+    "sentence": "Leave the porch light on so that I can find the door.",
+    "blank": "Leave the porch light on ___ ___ I can find the door."
+  },
+  "have-trouble-doing": {
+    "sentence": "I'm having trouble sleeping this week.",
+    "blank": "I'm having ___ ___ this week."
+  },
+  "in-case-clause": {
+    "sentence": "Take some cash in case the shop doesn't accept cards.",
+    "blank": "Take some cash ___ ___ the shop doesn't accept cards."
+  },
+  "unless-clause": {
+    "sentence": "We'll go for a walk unless it starts to rain.",
+    "blank": "We'll go for a walk ___ it starts to rain."
+  },
+  "thanks-for-doing": {
+    "sentence": "Thanks for picking me up from the airport.",
+    "blank": "Thanks ___ ___ me up from the airport."
+  },
+  "apologise-for-doing": {
+    "sentence": "I apologise for forgetting your birthday, Mert.",
+    "blank": "I ___ ___ forgetting your birthday, Mert."
+  },
+  "succeed-in-doing": {
+    "sentence": "Deniz succeeded in finding a cheap flight home.",
+    "blank": "Deniz ___ ___ finding a cheap flight home."
+  },
+  "insist-on-doing": {
+    "sentence": "My grandmother insists on cooking for everyone.",
+    "blank": "My grandmother ___ ___ cooking for everyone."
+  },
+  "aware-of": {
+    "sentence": "Are you aware of the new parking rules?",
+    "blank": "Are you ___ ___ the new parking rules?"
+  },
+  "short-of": {
+    "sentence": "We're a bit short of milk, so I'll go to the shop.",
+    "blank": "We're a bit ___ ___ milk, so I'll go to the shop."
+  },
+  "damage-to": {
+    "sentence": "The flood caused a lot of damage to the old bridge.",
+    "blank": "The flood caused a lot of ___ ___ the old bridge."
+  },
+  "demand-for": {
+    "sentence": "There is a lot of demand for tickets to the concert.",
+    "blank": "There is a lot of ___ ___ tickets to the concert."
+  },
+  "difference-between": {
+    "sentence": "What's the difference between a latte and a flat white?",
+    "blank": "What's the ___ ___ a latte ___ a flat white?"
+  },
+  "invitation-to": {
+    "sentence": "We got an invitation to the neighbours' barbecue.",
+    "blank": "We got an ___ ___ the neighbours' barbecue."
+  },
+  "answer-someone-no-to": {
+    "sentence": "Mert never answers my calls on Sundays.",
+    "blank": "Mert never ___ my calls on Sundays."
+  },
+  "apologise-to-someone-for": {
+    "sentence": "Don't forget to apologise to your sister for shouting.",
+    "blank": "Don't forget to ___ ___ your sister ___ shouting."
+  },
+  "provide-someone-with": {
+    "sentence": "The hotel provides guests with free breakfast.",
+    "blank": "The hotel ___ guests ___ free breakfast."
+  },
+  "remind-someone-about": {
+    "sentence": "Please remind me about the dentist on Thursday.",
+    "blank": "Please ___ me ___ the dentist on Thursday."
+  },
+  "blame-something-on": {
+    "sentence": "Mert always blames the traffic on the roadworks.",
+    "blank": "Mert always ___ the traffic ___ the roadworks."
+  },
+  "find-out": {
+    "sentence": "I'll find out what time the shop opens.",
+    "blank": "I'll ___ ___ what time the shop opens."
+  },
+  "sort-it-out": {
+    "sentence": "I need to sort out my holiday dates this week.",
+    "blank": "I need to ___ ___ my holiday dates this week."
+  },
+  "work-out-what": {
+    "sentence": "I can't work out how to turn on the oven.",
+    "blank": "I can't ___ ___ how to turn on the oven."
+  },
+  "call-off": {
+    "sentence": "The picnic was called off at the last minute.",
+    "blank": "The picnic was ___ ___ at the last minute."
+  },
+  "put-off": {
+    "sentence": "I keep putting off cleaning the garage.",
+    "blank": "I keep ___ ___ cleaning the garage."
+  },
+  "fill-in-a-form": {
+    "sentence": "Could you fill in this form with a black pen?",
+    "blank": "Could you ___ ___ this form with a black pen?"
+  },
+  "come-up-with": {
+    "sentence": "Deniz came up with a great name for the cat.",
+    "blank": "Deniz ___ ___ ___ a great name for the cat."
+  },
+  "get-held-up": {
+    "sentence": "Sorry I'm late, I got held up at the bank.",
+    "blank": "Sorry I'm late, I got ___ ___ at the bank."
+  },
+  "carry-out": {
+    "sentence": "The council is carrying out repairs on our street this week.",
+    "blank": "The council is ___ ___ repairs on our street this week."
+  }
+}

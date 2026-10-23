@@ -1,0 +1,146 @@
+{
+  "avoid-doing": [
+    "I try to ___ ___ coffee after six.",
+    "Deniz ___ ___ the old API in the new tests."
+  ],
+  "consider-doing": [
+    "We are ___ ___ from home on Fridays.",
+    "Have you ___ ___ Ayşe for help?"
+  ],
+  "postpone-doing": [
+    "They ___ ___ the update until Monday.",
+    "Let's not ___ ___ the login bug any longer."
+  ],
+  "manage-to-do": [
+    "Mert ___ ___ fix the flaky test before lunch.",
+    "Did you ___ ___ get the logs from staging?"
+  ],
+  "fail-to-do": [
+    "The login test ___ ___ start on Chrome.",
+    "If the build ___ ___ upload the report, tell me."
+  ],
+  "tend-to-do": [
+    "Mert ___ ___ review pull requests in the morning.",
+    "Builds ___ ___ be slower on Mondays."
+  ],
+  "try-doing": [
+    "___ ___ the app and see if the error comes back.",
+    "If the page is slow, ___ ___ the cache."
+  ],
+  "to-infinitive-of-purpose": [
+    "I opened the console ___ ___ the error log.",
+    "Mert stayed late ___ ___ the test plan."
+  ],
+  "so-that-purpose": [
+    "Please share your screen ___ ___ we can all see the error.",
+    "I'll book the big room now ___ ___ everyone can join in person."
+  ],
+  "have-trouble-doing": [
+    "Ayşe had ___ ___ the right log file.",
+    "Do you have any ___ ___ the report?"
+  ],
+  "in-case-clause": [
+    "I always save the logs ___ ___ the error comes back.",
+    "Take a charger ___ ___ the battery runs out."
+  ],
+  "unless-clause": [
+    "I'll join the call ___ I have to finish this ticket.",
+    "___ someone objects, we'll merge the PR today."
+  ],
+  "thanks-for-doing": [
+    "Thanks ___ ___ me to the planning session.",
+    "Thank you ___ ___ while I checked the logs."
+  ],
+  "apologise-for-doing": [
+    "I ___ ___ missing the daily this morning.",
+    "Mert ___ ___ sharing the wrong build."
+  ],
+  "succeed-in-doing": [
+    "Deniz ___ ___ reproducing the crash on her laptop.",
+    "We did not ___ ___ finding the root cause."
+  ],
+  "insist-on-doing": [
+    "Ayşe ___ ___ checking every build herself.",
+    "Mert ___ ___ staying until the deploy finished."
+  ],
+  "aware-of": [
+    "Are you ___ ___ the new login rules?",
+    "We weren't ___ ___ the problem until Monday."
+  ],
+  "short-of": [
+    "We're a bit ___ ___ time before the release.",
+    "Are you ___ ___ test data?"
+  ],
+  "damage-to": [
+    "The power cut caused ___ ___ two of the servers.",
+    "Did the update do any ___ ___ the test data?"
+  ],
+  "demand-for": [
+    "There is a growing ___ ___ better test data.",
+    "Is there much ___ ___ an offline mode?"
+  ],
+  "difference-between": [
+    "What's the ___ ___ a bug ___ a defect?",
+    "There's no real ___ ___ the two reports."
+  ],
+  "invitation-to": [
+    "I got an ___ ___ the planning workshop.",
+    "Did you send Mert an ___ ___ the demo?"
+  ],
+  "answer-someone-no-to": [
+    "Could you ___ the question in the ticket?",
+    "Ayşe ___ all my emails before lunch."
+  ],
+  "apologise-to-someone-for": [
+    "We ___ ___ the team ___ the late notice.",
+    "Mert ___ ___ the client ___ the wrong estimate."
+  ],
+  "provide-someone-with": [
+    "The tool ___ us ___ a clear error report.",
+    "Could you ___ me ___ the staging URL?"
+  ],
+  "remind-someone-about": [
+    "Can you ___ me ___ the demo later today?",
+    "I'll ___ the team ___ the deadline on Thursday."
+  ],
+  "blame-something-on": [
+    "Don't ___ the delay ___ the new tool.",
+    "Mert ___ the slow build ___ the old server."
+  ],
+  "find-out": [
+    "Can you ___ ___ who owns the payment API?",
+    "I'll ___ ___ when the staging server is free."
+  ],
+  "sort-it-out": [
+    "Don't worry, I'll ___ it ___ with the vendor.",
+    "Can you ___ this ___ before the daily?"
+  ],
+  "work-out-what": [
+    "I can't ___ ___ how to export the report.",
+    "Let's ___ ___ what changed in the last release."
+  ],
+  "call-off": [
+    "We had to ___ ___ the demo because the test server was down.",
+    "Did they ___ the meeting ___?"
+  ],
+  "put-off": [
+    "Can we ___ ___ the retro until Thursday?",
+    "Please do not ___ the update ___ any longer."
+  ],
+  "fill-in-a-form": [
+    "You need to ___ ___ this form before Friday.",
+    "Could you ___ ___ the survey when you have a minute?"
+  ],
+  "come-up-with": [
+    "We need to ___ ___ ___ a better test strategy.",
+    "Can you ___ ___ ___ a name for the new tool?"
+  ],
+  "get-held-up": [
+    "Sorry I'm late, I was ___ ___ in traffic.",
+    "The release was ___ ___ by a last-minute bug."
+  ],
+  "carry-out": [
+    "Deniz will ___ ___ the regression tests tomorrow.",
+    "We ___ ___ a short survey of the team's needs."
+  ]
+}

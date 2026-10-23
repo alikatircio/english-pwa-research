@@ -1,0 +1,1123 @@
+[
+  {
+    "id": "avoid-doing",
+    "category": "aux_to",
+    "level": 1,
+    "targetChunk": "avoid + -ing (not avoid to do)",
+    "patternSlots": "avoid ___ ...",
+    "clozeTemplate": "We should ___ ___ to production on Friday evenings.",
+    "situationTr": "[Teams, ekibe öneri] Cuma akşamları production'a deploy etmekten kaçınmamız gerektiğini söylüyorsun: \"Cuma akşamları production'a deploy etmekten kaçınmalıyız.\"",
+    "acceptedAnswers": [
+      "We should avoid deploying to production on Friday evenings.",
+      "We should avoid deploying to prod on Friday evenings.",
+      "We need to avoid deploying to production on Friday evenings.",
+      "We need to avoid deploying to prod on Friday evenings.",
+      "We must avoid deploying to production on Friday evenings.",
+      "We must avoid deploying to prod on Friday evenings.",
+      "We have to avoid deploying to production on Friday evenings."
+    ],
+    "modelSentences": [
+      "We should avoid deploying to production on Friday evenings.",
+      "I try to avoid drinking coffee after six.",
+      "Deniz avoided using the old API in the new tests."
+    ],
+    "commonMistake": "We should avoid to deploy to production on Friday evenings.",
+    "checklistTr": [
+      "avoid'den sonra fiil -ing biçiminde mi? (avoid to deploy değil)",
+      "should / need to / must'tan sonra yalın fiil (avoid) var mı?",
+      "Zaman bilgisini (on Friday evenings) yazdın mı?"
+    ],
+    "noteTr": "Türkçede \"kaçınmak\" mastar ekiyle kurulur (\"deploy etmekten\"), bu yüzden to + fiil yazılır; İngilizcede avoid'dan sonra mastar değil -ing gelir. Bağlama göre should / need to / must kabul edilir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford, Cambridge and Longman all give \"avoid doing something\"; the Cambridge Grammar word-patterns page lists avoid + to-infinitive as a learner error. SkELL \"avoid deploying\" 8 lines. Ngram en-2019 2010-19 mean: \"avoid to use\" = 0.24% of \"avoid using\". Added \"have to\" variant; model 3 rewritten (too close to a book example)."
+  },
+  {
+    "id": "consider-doing",
+    "category": "aux_to",
+    "level": 1,
+    "targetChunk": "consider + -ing (not consider to do)",
+    "patternSlots": "consider ___ ...",
+    "clozeTemplate": "I'm ___ ___ to a bigger flat.",
+    "situationTr": "[Arkadaşına mesaj] Taşınmayı düşündüğünü söylüyorsun: \"Daha büyük bir daireye taşınmayı düşünüyorum.\"",
+    "acceptedAnswers": [
+      "I'm considering moving to a bigger flat.",
+      "I'm considering moving to a bigger apartment.",
+      "I'm considering moving into a bigger flat.",
+      "I'm considering moving into a bigger apartment.",
+      "I'm considering moving to a larger flat.",
+      "I'm considering moving to a larger apartment."
+    ],
+    "modelSentences": [
+      "I'm considering moving to a bigger flat.",
+      "We are considering working from home on Fridays.",
+      "Have you considered asking Ayşe for help?"
+    ],
+    "commonMistake": "I'm considering to move to a bigger flat.",
+    "checklistTr": [
+      "consider'dan sonra fiil -ing biçiminde mi? (consider to move değil)",
+      "\"Düşünüyorum\" için şimdiki zaman (I'm considering) kurdun mu?",
+      "flat / apartment ve bigger / larger gibi sözcüklerden birini yazdın mı?"
+    ],
+    "noteTr": "Türkçe \"taşınmayı düşünüyorum\" -mayı ekiyle biter ve to move yazdırır; İngilizcede consider'dan sonra -ing gelir (thinking of moving da doğru ama bu item consider'ı sınar). Bağlama göre flat BrE, apartment AmE'dir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford, Cambridge and Longman: \"consider doing something\"; Cambridge Grammar word-patterns page flags consider + to. SkELL \"considering moving\" 40 lines. Ngram en-2019 2010-19 mean: \"considering to move\" = 0.74% of \"considering moving\". noteTr now says \"thinking of moving\" is correct but not the target."
+  },
+  {
+    "id": "postpone-doing",
+    "category": "aux_to",
+    "level": 2,
+    "targetChunk": "postpone + -ing (not postpone to do)",
+    "patternSlots": "postpone ___ ...",
+    "clozeTemplate": "We ___ ___ the performance test until the next sprint.",
+    "situationTr": "[Jira yorumu] Performans testini çalıştırmayı bir sonraki sprint'e ertelediğini yazıyorsun: \"Performans testini çalıştırmayı bir sonraki sprint'e erteledik.\"",
+    "acceptedAnswers": [
+      "We postponed running the performance test until the next sprint.",
+      "We postponed running the performance test to the next sprint.",
+      "We've postponed running the performance test until the next sprint.",
+      "We've postponed running the performance test to the next sprint."
+    ],
+    "modelSentences": [
+      "We postponed running the performance test until the next sprint.",
+      "They postponed releasing the update until Monday.",
+      "Let's not postpone fixing the login bug any longer."
+    ],
+    "commonMistake": "We postponed to run the performance test until the next sprint.",
+    "checklistTr": [
+      "postpone'dan sonra fiil -ing biçiminde mi? (postpone to run değil)",
+      "Geçmiş zamanı (postponed / have postponed) doğru kurdun mu?",
+      "Süreyi (until / to the next sprint) yazdın mı?"
+    ],
+    "noteTr": "Türkçe \"çalıştırmayı ertelemek\" mastar ekiyle kurulur; İngilizcede postpone nesnesi olarak -ing alır. Bağlama göre until ve to ikisi de olur; \"erteledik\" hem past simple hem present perfect ile verilebilir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford gives \"postpone doing something\" and both \"postpone something until/to something\"; Longman and Cambridge agree. SkELL \"postponed running\" 1 line. Ngram en-2019 2010-19 mean: \"postpone to do\" = 0.89%, \"postponed to do\" = 1.20% of the -ing forms. No change."
+  },
+  {
+    "id": "manage-to-do",
+    "category": "aux_to",
+    "level": 2,
+    "targetChunk": "manage to + base verb (succeed in doing something difficult)",
+    "patternSlots": "manage ___ ...",
+    "clozeTemplate": "I finally ___ ___ reproduce the bug locally yesterday.",
+    "situationTr": "[Daily] Dün hatayı sonunda kendi makinende yeniden üretmeyi başardığını söylüyorsun: \"Dün hatayı sonunda yerelde yeniden üretmeyi başardım.\"",
+    "acceptedAnswers": [
+      "I finally managed to reproduce the bug locally yesterday.",
+      "Yesterday I finally managed to reproduce the bug locally.",
+      "I managed to reproduce the bug locally yesterday.",
+      "Yesterday I managed to reproduce the bug locally.",
+      "I finally managed to reproduce the issue locally yesterday.",
+      "Yesterday I finally managed to reproduce the issue locally."
+    ],
+    "modelSentences": [
+      "I finally managed to reproduce the bug locally yesterday.",
+      "Mert managed to fix the flaky test before lunch.",
+      "Did you manage to get the logs from staging?"
+    ],
+    "commonMistake": "I finally managed reproduce the bug locally yesterday.",
+    "checklistTr": [
+      "managed'den sonra to var mı? (managed to reproduce)",
+      "to'dan sonra fiil yalın mı? (reproduce, reproducing değil)",
+      "Zaman bilgisini (yesterday) ve yeri (locally) yazdın mı?"
+    ],
+    "noteTr": "Türkçe \"-meyi başardım\" tek ekle kurulur; İngilizcede manage to + yalın fiil gerekir ve zor bir işi başarmayı anlatır. Bağlama göre finally cümle başında ya da ortada olabilir, bug yerine issue da olur.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford, Cambridge and Longman: \"manage to do something\". SkELL \"managed to reproduce\" 10 lines. Ngram en-2019 2010-19 mean: \"managed get\" = 0.04% of \"managed to get\" (to-omission attested). Added \"issue\" variants (hata)."
+  },
+  {
+    "id": "fail-to-do",
+    "category": "aux_to",
+    "level": 2,
+    "targetChunk": "fail to + base verb",
+    "patternSlots": "fail ___ ...",
+    "clozeTemplate": "The backup job ___ ___ complete last night.",
+    "situationTr": "[Jira yorumu] Yedekleme işinin dün gece tamamlanamadığını yazıyorsun: \"Yedekleme işi dün gece tamamlanamadı.\"",
+    "acceptedAnswers": [
+      "The backup job failed to complete last night.",
+      "The backup job failed to finish last night.",
+      "Last night the backup job failed to complete.",
+      "Last night the backup job failed to finish."
+    ],
+    "modelSentences": [
+      "The backup job failed to complete last night.",
+      "The login test failed to start on Chrome.",
+      "If the build fails to upload the report, tell me."
+    ],
+    "commonMistake": "The backup job failed completing last night.",
+    "checklistTr": [
+      "fail'den sonra to var mı? (failed to complete)",
+      "to'dan sonra fiil yalın mı? (complete, completing değil)",
+      "Zaman bilgisini (last night) yazdın mı?"
+    ],
+    "noteTr": "Türkçe \"tamamlanamadı\" olumsuz bir ek-fiil yapısıdır; İngilizcede bunun bir karşılığı fail to + yalın fiil'dir (\"başaramadı\"). Bağlama göre complete ve finish ikisi de olur.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford, Cambridge and Longman: \"fail to do something\". SkELL \"failed to complete\" 40 lines. Ngram en-2019 2010-19 mean: \"failed doing\" = 0.09% of \"failed to do\", \"fail doing\" = 0.26%. No change."
+  },
+  {
+    "id": "tend-to-do",
+    "category": "aux_to",
+    "level": 3,
+    "targetChunk": "tend to + base verb (usually happens)",
+    "patternSlots": "tend ___ ...",
+    "clozeTemplate": "This test ___ ___ fail on slow environments.",
+    "situationTr": "[Daily] Bir testin yavaş ortamlarda genellikle başarısız olduğunu söylüyorsun: \"Bu test genellikle yavaş ortamlarda başarısız olma eğiliminde.\"",
+    "acceptedAnswers": [
+      "This test tends to fail on slow environments.",
+      "This test tends to fail in slow environments.",
+      "The test tends to fail on slow environments.",
+      "The test tends to fail in slow environments."
+    ],
+    "modelSentences": [
+      "This test tends to fail on slow environments.",
+      "Mert tends to review pull requests in the morning.",
+      "Builds tend to be slower on Mondays."
+    ],
+    "commonMistake": "This test tends fail on slow environments.",
+    "checklistTr": [
+      "tend'den sonra to var mı? (tends to fail)",
+      "Üçüncü tekil kişide tends mi? (this test → tends)",
+      "to'dan sonra fiil yalın mı? (fail, failing değil)"
+    ],
+    "noteTr": "Türkçede \"eğiliminde\" bir isim/ek-fiil yapısıdır; İngilizcede fiil olarak tend to + yalın fiil kullanılır. Bağlama göre on / in slow environments ikisi de olur.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford, Cambridge and Longman: \"tend to do something\". SkELL \"tends to fail\" 16 lines. Ngram en-2019 2010-19 mean: \"tends be\" = 0.10% of \"tends to be\" (to-omission attested). No change."
+  },
+  {
+    "id": "try-doing",
+    "category": "aux_to",
+    "level": 2,
+    "targetChunk": "try + -ing (experiment) vs try to + verb (make an effort)",
+    "patternSlots": "try ___ ...",
+    "clozeTemplate": "___ ___ off your phone an hour before bed.",
+    "situationTr": "[Arkadaşına mesaj] Uyuyamayan arkadaşına bir öneride bulunuyorsun: \"Yatmadan bir saat önce telefonunu kapatmayı dene.\"",
+    "acceptedAnswers": [
+      "Try switching off your phone an hour before bed.",
+      "Try turning off your phone an hour before bed.",
+      "Try switching your phone off an hour before bed.",
+      "Try turning your phone off an hour before bed.",
+      "Try switching off your phone an hour before you go to bed.",
+      "Try turning off your phone an hour before you go to bed."
+    ],
+    "modelSentences": [
+      "Try switching off your phone an hour before bed.",
+      "Try restarting the app and see if the error comes back.",
+      "If the page is slow, try clearing the cache."
+    ],
+    "commonMistake": "Try switch off your phone an hour before bed.",
+    "checklistTr": [
+      "Öneri için try + -ing kurdun mu? (denemek; try to switch çabalamak demektir)",
+      "try'dan sonra fiil -ing biçiminde mi? (switching)",
+      "Zamanı (an hour before bed) yazdın mı?"
+    ],
+    "noteTr": "Türkçe \"kapatmayı dene\" deneme anlamında mastar ekidir; İngilizcede bu anlam try + -ing ile verilir, try to + fiil ise \"çaba göstermek\" demektir. Bağlama göre switch off / turn off ve telefonun yeri ikisi de olur.",
+    "source": "curated",
+    "verified": false,
+    "verifiedNote": "verifier 2026-10-23: UNSURE. Oxford and Cambridge give try + -ing (experiment) and try to (effort), but for this advice both \"Try switching off…\" and \"Try to switch off your phone an hour before bed\" are natural; the second would be marked wrong. Ngram en-2019 2010-19 mean: \"try to restart\" is 2.3x \"try restarting\", so natives use try to for remedies too. Mistake \"try switch off\" = 0 in Ngram. Needs a context where only -ing fits, or both forms accepted."
+  },
+  {
+    "id": "to-infinitive-of-purpose",
+    "category": "aux_to",
+    "level": 1,
+    "targetChunk": "to + base verb (purpose; not for + verb)",
+    "patternSlots": "... to ___ ...",
+    "clozeTemplate": "I went to the station ___ ___ tickets for the weekend.",
+    "situationTr": "[Arkadaşına mesaj] Gittiğin yeri ve nedenini anlatıyorsun: \"Hafta sonu için bilet almak amacıyla istasyona gittim.\"",
+    "acceptedAnswers": [
+      "I went to the station to buy tickets for the weekend.",
+      "I went to the station to get tickets for the weekend.",
+      "I went to the station in order to buy tickets for the weekend.",
+      "I went to the station in order to get tickets for the weekend.",
+      "I went to the station so as to buy tickets for the weekend.",
+      "I went to the station to buy the tickets for the weekend."
+    ],
+    "modelSentences": [
+      "I went to the station to buy tickets for the weekend.",
+      "I opened the console to see the error log.",
+      "Mert stayed late to finish the test plan."
+    ],
+    "commonMistake": "I went to the station for buying tickets for the weekend.",
+    "checklistTr": [
+      "Amaç için to + yalın fiil kullandın mı? (for buy / for buying değil)",
+      "to'dan sonra fiil yalın mı? (buy)",
+      "Gittiğin yeri ve hafta sonu bilgisini yazdın mı?"
+    ],
+    "noteTr": "Türkçe \"almak için\" ifadesindeki \"için\" insanı for yazmaya iter; İngilizcede amaç, fiilden önce gelen to ile söylenir. Bağlama göre in order to ve so as to daha resmî seçeneklerdir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge Grammar \"in order to\" page: to-infinitive for purpose; Oxford/Cambridge \"in order to do something\". SkELL \"to buy tickets\" 40 lines. Mistake changed from \"for buy\" (0 in Ngram) to \"for buying\" (Ngram en-2019 2010-19 mean: \"for buying tickets\" = 2.35% of \"to buy tickets\"; wrong for a person's purpose)."
+  },
+  {
+    "id": "so-that-purpose",
+    "category": "aux_to",
+    "level": 2,
+    "targetChunk": "so (that) + subject + can / will + base verb (purpose)",
+    "patternSlots": "... so that ___ can ...",
+    "clozeTemplate": "I'll send the test plan tonight ___ ___ everyone can prepare for the meeting.",
+    "situationTr": "[Teams, ekibe] Toplantıya hazırlanabilsinler diye test planını bu akşam göndereceğini söylüyorsun: \"Herkes toplantıya hazırlanabilsin diye test planını bu akşam göndereceğim.\"",
+    "acceptedAnswers": [
+      "I'll send the test plan tonight so that everyone can prepare for the meeting.",
+      "I'll send the test plan tonight so everyone can prepare for the meeting.",
+      "I'll send the test plan tonight so that everybody can prepare for the meeting.",
+      "I'll send the test plan tonight so everybody can prepare for the meeting."
+    ],
+    "modelSentences": [
+      "I'll send the test plan tonight so that everyone can prepare for the meeting.",
+      "Please share your screen so that we can all see the error.",
+      "I'll book the big room now so that everyone can join in person."
+    ],
+    "commonMistake": "I'll send the test plan tonight so that everyone to prepare for the meeting.",
+    "checklistTr": [
+      "so that'ten sonra özne + can + yalın fiil yazdın mı? (everyone can prepare)",
+      "Özne ile fiil arasında to koymadın, değil mi?",
+      "Zaman bilgisini (tonight) yazdın mı?"
+    ],
+    "noteTr": "Türkçe \"hazırlanabilsin diye\" tek ekle kurulur; İngilizcede amaç cümlesi so that + özne + can ile yazılır ve her zaman bir özne ister. Bağlama göre that düşebilir (so everyone can…).",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge Grammar \"so that or in order that\": so that + modal, that often dropped informally. SkELL \"so that everyone can\" 40 lines. Ngram en-2019 2010-19 mean: \"so that everyone to\" = 0.08% of \"so that everyone can\". Model 3 rewritten (too close to a book exercise answer)."
+  },
+  {
+    "id": "have-trouble-doing",
+    "category": "aux_to",
+    "level": 2,
+    "targetChunk": "have trouble / difficulty + -ing (not to do)",
+    "patternSlots": "have trouble ___ ...",
+    "clozeTemplate": "I'm having ___ ___ to the VPN right now.",
+    "situationTr": "[Teams] Şu an VPN'e bağlanmakta zorlandığını söylüyorsun: \"Şu an VPN'e bağlanmakta zorlanıyorum.\"",
+    "acceptedAnswers": [
+      "I'm having trouble connecting to the VPN right now.",
+      "I'm having trouble connecting to the VPN at the moment.",
+      "I'm having difficulty connecting to the VPN right now.",
+      "I'm having difficulty connecting to the VPN at the moment.",
+      "I'm having trouble connecting to the VPN.",
+      "I'm having problems connecting to the VPN right now.",
+      "I'm having issues connecting to the VPN right now."
+    ],
+    "modelSentences": [
+      "I'm having trouble connecting to the VPN right now.",
+      "Ayşe had trouble finding the right log file.",
+      "Do you have any difficulty reading the report?"
+    ],
+    "commonMistake": "I'm having trouble to connect to the VPN right now.",
+    "checklistTr": [
+      "trouble / difficulty'den sonra fiil -ing biçiminde mi? (trouble connecting, to connect değil)",
+      "\"Zorlanıyorum\" için have trouble kurdun mu?",
+      "Bağlandığın yeri (to the VPN) yazdın mı?"
+    ],
+    "noteTr": "Türkçe \"bağlanmakta zorlanıyorum\" mastar ekiyle biter ve to connect yazdırır; İngilizcede have trouble + -ing kullanılır. Bağlama göre trouble, difficulty, problems ve issues; right now ve at the moment değişebilir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge [+ -ing verb] for trouble and difficulty; Oxford \"difficulty (in) doing something\"; Cambridge Grammar word-patterns flags \"difficulty to\" + verb. SkELL \"trouble connecting\" 40 lines. Ngram en-2019 2010-19 mean: \"trouble to connect\" = 2.08% of \"trouble connecting\"; \"having problems/issues connecting\" = 21.5%/5.5% of the trouble form, so they were added (-ing point kept)."
+  },
+  {
+    "id": "in-case-clause",
+    "category": "aux_to",
+    "level": 2,
+    "targetChunk": "in case + present simple (not will)",
+    "patternSlots": "... in case ___ ...",
+    "clozeTemplate": "I'm leaving early ___ ___ there's traffic.",
+    "situationTr": "[Arkadaşına mesaj] Trafik olabilir diye evden erken çıktığını söylüyorsun: \"Trafik olursa diye erken çıkıyorum.\"",
+    "acceptedAnswers": [
+      "I'm leaving early in case there's traffic.",
+      "I'll leave early in case there's traffic.",
+      "I'm leaving early just in case there's traffic.",
+      "I'm going to leave early in case there's traffic.",
+      "I'm leaving early in case there's a lot of traffic.",
+      "I'm leaving early in case there's heavy traffic.",
+      "I'm setting off early in case there's traffic.",
+      "I'm leaving early in case the traffic is bad."
+    ],
+    "modelSentences": [
+      "I'm leaving early in case there's traffic.",
+      "I always save the logs in case the error comes back.",
+      "Take a charger in case the battery runs out."
+    ],
+    "commonMistake": "I'm leaving early in case there will be traffic.",
+    "checklistTr": [
+      "in case'ten sonra şimdiki zaman mı kullandın? (in case there's traffic, there will be değil)",
+      "\"Diye\" için in case yazdın mı? (if değil)",
+      "Ne yaptığını (I'm leaving early) yazdın mı?"
+    ],
+    "noteTr": "Türkçe \"olursa diye\" gelecek ihtimali gösterir, bu yüzden will eklemek doğal gelir; İngilizcede in case'ten sonra şimdiki zaman kullanılır. In case \"önlem olarak\", if ise \"şart olursa\" demektir; bağlama göre just in case ve I'll leave da olur.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Rewritten: the umbrella/rain sentence was a tense-shifted copy of a book example, and the daily jacket sentence paraphrased a book exercise. Cambridge Grammar \"In case\": in case for precautions against a possible future event; Oxford \"in case\" example \"in case I'm out\". SkELL \"early in case\" 6 lines. Ngram en-2019 2010-19 mean: \"in case it will\" = 2.01% of \"in case it is\"."
+  },
+  {
+    "id": "unless-clause",
+    "category": "aux_to",
+    "level": 2,
+    "targetChunk": "unless + positive verb (= if ... not)",
+    "patternSlots": "... unless ___ ...",
+    "clozeTemplate": "We'll release the build on Friday ___ a new bug appears.",
+    "situationTr": "[Teams, ekibe] Yeni bir hata çıkmadıkça build'i Cuma günü yayınlayacağını söylüyorsun: \"Yeni bir hata çıkmadıkça build'i Cuma günü yayınlayacağız.\"",
+    "acceptedAnswers": [
+      "We'll release the build on Friday unless a new bug appears.",
+      "We'll release the build on Friday unless a new bug turns up.",
+      "We'll release the build on Friday unless a new bug shows up.",
+      "We'll release the build on Friday unless a new bug comes up.",
+      "Unless a new bug appears, we'll release the build on Friday.",
+      "Unless a new bug turns up, we'll release the build on Friday.",
+      "Unless a new bug shows up, we'll release the build on Friday.",
+      "Unless a new bug comes up, we'll release the build on Friday."
+    ],
+    "modelSentences": [
+      "We'll release the build on Friday unless a new bug appears.",
+      "I'll join the call unless I have to finish this ticket.",
+      "Unless someone objects, we'll merge the PR today."
+    ],
+    "commonMistake": "We'll release the build on Friday unless a new bug doesn't appear.",
+    "checklistTr": [
+      "unless'ten sonra olumlu fiil mi yazdın? (unless … appears, doesn't appear değil)",
+      "unless'ten sonra will koymadın, değil mi? (şimdiki zaman)",
+      "Ana cümlede will + yalın fiil ve Friday var mı?"
+    ],
+    "noteTr": "Türkçe \"çıkmadıkça\" olumsuz ek taşır; İngilizcede unless zaten \"if … not\" anlamındadır, bu yüzden fiil olumlu kalır. Bağlama göre unless cümlenin başında da olabilir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge Grammar \"Unless\" page: no will after unless, and it explicitly rejects unless + negative where \"if … not\" is meant (double negative). Oxford and Longman: unless = if not. SkELL \"unless a new\" 40 lines. Added \"comes up\" and fronted \"shows up\" variants."
+  },
+  {
+    "id": "thanks-for-doing",
+    "category": "preposition",
+    "level": 1,
+    "targetChunk": "thank someone for + -ing",
+    "patternSlots": "Thanks for ___ ...",
+    "clozeTemplate": "Thanks so much ___ ___ me move yesterday.",
+    "situationTr": "[Arkadaşına mesaj] Dün taşınmana yardım eden arkadaşına teşekkür ediyorsun: \"Dün taşınmama yardım ettiğin için çok teşekkürler.\"",
+    "acceptedAnswers": [
+      "Thanks so much for helping me move yesterday.",
+      "Thank you so much for helping me move yesterday.",
+      "Thanks a lot for helping me move yesterday.",
+      "Thank you very much for helping me move yesterday.",
+      "Thanks very much for helping me move yesterday.",
+      "Thanks so much for helping me move house yesterday.",
+      "Thanks so much for helping me with the move yesterday."
+    ],
+    "modelSentences": [
+      "Thanks so much for helping me move yesterday.",
+      "Thanks for inviting me to the planning session.",
+      "Thank you for waiting while I checked the logs."
+    ],
+    "commonMistake": "Thanks so much for help me move yesterday.",
+    "checklistTr": [
+      "for'dan sonra fiil -ing biçiminde mi? (for helping, for help değil)",
+      "\"-diği için\" karşılığı olarak for yazdın mı?",
+      "Kimin neye yardım ettiğini (helping me move) ve yesterday'i yazdın mı?"
+    ],
+    "noteTr": "Türkçe \"yardım ettiğin için\" ek-fiille kurulur; İngilizcede bu \"ettiğin için\" kısmı thanks for + -ing olur ve for'dan sonra fiil mastar değil -ing alır. Bağlama göre Thanks ve Thank you ikisi de olur.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford \"thank somebody for doing something\"; Cambridge and Longman agree. SkELL \"thanks for helping me\" 40 lines. Ngram en-2019 2010-19 mean: \"for help me\" = 0.10% of \"for helping me\". Added BrE \"move house\" and \"with the move\". Daily sentence rewritten (too close to a book example)."
+  },
+  {
+    "id": "apologise-for-doing",
+    "category": "preposition",
+    "level": 2,
+    "targetChunk": "apologise for + -ing (not apologise to do)",
+    "patternSlots": "apologise for ___ ...",
+    "clozeTemplate": "I ___ ___ replying late.",
+    "situationTr": "[Teams] Mesaja geç yanıt verdiğin için özür diliyorsun: \"Geç yanıt verdiğim için özür dilerim.\"",
+    "acceptedAnswers": [
+      "I apologise for replying late.",
+      "I apologize for replying late.",
+      "I apologise for replying so late.",
+      "I apologize for replying so late."
+    ],
+    "modelSentences": [
+      "I apologise for replying late.",
+      "I apologise for missing the daily this morning.",
+      "Mert apologised for sharing the wrong build."
+    ],
+    "checklistTr": [
+      "apologise'dan sonra for koydun mu? (sebep for ile gelir)",
+      "for'dan sonra fiil -ing biçiminde mi? (replying, reply değil)",
+      "late ya da so late yazdın mı?"
+    ],
+    "noteTr": "Türkçe \"geç yanıt verdiğim için\" yapısında fiil çekimlidir; İngilizcede sebep apologise for + -ing ile söylenir ve for'dan sonra yalın fiil gelmez. Bağlama göre apologise BrE, apologize AmE'dir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford \"apologize (to somebody) (for something)\", Longman \"apologize for (doing) something\", Cambridge agrees. SkELL \"apologise for\" 40 lines. Mistake \"apologise to reply\" removed: 0 in Ngram, and the noteTr reasoning (için leads to to) was unconvincing. Model 3 changed away from a Cambridge Grammar example."
+  },
+  {
+    "id": "succeed-in-doing",
+    "category": "preposition",
+    "level": 2,
+    "targetChunk": "succeed in + -ing (not succeed to do)",
+    "patternSlots": "succeed in ___ ...",
+    "clozeTemplate": "We finally ___ ___ fixing the memory leak.",
+    "situationTr": "[Daily] Sonunda bir sorunu çözmede başarılı olduğunuzu söylüyorsun: \"Bellek sızıntısını düzeltmede sonunda başarılı olduk.\"",
+    "acceptedAnswers": [
+      "We finally succeeded in fixing the memory leak.",
+      "We finally succeeded in resolving the memory leak.",
+      "We've finally succeeded in fixing the memory leak.",
+      "Finally, we succeeded in fixing the memory leak.",
+      "Finally, we succeeded in resolving the memory leak."
+    ],
+    "modelSentences": [
+      "We finally succeeded in fixing the memory leak.",
+      "Deniz succeeded in reproducing the crash on her laptop.",
+      "We did not succeed in finding the root cause."
+    ],
+    "commonMistake": "We finally succeeded to fix the memory leak.",
+    "checklistTr": [
+      "succeed'den sonra in koydun mu? (to değil)",
+      "in'den sonra fiil -ing biçiminde mi? (fixing)",
+      "Neyi düzelttiğini (the memory leak) yazdın mı?"
+    ],
+    "noteTr": "Türkçe \"düzeltmede başarılı olduk\" ifadesindeki -de eki in ile eşleşir; İngilizcede succeed in + -ing kullanılır, to fix değil. Aynı anlam manage to + yalın fiil ile de verilir ama bu item succeed in'i sınar; bağlama göre fix ve resolve ikisi de olur.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford, Cambridge and Longman: \"succeed in doing something\"; Cambridge Grammar word-patterns page covers succeed in. SkELL \"succeeded in fixing\" 3 lines. Ngram en-2019 2010-19 mean: \"succeeded to fix\" = 0.85% of \"succeeded in fixing\". situationTr changed from \"başardık\" (which elicits managed to) to \"başarılı olduk\". Daily sentence rewritten (too close to a book exercise)."
+  },
+  {
+    "id": "insist-on-doing",
+    "category": "preposition",
+    "level": 3,
+    "targetChunk": "insist on + -ing (not insist to do)",
+    "patternSlots": "insist on ___ ...",
+    "clozeTemplate": "Deniz ___ ___ paying for the meal.",
+    "situationTr": "[Arkadaşına mesaj] Dün akşamki yemeği anlatıyorsun: \"Deniz yemeğin parasını ödemekte ısrar etti.\"",
+    "acceptedAnswers": [
+      "Deniz insisted on paying for the meal.",
+      "Deniz insisted on paying for the dinner.",
+      "Deniz insisted on paying for our meal.",
+      "Deniz insisted on paying for our dinner.",
+      "Deniz insisted on paying for dinner."
+    ],
+    "modelSentences": [
+      "Deniz insisted on paying for the meal.",
+      "Ayşe insists on checking every build herself.",
+      "Mert insisted on staying until the deploy finished."
+    ],
+    "commonMistake": "Deniz insisted to pay for the meal.",
+    "checklistTr": [
+      "insist'ten sonra on koydun mu? (to değil)",
+      "on'dan sonra fiil -ing biçiminde mi? (paying)",
+      "pay for (ödemek) ile for'u yazdın mı?"
+    ],
+    "noteTr": "Türkçe \"ödemekte ısrar etti\" -mekte ekiyle kurulur, bu da to pay yazdırır; İngilizcede insist on + -ing gerekir. Bağlama göre the meal, the dinner ve our dinner gibi nesneler değişebilir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Longman \"insist on/upon doing something\", Cambridge \"insisted on telling\", Oxford \"insist on\". SkELL \"insisted on paying\" 23 lines. Ngram en-2019 2010-19 mean: \"insisted to pay\" = 0.49% of \"insisted on paying\". No change."
+  },
+  {
+    "id": "aware-of",
+    "category": "preposition",
+    "level": 2,
+    "targetChunk": "be aware of something (not aware about)",
+    "patternSlots": "aware ___ ...",
+    "clozeTemplate": "I'm ___ ___ this limitation.",
+    "situationTr": "[Teams] Bir kısıtlamanın farkında olduğunu söylüyorsun: \"Bu sınırlamanın farkındayım.\"",
+    "acceptedAnswers": [
+      "I'm aware of this limitation.",
+      "I'm aware of that limitation.",
+      "I'm aware of the limitation."
+    ],
+    "modelSentences": [
+      "I'm aware of this limitation.",
+      "Are you aware of the new login rules?",
+      "We weren't aware of the problem until Monday."
+    ],
+    "commonMistake": "I'm aware about this limitation.",
+    "checklistTr": [
+      "aware'den sonra of koydun mu? (about / for değil)",
+      "of'tan sonra isim ya da zamir var mı? (this limitation)",
+      "\"Farkındayım\" için I'm aware kurdun mu? (am yardımcı fiili ile)"
+    ],
+    "noteTr": "Türkçe \"-in farkında\" sahiplik ekiyle kurulur ve hangi edatın geleceğini göstermez; İngilizcede aware'den sonra isim gelirse of kullanılır (aware about değil). Bağlama göre this / that / the limitation değişebilir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford, Cambridge and Longman: \"aware of something\". SkELL \"aware of this limitation\" 2 lines. Ngram en-2019 2010-19 mean: \"aware about the\" = 0.25% of \"aware of the\". noteTr: \"yalnız of\" softened (aware that also exists)."
+  },
+  {
+    "id": "short-of",
+    "category": "preposition",
+    "level": 3,
+    "targetChunk": "be short of something (BrE) / short on (AmE)",
+    "patternSlots": "short ___ ...",
+    "clozeTemplate": "We're ___ ___ testers this sprint.",
+    "situationTr": "[Daily] Bu sprint'te ekipte yeterince tester olmadığını söylüyorsun: \"Bu sprint'te tester sıkıntısı çekiyoruz.\"",
+    "acceptedAnswers": [
+      "We're short of testers this sprint.",
+      "We're short of testers in this sprint.",
+      "We're short on testers this sprint.",
+      "We're short on testers in this sprint.",
+      "This sprint we're short of testers.",
+      "This sprint we're short on testers."
+    ],
+    "modelSentences": [
+      "We're short of testers this sprint.",
+      "We're a bit short of time before the release.",
+      "Are you short of test data?"
+    ],
+    "checklistTr": [
+      "short'tan sonra of (ya da on) koydun mu?",
+      "of'tan sonra eksik olan şeyi yazdın mı? (testers)",
+      "Zaman bilgisini (this sprint) yazdın mı?"
+    ],
+    "noteTr": "Türkçe \"tester sıkıntısı çekiyoruz\" yapısında edat yoktur; İngilizcede eksik olan şey be short of ile bağlanır. Bağlama göre short on da olur ve biraz daha gündeliktir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford: \"short of something\" and \"short on something (informal)\", no BrE/AmE label, so the BrE/AmE claim in noteTr was removed. Cambridge \"be short of sth\" and \"be short on sth\"; Longman \"be short (of something)\". SkELL \"short of staff\" 12 lines, \"short on\" 40. Ngram en-2019 2010-19 mean: \"short on staff\" = 35% of \"short of staff\", so both are accepted. Rewritten from staff to testers because the old canonical matched the corrected form of a book exercise."
+  },
+  {
+    "id": "damage-to",
+    "category": "preposition",
+    "level": 2,
+    "targetChunk": "damage to something (not damage on)",
+    "patternSlots": "damage ___ ...",
+    "clozeTemplate": "There was no ___ ___ the database after the restore.",
+    "situationTr": "[Jira yorumu] Geri yüklemeden sonra veritabanında bir zarar olmadığını yazıyorsun: \"Geri yüklemeden sonra veritabanına hiçbir zarar gelmedi.\"",
+    "acceptedAnswers": [
+      "There was no damage to the database after the restore.",
+      "There was no damage done to the database after the restore.",
+      "No damage was done to the database after the restore.",
+      "After the restore, there was no damage to the database.",
+      "After the restore there was no damage done to the database.",
+      "The restore did no damage to the database."
+    ],
+    "modelSentences": [
+      "There was no damage to the database after the restore.",
+      "The power cut caused damage to two of the servers.",
+      "Did the update do any damage to the test data?"
+    ],
+    "commonMistake": "There was no damage on the database after the restore.",
+    "checklistTr": [
+      "damage'dan sonra to koydun mu? (on / for değil)",
+      "to'dan sonra zarar gören şeyi yazdın mı? (the database)",
+      "Zaman bilgisini (after the restore) yazdın mı?"
+    ],
+    "noteTr": "Türkçe \"veritabanına zarar\" yönelme ekiyle kurulur ve to ile eşleşir; yine de on yazmak sık yapılan bir hatadır. İngilizcede damage to + isim kullanılır. Bağlama göre cümle kuruluşu (There was no damage / No damage was done) değişebilir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Longman \"damage to\", Oxford \"damage to a vehicle/his reputation\", Cambridge \"damage to\". SkELL \"no damage to\" 40 lines. Ngram en-2019 2010-19 mean: \"no damage on the\" = 3.73% of \"no damage to the\" (Oxford also has \"inflict damage on\", but not for \"there was no damage on X\"). Model 2 and daily rewritten (storm/roof sentences paraphrased a Collocations example). Added \"The restore did no damage\"."
+  },
+  {
+    "id": "demand-for",
+    "category": "preposition",
+    "level": 3,
+    "targetChunk": "demand / need for something (not demand of)",
+    "patternSlots": "demand ___ ...",
+    "clozeTemplate": "There is a lot of ___ ___ a reporting feature.",
+    "situationTr": "[Teams, ürün toplantısı] Bir özelliğe çok talep olduğunu söylüyorsun: \"Raporlama özelliğine çok talep var.\"",
+    "acceptedAnswers": [
+      "There is a lot of demand for a reporting feature.",
+      "There is a lot of demand for reporting features.",
+      "There is great demand for a reporting feature.",
+      "There is strong demand for a reporting feature.",
+      "There is high demand for a reporting feature.",
+      "There is a strong demand for a reporting feature."
+    ],
+    "modelSentences": [
+      "There is a lot of demand for a reporting feature.",
+      "There is a growing need for better test data.",
+      "Is there much demand for an offline mode?"
+    ],
+    "commonMistake": "There is a lot of demand of a reporting feature.",
+    "checklistTr": [
+      "demand'den sonra for koydun mu? (of / to değil)",
+      "for'dan sonra talep edilen şeyi yazdın mı? (a reporting feature)",
+      "\"Çok\" için a lot of / great / strong demand gibi bir ifade var mı?"
+    ],
+    "noteTr": "Türkçe \"özelliğe talep\" yönelme ekiyle kurulur; İngilizcede demand ve need isimleri for alır. Bağlama göre a lot of, great, strong ve high demand değişebilir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford \"demand for laptops/credit\", Longman \"demand for\", Cambridge \"demand for\". SkELL \"demand for a\" 40 lines. Ngram en-2019 2010-19 mean: \"high demand of\" = 7.9% of \"high demand for\", \"demand of the product\" = 5.6% of \"demand for the product\". No change."
+  },
+  {
+    "id": "difference-between",
+    "category": "preposition",
+    "level": 2,
+    "targetChunk": "difference between A and B (not with)",
+    "patternSlots": "difference between ___ and ___",
+    "clozeTemplate": "The only ___ ___ staging ___ production is the configuration.",
+    "situationTr": "[Teams] İki ortam arasındaki farkı açıklıyorsun: \"Staging ile production arasındaki tek fark yapılandırma.\"",
+    "acceptedAnswers": [
+      "The only difference between staging and production is the configuration.",
+      "The only difference between staging and prod is the configuration.",
+      "The only difference between staging and production is the config.",
+      "The only difference between staging and prod is the config."
+    ],
+    "modelSentences": [
+      "The only difference between staging and production is the configuration.",
+      "What's the difference between a bug and a defect?",
+      "There's no real difference between the two reports."
+    ],
+    "checklistTr": [
+      "difference'tan sonra between koydun mu? (of / with değil)",
+      "İki öğeyi and ile bağladın mı? (staging and production)",
+      "\"Tek\" için the only yazdın mı?"
+    ],
+    "noteTr": "Türkçe \"A ile B arasındaki\" cümlesindeki \"ile\" with yazdırır; İngilizcede between A and B kullanılır. Bağlama göre production ve prod, configuration ve config aynı anlamdadır.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford, Cambridge and Longman: \"difference between A and B\". SkELL \"difference between\" 40 lines. Mistake \"between staging with production\" removed: no attestation (Ngram en-2019 2010-19 mean: \"difference between it with\" = 0). modelBlanks[1] no longer blanks \"the\"."
+  },
+  {
+    "id": "invitation-to",
+    "category": "preposition",
+    "level": 1,
+    "targetChunk": "an invitation to something (not invitation for)",
+    "patternSlots": "invitation ___ ...",
+    "clozeTemplate": "Thanks so much for the ___ ___ your wedding!",
+    "situationTr": "[Arkadaşına mesaj] Düğün davetiyesini alınca arkadaşına teşekkür ediyorsun: \"Düğününe davet için çok teşekkürler!\"",
+    "acceptedAnswers": [
+      "Thanks so much for the invitation to your wedding!",
+      "Thank you so much for the invitation to your wedding!",
+      "Thanks a lot for the invitation to your wedding!",
+      "Thank you very much for the invitation to your wedding!",
+      "Thanks very much for the invitation to your wedding!",
+      "Thanks so much for the invite to your wedding!"
+    ],
+    "modelSentences": [
+      "Thanks so much for the invitation to your wedding!",
+      "I got an invitation to the planning workshop.",
+      "Did you send Mert an invitation to the demo?"
+    ],
+    "checklistTr": [
+      "invitation'dan sonra to koydun mu? (düğün, parti gibi etkinliklerde for değil)",
+      "to'dan sonra davet edilen etkinliği yazdın mı? (your wedding)",
+      "Teşekkür kalıbını (Thanks … for the invitation) kurdun mu?"
+    ],
+    "noteTr": "Türkçe \"düğününe davet\" yönelme ekiyle kurulur ve to ile eşleşir, \"için\" ise for yazdırır; İngilizcede bir etkinliğe davet invitation to ile söylenir (yemek için invitation for dinner da olur). Bağlama göre Thanks ve Thank you ikisi de olur.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford \"invitation to the exhibition\", Longman \"invitation to Jason's party/dinner\", Cambridge \"invitation to\". SkELL \"invitation to your wedding\" 1 line. Mistake removed: Oxford also lists \"invitation for dinner\", and Ngram en-2019 2010-19 mean \"invitation for the party\" = 6.6% of \"invitation to the party\" (partly legitimate \"invitations for the party\" cards). Rewritten from the birthday party because the old canonical and daily sentence matched book exercise and example lines."
+  },
+  {
+    "id": "answer-someone-no-to",
+    "category": "object",
+    "level": 1,
+    "targetChunk": "answer an email / a question (no \"to\")",
+    "patternSlots": "answer ___ ...",
+    "clozeTemplate": "I ___ Mert's email this morning.",
+    "situationTr": "[Teams] Mert'in e-postasına bu sabah yanıt verdiğini söylüyorsun: \"Mert'in e-postasını bu sabah cevapladım.\"",
+    "acceptedAnswers": [
+      "I answered Mert's email this morning.",
+      "I've answered Mert's email this morning.",
+      "This morning I answered Mert's email.",
+      "I answered Mert's e-mail this morning."
+    ],
+    "modelSentences": [
+      "I answered Mert's email this morning.",
+      "Could you answer the question in the ticket?",
+      "Ayşe answered all my emails before lunch."
+    ],
+    "commonMistake": "I answered to Mert's email this morning.",
+    "checklistTr": [
+      "answer'dan sonra doğrudan nesne (Mert's email) var mı? (to yok)",
+      "Zaman bilgisini (this morning) yazdın mı?",
+      "Geçmiş zaman (answered) kullandın mı?"
+    ],
+    "noteTr": "Türkçe \"e-postaya yanıt vermek\" yönelme ekiyle kurulur ve to yazdırır; İngilizcede answer doğrudan nesne alır. Reply ise to ister (reply to an email), bu item answer'ı sınar. Bağlama göre cümle başında this morning de olabilir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Longman \"He still hadn't answered my question\", Cambridge \"answer a question/the door\", Oxford answer (verb, transitive). SkELL \"answered my email\" 4 lines. Ngram en-2019 2010-19 mean: \"answered to the question\" = 0.36% of \"answered the question\". No change."
+  },
+  {
+    "id": "apologise-to-someone-for",
+    "category": "object",
+    "level": 2,
+    "targetChunk": "apologise to someone for something (not apologise someone)",
+    "patternSlots": "apologise ___ ___ for ...",
+    "clozeTemplate": "I ___ ___ Ayşe ___ the delay.",
+    "situationTr": "[Teams, ekip kanalı] Herkesin önünde Ayşe'den gecikme için özür diliyorsun: \"Gecikme için Ayşe'den özür dilerim.\"",
+    "acceptedAnswers": [
+      "I apologise to Ayşe for the delay.",
+      "I apologize to Ayşe for the delay.",
+      "I'd like to apologise to Ayşe for the delay.",
+      "I'd like to apologize to Ayşe for the delay.",
+      "I want to apologise to Ayşe for the delay.",
+      "I want to apologize to Ayşe for the delay."
+    ],
+    "modelSentences": [
+      "I apologise to Ayşe for the delay.",
+      "We apologise to the team for the late notice.",
+      "Mert apologised to the client for the wrong estimate."
+    ],
+    "commonMistake": "I apologise Ayşe for the delay.",
+    "checklistTr": [
+      "Özür dilediğin kişiden önce to koydun mu? (apologise to Ayşe)",
+      "Sebepten önce for koydun mu? (for the delay)",
+      "Sıra doğru mu? (apologise to kişi for sebep)"
+    ],
+    "noteTr": "Türkçe \"Ayşe'den özür dilemek\" ayrılma ekiyle kurulur ve from yazdırabilir; İngilizcede kişi apologise to ile, sebep for ile bağlanır. Bağlama göre apologise BrE, apologize AmE'dir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge Grammar word-patterns \"apologize to someone\" rejects apologize + direct object; Longman \"apologize to\"; Oxford \"apologized to his colleagues\". SkELL \"apologize to\" 40 lines. Ngram en-2019 2010-19 mean: \"apologized him\" = 0.25% of \"apologized to him\". situationTr now names a team channel, so the third-person apology sounds natural."
+  },
+  {
+    "id": "provide-someone-with",
+    "category": "object",
+    "level": 3,
+    "targetChunk": "provide someone with something",
+    "patternSlots": "provide ___ with ...",
+    "clozeTemplate": "I'll ___ the team ___ the test data.",
+    "situationTr": "[Teams] Test verilerini ekibe senin vereceğini söylüyorsun: \"Ekibe test verilerini ben sağlayacağım.\"",
+    "acceptedAnswers": [
+      "I'll provide the team with the test data.",
+      "I'll provide the team with test data.",
+      "I'll provide our team with the test data.",
+      "I'll provide our team with test data."
+    ],
+    "modelSentences": [
+      "I'll provide the team with the test data.",
+      "The tool provides us with a clear error report.",
+      "Could you provide me with the staging URL?"
+    ],
+    "checklistTr": [
+      "Kişiden sonra with koydun mu? (provide the team with …)",
+      "Sıra doğru mu? (provide kişi with şey)",
+      "Neyi sağladığını (the test data) yazdın mı?"
+    ],
+    "noteTr": "Türkçe \"ekibe verilerini sağlamak\" iki yönelme/belirtme ekiyle kurulur ve araya with girmez; İngilizcede provide someone with something kalıbı kullanılır. Aynı şey provide something for/to someone ile de söylenebilir ama bu item with kalıbını sınar. Bağlama göre our team ve the team ikisi de olur.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford \"provide somebody with something\" (also \"for/to somebody\"), Cambridge \"provide sb with sth\", Longman \"provide somebody with something\". SkELL \"provide the team with\" 40 lines. No commonMistake, which is correct (AmE \"provide someone something\" exists). No change."
+  },
+  {
+    "id": "remind-someone-about",
+    "category": "object",
+    "level": 2,
+    "targetChunk": "remind someone about / of something",
+    "patternSlots": "remind ___ about ...",
+    "clozeTemplate": "Let me ___ you ___ Friday's appointment.",
+    "situationTr": "[Arkadaşına mesaj] Cuma günkü randevuyu hatırlatıyorsun: \"Sana Cuma günkü randevuyu hatırlatayım.\"",
+    "acceptedAnswers": [
+      "Let me remind you about Friday's appointment.",
+      "Let me remind you of Friday's appointment.",
+      "I'd like to remind you about Friday's appointment.",
+      "I'd like to remind you of Friday's appointment.",
+      "I just want to remind you about Friday's appointment.",
+      "I just want to remind you of Friday's appointment."
+    ],
+    "modelSentences": [
+      "Let me remind you about Friday's appointment.",
+      "Can you remind me about the demo later today?",
+      "I'll remind the team about the deadline on Thursday."
+    ],
+    "commonMistake": "Let me remind about Friday's appointment.",
+    "checklistTr": [
+      "remind'dan sonra kişiyi yazdın mı? (remind you)",
+      "Konudan önce about ya da of koydun mu?",
+      "Randevu bilgisini (Friday's appointment) yazdın mı?"
+    ],
+    "noteTr": "Türkçe \"sana hatırlatayım\" kişiyi yönelme ekiyle verir, bu yüzden İngilizcede kişiyi atlamak kolaydır; remind her zaman bir kişi nesnesi ister. Bağlama göre about ve of ikisi de olur.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford \"remind somebody about/of something\"; Longman \"remind somebody about something\"; Cambridge \"remind someone of\". SkELL \"remind you about\" 40 lines. Ngram en-2019 2010-19 mean: \"to remind about the\" = 4.8% of \"to remind you about the\". Model 2 changed away from a book frame."
+  },
+  {
+    "id": "blame-something-on",
+    "category": "object",
+    "level": 3,
+    "targetChunk": "blame something on something",
+    "patternSlots": "blame ___ on ...",
+    "clozeTemplate": "Ayşe ___ the failure ___ corrupt test data.",
+    "situationTr": "[Retro] Ayşe'nin başarısızlığın suçunu neye attığını anlatıyorsun: \"Ayşe başarısızlığın suçunu bozuk test verisine attı.\"",
+    "acceptedAnswers": [
+      "Ayşe blamed the failure on corrupt test data.",
+      "Ayşe blamed the failure on corrupted test data.",
+      "Ayşe blamed the failure on bad test data.",
+      "Ayşe blamed the failure on broken test data.",
+      "Ayşe blamed the failure on faulty test data."
+    ],
+    "modelSentences": [
+      "Ayşe blamed the failure on corrupt test data.",
+      "Don't blame the delay on the new tool.",
+      "Mert blames the slow build on the old server."
+    ],
+    "commonMistake": "Ayşe blamed the failure to corrupt test data.",
+    "checklistTr": [
+      "Sebebin önünde on koydun mu? (to değil)",
+      "Önce neyin suçlandığını (the failure), sonra on ve sebebi yazdın mı?",
+      "Geçmiş zaman (blamed) kullandın mı?"
+    ],
+    "noteTr": "Türkçe \"suçu veriye attı\" yönelme ekiyle kurulur ve to yazdırır; İngilizcede blame something on something kalıbı kullanılır. Bağlama göre corrupt, corrupted, bad ve faulty aynı anlamdadır; blamed corrupt test data for the failure da doğrudur ama bu item on kalıbını sınar.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford \"blame something on somebody/something\", Longman same, Cambridge \"blamed their defeat on\". SkELL \"blamed the failure on\" 7 lines. Ngram en-2019 2010-19 mean: \"blamed it to\" = 0.09% of \"blamed it on\". situationTr changed from \"bağladı\" (which elicits attributed to) to \"suçunu … attı\"; added \"corrupted\"; noteTr mentions blame X for Y."
+  },
+  {
+    "id": "find-out",
+    "category": "work_vocab",
+    "level": 1,
+    "targetChunk": "find out (discover information)",
+    "patternSlots": "find ___ why ...",
+    "clozeTemplate": "I'll ___ ___ why this error happens.",
+    "situationTr": "[Teams] Bir hatanın nedenini araştıracağını söylüyorsun: \"Bu hatanın neden oluştuğunu öğreneceğim.\"",
+    "acceptedAnswers": [
+      "I'll find out why this error happens.",
+      "I'll find out why this error occurs.",
+      "I'll find out why this error happened.",
+      "I'll find out why this error is happening.",
+      "I'll find out why this error occurred."
+    ],
+    "modelSentences": [
+      "I'll find out why this error happens.",
+      "Can you find out who owns the payment API?",
+      "I'll find out when the staging server is free."
+    ],
+    "checklistTr": [
+      "\"Öğrenmek\" için find out yazdın mı? (out eksik olmasın)",
+      "Soru sözcüğünden sonra düz cümle sırası var mı? (why this error happens)",
+      "will ile gelecek zamanı kurdun mu? (I'll find out)"
+    ],
+    "noteTr": "Türkçe \"öğrenmek\" tek sözcüktür; İngilizcede find yalnız başına \"bulmak\" demektir, \"bilgiyi öğrenmek\" için find out gerekir. Bağlama göre happens, occurs ve is happening değişebilir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge \"find out how much it will cost\", Oxford find out (phrasal verb), Longman find out. SkELL \"find out why\" 40 lines. A general-English phrasal verb, so dictionary evidence is used instead of a QA domain source. No change."
+  },
+  {
+    "id": "sort-it-out",
+    "category": "work_vocab",
+    "level": 2,
+    "targetChunk": "sort something out (pronoun goes between)",
+    "patternSlots": "sort ___ out",
+    "clozeTemplate": "I'll ___ it ___ this afternoon.",
+    "situationTr": "[Teams] Ayşe bir erişim sorunu bildirdi; ona bu öğleden sonra halledeceğini söylüyorsun: \"Onu bu öğleden sonra hallederim.\"",
+    "acceptedAnswers": [
+      "I'll sort it out this afternoon.",
+      "I'll sort that out this afternoon.",
+      "I can sort it out this afternoon.",
+      "I can sort that out this afternoon."
+    ],
+    "modelSentences": [
+      "I'll sort it out this afternoon.",
+      "Don't worry, I'll sort it out with the vendor.",
+      "Can you sort this out before the daily?"
+    ],
+    "commonMistake": "I'll sort out it this afternoon.",
+    "checklistTr": [
+      "Zamir (it / that) sort ile out arasında mı? (sort it out, sort out it değil)",
+      "\"Halletmek\" için sort … out yazdın mı?",
+      "Zaman bilgisini (this afternoon) yazdın mı?"
+    ],
+    "noteTr": "Türkçe \"hallederim\" tek bir fiildir ve nesneyi araya sokmaz; İngilizcede sort out ayrılabilen bir phrasal verb'dür ve zamir araya girer (sort it out). Bağlama göre it ve that ikisi de olur; sort out özellikle BrE'de yaygındır.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford sort out \"(especially British English) … I'll sort it all out for you\"; Cambridge \"sort something out\". SkELL \"sort it out\" 40 lines. Ngram en-2019 2010-19 mean: \"sort out it\" = 0.05%, \"sort out them\" = 0.35% of the split forms. situationTr: removed the first quoted sentence, which was not part of the answer; noteTr adds the BrE note."
+  },
+  {
+    "id": "work-out-what",
+    "category": "work_vocab",
+    "level": 3,
+    "targetChunk": "work out / figure out (find an answer by thinking)",
+    "patternSlots": "work ___ what ...",
+    "clozeTemplate": "I'm trying to ___ ___ what broke the build.",
+    "situationTr": "[Jira yorumu] Build'i neyin bozduğunu anlamaya çalıştığını yazıyorsun: \"Build'i neyin bozduğunu çözmeye çalışıyorum.\"",
+    "acceptedAnswers": [
+      "I'm trying to work out what broke the build.",
+      "I'm trying to figure out what broke the build.",
+      "I'm trying to work out what's breaking the build.",
+      "I'm trying to figure out what's breaking the build."
+    ],
+    "modelSentences": [
+      "I'm trying to work out what broke the build.",
+      "I can't work out how to export the report.",
+      "Let's figure out what changed in the last release."
+    ],
+    "checklistTr": [
+      "\"Çözmek / anlamak\" için work out (ya da figure out) yazdın mı? (out eksik olmasın)",
+      "Soru sözcüğünden sonra düz cümle sırası var mı? (what broke the build)",
+      "trying to + yalın fiil (work out) kurdun mu?"
+    ],
+    "noteTr": "Türkçe \"çözmek\" hem bulmaca hem sorun için kullanılır; İngilizcede \"düşünerek cevabı bulmak\" anlamı work out ya da figure out ile verilir. Bağlama göre ikisi de olur; figure out AmE'de daha yaygındır.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford work out \"I couldn't work out where…\", figure out \"figure out how, what\"; Cambridge work sth out \"(US usually figure sth out)\". SkELL \"work out what\" 40 lines. Rewritten: the old canonical paraphrased a book example line. Mistake \"work what caused\" removed (0 in Ngram). noteTr: the AmE note follows Cambridge."
+  },
+  {
+    "id": "call-off",
+    "category": "work_vocab",
+    "level": 2,
+    "targetChunk": "call off (cancel something planned)",
+    "patternSlots": "call ___ ...",
+    "clozeTemplate": "They ___ ___ the concert because the singer was ill.",
+    "situationTr": "[Arkadaşına mesaj] Şarkıcı hastalandığı için konserin iptal edildiğini söylüyorsun: \"Şarkıcı hasta olduğu için konseri iptal ettiler.\"",
+    "acceptedAnswers": [
+      "They called off the concert because the singer was ill.",
+      "They called the concert off because the singer was ill.",
+      "They called off the concert because the singer was sick.",
+      "They called the concert off because the singer was sick."
+    ],
+    "modelSentences": [
+      "They called off the concert because the singer was ill.",
+      "We had to call off the demo because the test server was down.",
+      "Did they call the meeting off?"
+    ],
+    "commonMistake": "They cancelled off the concert because the singer was ill.",
+    "checklistTr": [
+      "\"İptal etmek\" için call off yazdın mı? (off eksik olmasın)",
+      "Nesne (the concert) call ile off arasında ya da off'tan sonra mı?",
+      "Sebebi (because the singer was ill) yazdın mı?"
+    ],
+    "noteTr": "Türkçe \"iptal etmek\" tek fiildir; İngilizcede planlanmış bir etkinliği iptal etmek için gündelik dilde call off kullanılır, cancel ise parçacık almaz. Bağlama göre nesne call ile off arasına da girebilir (called the concert off), ill BrE, sick AmE'de daha yaygındır.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford call something off \"to cancel something\"; Cambridge \"They've called off the wedding\". SkELL \"called off the concert\" 1 line. Ngram en-2019 2010-19 mean: \"cancelled off the\" = 0.04% of \"called off the\" (rare but attested). Rewritten: the old match/rain canonical paraphrased a book exercise. Model 2 no longer repeats \"because … was ill\"."
+  },
+  {
+    "id": "put-off",
+    "category": "work_vocab",
+    "level": 2,
+    "targetChunk": "put off (postpone)",
+    "patternSlots": "put ___ ...",
+    "clozeTemplate": "We had to ___ ___ the release for a week.",
+    "situationTr": "[Teams] Release'in bir hafta ertelendiğini söylüyorsun: \"Release'i bir hafta ertelemek zorunda kaldık.\"",
+    "acceptedAnswers": [
+      "We had to put off the release for a week.",
+      "We had to put the release off for a week.",
+      "We had to postpone the release for a week.",
+      "We had to postpone the release by a week.",
+      "We had to put off the release by a week.",
+      "We had to put the release off by a week.",
+      "We've had to put off the release for a week.",
+      "We've had to put the release off for a week."
+    ],
+    "modelSentences": [
+      "We had to put off the release for a week.",
+      "Can we put off the retro until Thursday?",
+      "Please do not put the update off any longer."
+    ],
+    "checklistTr": [
+      "\"Ertelemek\" için put off (ya da postpone) yazdın mı? (off eksik olmasın)",
+      "Nesne (the release) put ile off arasında ya da off'tan sonra mı?",
+      "had to + yalın fiil ve süreyi (for a week) yazdın mı?"
+    ],
+    "noteTr": "Türkçe \"ertelemek\" tek fiildir; İngilizcede put off ayrılabilen bir phrasal verb'dür ve gündelik dilde postpone ile aynı anlamdadır. Bağlama göre postpone daha resmîdir, for a week ve by a week ikisi de olur.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford put something off \"synonym postpone, delay\", \"put off doing something\"; Cambridge \"put something off (DELAY)\". SkELL \"put off the\" 40 lines. Ngram en-2019 2010-19 mean: \"postponed by a week\" = 17% of \"postponed for a week\", so by-variants were added. Mistake \"put the release for a week\" removed (0 attestation). Daily rewritten (dentist trope appears in the books and in Oxford)."
+  },
+  {
+    "id": "fill-in-a-form",
+    "category": "work_vocab",
+    "level": 1,
+    "targetChunk": "fill in (BrE) / fill out (AmE) a form",
+    "patternSlots": "fill ___ ...",
+    "clozeTemplate": "Mert, please ___ ___ the access form.",
+    "situationTr": "[Teams] Yeni gelen Mert'ten bir formu doldurmasını istiyorsun: \"Mert, lütfen erişim formunu doldur.\"",
+    "acceptedAnswers": [
+      "Mert, please fill in the access form.",
+      "Mert, please fill out the access form.",
+      "Mert, please fill the access form in.",
+      "Mert, please fill the access form out.",
+      "Mert, please complete the access form."
+    ],
+    "modelSentences": [
+      "Mert, please fill in the access form.",
+      "You need to fill in this form before Friday.",
+      "Could you fill out the survey when you have a minute?"
+    ],
+    "commonMistake": "Mert, please fill up the access form.",
+    "checklistTr": [
+      "\"Doldurmak\" için fill in ya da fill out yazdın mı? (fill up değil)",
+      "Nesne (the access form) fill ile in/out arasında ya da sonrasında mı?",
+      "Hitap ve please'i yazdın mı?"
+    ],
+    "noteTr": "Türkçe \"formu doldurmak\" ile \"bardağı doldurmak\" aynı fiildir, bu yüzden fill up yazılır; oysa fill up bir kabı (depo, bardak) tamamen doldurmaktır. Bağlama göre fill in daha çok BrE'dir, fill out hem AmE hem BrE'de kullanılır.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford fill in \"(especially British English) (also fill something out British and North American English)\"; Cambridge fill sth in \"(also fill sth out)\"; Cambridge fill up = make a container full. SkELL \"fill in the form\" 40 lines. Ngram en-2019 2010-19 mean: \"fill up the form\" = 6.2% of \"fill in the form\", 3.0% of \"fill out the form\". noteTr BrE/AmE wording corrected to match Oxford."
+  },
+  {
+    "id": "come-up-with",
+    "category": "work_vocab",
+    "level": 2,
+    "targetChunk": "come up with (think of an idea or solution)",
+    "patternSlots": "come up ___ ...",
+    "clozeTemplate": "Ayşe ___ ___ ___ a quick workaround for the problem.",
+    "situationTr": "[Retro] Ayşe'nin geçici bir çözüm bulduğunu anlatıyorsun: \"Ayşe sorun için hızlı bir geçici çözüm üretti.\"",
+    "acceptedAnswers": [
+      "Ayşe came up with a quick workaround for the problem.",
+      "Ayşe came up with a quick workaround for the issue.",
+      "Ayşe came up with a fast workaround for the problem.",
+      "Ayşe came up with a fast workaround for the issue."
+    ],
+    "modelSentences": [
+      "Ayşe came up with a quick workaround for the problem.",
+      "We need to come up with a better test strategy.",
+      "Can you come up with a name for the new tool?"
+    ],
+    "commonMistake": "Ayşe came up a quick workaround for the problem.",
+    "checklistTr": [
+      "\"Üretmek / bulmak\" için come up with yazdın mı? (with eksik olmasın)",
+      "up ile with arasına nesne girmedi, değil mi? (come up with + isim)",
+      "Geçmiş zaman (came) kullandın mı?"
+    ],
+    "noteTr": "Türkçe \"üretti / buldu\" tek fiildir; İngilizcede bir fikir ya da çözüm bulmak için find yerine come up with daha doğaldır ve with atlanmaz. Bağlama göre problem ve issue ikisi de olur.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford come up with \"to find or produce an answer…\", Cambridge \"come up with something\". SkELL \"came up with a\" 40 lines. Ngram en-2019 2010-19 mean: \"came up an idea\" = 0.12%, \"come up an idea\" = 0.05% of the with forms. noteTr cut from 3 to 2 sentences."
+  },
+  {
+    "id": "get-held-up",
+    "category": "work_vocab",
+    "level": 3,
+    "targetChunk": "be / get held up (delayed)",
+    "patternSlots": "... held ___ ...",
+    "clozeTemplate": "Sorry, I got ___ ___ in my previous meeting.",
+    "situationTr": "[Teams] Toplantıya geç gireceğin için özür diliyorsun: \"Özür dilerim, önceki toplantıda oyalandım.\"",
+    "acceptedAnswers": [
+      "Sorry, I got held up in my previous meeting.",
+      "Sorry, I was held up in my previous meeting.",
+      "Sorry, I've been held up in my previous meeting.",
+      "Sorry, I got held up in the previous meeting.",
+      "Sorry, I was held up in the previous meeting."
+    ],
+    "modelSentences": [
+      "Sorry, I got held up in my previous meeting.",
+      "Sorry I'm late, I was held up in traffic.",
+      "The release was held up by a last-minute bug."
+    ],
+    "commonMistake": "Sorry, I got hold up in my previous meeting.",
+    "checklistTr": [
+      "\"Oyalandım\" için held up (V3) yazdın mı? (hold up değil)",
+      "held'den önce was ya da got var mı?",
+      "Nerede oyalandığını (in my previous meeting) yazdın mı?"
+    ],
+    "noteTr": "Türkçe \"oyalandım\" öznenin kendisi oyalanmış gibi kurulur; İngilizcede gecikmeye başka bir şey sebep olduğu için edilgen held up kullanılır. Bağlama göre was held up ve got held up aynı anlama gelir, got daha gündeliktir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge hold sb/sth up \"B1 to delay someone or something … I was held up by traffic\"; Oxford hold up \"The project was held up by…\". SkELL \"got held up\" 30 lines. Ngram en-2019 2010-19 mean: \"was hold up\" = 1.09% of \"was held up\". Fixes: checklist item 2 was garbled; noteTr no longer calls \"oyalandım\" active; model 2 now uses \"Sorry I'm late\"."
+  },
+  {
+    "id": "carry-out",
+    "category": "work_vocab",
+    "level": 2,
+    "targetChunk": "carry out (a test / scan / investigation)",
+    "patternSlots": "carry ___ ...",
+    "clozeTemplate": "We ___ ___ the security scan last week.",
+    "situationTr": "[Jira yorumu] Güvenlik taramasının geçen hafta yapıldığını yazıyorsun: \"Güvenlik taramasını geçen hafta yaptık.\"",
+    "acceptedAnswers": [
+      "We carried out the security scan last week.",
+      "We conducted the security scan last week.",
+      "We performed the security scan last week.",
+      "We ran the security scan last week.",
+      "Last week we carried out the security scan.",
+      "Last week we conducted the security scan.",
+      "Last week we ran the security scan."
+    ],
+    "modelSentences": [
+      "We carried out the security scan last week.",
+      "Deniz will carry out the regression tests tomorrow.",
+      "We carried out a short survey of the team's needs."
+    ],
+    "commonMistake": "We carried the security scan last week.",
+    "checklistTr": [
+      "\"Yapmak / yürütmek\" için carry out (ya da conduct / perform / run) yazdın mı? (out eksik olmasın)",
+      "Nesne (the security scan) fiilden sonra mı?",
+      "Geçmiş zaman (carried out) ve last week var mı?"
+    ],
+    "noteTr": "Türkçe \"yapmak\" çok geniş bir fiildir ve do ile make arasında kararsız bırakır; bir test, tarama ya da inceleme için İngilizcede carry out, conduct, perform ya da run gelir. Bağlama göre conduct ve perform daha resmî, run daha gündeliktir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford carry out \"Extensive tests have been carried out\"; Cambridge carry sth out; Oxford run \"run a test, a check\". SkELL \"carried out the\" 40 lines. Ngram en-2019 2010-19 mean: \"carried the survey\" = 3.8% of \"carried out the survey\". Added \"ran\" (an established collocation in QA, as the work_vocab rule requires). noteTr: \"carry out en gündelik\" was wrong, so it was corrected."
+  }
+]
