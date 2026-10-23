@@ -1,0 +1,114 @@
+{
+  "make-a-decision": [
+    "Who is going to ___ the final ___?",
+    "It is hard to ___ ___ ___ without more data."
+  ],
+  "make-a-mistake": [
+    "Everyone ___ ___, so don't worry about it.",
+    "Ayşe ___ a ___ in the date format, but she fixed it quickly."
+  ],
+  "make-progress": [
+    "Ayşe has ___ a lot of ___ this week.",
+    "We can't ___ any ___ until the API is ready."
+  ],
+  "make-changes": [
+    "Please don't ___ any ___ to the schema without telling me.",
+    "We'll need to ___ a ___ to the login flow."
+  ],
+  "carry-out-research": [
+    "Ayşe ___ ___ some research on load-testing tools.",
+    "Before we ___ ___ any research, let's agree on the questions."
+  ],
+  "take-action": [
+    "The team ___ ___ as soon as the alert fired.",
+    "If nobody ___ ___ now, the problem will get worse."
+  ],
+  "take-a-risk": [
+    "Mert ___ ___ ___ and shipped the fix without a review.",
+    "Nobody wants to ___ ___ ___ with customer data."
+  ],
+  "pay-attention-to": [
+    "You should ___ ___ to the logs before you restart the service.",
+    "Mert wasn't ___ ___ in the meeting."
+  ],
+  "highly-unlikely": [
+    "It is ___ ___ that Ayşe's change broke the build.",
+    "That scenario is ___ ___, but we should still test it."
+  ],
+  "strongly-recommend": [
+    "We ___ ___ updating the browser before testing.",
+    "Ayşe ___ ___ that we back up the data first."
+  ],
+  "fully-aware": [
+    "Mert is ___ ___ of the risks.",
+    "We are ___ ___ that the deadline is tight."
+  ],
+  "deeply-concerned": [
+    "Ayşe is ___ ___ about the number of open bugs.",
+    "We are ___ ___ about the security of the login page."
+  ],
+  "absolutely-exhausted": [
+    "The whole team was ___ ___ by Friday.",
+    "After the night shift, Deniz looked ___ ___."
+  ],
+  "provide-evidence": [
+    "Please ___ ___ of the problem, such as a screenshot or a log.",
+    "The test results ___ ___ that the new cache is faster."
+  ],
+  "draw-a-conclusion": [
+    "What ___ can we ___ from these logs?",
+    "Mert ___ the wrong ___ because he only checked Chrome."
+  ],
+  "take-into-consideration": [
+    "Please ___ the browser version ___ ___ when you report the bug.",
+    "Did you ___ the time zones ___ ___?"
+  ],
+  "draw-attention-to": [
+    "The error message ___ ___ to a missing parameter.",
+    "Let me ___ your ___ to the date format on page two."
+  ],
+  "underlying-cause": [
+    "We found the ___ ___: a timeout that was set too low.",
+    "Fixing the symptom is not enough; we also need to find the ___ ___."
+  ],
+  "minimise-the-impact": [
+    "We rolled back the change quickly to ___ the ___ on customers.",
+    "To ___ the ___ of the delay, Ayşe told the client early."
+  ],
+  "tend-to-agree": [
+    "I ___ ___ ___, but let's check the numbers first.",
+    "Most testers ___ ___ ___ that exploratory testing finds odd bugs."
+  ],
+  "agree-up-to-a-point": [
+    "I agree ___ ___ ___ ___, but the deadline is not realistic.",
+    "Deniz agreed ___ ___ ___ ___, then asked for a demo."
+  ],
+  "have-serious-misgivings": [
+    "Ayşe has ___ ___ about the new release date.",
+    "I have ___ ___ about merging this on a Friday."
+  ],
+  "reserve-judgement": [
+    "Let's ___ ___ until the performance tests have finished.",
+    "Mert asked us to ___ ___ on the new tool for a week."
+  ],
+  "have-second-thoughts": [
+    "Ayşe ___ ___ ___ about merging without a review.",
+    "If you're ___ ___ ___, tell me before we start."
+  ],
+  "constructive-criticism": [
+    "Ayşe gave me ___ ___ on my test plan.",
+    "Good review comments should be ___ ___, not personal attacks."
+  ],
+  "give-credit-to": [
+    "I'd like to ___ ___ to Ayşe for finding the bug.",
+    "Always ___ ___ to the person who found the issue."
+  ],
+  "dont-quite-understand": [
+    "Sorry, I ___ ___ ___ the second step.",
+    "I ___ ___ ___ why the test fails only on Chrome."
+  ],
+  "take-advantage-of": [
+    "We should ___ ___ of the quiet morning to update the test data.",
+    "Deniz ___ ___ of the long weekend to learn Docker."
+  ]
+}

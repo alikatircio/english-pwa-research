@@ -1,0 +1,114 @@
+{
+  "make-a-decision": {
+    "sentence": "I can't make a decision about which phone to buy.",
+    "blank": "I can't ___ a ___ about which phone to buy."
+  },
+  "make-a-mistake": {
+    "sentence": "Don't worry, everyone makes mistakes when they learn to drive.",
+    "blank": "Don't worry, everyone ___ ___ when they learn to drive."
+  },
+  "make-progress": {
+    "sentence": "I'm making slow progress with my Spanish.",
+    "blank": "I'm ___ slow ___ with my Spanish."
+  },
+  "make-changes": {
+    "sentence": "I want to make a few changes to my daily routine.",
+    "blank": "I want to ___ a few ___ to my daily routine."
+  },
+  "carry-out-research": {
+    "sentence": "Before buying a laptop, I carried out some research online.",
+    "blank": "Before buying a laptop, I ___ ___ some research online."
+  },
+  "take-action": {
+    "sentence": "If you smell gas, you must take action immediately.",
+    "blank": "If you smell gas, you must ___ ___ immediately."
+  },
+  "take-a-risk": {
+    "sentence": "I took a risk and tried the spicy soup.",
+    "blank": "I ___ a ___ and tried the spicy soup."
+  },
+  "pay-attention-to": {
+    "sentence": "Please pay attention to the road signs.",
+    "blank": "Please ___ ___ to the road signs."
+  },
+  "highly-unlikely": {
+    "sentence": "It is highly unlikely that it will snow in July.",
+    "blank": "It is ___ ___ that it will snow in July."
+  },
+  "strongly-recommend": {
+    "sentence": "I strongly recommend the fish soup at that restaurant.",
+    "blank": "I ___ ___ the fish soup at that restaurant."
+  },
+  "fully-aware": {
+    "sentence": "I am fully aware that my room is a mess.",
+    "blank": "I am ___ ___ that my room is a mess."
+  },
+  "deeply-concerned": {
+    "sentence": "My parents are deeply concerned about the rising prices.",
+    "blank": "My parents are ___ ___ about the rising prices."
+  },
+  "absolutely-exhausted": {
+    "sentence": "We walked all day and I was absolutely exhausted.",
+    "blank": "We walked all day and I was ___ ___."
+  },
+  "provide-evidence": {
+    "sentence": "The photo provides evidence that we were at the beach.",
+    "blank": "The photo ___ ___ that we were at the beach."
+  },
+  "draw-a-conclusion": {
+    "sentence": "From her smile, I drew the conclusion that the exam went well.",
+    "blank": "From her smile, I ___ the ___ that the exam went well."
+  },
+  "take-into-consideration": {
+    "sentence": "When you plan the trip, take the weather into consideration.",
+    "blank": "When you plan the trip, ___ the weather ___ ___."
+  },
+  "draw-attention-to": {
+    "sentence": "The poster draws attention to the new bus route.",
+    "blank": "The poster ___ ___ to the new bus route."
+  },
+  "underlying-cause": {
+    "sentence": "The underlying cause of my headaches turned out to be too little water.",
+    "blank": "The ___ ___ of my headaches turned out to be too little water."
+  },
+  "minimise-the-impact": {
+    "sentence": "I left early to minimise the impact of the traffic.",
+    "blank": "I left early to ___ the ___ of the traffic."
+  },
+  "tend-to-agree": {
+    "sentence": "I tend to agree with my sister; the film was too long.",
+    "blank": "I ___ ___ ___ with my sister; the film was too long."
+  },
+  "agree-up-to-a-point": {
+    "sentence": "I agree up to a point: pizza is great, but not every day.",
+    "blank": "I agree ___ ___ a ___: pizza is great, but not every day."
+  },
+  "have-serious-misgivings": {
+    "sentence": "I have serious misgivings about buying a second-hand car from a stranger.",
+    "blank": "I have ___ ___ about buying a second-hand car from a stranger."
+  },
+  "reserve-judgement": {
+    "sentence": "I'll reserve judgement on the new cafe until I try the coffee.",
+    "blank": "I'll ___ ___ on the new cafe until I try the coffee."
+  },
+  "have-second-thoughts": {
+    "sentence": "I'm having second thoughts about this haircut.",
+    "blank": "I'm ___ ___ ___ about this haircut."
+  },
+  "constructive-criticism": {
+    "sentence": "My coach gave me constructive criticism about my swimming.",
+    "blank": "My coach gave me ___ ___ about my swimming."
+  },
+  "give-credit-to": {
+    "sentence": "Let's give credit to Ayşe for cooking dinner tonight.",
+    "blank": "Let's ___ ___ to Ayşe for cooking dinner tonight."
+  },
+  "dont-quite-understand": {
+    "sentence": "I don't quite understand why this game is so popular.",
+    "blank": "I ___ ___ ___ why this game is so popular."
+  },
+  "take-advantage-of": {
+    "sentence": "I took advantage of the sale and bought new shoes.",
+    "blank": "I ___ ___ of the sale and bought new shoes."
+  }
+}

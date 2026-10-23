@@ -1,0 +1,886 @@
+[
+  {
+    "id": "make-a-decision",
+    "category": "work_vocab",
+    "level": 2,
+    "targetChunk": "make a decision (not do)",
+    "patternSlots": "make a ___ on ...",
+    "clozeTemplate": "We need to ___ ___ ___ on this by Friday.",
+    "situationTr": "[Teams, ekip kanalı] Bu konuda son tarihi hatırlatıyorsun: \"Bu konuda Cuma'ya kadar karar vermemiz gerekiyor.\"",
+    "acceptedAnswers": [
+      "We need to make a decision on this by Friday.",
+      "We need to make a decision about this by Friday.",
+      "We have to make a decision on this by Friday.",
+      "We have to make a decision about this by Friday.",
+      "We must make a decision on this by Friday.",
+      "We need to take a decision on this by Friday."
+    ],
+    "modelSentences": [
+      "We need to make a decision on this by Friday.",
+      "Who is going to make the final decision?",
+      "It is hard to make a decision without more data."
+    ],
+    "commonMistake": "We need to do a decision on this by Friday.",
+    "checklistTr": [
+      "Karar için make kullandın mı? (do / give değil)",
+      "make a decision: a (tanımlık) var mı?",
+      "Son tarih için by Friday yazdın mı?"
+    ],
+    "noteTr": "Türkçe \"karar vermek\" der; İngilizce give / do değil make a decision ister. BrE'de take a decision de kullanılır (daha resmî); AmE'de make yaygındır, bağlama göre değişir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Longman decision collocations: make a decision; take a decision marked British English (= important or formal decision), which supports the noteTr register claim. Cambridge decision: decision on. SkELL make a decision on: 541 lines. Ngram do a decision = 0.01% of make a decision (Longman common error family). Fix: situationTr typo (Konuda -> Bu konuda)."
+  },
+  {
+    "id": "make-a-mistake",
+    "category": "work_vocab",
+    "level": 1,
+    "targetChunk": "make a mistake (not do)",
+    "patternSlots": "I made a ___ ...",
+    "clozeTemplate": "I ___ a ___ and deployed to the wrong environment.",
+    "situationTr": "[Teams, ekip kanalı] Hatanı kabul ediyorsun: \"Hata yaptım, yanlış ortama deploy ettim.\"",
+    "acceptedAnswers": [
+      "I made a mistake and deployed to the wrong environment.",
+      "I've made a mistake and deployed to the wrong environment.",
+      "I made a mistake and deployed it to the wrong environment.",
+      "I made a mistake: I deployed to the wrong environment."
+    ],
+    "modelSentences": [
+      "I made a mistake and deployed to the wrong environment.",
+      "Everyone makes mistakes, so don't worry about it.",
+      "Ayşe made a mistake in the date format, but she fixed it quickly."
+    ],
+    "commonMistake": "I did a mistake and deployed to the wrong environment.",
+    "checklistTr": [
+      "Hata için make kullandın mı? (do değil)",
+      "make fiilini doğru zamanda çektin mi? (made / have made)",
+      "a mistake: tanımlık var mı?"
+    ],
+    "noteTr": "Türkçe \"hata yapmak\" der; İngilizcede do a mistake denmez, make a mistake denir. Yazılım bağlamında bir de \"my mistake\" kısa biçimi vardır.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Longman mistake: COMMON ERRORS says do a mistake is wrong, say make a mistake. Oxford mistake: make a mistake. Ngram did a mistake = 0.07% of made a mistake. Fix: work context (04 §2.3 work_vocab needs a work channel); bus scene replaced by a deploy to the wrong environment; cloze, answers, model 1 and mistake updated."
+  },
+  {
+    "id": "make-progress",
+    "category": "work_vocab",
+    "level": 2,
+    "targetChunk": "make progress (uncountable)",
+    "patternSlots": "We're making good ___ on ...",
+    "clozeTemplate": "We're ___ ___ ___ on the regression tests.",
+    "situationTr": "[Daily standup] Durumu özetliyorsun: \"Regresyon testlerinde iyi ilerleme kaydediyoruz.\"",
+    "acceptedAnswers": [
+      "We're making good progress on the regression tests.",
+      "We're making good progress with the regression tests.",
+      "We've made good progress on the regression tests.",
+      "We've made good progress with the regression tests."
+    ],
+    "modelSentences": [
+      "We're making good progress on the regression tests.",
+      "Ayşe has made a lot of progress this week.",
+      "We can't make any progress until the API is ready."
+    ],
+    "commonMistake": "We are doing good progress on the regression tests.",
+    "checklistTr": [
+      "İlerleme için make progress kullandın mı? (do / take değil)",
+      "progress sayılamaz: progresses ya da a progress yazmadın, değil mi?",
+      "on / with ile konuyu bağladın mı?"
+    ],
+    "noteTr": "Türkçe \"ilerleme kaydetmek\" der; İngilizcede make progress denir ve progress sayılamaz isimdir (a progress / progresses yok). Standup'ta en doğal kalıplardan biri.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Longman progress: make progress, progress on, made good progress with; usage note says progress is not used with a. Oxford progress: progress on something. SkELL make progress on: 291 lines. Ngram do progress = 0.86% of make progress. No change."
+  },
+  {
+    "id": "make-changes",
+    "category": "work_vocab",
+    "level": 2,
+    "targetChunk": "make changes / a change to something",
+    "patternSlots": "I made a few ___ to ...",
+    "clozeTemplate": "I ___ a few ___ to the config file.",
+    "situationTr": "[Jira yorumu] Yaptığın işi bildiriyorsun: \"Yapılandırma dosyasında birkaç değişiklik yaptım.\"",
+    "acceptedAnswers": [
+      "I made a few changes to the config file.",
+      "I've made a few changes to the config file.",
+      "I made some changes to the config file.",
+      "I've made some changes to the config file.",
+      "I made a few changes in the config file.",
+      "I made a couple of changes to the config file."
+    ],
+    "modelSentences": [
+      "I made a few changes to the config file.",
+      "Please don't make any changes to the schema without telling me.",
+      "We'll need to make a change to the login flow."
+    ],
+    "commonMistake": "I did some changes to the config file.",
+    "checklistTr": [
+      "Değişiklik için make kullandın mı? (do değil)",
+      "change sayılabilir mi? (a few changes, some changes)",
+      "to ile neyin değiştiğini bağladın mı?"
+    ],
+    "noteTr": "Türkçe \"değişiklik yapmak\" der; İngilizcede make changes denir (do changes değil). Değişikliğin yapıldığı yer için changes to ... kullanılır.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Longman change collocations: make a change, make some changes to the design. Ngram did some changes = 1.47% of made some changes (did a few changes = 0, so the mistake now uses some). changes in the config file kept: location reading is natural."
+  },
+  {
+    "id": "carry-out-research",
+    "category": "work_vocab",
+    "level": 2,
+    "targetChunk": "carry out research (not make research)",
+    "patternSlots": "carry out some ___ before ...",
+    "clozeTemplate": "We should ___ ___ some research before choosing a new tool.",
+    "situationTr": "[Teams] Karar öncesi bir adım öneriyorsun: \"Yeni bir araç seçmeden önce biraz araştırma yapmalıyız.\"",
+    "acceptedAnswers": [
+      "We should carry out some research before choosing a new tool.",
+      "We should carry out some research before we choose a new tool.",
+      "We need to carry out some research before choosing a new tool.",
+      "We need to carry out some research before we choose a new tool.",
+      "We should conduct some research before choosing a new tool.",
+      "We should do some research before choosing a new tool.",
+      "We should do some research before we choose a new tool."
+    ],
+    "modelSentences": [
+      "We should carry out some research before choosing a new tool.",
+      "Ayşe carried out some research on load-testing tools.",
+      "Before we carry out any research, let's agree on the questions."
+    ],
+    "commonMistake": "We should make some research before choosing a new tool.",
+    "checklistTr": [
+      "Araştırma için carry out / conduct / do kullandın mı? (make değil)",
+      "research sayılamaz: researches yazmadın, değil mi?",
+      "before'dan sonra -ing ya da özne + fiil var mı?"
+    ],
+    "noteTr": "Türkçe \"araştırma yapmak\" der; İngilizcede make research denmez. Resmî dilde carry out / conduct research, günlük dilde do some research kullanılır; bağlama göre üçü de olur.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Longman research: do/carry out research (conduct research formal) and COMMON ERRORS: do not say make research. Oxford research: do/conduct/undertake research; plural researches is rare BrE. SkELL carry out some research: 11 lines. Ngram make some research is far below do/carry out/conduct. No change."
+  },
+  {
+    "id": "take-action",
+    "category": "work_vocab",
+    "level": 2,
+    "targetChunk": "take action (not do an action)",
+    "patternSlots": "We need to take ___ before ...",
+    "clozeTemplate": "We need to ___ ___ before customers notice.",
+    "situationTr": "[Teams, olay kanalı] Aciliyeti vurguluyorsun: \"Müşteriler fark etmeden önce harekete geçmeliyiz.\"",
+    "acceptedAnswers": [
+      "We need to take action before customers notice.",
+      "We need to take action before the customers notice.",
+      "We have to take action before customers notice.",
+      "We should take action before customers notice.",
+      "We must take action before customers notice.",
+      "We should take action before the customers notice."
+    ],
+    "modelSentences": [
+      "We need to take action before customers notice.",
+      "The team took action as soon as the alert fired.",
+      "If nobody takes action now, the problem will get worse."
+    ],
+    "commonMistake": "We need to do an action before customers notice.",
+    "checklistTr": [
+      "\"Harekete geçmek\" için take action yazdın mı? (do an action değil)",
+      "Kalıbı tanımlıksız (take action) kurdun mu?",
+      "before'dan sonra şimdiki zaman var mı? (notice, will notice değil)"
+    ],
+    "noteTr": "Türkçe \"harekete geçmek / önlem almak\" tek ifadedir; İngilizcede take action denir ve action bu anlamda sayılamazdır. take steps / take measures de yakın anlamlıdır.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Longman action: take action (= do something to deal with a problem), 14 hits. Oxford action: to take action/steps/measures. Ngram do an action = 0.54% of take action. take an action = 2.47% (used in AmE/tech), so the checklist no longer calls it wrong; it only asks for the article-free form."
+  },
+  {
+    "id": "take-a-risk",
+    "category": "work_vocab",
+    "level": 1,
+    "targetChunk": "take a risk (not get / do)",
+    "patternSlots": "I don't want to take a ___ ...",
+    "clozeTemplate": "I don't want to ___ ___ ___ by releasing on Friday.",
+    "situationTr": "[Teams, sürüm kararı] Ekibe yazıyorsun: \"Cuma günü yayına alarak risk almak istemiyorum.\"",
+    "acceptedAnswers": [
+      "I don't want to take a risk by releasing on Friday.",
+      "I don't want to take risks by releasing on Friday.",
+      "I don't want to take any risks by releasing on Friday.",
+      "I don't want to take the risk of releasing on Friday."
+    ],
+    "modelSentences": [
+      "I don't want to take a risk by releasing on Friday.",
+      "Mert took a risk and shipped the fix without a review.",
+      "Nobody wants to take a risk with customer data."
+    ],
+    "checklistTr": [
+      "\"Risk almak\" için take kullandın mı? (get / do değil)",
+      "take fiilinden sonra a risk / risks / the risk of kullandın mı?",
+      "by + -ing ile nasıl yapıldığını bağladın mı?"
+    ],
+    "noteTr": "Türkçe \"risk almak\" der; İngilizcede de take a risk / take risks denir. take the risk of + -ing ise neyin riskini aldığını söyler; ikisi de bağlama göre doğrudur.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford risk: take a risk / take risks. Longman risk: take a risk, take the risk of doing something. SkELL take a risk by: 38 lines. Fixes: work context (hiking -> releasing on Friday); commonMistake get a risk removed (SkELL 0 real lines, Ngram 0.40% mostly other senses); unsupported \"more formal\" claim removed from noteTr."
+  },
+  {
+    "id": "pay-attention-to",
+    "category": "work_vocab",
+    "level": 1,
+    "targetChunk": "pay attention to something (not give / put)",
+    "patternSlots": "pay attention to ...",
+    "clozeTemplate": "Please ___ ___ to the error messages.",
+    "situationTr": "[Code review] Takım arkadaşına hatırlatıyorsun: \"Lütfen hata mesajlarına dikkat et.\"",
+    "acceptedAnswers": [
+      "Please pay attention to the error messages.",
+      "Please pay close attention to the error messages.",
+      "Pay attention to the error messages.",
+      "Please pay careful attention to the error messages."
+    ],
+    "modelSentences": [
+      "Please pay attention to the error messages.",
+      "You should pay attention to the logs before you restart the service.",
+      "Mert wasn't paying attention in the meeting."
+    ],
+    "commonMistake": "Please put attention to the error messages.",
+    "checklistTr": [
+      "\"Dikkat etmek\" için pay attention yazdın mı? (put / make değil)",
+      "pay attention'dan sonra to koydun mu?",
+      "attention sayılamaz: a attention / attentions yazmadın, değil mi?"
+    ],
+    "noteTr": "Türkçe \"dikkat etmek\" tek fiildir; İngilizcede pay attention to denir (put / make attention değil). Vurgu için pay close attention to kullanılır.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Longman attention: pay attention to something/somebody. Oxford attention: Please pay close attention to. Ngram give attention to = 4.31% (correct English), so the old mistake was replaced by put attention to = 0.03%. noteTr said pay = harcamak, which is wrong (Oxford: pay = give attention); rewritten."
+  },
+  {
+    "id": "highly-unlikely",
+    "category": "work_vocab",
+    "level": 3,
+    "targetChunk": "highly unlikely (strengthening adverb)",
+    "patternSlots": "It is highly ___ that ...",
+    "clozeTemplate": "It is ___ ___ that the bug comes from the API.",
+    "situationTr": "[Jira yorumu] Bir hipotezi değerlendiriyorsun: \"Hatanın API'den kaynaklanması çok düşük bir ihtimal.\"",
+    "acceptedAnswers": [
+      "It is highly unlikely that the bug comes from the API.",
+      "It is highly unlikely that the bug is caused by the API.",
+      "It is highly unlikely that the API causes the bug.",
+      "It is extremely unlikely that the bug comes from the API.",
+      "It is extremely unlikely that the bug is caused by the API.",
+      "It is very unlikely that the bug comes from the API."
+    ],
+    "modelSentences": [
+      "It is highly unlikely that the bug comes from the API.",
+      "It is highly unlikely that Ayşe's change broke the build.",
+      "That scenario is highly unlikely, but we should still test it."
+    ],
+    "commonMistake": "It is strongly unlikely that the bug comes from the API.",
+    "checklistTr": [
+      "highly unlikely yazdın mı? (strongly unlikely değil)",
+      "unlikely ile It is ... that kalıbını kurdun mu?",
+      "that'ten sonra tam bir cümle (özne + fiil) var mı?"
+    ],
+    "noteTr": "Türkçe \"çok düşük ihtimal\" der; İngilizcede pekiştirici zarf sıfata göre seçilir: highly unlikely / improbable, ama strongly unlikely denmez. very unlikely de doğrudur ama daha sıradan; highly daha resmî ve yazılı dildedir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford unlikely: highly unlikely, extremely unlikely in the it is unlikely that pattern. Longman unlikely collocations: highly/most/very unlikely. Ngram strongly unlikely = 0.01%. Fix: very unlikely added (noteTr calls it correct; Ngram 71% of highly unlikely); checklist 2 rewritten (was unclear)."
+  },
+  {
+    "id": "strongly-recommend",
+    "category": "work_vocab",
+    "level": 2,
+    "targetChunk": "strongly recommend (+ -ing / that)",
+    "patternSlots": "I strongly ___ ...",
+    "clozeTemplate": "I ___ ___ running one more regression round before the release.",
+    "situationTr": "[Teams, sürüm kararı] Ekibe tavsiye veriyorsun: \"Yayından önce bir regresyon turu daha yapmanızı şiddetle tavsiye ederim.\"",
+    "acceptedAnswers": [
+      "I strongly recommend running one more regression round before the release.",
+      "I strongly recommend that you run one more regression round before the release.",
+      "I would strongly recommend running one more regression round before the release.",
+      "I would strongly recommend that you run one more regression round before the release.",
+      "I highly recommend running one more regression round before the release."
+    ],
+    "modelSentences": [
+      "I strongly recommend running one more regression round before the release.",
+      "We strongly recommend updating the browser before testing.",
+      "Ayşe strongly recommended that we back up the data first."
+    ],
+    "commonMistake": "I strongly recommend to run one more regression round before the release.",
+    "checklistTr": [
+      "strongly recommend yazdın mı? (şiddetle: heavily / hardly değil)",
+      "recommend'dan sonra -ing ya da that cümlesi var mı? (recommend to run değil)",
+      "Yayın öncesi (before the release) bilgisini yazdın mı?"
+    ],
+    "noteTr": "Türkçe \"-mesini tavsiye ederim\" der; İngilizcede recommend + -ing ya da recommend that + özne + yalın fiil kullanılır, recommend to run (nesnesiz to) yanlıştır. strongly ve highly recommend yerleşiktir; would eklemek tonu yumuşatır.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge recommend: [+ (that)] and [+ -ing verb]. Longman recommend: recommend doing something; strongly recommend that. Oxford recommend lists recommend somebody to do something (BrE) and Ngram recommend you to is common, so the old mistake was not wrong; replaced by recommend to run (no object) = 4.5% of recommend running. noteTr updated."
+  },
+  {
+    "id": "fully-aware",
+    "category": "work_vocab",
+    "level": 2,
+    "targetChunk": "fully aware of something",
+    "patternSlots": "We are fully ___ of ...",
+    "clozeTemplate": "We are ___ ___ of the delay.",
+    "situationTr": "[E-posta, paydaşa] Gecikmeyi kabul ediyorsun: \"Gecikmenin tamamen farkındayız.\"",
+    "acceptedAnswers": [
+      "We are fully aware of the delay.",
+      "We are well aware of the delay.",
+      "We are fully aware of this delay.",
+      "We are well aware of this delay.",
+      "We are all fully aware of the delay.",
+      "We are very aware of the delay."
+    ],
+    "modelSentences": [
+      "We are fully aware of the delay.",
+      "Mert is fully aware of the risks.",
+      "We are fully aware that the deadline is tight."
+    ],
+    "commonMistake": "We are fully aware about the delay.",
+    "checklistTr": [
+      "aware'i fully / well ile güçlendirdin mi?",
+      "aware'den sonra of koydun mu? (about değil)",
+      "Özne ve be fiili (We are) doğru mu?"
+    ],
+    "noteTr": "Türkçe \"-in farkında olmak\" ekle kurulur; İngilizcede aware of denir (aware about değil) ve en yerleşik pekiştiriciler fully / well'dir. that cümlesi gelirse of düşer: fully aware that ...",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford aware: fully aware of the fact, well aware of the problem. Longman aware: fully aware of. Ngram aware about the = 0.25% of aware of the. Fixes: checklist 1 called very aware wrong, but very aware of = 41% of fully aware of and noteTr allowed it; very aware added to answers, checklist and noteTr aligned."
+  },
+  {
+    "id": "deeply-concerned",
+    "category": "work_vocab",
+    "level": 3,
+    "targetChunk": "deeply concerned about something",
+    "patternSlots": "I am deeply ___ about ...",
+    "clozeTemplate": "I am ___ ___ about the test coverage.",
+    "situationTr": "[Teams, QA lideri olarak] Kaygını dile getiriyorsun: \"Test kapsamı konusunda derinden endişeliyim.\"",
+    "acceptedAnswers": [
+      "I am deeply concerned about the test coverage.",
+      "I am deeply concerned about our test coverage.",
+      "I am deeply worried about the test coverage.",
+      "I am deeply worried about our test coverage.",
+      "I am very concerned about the test coverage."
+    ],
+    "modelSentences": [
+      "I am deeply concerned about the test coverage.",
+      "Ayşe is deeply concerned about the number of open bugs.",
+      "We are deeply concerned about the security of the login page."
+    ],
+    "checklistTr": [
+      "deeply concerned yazdın mı? (heavily / hardly değil)",
+      "concerned'dan sonra konu için about koydun mu?",
+      "Konuyu (the test coverage) belirttin mi?"
+    ],
+    "noteTr": "Türkçe \"derinden endişeli\" der; İngilizcede deeply concerned / worried about yerleşik eş-dizimdir (concerned for daha çok birinin güvenliği ya da geleceği için kullanılır). Resmî bir tondur; ekip içi sohbette very concerned daha doğal olabilir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford concerned: The president is deeply concerned about this issue; concerned for something/somebody also listed. Longman concerned: concerned about, concerned for (safety). Ngram concerned for the = 8% of concerned about the and is correct English, so the commonMistake was removed. noteTr cut to 2 sentences."
+  },
+  {
+    "id": "absolutely-exhausted",
+    "category": "work_vocab",
+    "level": 1,
+    "targetChunk": "absolutely / utterly + extreme adjective (exhausted)",
+    "patternSlots": "I am absolutely ___ ...",
+    "clozeTemplate": "I am ___ ___ today.",
+    "situationTr": "[Teams, ekip arkadaşına] Uzun sürüm gecesinden sonra yazıyorsun: \"Bugün tamamen bitkinim.\"",
+    "acceptedAnswers": [
+      "I am absolutely exhausted today.",
+      "I am utterly exhausted today.",
+      "I am completely exhausted today.",
+      "I am totally exhausted today.",
+      "I am really exhausted today."
+    ],
+    "modelSentences": [
+      "I am absolutely exhausted today.",
+      "The whole team was absolutely exhausted by Friday.",
+      "After the night shift, Deniz looked utterly exhausted."
+    ],
+    "commonMistake": "I am absolutely tired today.",
+    "checklistTr": [
+      "Aşırı sıfatla (exhausted) absolutely / utterly / completely kullandın mı?",
+      "very exhausted yerine absolutely exhausted yazdın mı?",
+      "Sıradan sıfatla (tired) absolutely kullanmadın, değil mi?"
+    ],
+    "noteTr": "Türkçe \"çok\" her sıfatla kullanılır; İngilizcede absolutely / utterly yalnız exhausted, terrible, delighted gibi uç sıfatlarla gelir, tired gibi sıradan sıfatlarla very kullanılır.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge Grammar very: extreme adjectives take absolutely, completely, really, totally, not normally very. Oxford absolutely: used with adjectives that express extreme qualities. Longman absolutely example with exhausted. Ngram absolutely tired = 6% (informal, against the Cambridge rule). Fixes: work context; really exhausted added (Cambridge lists really)."
+  },
+  {
+    "id": "provide-evidence",
+    "category": "work_vocab",
+    "level": 2,
+    "targetChunk": "provide evidence (that ...)",
+    "patternSlots": "Can you provide ___ that ...?",
+    "clozeTemplate": "Can you ___ ___ that the fix works?",
+    "situationTr": "[Jira yorumu] Geliştiriciden istiyorsun: \"Düzeltmenin çalıştığına dair kanıt sağlayabilir misin?\"",
+    "acceptedAnswers": [
+      "Can you provide evidence that the fix works?",
+      "Could you provide evidence that the fix works?",
+      "Can you provide some evidence that the fix works?",
+      "Could you provide some evidence that the fix works?",
+      "Can you provide evidence that the fix is working?",
+      "Could you provide evidence that the fix is working?"
+    ],
+    "modelSentences": [
+      "Can you provide evidence that the fix works?",
+      "Please provide evidence of the problem, such as a screenshot or a log.",
+      "The test results provide evidence that the new cache is faster."
+    ],
+    "commonMistake": "Can you provide an evidence that the fix works?",
+    "checklistTr": [
+      "\"Kanıt sunmak\" için provide evidence kalıbını kurdun mu?",
+      "evidence sayılamaz: an evidence / evidences yazmadın, değil mi?",
+      "that'ten sonra tam cümle var mı?"
+    ],
+    "noteTr": "Türkçe \"kanıt sunmak\" der; iş dilinde en yerleşik karşılık provide evidence'tır (give evidence daha çok mahkemede ifade vermek için kullanılır). evidence sayılamaz: an evidence / evidences denmez, gerekirse a piece of evidence denir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge evidence: provided the forensic evidence; evidence that. Longman evidence: provides compelling evidence that; Don't say evidences; a piece of evidence. Ngram give evidence that = 10% of provide evidence that, so give was not a clear error; mistake changed to provide an evidence = 0.98%. noteTr updated."
+  },
+  {
+    "id": "draw-a-conclusion",
+    "category": "work_vocab",
+    "level": 3,
+    "targetChunk": "draw a conclusion (from something)",
+    "patternSlots": "We shouldn't draw a ___ from ...",
+    "clozeTemplate": "We shouldn't ___ ___ ___ from a single test.",
+    "situationTr": "[RCA toplantısı] Dikkatli olmayı hatırlatıyorsun: \"Tek bir testten sonuç çıkarmamalıyız.\"",
+    "acceptedAnswers": [
+      "We shouldn't draw a conclusion from a single test.",
+      "We shouldn't draw any conclusions from a single test.",
+      "We shouldn't draw conclusions from a single test.",
+      "We shouldn't draw a conclusion from just one test.",
+      "We shouldn't draw conclusions from just one test.",
+      "We shouldn't draw any conclusions from just one test."
+    ],
+    "modelSentences": [
+      "We shouldn't draw a conclusion from a single test.",
+      "What conclusion can we draw from these logs?",
+      "Mert drew the wrong conclusion because he only checked Chrome."
+    ],
+    "commonMistake": "We shouldn't take a conclusion from a single test.",
+    "checklistTr": [
+      "\"Sonuç çıkarmak\" için draw a conclusion yazdın mı? (take / pull / get değil)",
+      "from ile kaynağı (a single test) belirttin mi?",
+      "conclusion sayılabilir: a conclusion / conclusions doğru mu?"
+    ],
+    "noteTr": "Türkçe \"sonuç çıkarmak\" der; İngilizcede çıkarılan şey \"çekilir\": draw a conclusion. Resmî ve yazılı dilde (RCA, rapor) yaygındır.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Longman conclusion: draw a conclusion. Cambridge conclusion: reach/come to/draw a conclusion. Ngram take a conclusion = 0.25%, take conclusions from = 0.08% (make a conclusion = 20%, so it is not used as the mistake). draw any conclusions = 75% of draw conclusions from. No change."
+  },
+  {
+    "id": "take-into-consideration",
+    "category": "work_vocab",
+    "level": 2,
+    "targetChunk": "take something into consideration / account",
+    "patternSlots": "take ... into consideration",
+    "clozeTemplate": "We need to ___ the budget ___ ___.",
+    "situationTr": "[Teams] Planlama sırasında hatırlatıyorsun: \"Bütçeyi de dikkate almamız lazım.\"",
+    "acceptedAnswers": [
+      "We need to take the budget into consideration.",
+      "We have to take the budget into consideration.",
+      "We should take the budget into consideration.",
+      "We must take the budget into consideration.",
+      "We need to take the budget into account.",
+      "We have to take the budget into account.",
+      "We should take the budget into account."
+    ],
+    "modelSentences": [
+      "We need to take the budget into consideration.",
+      "Please take the browser version into consideration when you report the bug.",
+      "Did you take the time zones into consideration?"
+    ],
+    "commonMistake": "We need to take in consideration the budget.",
+    "checklistTr": [
+      "take ... into consideration yazdın mı? (take in consideration değil)",
+      "Nesne take ile into arasında mı? (take the budget into consideration)",
+      "consideration'dan önce a / the koymadın, değil mi?"
+    ],
+    "noteTr": "Türkçe \"dikkate almak\" tek fiildir; İngilizcede take sth into consideration / into account denir ve nesne take ile into arasına girer. Hatalı take in consideration sık görülür.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford consideration: take something into consideration. Longman consideration: take something into consideration. Ngram take in consideration = 0.93% of take into consideration. Fix: checklist 3 rewritten (old line was vague)."
+  },
+  {
+    "id": "draw-attention-to",
+    "category": "work_vocab",
+    "level": 3,
+    "targetChunk": "draw (your) attention to something",
+    "patternSlots": "I want to draw attention to ...",
+    "clozeTemplate": "I want to ___ ___ to a problem in the report.",
+    "situationTr": "[Teams] Raporu paylaşırken öne çıkarıyorsun: \"Rapordaki bir soruna dikkat çekmek istiyorum.\"",
+    "acceptedAnswers": [
+      "I want to draw attention to a problem in the report.",
+      "I would like to draw attention to a problem in the report.",
+      "I'd like to draw attention to a problem in the report.",
+      "I want to draw your attention to a problem in the report.",
+      "I would like to draw your attention to a problem in the report.",
+      "I'd like to draw your attention to a problem in the report.",
+      "I want to draw attention to an issue in the report.",
+      "I'd like to draw attention to an issue in the report."
+    ],
+    "modelSentences": [
+      "I want to draw attention to a problem in the report.",
+      "The error message draws attention to a missing parameter.",
+      "Let me draw your attention to the date format on page two."
+    ],
+    "commonMistake": "I want to pull attention to a problem in the report.",
+    "checklistTr": [
+      "\"Dikkat çekmek\" için draw attention yazdın mı? (pull attention değil)",
+      "draw attention'dan sonra to koydun mu?",
+      "attention'dan önce a / the koymadın, değil mi?"
+    ],
+    "noteTr": "Türkçe \"dikkat çekmek\"teki çekmek burada pull değil draw olur: draw attention to. draw your attention to daha resmî ve kibar bir giriştir; attract attention ise daha çok insanların bakmasını sağlamak demektir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford attention: I would like to draw attention to; Cambridge attention: draw attention to. Longman attention: draw attention to. Ngram attract attention to = 4.45% (used in real English), so mistake changed to the Turkish calque pull attention to = 0.03%. Fixes: I'd like variants added (normaliser does not expand I'd); checklist 3 was about draws, which the cloze never uses."
+  },
+  {
+    "id": "underlying-cause",
+    "category": "work_vocab",
+    "level": 3,
+    "targetChunk": "underlying / root cause",
+    "patternSlots": "The underlying ___ of ...",
+    "clozeTemplate": "The ___ ___ of the issue is an old configuration.",
+    "situationTr": "[RCA belgesi] Olay analizinde yazıyorsun: \"Sorunun kök nedeni eski bir yapılandırma.\"",
+    "acceptedAnswers": [
+      "The underlying cause of the issue is an old configuration.",
+      "The underlying cause of the problem is an old configuration.",
+      "The underlying cause of the issue is an outdated configuration.",
+      "The root cause of the issue is an old configuration.",
+      "The root cause of the problem is an old configuration.",
+      "The root cause of the issue is an outdated configuration."
+    ],
+    "modelSentences": [
+      "The underlying cause of the issue is an old configuration.",
+      "We found the underlying cause: a timeout that was set too low.",
+      "Fixing the symptom is not enough; we also need to find the underlying cause."
+    ],
+    "commonMistake": "The root reason of the issue is an old configuration.",
+    "checklistTr": [
+      "underlying / root cause yazdın mı? (root reason değil)",
+      "cause'dan sonra of ile sorunu bağladın mı?"
+    ],
+    "noteTr": "Türkçe \"kök neden\" der; İngilizcede reason değil cause kullanılır: root cause (olay analizi / RCA terimi) ya da underlying cause (genel dil). İkisi de bağlama göre doğrudur.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford underlying: an underlying cause of; Cambridge underlying causes; Longman underlying cause/reason. Oxford root: the root cause of the problem; Cambridge root cause. Ngram basic cause of = 11% (correct English), so mistake changed to root reason of = 0.08%. noteTr no longer follows the source unit's immediate/underlying contrast."
+  },
+  {
+    "id": "minimise-the-impact",
+    "category": "work_vocab",
+    "level": 3,
+    "targetChunk": "minimise / minimize the impact",
+    "patternSlots": "to minimise the ___",
+    "clozeTemplate": "We switched to the backup server to ___ the ___.",
+    "situationTr": "[Olay kanalı] Aldığın önlemi anlatıyorsun: \"Etkiyi en aza indirmek için yedek sunucuya geçtik.\"",
+    "acceptedAnswers": [
+      "We switched to the backup server to minimise the impact.",
+      "We switched to the backup server to minimize the impact.",
+      "We have switched to the backup server to minimise the impact.",
+      "We have switched to the backup server to minimize the impact.",
+      "To minimise the impact, we switched to the backup server.",
+      "To minimize the impact, we switched to the backup server.",
+      "We switched to the backup server in order to minimise the impact.",
+      "We switched to the backup server in order to minimize the impact."
+    ],
+    "modelSentences": [
+      "We switched to the backup server to minimise the impact.",
+      "We rolled back the change quickly to minimise the impact on customers.",
+      "To minimise the impact of the delay, Ayşe told the client early."
+    ],
+    "commonMistake": "We switched to the backup server to minimum the impact.",
+    "checklistTr": [
+      "\"En aza indirmek\" için minimise (fiil) yazdın mı? (minimum isim / sıfat)",
+      "the impact: tanımlık var mı?",
+      "BrE minimise / AmE minimize: ikisi de doğru, ama tutarlı mı?"
+    ],
+    "noteTr": "Türkçe \"en aza indirmek\" tek fiildir; İngilizcede minimise (BrE) / minimize (AmE) fiili kullanılır, minimum ise isim ya da sıfattır. reduce the impact (azaltmak) da doğrudur ama \"en aza\" anlamını taşımaz.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford minimize (BrE also minimise): minimize the risk/effects; Oxford impact: to reduce/minimize the impact of something. Longman minimize (also minimise BrE). Ngram minimum the impact = 0.86%. Fix: noteTr mitigate line replaced by reduce, the near collocate Oxford lists."
+  },
+  {
+    "id": "tend-to-agree",
+    "category": "work_vocab",
+    "level": 3,
+    "targetChunk": "I tend to agree (soft agreement)",
+    "patternSlots": "I tend to agree with ... on ...",
+    "clozeTemplate": "I ___ ___ ___ with Deniz on this.",
+    "situationTr": "[Toplantı] Sert çıkmadan kısmen katılıyorsun: \"Deniz'e bu konuda katılmaya meyilliyim.\"",
+    "acceptedAnswers": [
+      "I tend to agree with Deniz on this.",
+      "I tend to agree with Deniz about this.",
+      "I tend to agree with Deniz here.",
+      "I do tend to agree with Deniz on this."
+    ],
+    "modelSentences": [
+      "I tend to agree with Deniz on this.",
+      "I tend to agree, but let's check the numbers first.",
+      "Most testers tend to agree that exploratory testing finds odd bugs."
+    ],
+    "commonMistake": "I tend to agree to Deniz on this.",
+    "checklistTr": [
+      "I tend to agree with yazdın mı? (agree to değil)",
+      "tend'den sonra to ve yalın fiil var mı?",
+      "Katıldığın kişiden önce with koydun mu?"
+    ],
+    "noteTr": "Türkçe \"katılma eğilimindeyim\" ek fiille söylenir; İngilizcede I tend to agree (with sb) katılırken kesin konuşmamayı sağlar, diplomatik ve çoğu zaman \"ama ...\" ile devam eder. agree with sb denir, agree to sb denmez.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford tend: I tend to agree with many of the points you make. SkELL tend to agree with: 180 lines. Ngram tend to agree to = 2.1% of tend to agree with. No change."
+  },
+  {
+    "id": "agree-up-to-a-point",
+    "category": "work_vocab",
+    "level": 3,
+    "targetChunk": "agree up to a point (partial agreement)",
+    "patternSlots": "I agree ___ ..., but ...",
+    "clozeTemplate": "I agree ___ ___ ___ ___, but we still need more tests.",
+    "situationTr": "[Code review cevabı] Yorumun bir kısmına katılıyorsun: \"Bir noktaya kadar katılıyorum, ama yine de daha fazla teste ihtiyacımız var.\"",
+    "acceptedAnswers": [
+      "I agree up to a point, but we still need more tests.",
+      "I agree to a point, but we still need more tests.",
+      "I agree up to a certain point, but we still need more tests.",
+      "I agree to a certain extent, but we still need more tests.",
+      "I agree to some extent, but we still need more tests.",
+      "I agree with you up to a point, but we still need more tests.",
+      "I agree with you to some extent, but we still need more tests."
+    ],
+    "modelSentences": [
+      "I agree up to a point, but we still need more tests.",
+      "I agree up to a point, but the deadline is not realistic.",
+      "Deniz agreed up to a point, then asked for a demo."
+    ],
+    "checklistTr": [
+      "up to a point yazdın mı? (until a point değil)",
+      "Katılmadığın kısım için but ile devam ettin mi?"
+    ],
+    "noteTr": "Türkçe \"bir noktaya kadar\" der; İngilizcede up to a point (ya da to a certain extent) denir, until bir zaman sınırıdır. Diplomatik itirazın girişidir: kısmen katılır, sonra \"but\" ile ayrılırsın.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford point: I agree with you up to a point; Cambridge up to a point (B2, partly); Oxford extent: to a certain/some extent. Ngram agree until a point = 0 and SkELL 0, so the commonMistake was removed (warning kept in checklist). Fix: agree with you variants added (Oxford example form); checklist 3 said with is not needed, which contradicted that."
+  },
+  {
+    "id": "have-serious-misgivings",
+    "category": "work_vocab",
+    "level": 3,
+    "targetChunk": "have serious misgivings about something",
+    "patternSlots": "I have serious ___ about ...",
+    "clozeTemplate": "I have ___ ___ about the timeline.",
+    "situationTr": "[E-posta] Nazik ama net itiraz ediyorsun: \"Zaman çizelgesi konusunda ciddi kuşkularım var.\"",
+    "acceptedAnswers": [
+      "I have serious misgivings about the timeline.",
+      "I have serious misgivings about this timeline.",
+      "I have serious doubts about the timeline.",
+      "I have serious reservations about the timeline.",
+      "I have some serious misgivings about the timeline.",
+      "I have grave misgivings about the timeline."
+    ],
+    "modelSentences": [
+      "I have serious misgivings about the timeline.",
+      "Ayşe has serious misgivings about the new release date.",
+      "I have serious misgivings about merging this on a Friday."
+    ],
+    "commonMistake": "I have serious misgivings for the timeline.",
+    "checklistTr": [
+      "have serious misgivings yazdın mı? (heavy / big misgivings değil)",
+      "misgivings'den sonra about koydun mu? (for değil)",
+      "Çoğul misgivings yazdın mı?"
+    ],
+    "noteTr": "Türkçe \"ciddi kuşku\" der; İngilizcede misgivings çoğul ve resmîdir, about ile kullanılır (serious / grave misgivings). serious doubts / reservations yakın anlamlıdır ve iş dilinde \"çekince\" demektir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Longman misgiving: grave/serious/deep misgivings, misgiving about. Cambridge misgiving: serious misgivings about. Oxford misgiving: grave misgivings about. Ngram misgivings for = 1.4%, misgivings on = 4.7% (on is used, so checklist now names only for). Fixes: grave added; noteTr cut from 3 to 2 sentences."
+  },
+  {
+    "id": "reserve-judgement",
+    "category": "work_vocab",
+    "level": 3,
+    "targetChunk": "reserve judgement / judgment until ...",
+    "patternSlots": "I'll reserve ___ until ...",
+    "clozeTemplate": "I'll ___ ___ until I see more data.",
+    "situationTr": "[Teams] Aceleyle fikir bildirmiyorsun: \"Daha fazla veri görene kadar hüküm vermeyi erteleyeceğim.\"",
+    "acceptedAnswers": [
+      "I'll reserve judgement until I see more data.",
+      "I'll reserve judgment until I see more data.",
+      "I'll reserve my judgement until I see more data.",
+      "I'll reserve my judgment until I see more data.",
+      "I'll reserve judgement until I've seen more data.",
+      "I'll reserve judgment until I've seen more data.",
+      "I'll reserve my judgement until I've seen more data.",
+      "I'll reserve my judgment until I've seen more data."
+    ],
+    "modelSentences": [
+      "I'll reserve judgement until I see more data.",
+      "Let's reserve judgement until the performance tests have finished.",
+      "Mert asked us to reserve judgement on the new tool for a week."
+    ],
+    "commonMistake": "I'll keep my judgement until I see more data.",
+    "checklistTr": [
+      "reserve judgement yazdın mı? (keep / save değil)",
+      "until'den sonra şimdiki zaman var mı? (until I see, will see değil)",
+      "judgement (BrE) / judgment (AmE) yazımını tutarlı seçtin mi?"
+    ],
+    "noteTr": "Türkçe \"hüküm vermeyi ertelemek\" der; İngilizcede reserve judgement (on sth) yerleşik, resmî ve diplomatik bir kalıptır. Yazım BrE judgement, AmE judgment (ikisi de doğru) ve until'den sonra will gelmez.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Cambridge reserve: reserve judgment (= not give an opinion now). Longman reserve: reserve judgement until they see further evidence. SkELL reserve judgement: 40 lines. Ngram keep my judgement = 0.6%. Fixes: situationTr was a word-for-word calque of the target (yargımı saklı tutuyorum); now natural Turkish in future tense; noteTr cut from 4 to 2 sentences."
+  },
+  {
+    "id": "have-second-thoughts",
+    "category": "work_vocab",
+    "level": 2,
+    "targetChunk": "have second thoughts about something",
+    "patternSlots": "I'm having second ___ about ...",
+    "clozeTemplate": "I'm ___ ___ ___ about Friday's release plan.",
+    "situationTr": "[Teams, ekip arkadaşına] Plandan emin değilsin: \"Cuma günkü sürüm planı konusunda tereddüt etmeye başladım.\"",
+    "acceptedAnswers": [
+      "I'm having second thoughts about Friday's release plan.",
+      "I'm having second thoughts about the Friday release plan.",
+      "I've started having second thoughts about Friday's release plan.",
+      "I'm starting to have second thoughts about Friday's release plan.",
+      "I'm beginning to have second thoughts about Friday's release plan.",
+      "I have second thoughts about Friday's release plan."
+    ],
+    "modelSentences": [
+      "I'm having second thoughts about Friday's release plan.",
+      "Ayşe had second thoughts about merging without a review.",
+      "If you're having second thoughts, tell me before we start."
+    ],
+    "commonMistake": "I'm having second thought about Friday's release plan.",
+    "checklistTr": [
+      "have second thoughts yazdın mı? (make / do değil)",
+      "thoughts çoğul mu? (second thought tekil yazmadın, değil mi?)",
+      "about ile konuyu bağladın mı?"
+    ],
+    "noteTr": "Türkçe \"ikinci kez düşünmek / tereddüt etmek\" der; İngilizcede have second thoughts (about sth) denir ve thoughts çoğuldur. Karar sonrası şüpheyi anlatır; iş ve günlük dilde olur.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford thought: have second thoughts (You're not having second thoughts about it?); Cambridge have second thoughts (change your opinion or start to doubt it). Ngram having second thought = 0.10%. Fixes: work context (dinner plan -> release plan); situationTr no longer leaks the target (ikinci kez düşünmek)."
+  },
+  {
+    "id": "constructive-criticism",
+    "category": "work_vocab",
+    "level": 2,
+    "targetChunk": "constructive criticism (not critic)",
+    "patternSlots": "constructive ___",
+    "clozeTemplate": "Thanks for the ___ ___, it really helped.",
+    "situationTr": "[Teams, code review sonrası] Teşekkür ediyorsun: \"Yapıcı eleştiri için teşekkürler, çok işime yaradı.\"",
+    "acceptedAnswers": [
+      "Thanks for the constructive criticism, it really helped.",
+      "Thank you for the constructive criticism, it really helped.",
+      "Thanks for the constructive criticism, it was really helpful.",
+      "Thank you for the constructive criticism, it was really helpful.",
+      "Thanks for your constructive criticism, it really helped.",
+      "Thank you for your constructive criticism, it really helped."
+    ],
+    "modelSentences": [
+      "Thanks for the constructive criticism, it really helped.",
+      "Ayşe gave me constructive criticism on my test plan.",
+      "Good review comments should be constructive criticism, not personal attacks."
+    ],
+    "commonMistake": "Thanks for the constructive critic, it really helped.",
+    "checklistTr": [
+      "criticism (isim) yazdın mı? (critic = eleştirmen kişi değil)",
+      "Teşekkür nedenini for ile bağladın mı?"
+    ],
+    "noteTr": "Türkçe \"eleştiri\" ve \"eleştirmen\" ayrı sözcüklerdir; İngilizcede criticism eleştiri, critic eleştirmen kişidir. Code review dilinde olumlu ton için constructive criticism (ya da constructive feedback) kullanılır.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford criticism: to offer somebody constructive criticism; Longman criticism: constructive criticism (= aimed at improving). Ngram constructive critic = 1.8%. Fix: Oxford/Longman mark criticism [U, C], so the checklist line saying criticisms is wrong was removed and noteTr no longer says uncountable."
+  },
+  {
+    "id": "give-credit-to",
+    "category": "work_vocab",
+    "level": 2,
+    "targetChunk": "give credit to someone for something",
+    "patternSlots": "give credit to ... for ...",
+    "clozeTemplate": "We should ___ ___ to Mert for the demo.",
+    "situationTr": "[Teams] Başarıyı paylaşıyorsun: \"Demo için Mert'in hakkını vermeliyiz.\"",
+    "acceptedAnswers": [
+      "We should give credit to Mert for the demo.",
+      "We should give Mert credit for the demo.",
+      "We need to give credit to Mert for the demo.",
+      "We need to give Mert credit for the demo.",
+      "We should give Mert some credit for the demo."
+    ],
+    "modelSentences": [
+      "We should give credit to Mert for the demo.",
+      "I'd like to give credit to Ayşe for finding the bug.",
+      "Always give credit to the person who found the issue."
+    ],
+    "commonMistake": "We should give a credit to Mert for the demo.",
+    "checklistTr": [
+      "give credit yazdın mı? (put / make credit değil)",
+      "credit sayılamaz: a credit / credits yazmadın, değil mi?",
+      "to kişiye, for neden işe bağlandı mı?"
+    ],
+    "noteTr": "Türkçe \"takdir etmek, emeğini tanımak\" der; \"kredi\" yanıltıcıdır: bu anlamda credit para değil, övgü ve takdirdir. give credit to sb for sth (ya da give sb credit for sth) kullanılır; credit sayılamaz.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford credit: We should give due credit to all who helped; give him credit for trying. Longman credit: give somebody credit for. Ngram give a credit to = 0.40%, give him a credit for = 0.03%. Fix: situationTr leaked the target (krediyi vermek) and had a yani gloss; now the natural Turkish hakkını vermek."
+  },
+  {
+    "id": "dont-quite-understand",
+    "category": "work_vocab",
+    "level": 2,
+    "targetChunk": "I don't quite understand ... (polite request to clarify)",
+    "patternSlots": "I don't ___ understand ...",
+    "clozeTemplate": "I ___ ___ ___ what you mean.",
+    "situationTr": "[Teams] Birinin mesajını net anlamadın: \"Ne demek istediğini tam anlamadım.\"",
+    "acceptedAnswers": [
+      "I don't quite understand what you mean.",
+      "I'm not quite sure I understand what you mean.",
+      "I don't quite follow what you mean.",
+      "I don't quite get what you mean.",
+      "I don't quite understand what you're saying.",
+      "I didn't quite understand what you meant.",
+      "I didn't quite get what you meant."
+    ],
+    "modelSentences": [
+      "I don't quite understand what you mean.",
+      "Sorry, I don't quite understand the second step.",
+      "I don't quite understand why the test fails only on Chrome."
+    ],
+    "commonMistake": "I quite don't understand what you mean.",
+    "checklistTr": [
+      "don't quite understand sırasını kurdun mu? (quite don't değil)",
+      "what you mean: soru sözcüğünden sonra düz sıra var mı? (what do you mean değil)",
+      "Nazik ton için quite eklenmiş mi?"
+    ],
+    "noteTr": "Türkçe \"tam anlamadım\" der; İngilizcede quite olumsuzdan sonra gelir: I don't quite understand. Yumuşatıcıdır: \"anlamıyorum\" yerine \"tam oturmadı\" tonu verir ve itiraz öncesi netleştirme istemek için uygundur.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford quite: not quite; I don't quite know; I'm sorry, I don't quite follow. SkELL do n't quite understand: 190 lines; quite do n't understand: 1. Ngram quite do not understand = 0.04% of do not quite understand. Fixes: anlamadım is often rendered in the past, so didn't quite understand/get added; model 3 used see, now understand (same pattern)."
+  },
+  {
+    "id": "take-advantage-of",
+    "category": "work_vocab",
+    "level": 1,
+    "targetChunk": "take advantage of something (positive use)",
+    "patternSlots": "take ___ of ...",
+    "clozeTemplate": "Let's ___ ___ of the quiet week and fix the old tests.",
+    "situationTr": "[Teams, ekibe öneri] Plan öneriyorsun: \"Sakin haftadan yararlanıp eski testleri düzeltelim.\"",
+    "acceptedAnswers": [
+      "Let's take advantage of the quiet week and fix the old tests.",
+      "Let's take advantage of the quiet week to fix the old tests.",
+      "Let's take full advantage of the quiet week and fix the old tests.",
+      "Let's take full advantage of the quiet week to fix the old tests."
+    ],
+    "modelSentences": [
+      "Let's take advantage of the quiet week and fix the old tests.",
+      "We should take advantage of the quiet morning to update the test data.",
+      "Deniz took advantage of the long weekend to learn Docker."
+    ],
+    "commonMistake": "Let's take an advantage of the quiet week and fix the old tests.",
+    "checklistTr": [
+      "take advantage of yazdın mı? (get / use advantage değil)",
+      "advantage'dan sonra of koydun mu?",
+      "Kalıpta advantage'dan önce an / the yok, değil mi?"
+    ],
+    "noteTr": "Türkçe \"yararlanmak\" der; İngilizcede take advantage of (fırsattan yararlanmak) denir ve kalıpta advantage tanımlıksız kalır. Kişiyi sömürmek anlamında da kullanılır (negatif); bağlama göre değişir.",
+    "source": "curated",
+    "verified": true,
+    "verifiedNote": "verifier 2026-10-23: Oxford advantage: take advantage of something (make use of an opportunity); Longman advantage: take advantage of something (to do something). Ngram take an advantage of = 0.05%. Fixes: work context (weather/run -> quiet week/old tests); checklist 3 said advantage is uncountable, but it is countable outside the idiom; now about the article in the idiom."
+  }
+]
