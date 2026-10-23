@@ -690,9 +690,9 @@ main {
 }
 
 .context-blank:focus {
-  outline: none;
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent);
 }
 
 .context-blanks__line {

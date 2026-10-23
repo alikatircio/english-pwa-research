@@ -1,4 +1,4 @@
-import { useRef, useState, type ChangeEvent, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ChangeEvent, type ReactNode } from 'react';
 import type { Actions, ExportFile, ImportItemsResult } from '../../app/actions.ts';
 import type { ReadyState } from '../../app/state.ts';
 import { BackupSection } from '../components/BackupSection.tsx';
@@ -18,6 +18,9 @@ interface Props {
   state: ReadyState;
   actions: Actions;
   onDiagnostic: (view: DiagnosticView | undefined) => void;
+  /** Focus the Seviye testi entry button on mount (coming back from a test view). */
+  focusDiagnostic?: boolean;
+  onFocusedDiagnostic?: () => void;
 }
 
 type Status = { tone: 'ok' | 'error'; text: string } | undefined;
@@ -27,7 +30,7 @@ type Status = { tone: 'ok' | 'error'; text: string } | undefined;
  * items import; full backup in BackupSection (T5.4). No counts for open
  * notebook entries (05 §4): only whether something is waiting.
  */
-export function SettingsScreen({ state, actions, onDiagnostic }: Props) {
+export function SettingsScreen({ state, actions, onDiagnostic, focusDiagnostic, onFocusedDiagnostic }: Props) {
   const [status, setStatus] = useState<Status>();
   const hasOpenEntries = state.notebook.some((e) => e.status === 'open');
   const hasFlags = state.flags.size > 0;
@@ -91,7 +94,7 @@ export function SettingsScreen({ state, actions, onDiagnostic }: Props) {
           </button>
         </Section>
 
-        {actions.diagnosticAvailable() && <DiagnosticEntry state={state} actions={actions} onDiagnostic={onDiagnostic} />}
+        {actions.diagnosticAvailable() && <DiagnosticEntry state={state} actions={actions} onDiagnostic={onDiagnostic} focusDiagnostic={focusDiagnostic} onFocusedDiagnostic={onFocusedDiagnostic} />}
 
         <Section title={t.topicsSection}>
           <p className="muted">{t.topicsHint}</p>
@@ -128,7 +131,13 @@ function Section({ title, children }: { title: string; children: ReactNode }) {
 }
 
 /** Seviye testi entry (decision 47): start or continue, last result, history. Never touches cards. */
-function DiagnosticEntry({ state, actions, onDiagnostic }: Props) {
+function DiagnosticEntry({ state, actions, onDiagnostic, focusDiagnostic, onFocusedDiagnostic }: Props) {
+  const entry = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (!focusDiagnostic) return;
+    entry.current?.focus();
+    onFocusedDiagnostic?.();
+  }, [focusDiagnostic, onFocusedDiagnostic]);
   const attempts = state.diagnostic?.attempts ?? [];
   const open = state.diagnostic?.open;
   const last = attempts.findLast((a) => a.finishedAt !== undefined);
@@ -141,7 +150,7 @@ function DiagnosticEntry({ state, actions, onDiagnostic }: Props) {
   return (
     <Section title={t.diagSection}>
       <p className="muted">{t.diagHint}</p>
-      <button type="button" className="btn" disabled={state.busy} onClick={() => void start()}>
+      <button ref={entry} type="button" className="btn" disabled={state.busy} onClick={() => void start()}>
         {open ? t.diagContinue : t.diagStart}
       </button>
       <p className="muted">{last?.finishedAt !== undefined ? t.diagLastResult(formatDate(last.finishedAt)) : t.diagNoResult}</p>

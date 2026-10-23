@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { useEffect, useRef, type ReactNode } from 'react';
 import type { DiagnosticView } from '../../app/mode.ts';
 import type { ReadyState } from '../../app/state.ts';
 import { AREAS } from '../../domain/areas.ts';
@@ -20,9 +20,15 @@ interface Props {
 const questions = diagnosticQuestions;
 
 function Header({ title, onBack }: { title: string; onBack: () => void }) {
+  const h = useRef<HTMLHeadingElement>(null);
+  useEffect(() => {
+    h.current?.focus();
+  }, []);
   return (
     <div className="sheet__header">
-      <h2 className="sheet__title">{title}</h2>
+      <h2 className="sheet__title" ref={h} tabIndex={-1}>
+        {title}
+      </h2>
       <button type="button" className="btn btn--text" onClick={onBack}>
         {t.diagBackToSettings}
       </button>

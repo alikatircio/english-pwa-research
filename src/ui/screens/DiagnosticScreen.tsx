@@ -51,13 +51,20 @@ export function DiagnosticScreen({ state, actions, onView }: Props) {
   const texts = new Map(question.options.map((o) => [o.id, o.text]));
 
   function toggle(id: OptionId) {
+    if (state.busy) return;
     const next = new Set(chosen);
     if (next.has(id)) next.delete(id);
     else next.add(id);
     void actions.answerDiagnostic(qid as string, [...next] as Selection);
   }
 
+  // Not `disabled`: a disabled control drops keyboard focus while a save is in flight.
+  const move = (d: 'next' | 'prev') => {
+    if (!state.busy) void actions.moveDiagnostic(d);
+  };
+
   async function finish() {
+    if (state.busy || !allAnswered) return;
     await actions.finishDiagnostic();
     onView({ kind: 'result', attemptId: (open as NonNullable<typeof open>).id });
   }
@@ -87,7 +94,7 @@ export function DiagnosticScreen({ state, actions, onView }: Props) {
           <legend className="muted">{t.diagMultiHint}</legend>
           {optionOrder(open.id, question).map((id) => (
             <label key={id} className={chosen.has(id) ? 'diag-option diag-option--on' : 'diag-option'}>
-              <input type="checkbox" checked={chosen.has(id)} disabled={state.busy} onChange={() => toggle(id)} />
+              <input type="checkbox" checked={chosen.has(id)} onChange={() => toggle(id)} />
               <span lang="en">{texts.get(id)}</span>
             </label>
           ))}
@@ -97,24 +104,25 @@ export function DiagnosticScreen({ state, actions, onView }: Props) {
           type="button"
           className={unsure ? 'btn btn--choice diag-unsure diag-unsure--on' : 'btn btn--choice diag-unsure'}
           aria-pressed={unsure}
-          disabled={state.busy}
-          onClick={() => void actions.answerDiagnostic(qid, 'unsure')}
+          onClick={() => {
+            if (!state.busy) void actions.answerDiagnostic(qid, 'unsure');
+          }}
         >
           {t.diagUnsure}
         </button>
 
         <div className="diag-nav">
-          <button type="button" className="btn" disabled={state.busy || open.cursor === 0} onClick={() => void actions.moveDiagnostic('prev')}>
+          <button type="button" className="btn" aria-disabled={state.busy || open.cursor === 0} onClick={() => move('prev')}>
             {t.diagPrev}
           </button>
-          <button type="button" className="btn" disabled={state.busy || isLast} onClick={() => void actions.moveDiagnostic('next')}>
+          <button type="button" className="btn" aria-disabled={state.busy || isLast} onClick={() => move('next')}>
             {t.diagNext}
           </button>
         </div>
-        <button type="button" className="btn btn--primary" disabled={state.busy || !allAnswered} onClick={() => void finish()}>
+        <button type="button" className="btn btn--primary" aria-disabled={state.busy || !allAnswered} aria-describedby={allAnswered ? undefined : 'diag-finish-hint'} onClick={() => void finish()}>
           {t.diagFinish}
         </button>
-        {!allAnswered && <p className="muted">{t.diagFinishHint}</p>}
+        {!allAnswered && <p className="muted" id="diag-finish-hint">{t.diagFinishHint}</p>}
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { Fragment, useRef, type KeyboardEvent } from 'react';
+import { Fragment, useId, useRef, type KeyboardEvent } from 'react';
 import { BLANK_TOKEN } from '../../domain/blankAnswers.ts';
 import { t } from '../strings.tr.ts';
 
@@ -30,6 +30,7 @@ interface Props {
 export function ContextBlanks({ blanked, values, onChange, onSubmit, disabled, labelledBy, describedBy, multiline, results, answers }: Props) {
   const lines = multiline ? blanked.split('\n') : [blanked];
   const count = blanked.split(BLANK_TOKEN).length - 1;
+  const rid = useId();
   const refs = useRef<(HTMLInputElement | null)[]>([]);
   const at = (i: number): string => values[i] ?? '';
 
@@ -46,7 +47,7 @@ export function ContextBlanks({ blanked, values, onChange, onSubmit, disabled, l
   }
 
   return (
-    <div className="context-blanks" role="group" aria-labelledby={labelledBy} aria-describedby={describedBy} lang="en" data-testid="context-blanks">
+    <div className="context-blanks" role="group" aria-labelledby={labelledBy} aria-describedby={describedBy} data-testid="context-blanks">
       {lines.map((line, li) => {
         const parts = line.split(BLANK_TOKEN);
         const start = lines.slice(0, li).reduce((n, l) => n + l.split(BLANK_TOKEN).length - 1, 0);
@@ -54,7 +55,7 @@ export function ContextBlanks({ blanked, values, onChange, onSubmit, disabled, l
           const i = start + pi;
           return (
             <Fragment key={pi}>
-              {part !== '' && <span className="context-blanks__text">{part}</span>}
+              {part !== '' && <span className="context-blanks__text" lang="en">{part}</span>}
               {pi < parts.length - 1 && (
                 <>
                   <input
@@ -63,12 +64,14 @@ export function ContextBlanks({ blanked, values, onChange, onSubmit, disabled, l
                     }}
                     className={`context-blank${results ? (results[i] ? ' context-blank--ok' : ' context-blank--wrong') : ''}`}
                     type="text"
+                    lang="en"
                     value={at(i)}
                     onChange={(e) => onChange(Array.from({ length: count }, (_, k) => (k === i ? e.target.value : at(k))))}
                     onKeyDown={(e) => onKeyDown(e, i)}
                     disabled={disabled}
                     readOnly={results !== undefined}
                     aria-label={t.blankLabel(i + 1, count)}
+                    {...(results ? { 'aria-describedby': `${rid}-r${i}`, ...(results[i] ? {} : { 'aria-invalid': true as const }) } : {})}
                     autoCorrect="off"
                     autoCapitalize="off"
                     autoComplete="off"
@@ -77,10 +80,10 @@ export function ContextBlanks({ blanked, values, onChange, onSubmit, disabled, l
                     size={8}
                   />
                   {results && (
-                    <span className="context-blank__result" data-testid="context-blank-result" data-correct={results[i] ? 'true' : 'false'}>
+                    <span id={`${rid}-r${i}`} className="context-blank__result" data-testid="context-blank-result" data-correct={results[i] ? 'true' : 'false'}>
                       <span aria-hidden="true">{results[i] ? '✓' : '✗'}</span>
-                      <span className="visually-hidden">{results[i] ? t.blankRight : t.blankWrong}</span>
-                      {!results[i] && <span className="context-blank__expected">{answers?.[i]}</span>}
+                      <span className="visually-hidden" lang="tr">{results[i] ? t.blankRight : t.blankWrong}</span>
+                      {!results[i] && <span className="context-blank__expected" lang="en">{answers?.[i]}</span>}
                     </span>
                   )}
                 </>
