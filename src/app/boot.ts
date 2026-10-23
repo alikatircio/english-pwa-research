@@ -36,9 +36,11 @@ export function resumableSession(
   catalog: Catalog,
   clock: Clock,
   flags: ReadonlySet<string> = new Set(),
+  messages?: ExtrasBundle['messages'],
+  progress?: ReadyState['progress'],
 ): SessionState | undefined {
   if (!stored || isSessionStale(stored, clock.today(), clock.now())) return undefined;
-  const s = onShowableCard(stored, { catalog, flags });
+  const s = onShowableCard(stored, { catalog, flags, messages, progress });
   return s === 'round-end' ? undefined : s;
 }
 
@@ -59,7 +61,7 @@ export async function loadReadyState(
   const catalog = catalogOf(data.importedItems);
   const progress = new Map(data.progress.map((p) => [p.itemId, p]));
   const flags = new Set(data.flags.map((f) => f.itemId));
-  const resumed = resumableSession(data.session, catalog, clock, flags);
+  const resumed = resumableSession(data.session, catalog, clock, flags, extras.messages, progress);
   if (data.session && !resumed) await clearSession(db); // dropped silently (02 §3)
   return {
     screen,

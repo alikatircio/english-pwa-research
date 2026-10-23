@@ -113,3 +113,18 @@ describe('resumableSession — flags (T2.5)', () => {
     expect(resumableSession(s, catalog, fixedClock(t0), new Set(['e2e-will-send']))).toBeUndefined();
   });
 });
+
+describe('boot — stale message step', () => {
+  it('resumes without a stored message step whose message left the bundle', async () => {
+    const t0 = new Date(2026, 10, 2, 8).getTime();
+    const queue = [...bundle.items.slice(0, 2).map((i) => ({ itemId: i.id, kind: 'new' as const })), { itemId: 'gone-msg', kind: 'message' as const }];
+    const session = { ...newSession(queue, '2026-11-02', t0), cursor: 2 };
+    const name = `stale-msg-${Math.random()}`;
+    const db = await openAppDb({ name });
+    await saveSession(db, session);
+    db.close();
+    const r = await boot({ bundle, clock: fixedClock(t0 + 1000), openDb: () => openAppDb({ name }), extras: { diagnostic: [], messages: [] } });
+    r.db.close();
+    expect(r.state.session).toBeUndefined();
+  });
+});

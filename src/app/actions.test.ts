@@ -643,4 +643,25 @@ describe('actions — message step (decisions 49, 59)', () => {
     expect(store.getState()).toMatchObject({ screen: 'roundEnd' });
     db.close();
   });
+
+  it('answerMessage leaves no answer-log rows when the session write fails', async () => {
+    const name = `msg-fail-${Date.now()}`;
+    const seed = await openAppDb({ name });
+    for (const id of ids) await seed.put('progress', box4(id));
+    seed.close();
+    const clock = fixedClock(T0);
+    const { db, state } = await boot({ bundle, clock, openDb: () => openAppDb({ name }), extras: { diagnostic: [], messages: [msgs[1] as never] } });
+    const store = createStore();
+    store.dispatch({ type: 'booted', state });
+    const actions = createActions({ db, clock, getState: store.getState, dispatch: store.dispatch });
+    actions.startPractice();
+    const s0 = store.getState();
+    if (s0.status !== 'ready' || !s0.session) throw new Error('no session');
+    // A function field cannot be structured-cloned, so the session put throws.
+    const bad = { ...s0.session, cursor: s0.session.queue.length - 1, phase: { tag: 'question' as const }, bad: () => 1 };
+    store.dispatch({ type: 'session', session: bad as never });
+    await actions.answerMessage(['into', 'nope']);
+    expect(await db.getAll('answerLog')).toHaveLength(0);
+    db.close();
+  });
 });

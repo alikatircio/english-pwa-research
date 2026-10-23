@@ -82,6 +82,15 @@ export async function appendLogs(db: AppDb, logs: readonly AnswerLog[]): Promise
   });
 }
 
+/** Message answer: log rows + session in ONE transaction, so a failed session write leaves no rows to duplicate on retry. */
+export async function appendLogsAndSession(db: AppDb, logs: readonly AnswerLog[], session: SessionState): Promise<void> {
+  const tx = db.transaction(['answerLog', 'session'], 'readwrite');
+  await writeAll(tx, (track) => {
+    for (const log of logs) track(tx.objectStore('answerLog').add(log));
+    track(tx.objectStore('session').put(session));
+  });
+}
+
 /** Newest `at` per messageId over the answer log (decision 59 rotation). */
 export async function loadMessageLastAt(db: AppDb): Promise<Map<string, number>> {
   const last = new Map<string, number>();

@@ -27,7 +27,7 @@ import type { AnswerLog, CardPhase, DiagnosticAttempt, DailyCounter, DayKey, Fla
 import { createCatalog, withImported, type Catalog } from '../content/catalog.ts';
 import { exportFlagsReport, importItems, readBackupData, writeRestore } from '../storage/backupIO.ts';
 import { fixedConnection, type AppDb, type DbConnection, type ImportedItem } from '../storage/db.ts';
-import { addNotebookEntry, appendLogs, clearSession, commitGrade, loadCounter, putMeta, saveDiagnosticAttempt, saveSession, toggleFlag, undoGrade } from '../storage/repo.ts';
+import { addNotebookEntry, appendLogsAndSession, clearSession, commitGrade, loadCounter, putMeta, saveDiagnosticAttempt, saveSession, toggleFlag, undoGrade } from '../storage/repo.ts';
 import { loadReadyState } from './boot.ts';
 import { answerQuestion, diagnosticAvailable, finishAttempt, nextQuestion, prevQuestion, startAttempt, type Selection } from '../domain/diagnostic.ts';
 import type { DiagnosticQuestion } from '../domain/extrasSchema.ts';
@@ -501,10 +501,7 @@ export function createActions({ db, clock, getState, dispatch, extras = NO_EXTRA
       const next: SessionState = { ...session, draft: typed.join('\n'), phase: { tag: 'result', answer: typed.join('\n'), matched }, updatedAt: now };
       dispatch({ type: 'busy' });
       try {
-        await run(async (d) => {
-          await appendLogs(d, logs);
-          await saveSession(d, next);
-        });
+        await run((d) => appendLogsAndSession(d, logs, next));
       } catch {
         dispatch({ type: 'error', error: 'save-failed' });
         return;
