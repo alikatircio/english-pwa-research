@@ -209,6 +209,16 @@ export const t = {
   persistRequest: 'Kalıcı depolamayı iste',
   // Seviye testi (Faz 2)
   diagSection: 'Seviye testi',
+  diagHelpTitle: 'Nasıl kullanılır',
+  diagHelpSteps: [
+    '“Seviye testine başla”ya bas. 48 soru var. Bilmediğinde “Emin değilim” de. Yarıda bırakırsan kaldığın yerden devam eder.',
+    'Sonuçta alan alan bir tablo ve zayıf alanların çıkar.',
+    'Her gün eskisi gibi Ana ekrandan turu çöz. Test bittikten sonra yeni kartlar önce zayıf alanlarından gelir. Kutular ve günlük sayaç değişmez.',
+    'Konu anlatımları: Ayarlar → Konular, test sonucunda zayıf alanın altı ya da kart sonucunda “Konu anlatımı”. Kapatınca kaldığın yere dönersin.',
+    'Mesaj alıştırması hemen görünmez. Bir mesajın bütün kartları kutu 4’e ulaşınca “Serbest pratik” turunun sonunda çıkar.',
+    'Yaklaşık 4 hafta sonra testi tekrar çöz. “Geçmiş” ilk ve son denemeni yan yana gösterir.',
+  ],
+  updatedNoteDiag: 'Yeni: Seviye testi ve Konular, Ayarlar’da. Testi çöz, yeni kartlar zayıf alanlarından gelsin.',
   diagHint: 'Gramer ve iş eşdizimlerinde nerede olduğunu gösteren kısa test. Kartları, tekrar zamanlarını ve sayaçları etkilemez.',
   diagStart: 'Seviye testine başla',
   diagContinue: 'Seviye testine devam et',

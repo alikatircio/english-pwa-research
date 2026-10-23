@@ -149,6 +149,14 @@ function DiagnosticEntry({ state, actions, onDiagnostic, focusDiagnostic, onFocu
 
   return (
     <Section title={t.diagSection}>
+      <details className="block diag-help" data-testid="diag-help">
+        <summary>{t.diagHelpTitle}</summary>
+        <ol className="notebook-help__steps">
+          {t.diagHelpSteps.map((step) => (
+            <li key={step}>{step}</li>
+          ))}
+        </ol>
+      </details>
       <p className="muted">{t.diagHint}</p>
       <button ref={entry} type="button" className="btn" disabled={state.busy} onClick={() => void start()}>
         {open ? t.diagContinue : t.diagStart}

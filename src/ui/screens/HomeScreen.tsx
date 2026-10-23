@@ -135,7 +135,11 @@ export function HomeScreen({ state, actions }: Props) {
             <BackupRestore actions={actions} busy={state.busy} buttonClass="btn btn--text" />
           </div>
         )}
-        {updatedNote && <Note id="updated-note" text={updatedNoteText(BUILD)} onDismiss={() => setUpdatedNote(false)} />}
+        {updatedNote && <Note
+            id="updated-note"
+            text={updatedNoteText(BUILD)}
+            extra={actions.diagnosticAvailable() && (state.diagnostic?.attempts.length ?? 0) === 0 ? t.updatedNoteDiag : undefined}
+            onDismiss={() => setUpdatedNote(false)} />}
         {showInstallHint && (
           <Note id="install-hint" text={t.installHint} onDismiss={() => void actions.dismissInstallHint()} />
         )}
@@ -196,17 +200,20 @@ export function HomeScreen({ state, actions }: Props) {
 function Note({
   id,
   text,
+  extra,
   onDismiss,
   action,
 }: {
   id: string;
   text: string;
+  extra?: string;
   onDismiss: () => void;
   action?: { label: string; disabled?: boolean; onClick: () => void };
 }) {
   return (
     <div className="home-note" data-testid={id}>
       <p id={`${id}-text`}>{text}</p>
+      {extra && <p>{extra}</p>}
       {action && (
         <button type="button" className="btn btn--primary" disabled={action.disabled} aria-describedby={`${id}-text`} onClick={action.onClick}>
           {action.label}

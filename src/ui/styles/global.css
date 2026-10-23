@@ -489,10 +489,16 @@ body {
 }
 
 /* Decision 32: dismissible "Nasıl kullanılır" box in the notebook sheet. */
-.notebook-help {
+.notebook-help,
+.diag-help {
   padding: 10px 12px;
   border: 1px solid var(--border);
   border-radius: 10px;
+}
+
+.diag-help summary {
+  cursor: pointer;
+  font-weight: 600;
 }
 
 .notebook-help__steps {
