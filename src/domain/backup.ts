@@ -498,7 +498,12 @@ export function mergeBackup(local: BackupData, incoming: BackupData, builtinIds:
   }
   const attempts =
     local.diagnosticAttempts || incoming.diagnosticAttempts
-      ? { diagnosticAttempts: mergeBy(local.diagnosticAttempts ?? [], incoming.diagnosticAttempts ?? [], (a) => a.id) }
+      ? {
+          // Local wins, except that a finished incoming copy beats an unfinished local one (no result is lost).
+          diagnosticAttempts: mergeBy(local.diagnosticAttempts ?? [], incoming.diagnosticAttempts ?? [], (a) => a.id, (l, i) =>
+            l.finishedAt === undefined && i.finishedAt !== undefined ? i : l,
+          ),
+        }
       : {};
   return {
     data: {

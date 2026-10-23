@@ -92,12 +92,12 @@ export function TopicScreen({ topicId }: { topicId: string }) {
                   <div key={tr.wrongEn} className="topic-trap__item">
                     <p className="topic-trap__wrong" lang="en">
                       <span aria-hidden="true">✗ </span>
-                      <span className="visually-hidden">{t.topicWrong}: </span>
+                      <span className="visually-hidden" lang="tr">{t.topicWrong}: </span>
                       <s>{tr.wrongEn}</s>
                     </p>
                     <p className="topic-trap__right" lang="en">
                       <span aria-hidden="true">✓ </span>
-                      <span className="visually-hidden">{t.topicRight}: </span>
+                      <span className="visually-hidden" lang="tr">{t.topicRight}: </span>
                       {tr.rightEn}
                     </p>
                     <p className="muted">{tr.noteTr}</p>

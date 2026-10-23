@@ -470,6 +470,15 @@ describe('diagnosticAttempts (Ö5)', () => {
     expect(m.data.diagnosticAttempts).toEqual([attempt('a', { cursor: 5 }), attempt('b')]);
     expect(mergeBackup(data({}), data({ diagnosticAttempts: [attempt('b')] }), builtin).data.diagnosticAttempts).toEqual([attempt('b')]);
   });
+
+  it('merge keeps a finished incoming attempt over an unfinished local copy', () => {
+    const m = mergeBackup(
+      data({ diagnosticAttempts: [attempt('a', { cursor: 5 })] }),
+      data({ diagnosticAttempts: [attempt('a', { finishedAt: 9 })] }),
+      builtin,
+    );
+    expect(m.data.diagnosticAttempts).toEqual([attempt('a', { finishedAt: 9 })]);
+  });
 });
 
 describe('rejectBuiltinImportedItems ("Tümünü değiştir")', () => {
