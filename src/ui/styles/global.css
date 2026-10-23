@@ -840,3 +840,79 @@ main {
 .diag-topic-links:empty {
   display: none;
 }
+
+/* Topic pages (Faz 4) */
+.topic-screen .screen__body {
+  gap: 14px;
+}
+
+.topic-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.topic-section p {
+  margin: 0;
+}
+
+.topic-examples {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.topic-examples li {
+  display: flex;
+  flex-direction: column;
+}
+
+.topic-screen mark {
+  background: color-mix(in srgb, var(--accent) 22%, transparent);
+  color: inherit;
+  border-radius: 3px;
+  padding: 0 2px;
+  font-weight: 600;
+}
+
+.topic-trap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.topic-trap__item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.topic-trap__item p {
+  margin: 0;
+}
+
+.topic-trap__wrong {
+  color: var(--miss);
+}
+
+.topic-list__area {
+  margin: 0 0 6px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.topic-buttons {
+  grid-template-columns: 1fr;
+}
+
+.topic-link {
+  align-self: flex-start;
+  margin-left: -8px;
+}

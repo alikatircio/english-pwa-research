@@ -1,4 +1,5 @@
-import { createContext, useContext, useState, useSyncExternalStore, type ReactNode } from 'react';
+import { t } from '../ui/strings.tr.ts';
+import { Component, createContext, lazy, Suspense, useContext, useState, useSyncExternalStore, type ReactNode } from 'react';
 
 // Read-only page shown on top of the current screen. The screen stays mounted underneath (see App.tsx).
 export type AppOverlay = { kind: 'topic'; topicId: string };
@@ -35,8 +36,17 @@ export function createOverlayController(getActive: () => FocusTarget | null = ()
       if (!current) return;
       current = undefined;
       emit();
-      if (opener?.isConnected) opener.focus();
+      const target = opener;
       opener = null;
+      if (target?.isConnected) {
+        target.focus();
+        // The hidden screen is revealed after this tick (display:none ignores focus), so focus again once it is back.
+        if (typeof requestAnimationFrame === 'function') {
+          requestAnimationFrame(() => {
+            if (target.isConnected && (target as unknown) !== document.activeElement) target.focus();
+          });
+        }
+      }
     },
   };
 }
@@ -55,8 +65,47 @@ export function useOverlay(): { overlay: AppOverlay | undefined; open: OverlayCo
   return { overlay, open: controller.open, close: controller.close };
 }
 
-// Renders nothing until a page exists for the overlay kind.
+// Lazy: keeps the content bundle out of this module's import graph (unit tests load it without the aliases).
+const TopicScreen = lazy(() => import('../ui/screens/TopicScreen.tsx').then((m) => ({ default: m.TopicScreen })));
+
+// A failed chunk load must not leave the screen hidden with nothing to go back to.
+class OverlayBoundary extends Component<{ onClose: () => void; children: ReactNode }, { failed: boolean }> {
+  override state = { failed: false };
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+  override render() {
+    if (!this.state.failed) return this.props.children;
+    return (
+      <div className="screen">
+        <div className="screen__body">
+          <p role="alert">{t.topicLoadFailed}</p>
+          <button type="button" className="btn" onClick={this.props.onClose}>
+            {t.topicClose}
+          </button>
+        </div>
+      </div>
+    );
+  }
+}
+
+// Renders the page of the open overlay; nothing when none is open.
 export function OverlayHost() {
-  useOverlay();
+  const { overlay, close } = useOverlay();
+  if (overlay?.kind === 'topic') {
+    return (
+      <OverlayBoundary onClose={close}>
+        <Suspense
+          fallback={
+            <p className="muted" role="status">
+              {t.loading}
+            </p>
+          }
+        >
+          <TopicScreen key={overlay.topicId} topicId={overlay.topicId} />
+        </Suspense>
+      </OverlayBoundary>
+    );
+  }
   return null;
 }

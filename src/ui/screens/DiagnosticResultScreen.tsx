@@ -7,6 +7,8 @@ import { systemClock } from '../../domain/clock.ts';
 import type { DiagnosticAttempt } from '../../domain/types.ts';
 import { diagnosticQuestions } from '../diagnosticQuestions.ts';
 import { formatDate } from '../format.ts';
+import { topicsByArea } from '../../content/extras.ts';
+import { TopicButtons } from './TopicList.tsx';
 import { t } from '../strings.tr.ts';
 
 interface Props {
@@ -102,8 +104,9 @@ function Result({ state, attemptId, back }: { state: ReadyState; attemptId: stri
                   <strong>{area?.titleTr}</strong>
                   <span>{t.diagStudy(refs)}</span>
                   {chunks.length > 0 && <span className="muted">{t.diagChunks(chunks)}</span>}
-                  {/* PLACEHOLDER (Faz 4, task 4.4): topic links for this area are rendered into this slot. */}
-                  <div className="diag-topic-links" data-testid={`topic-links-${id}`} data-slot="topic-links" />
+                  <div className="diag-topic-links" data-testid={`topic-links-${id}`} data-slot="topic-links">
+                    <TopicButtons topics={topicsByArea(id)} />
+                  </div>
                 </li>
               );
             })}

@@ -1,5 +1,7 @@
 import { forwardRef } from 'react';
 import type { Grade, Item } from '../../domain/types.ts';
+import { useOverlay } from '../../app/overlay.tsx';
+import { topicForItem } from '../../content/extras.ts';
 import { t } from '../strings.tr.ts';
 import { gradeLabel } from './GradeButtons.tsx';
 import { PatternCard } from './PatternCard.tsx';
@@ -25,6 +27,8 @@ interface Props {
 /** The verdict heading takes focus after submit (ref; a11y audit 08 #2). */
 export const ResultPanel = forwardRef<HTMLHeadingElement, Props>(function ResultPanel({ item, answer, original, daily, matched, grade, showNote, boxBefore, hinted }, verdictRef) {
   const canonical = item.acceptedAnswers[0] ?? '';
+  const { open } = useOverlay();
+  const topic = topicForItem(item.id);
   const others = item.modelSentences.filter((s) => s !== canonical);
   return (
     <section className="result">
@@ -98,6 +102,15 @@ export const ResultPanel = forwardRef<HTMLHeadingElement, Props>(function Result
       )}
 
       <PatternCard key={`${item.id}:${String(matched)}`} item={item} defaultOpen={!matched} showSentences={!matched} showMistake={(boxBefore ?? 1) >= 3} />
+
+      {topic && (
+        <button type="button" className="btn btn--text topic-link" data-testid="topic-link" onClick={(e) => {
+            e.currentTarget.focus(); // Safari does not focus a clicked button; the overlay returns focus to it
+            open({ kind: 'topic', topicId: topic.id });
+          }}>
+          {t.topicLesson}
+        </button>
+      )}
     </section>
   );
 });

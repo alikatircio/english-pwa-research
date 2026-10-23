@@ -1763,7 +1763,14 @@
       ],
       "itemIds": [
         "e2e-will-send",
-        "e2e-look-into"
+        "e2e-explain-to",
+        "e2e-could-you-check",
+        "e2e-discuss",
+        "e2e-data",
+        "e2e-reproduce",
+        "e2e-feedback",
+        "e2e-look-into",
+        "e2e-get-back"
       ],
       "refs": [
         {
@@ -1813,7 +1820,9 @@
         }
       ],
       "itemIds": [
-        "e2e-wait-for"
+        "e2e-wait-for",
+        "e2e-depend-on",
+        "e2e-responsible-for"
       ],
       "refs": [
         {

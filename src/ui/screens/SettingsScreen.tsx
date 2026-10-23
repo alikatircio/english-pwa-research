@@ -11,6 +11,7 @@ import { DAILY_NEW_CAP, NEW_CAP_OPTIONS } from '../../domain/session.ts';
 import { shareOrDownload } from '../share.ts';
 import { t } from '../strings.tr.ts';
 import { formatDate } from '../format.ts';
+import { TopicList } from './TopicList.tsx';
 import type { DiagnosticView } from '../../app/mode.ts';
 
 interface Props {
@@ -91,6 +92,11 @@ export function SettingsScreen({ state, actions, onDiagnostic }: Props) {
         </Section>
 
         {actions.diagnosticAvailable() && <DiagnosticEntry state={state} actions={actions} onDiagnostic={onDiagnostic} />}
+
+        <Section title={t.topicsSection}>
+          <p className="muted">{t.topicsHint}</p>
+          <TopicList />
+        </Section>
 
         <ItemsImport actions={actions} busy={state.busy} />
 

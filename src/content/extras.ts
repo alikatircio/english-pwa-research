@@ -12,3 +12,5 @@ export const topicForItem = (itemId: string): Topic | undefined => extras.topics
 export const questionsByArea = (area: AreaId): DiagnosticQuestion[] => extras.diagnostic.filter((q) => q.area === area);
 
 export const topicsByArea = (area: AreaId): Topic[] => extras.topics.filter((t) => t.area === area);
+
+export const topicById = (id: string): Topic | undefined => extras.topics.find((t) => t.id === id);
