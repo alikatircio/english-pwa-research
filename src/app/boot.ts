@@ -7,6 +7,8 @@ import { createCatalog, type Catalog } from '../content/catalog.ts';
 import type { AppDb } from '../storage/db.ts';
 import { clearSession, loadAll, loadDiagnosticAttempts, type LoadedData } from '../storage/repo.ts';
 import { metaFromRecords } from './meta.ts';
+import { latestFinished, priorityItems } from '../domain/priority.ts';
+import type { ExtrasBundle } from '../domain/extrasSchema.ts';
 import { onShowableCard } from './round.ts';
 import type { ReadyState, Screen } from './state.ts';
 
@@ -14,6 +16,8 @@ export interface BootDeps {
   bundle: ContentBundle;
   clock: Clock;
   openDb: () => Promise<AppDb>;
+  /** Diagnostic + topics, for the new-card priority (Phase 5). Default: none. */
+  extras?: Pick<ExtrasBundle, 'diagnostic'> & Partial<Pick<ExtrasBundle, 'topics'>>;
 }
 
 export interface BootResult {
@@ -47,6 +51,7 @@ export async function loadReadyState(
   catalogOf: (imported: LoadedData['importedItems']) => Catalog,
   clock: Clock,
   screen: Screen,
+  extras: BootDeps['extras'] = { diagnostic: [] },
 ): Promise<BootResult['state']> {
   const data = await loadAll(db, clock.today());
   // Attempts are read separately from loadAll (roadmap 2.3).
@@ -66,12 +71,13 @@ export async function loadReadyState(
     notebook: data.notebook,
     meta: metaFromRecords(data.meta),
     diagnostic: { attempts, open: attempts.findLast((a) => a.finishedAt === undefined) },
+    newPriority: priorityItems(latestFinished(attempts), extras),
   };
 }
 
-export async function boot({ bundle, clock, openDb }: BootDeps): Promise<BootResult> {
+export async function boot({ bundle, clock, openDb, extras }: BootDeps): Promise<BootResult> {
   const db = await openDb();
   // Always open on Home (05 §1): "Başla · bugün N", "Devam et" or "Bugün bitti".
-  const state = await loadReadyState(db, (imported) => createCatalog(bundle, imported), clock, 'home');
+  const state = await loadReadyState(db, (imported) => createCatalog(bundle, imported), clock, 'home', extras);
   return { db, state };
 }

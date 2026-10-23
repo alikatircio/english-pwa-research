@@ -47,6 +47,8 @@ export interface ReadyState {
   overlay?: Overlay | undefined;
   notice?: Notice | undefined;
   diagnostic?: DiagnosticState | undefined;
+  /** Phase 5: new-card priority from the latest finished Seviye testi (decision 48). Absent or empty = normal order. */
+  newPriority?: ReadonlySet<string> | undefined;
   /** The `meta` store (last export, …). */
   meta: AppMeta;
   /** A write is in flight; buttons that write are disabled. */
@@ -75,7 +77,7 @@ export type Action =
   /** After a backup restore: everything reloaded from disk; overlay and notice are kept as they are. */
   | { type: 'restored'; state: Omit<ReadyState, 'status' | 'busy'> }
   /** Diagnostic attempts changed (start, answer, move, finish). */
-  | { type: 'diagnostic'; diagnostic: DiagnosticState }
+  | { type: 'diagnostic'; diagnostic: DiagnosticState; newPriority: ReadonlySet<string> }
   | { type: 'clearError' };
 
 /** A grade only updates the in-memory counter of the day it belongs to. */
@@ -148,7 +150,7 @@ export function appReducer(state: AppState, action: Action): AppState {
     case 'meta':
       return { ...state, meta: action.meta };
     case 'diagnostic':
-      return { ...state, busy: false, error: undefined, diagnostic: action.diagnostic };
+      return { ...state, busy: false, error: undefined, diagnostic: action.diagnostic, newPriority: action.newPriority };
     case 'restored':
       return { ...state, ...action.state, busy: false, error: undefined, lastRound: undefined };
   }

@@ -35,6 +35,7 @@ import type { ExtrasBundle } from '../domain/extrasSchema.ts';
 import { contextAnswer, gradeContext } from '../domain/exerciseMode.ts';
 import { contextForEntry, modeForEntry } from './mode.ts';
 import type { AppMeta } from './meta.ts';
+import { latestFinished, priorityItems } from '../domain/priority.ts';
 import { freshRound, nextCard, poolsOf, practiceRound } from './round.ts';
 import type { Action, AppState, ReadyState, Screen } from './state.ts';
 
@@ -79,7 +80,7 @@ export interface ActionDeps {
   getState: () => AppState;
   dispatch: (a: Action) => void;
   /** Diagnostic bundle ('@extras', passed in by AppContext; the alias is not resolvable in unit tests). Default: none, so the test is unavailable. */
-  extras?: Pick<ExtrasBundle, 'extrasVersion' | 'diagnostic'>;
+  extras?: Pick<ExtrasBundle, 'extrasVersion' | 'diagnostic'> & Partial<Pick<ExtrasBundle, 'topics'>>;
 }
 
 function ready(getState: () => AppState): ReadyState | undefined {
@@ -88,7 +89,7 @@ function ready(getState: () => AppState): ReadyState | undefined {
 }
 
 /** Decision 10: "Geri al" stays for 4 s after a self-grade. */
-const NO_EXTRAS: Pick<ExtrasBundle, 'extrasVersion' | 'diagnostic'> = { extrasVersion: '', diagnostic: [] };
+const NO_EXTRAS: Pick<ExtrasBundle, 'extrasVersion' | 'diagnostic'> & Partial<Pick<ExtrasBundle, 'topics'>> = { extrasVersion: '', diagnostic: [] };
 
 export const UNDO_WINDOW_MS = 4000;
 
@@ -112,9 +113,11 @@ export function createActions({ db, clock, getState, dispatch, extras = NO_EXTRA
       return;
     }
     const rest = attempts.filter((a) => a.id !== attempt.id);
+    const all = [...rest, attempt].toSorted((a, b) => a.startedAt - b.startedAt);
     dispatch({
       type: 'diagnostic',
-      diagnostic: { attempts: [...rest, attempt].toSorted((a, b) => a.startedAt - b.startedAt), open: attempt.finishedAt === undefined ? attempt : undefined },
+      diagnostic: { attempts: all, open: attempt.finishedAt === undefined ? attempt : undefined },
+      newPriority: priorityItems(latestFinished(all), extras),
     });
   }
 
@@ -269,7 +272,7 @@ export function createActions({ db, clock, getState, dispatch, extras = NO_EXTRA
     // An open round keeps its own day and counter (03 §4.5).
     const today = clock.today();
     const counter = s.session || s.counter.day === today ? s.counter : await run((d) => loadCounter(d, today)).catch(() => emptyCounter(today));
-    const session = s.session ?? freshRound({ catalog, progress: s.progress, flags: s.flags, meta: s.meta }, counter, clock);
+    const session = s.session ?? freshRound({ catalog, progress: s.progress, flags: s.flags, meta: s.meta, newPriority: s.newPriority }, counter, clock);
     dispatch({ type: 'itemsImported', catalog, notebook, session, counter });
     if (session && !s.session) persistSession(session);
     return { status: 'imported', importedIds: plan.items.map((i) => i.id), rejected: plan.rejected };
@@ -754,7 +757,7 @@ export function createActions({ db, clock, getState, dispatch, extras = NO_EXTRA
         const meta: MetaRecord[] = s.meta.firstRunAt === undefined ? [{ key: 'firstRunAt', value: clock.now() }] : [];
         await run((d) => writeRestore(d, { data, clearSession: mode === 'replace', meta }));
         const latest = ready(getState) ?? s;
-        const state = await run((d) => loadReadyState(d, (imported) => catalogWith(s.catalog, imported), clock, latest.screen));
+        const state = await run((d) => loadReadyState(d, (imported) => catalogWith(s.catalog, imported), clock, latest.screen, extras));
         dispatch({ type: 'restored', state });
         return { status: 'restored', rejected };
       } catch {

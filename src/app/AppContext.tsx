@@ -37,7 +37,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       tryReload();
     };
     const open = () => openAppDb({ onBlocking, onTerminated: () => conn?.markLost() });
-    boot({ bundle, clock: systemClock, openDb: open })
+    boot({ bundle, clock: systemClock, openDb: open, extras })
       .then(({ db: opened, state: booted }) => {
         if (cancelled) return opened.close();
         conn = createConnection(opened, open);

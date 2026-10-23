@@ -9,6 +9,8 @@ import { openAppDb } from '../storage/db.ts';
 import { loadDiagnosticAttempts } from '../storage/repo.ts';
 import { createActions } from './actions.ts';
 import { boot } from './boot.ts';
+import { buildRound, todayCount } from '../domain/session.ts';
+import { poolsOf } from './round.ts';
 import { createStore } from './store.ts';
 
 const bundle = fixture as ContentBundle;
@@ -103,5 +105,39 @@ describe('diagnostic actions', () => {
     expect(after.progress).toBe(before.progress);
     expect(after.counter).toBe(before.counter);
     expect(after.session).toBe(before.session);
+  });
+});
+
+describe('diagnostic and new-card priority (decision 48)', () => {
+  it('(5) finishing a test leaves progress and daily counters untouched', async () => {
+    const app = await setup();
+    const before = { progress: app.ready().progress, counter: app.ready().counter };
+    await app.actions.openDiagnostic();
+    await app.actions.finishDiagnostic();
+    expect(app.ready().diagnostic?.attempts[0]?.finishedAt).toBeDefined();
+    expect(app.ready().progress).toEqual(before.progress);
+    expect(app.ready().counter).toEqual(before.counter);
+  });
+
+  it('Home-style poolsOf(state) count equals the round actions build when a weak area exists', async () => {
+    const topicItems = bundle.items.slice(0, 5).map((i) => i.id);
+    const qs = questions.map((q) => (q.area === AREAS[0]?.id ? { ...q, relatedItemIds: topicItems } : q));
+    const clock = fixedClock(new Date(2026, 10, 2, 8).getTime());
+    const { db, state } = await boot({ bundle, clock, openDb: () => openAppDb({ name: `diag-prio-${Date.now()}` }) });
+    const store = createStore();
+    store.dispatch({ type: 'booted', state });
+    const actions = createActions({ db, clock, getState: store.getState, dispatch: store.dispatch, extras: { extrasVersion: 'v1', diagnostic: qs } });
+    await actions.openDiagnostic();
+    await actions.finishDiagnostic(); // nothing answered: every area weak
+    const s = store.getState();
+    if (s.status !== 'ready') throw new Error('not ready');
+    expect(s.newPriority?.size).toBeGreaterThan(0);
+    const expected = buildRound(poolsOf(s, s.counter), s.counter.day).map((e) => e.itemId);
+    expect(todayCount(poolsOf(s, s.counter), s.counter.day)).toBeGreaterThan(0);
+    actions.startRound();
+    const after = store.getState();
+    if (after.status !== 'ready') throw new Error('not ready');
+    expect(after.session?.queue.map((e) => e.itemId)).toEqual(expected);
+    expect(expected.some((id) => s.newPriority?.has(id))).toBe(true);
   });
 });

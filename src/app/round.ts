@@ -5,7 +5,7 @@ import type { DailyCounter, SessionState } from '../domain/types.ts';
 import { newOrder, type Catalog } from '../content/catalog.ts';
 import type { ReadyState } from './state.ts';
 
-type PoolSource = Pick<ReadyState, 'catalog' | 'progress' | 'flags' | 'meta'>;
+type PoolSource = Pick<ReadyState, 'catalog' | 'progress' | 'flags' | 'meta' | 'newPriority'>;
 type ShowSource = Pick<ReadyState, 'catalog' | 'flags'>;
 
 /** newOrder per catalog and priority set, computed once (a catalog only changes on import). */
@@ -32,7 +32,7 @@ export function poolsOf(s: PoolSource, counter: DailyCounter): Pools {
     progress: s.progress,
     flaggedIds: s.flags,
     counter,
-    newOrder: cachedOrder(s.catalog),
+    newOrder: cachedOrder(s.catalog, s.newPriority?.size ? s.newPriority : undefined),
     newCap: s.meta.dailyNewCap,
   };
 }
