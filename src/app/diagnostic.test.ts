@@ -71,6 +71,20 @@ describe('diagnostic actions', () => {
     expect((await loadDiagnosticAttempts(re.db))[0]?.areaResults).toEqual(done?.attempts[0]?.areaResults);
   });
 
+  it('replaces an open attempt whose questions left the bundle', async () => {
+    const app = await setup();
+    await app.actions.openDiagnostic();
+    const stale = app.ready().diagnostic?.open;
+    app.db.close();
+    const renamed = questions.map((q) => ({ ...q, id: `${q.id}-v2` }));
+    const re = await setup(renamed, app.name);
+    await re.actions.openDiagnostic();
+    const open = re.ready().diagnostic?.open;
+    expect(open?.id).toBe(stale?.id);
+    expect(open?.order.every((id) => id.endsWith('-v2'))).toBe(true);
+    expect(await loadDiagnosticAttempts(re.db)).toHaveLength(1);
+  });
+
   it('never touches progress, counters or the answer log', async () => {
     const app = await setup();
     const before = app.ready();

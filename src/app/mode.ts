@@ -39,3 +39,6 @@ export function contextForEntry(s: Pick<ReadyState, 'catalog' | 'progress'>, ent
   if (!item || modeForEntry(s, entry, cursor, queueLength) !== 'context') return null;
   return contextCard(item, showsBefore(s.progress.get(entry.itemId) ?? null));
 }
+
+/** Seviye testi views, drawn above Settings. The attempt is in the store, so only the view is local UI state. */
+export type DiagnosticView = { kind: 'test' } | { kind: 'result'; attemptId: string } | { kind: 'history' };

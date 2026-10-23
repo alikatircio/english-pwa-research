@@ -10,10 +10,13 @@ import { settingsVersionLine } from '../buildLines.ts';
 import { DAILY_NEW_CAP, NEW_CAP_OPTIONS } from '../../domain/session.ts';
 import { shareOrDownload } from '../share.ts';
 import { t } from '../strings.tr.ts';
+import { formatDate } from '../format.ts';
+import type { DiagnosticView } from '../../app/mode.ts';
 
 interface Props {
   state: ReadyState;
   actions: Actions;
+  onDiagnostic: (view: DiagnosticView | undefined) => void;
 }
 
 type Status = { tone: 'ok' | 'error'; text: string } | undefined;
@@ -23,7 +26,7 @@ type Status = { tone: 'ok' | 'error'; text: string } | undefined;
  * items import; full backup in BackupSection (T5.4). No counts for open
  * notebook entries (05 §4): only whether something is waiting.
  */
-export function SettingsScreen({ state, actions }: Props) {
+export function SettingsScreen({ state, actions, onDiagnostic }: Props) {
   const [status, setStatus] = useState<Status>();
   const hasOpenEntries = state.notebook.some((e) => e.status === 'open');
   const hasFlags = state.flags.size > 0;
@@ -87,6 +90,8 @@ export function SettingsScreen({ state, actions }: Props) {
           </button>
         </Section>
 
+        {actions.diagnosticAvailable() && <DiagnosticEntry state={state} actions={actions} onDiagnostic={onDiagnostic} />}
+
         <ItemsImport actions={actions} busy={state.busy} />
 
         {/* Slice 5: full backup (T5.4) and persistent storage (T5.5), in their own components. */}
@@ -113,6 +118,38 @@ function Section({ title, children }: { title: string; children: ReactNode }) {
       <h3 className="label">{title}</h3>
       {children}
     </section>
+  );
+}
+
+/** Seviye testi entry (decision 47): start or continue, last result, history. Never touches cards. */
+function DiagnosticEntry({ state, actions, onDiagnostic }: Props) {
+  const attempts = state.diagnostic?.attempts ?? [];
+  const open = state.diagnostic?.open;
+  const last = attempts.findLast((a) => a.finishedAt !== undefined);
+
+  async function start() {
+    await actions.openDiagnostic();
+    onDiagnostic({ kind: 'test' });
+  }
+
+  return (
+    <Section title={t.diagSection}>
+      <p className="muted">{t.diagHint}</p>
+      <button type="button" className="btn" disabled={state.busy} onClick={() => void start()}>
+        {open ? t.diagContinue : t.diagStart}
+      </button>
+      <p className="muted">{last?.finishedAt !== undefined ? t.diagLastResult(formatDate(last.finishedAt)) : t.diagNoResult}</p>
+      {last && (
+        <div className="choice-buttons">
+          <button type="button" className="btn" onClick={() => onDiagnostic({ kind: 'result', attemptId: last.id })}>
+            {t.diagShowResult}
+          </button>
+          <button type="button" className="btn" onClick={() => onDiagnostic({ kind: 'history' })}>
+            {t.diagHistory}
+          </button>
+        </div>
+      )}
+    </Section>
   );
 }
 

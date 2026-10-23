@@ -147,11 +147,11 @@ describe('diagnosticAttempts in backups (Ö5)', () => {
     expect((await readBackupData(db)).diagnosticAttempts).toEqual([attempt]);
   });
 
-  it('restore without the field clears attempts (like the other stores); with it restores them', async () => {
+  it('restore without the field keeps local attempts; with it replaces them', async () => {
     const db = await freshDb();
-    await db.put('diagnosticAttempts', attempt);
+    await db.put('diagnosticAttempts', { ...attempt, id: 'local' });
     await writeRestore(db, { data: empty, clearSession: false });
-    expect(await db.getAll('diagnosticAttempts')).toEqual([]);
+    expect(await db.getAll('diagnosticAttempts')).toEqual([{ ...attempt, id: 'local' }]);
     await writeRestore(db, { data: { ...empty, diagnosticAttempts: [attempt] }, clearSession: false });
     expect(await db.getAll('diagnosticAttempts')).toEqual([attempt]);
   });

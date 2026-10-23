@@ -69,7 +69,8 @@ export async function writeRestore(db: AppDb, { data, clearSession, meta = [] }:
   // A synchronous throw (e.g. DataError) rolls back everything queued, including the clears.
   await writeAll(tx, (track) => {
     for (const name of BACKUP_STORES) track(tx.objectStore(name).clear());
-    track(tx.objectStore('diagnosticAttempts').clear());
+    // A backup made before v2 has no attempts field: keep the local test history.
+    if (data.diagnosticAttempts !== undefined) track(tx.objectStore('diagnosticAttempts').clear());
     for (const r of data.progress) track(tx.objectStore('progress').put(r));
     for (const r of data.dailyCounters) track(tx.objectStore('dailyCounters').put(r));
     for (const r of data.notebook) track(tx.objectStore('notebook').put(r));

@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useMemo, useState, useSyncExternalStore, type ReactNode } from 'react';
 import bundle from '@content';
+import extras from '@extras';
 import { systemClock } from '../domain/clock.ts';
 import { createConnection, openAppDb, type DbConnection } from '../storage/db.ts';
 import { createActions, type Actions } from './actions.ts';
@@ -53,7 +54,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, [store]);
 
   const actions = useMemo(
-    () => (db ? createActions({ db, clock: systemClock, getState: store.getState, dispatch: store.dispatch }) : undefined),
+    () => (db ? createActions({ db, clock: systemClock, getState: store.getState, dispatch: store.dispatch, extras }) : undefined),
     [db, store],
   );
 

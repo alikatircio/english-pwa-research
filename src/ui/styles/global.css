@@ -752,3 +752,91 @@ main {
   margin: 8px 0 0;
   font-size: 0.75rem;
 }
+
+/* Seviye testi (Faz 2): plain text, no charts */
+.diag-stem {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.diag-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.diag-options legend {
+  padding: 0;
+  margin-bottom: 8px;
+}
+
+.diag-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+  padding: 8px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  cursor: pointer;
+}
+
+.diag-option--on,
+.diag-unsure--on {
+  border-color: var(--accent);
+}
+
+.diag-option input {
+  width: 24px;
+  height: 24px;
+  flex: none;
+  accent-color: var(--accent);
+}
+
+.diag-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.diag-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+
+.diag-table caption {
+  text-align: left;
+  padding-bottom: 6px;
+}
+
+.diag-table th,
+.diag-table td {
+  padding: 6px 4px;
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+  vertical-align: top;
+}
+
+.diag-table th[scope='row'],
+.diag-table thead th:first-child {
+  text-align: left;
+  font-weight: 400;
+}
+
+.diag-weak,
+.diag-answers {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0;
+  padding-left: 1.2em;
+}
+
+.diag-topic-links:empty {
+  display: none;
+}

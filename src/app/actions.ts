@@ -771,9 +771,11 @@ export function createActions({ db, clock, getState, dispatch, extras = NO_EXTRA
       const s = ready(getState);
       if (!s || s.busy || !diagnosticAvailable(questions)) return;
       const cur = s.diagnostic ?? { attempts: [] };
-      if (cur.open) return;
+      const shipped = new Set(questions.map((q) => q.id));
+      if (cur.open && cur.open.order.every((id) => shipped.has(id))) return;
       const now = clock.now();
-      const attempt = startAttempt(questions, { id: `da-${now}`, now, extrasVersion: extras.extrasVersion });
+      // An open attempt whose questions left the bundle can never finish: start over under its id, replacing it.
+      const attempt = startAttempt(questions, { id: cur.open?.id ?? `da-${now}`, now, extrasVersion: extras.extrasVersion });
       await saveDiagnostic(cur.attempts, attempt);
     },
 
