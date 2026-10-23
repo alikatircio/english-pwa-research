@@ -1,7 +1,7 @@
 import 'fake-indexeddb/auto';
 import { openDB } from 'idb';
 import { describe, expect, it, vi } from 'vitest';
-import { createConnection, isConnectionLost, openAppDb, type AppDb } from './db.ts';
+import { createConnection, DB_VERSION, isConnectionLost, openAppDb, type AppDb } from './db.ts';
 import { loadCounter, putMeta } from './repo.ts';
 
 let n = 0;
@@ -70,7 +70,7 @@ describe('blocking (review 09 #3)', () => {
     let close: (() => void) | undefined;
     await openAppDb({ name, onBlocking: (c) => (close = c) });
     let upgraded = false;
-    const newer = openDB(name, 2, { blocked: () => undefined }).then((db) => {
+    const newer = openDB(name, DB_VERSION + 1, { blocked: () => undefined }).then((db) => {
       upgraded = true;
       return db;
     });

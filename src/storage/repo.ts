@@ -1,6 +1,6 @@
 // Repository: every write is one readwrite transaction (write-through, 07 §3.7).
 // Callers update in-memory state only after the returned promise resolves.
-import type { AnswerLog, DailyCounter, DayKey, Flag, MetaRecord, NotebookEntry, Progress, SessionState, UndoSnapshot } from '../domain/types.ts';
+import type { AnswerLog, DailyCounter, DayKey, DiagnosticAttempt, Flag, MetaRecord, NotebookEntry, Progress, SessionState, UndoSnapshot } from '../domain/types.ts';
 import type { AppDb, ImportedItem } from './db.ts';
 import { writeAll } from './tx.ts';
 import { emptyCounter } from '../domain/session.ts';
@@ -121,4 +121,22 @@ export async function putMeta(db: AppDb, records: readonly MetaRecord[]): Promis
 /** One notebook entry (Slice 3, T3.1). Works offline: IndexedDB only. */
 export async function addNotebookEntry(db: AppDb, entry: NotebookEntry): Promise<void> {
   await db.add('notebook', entry);
+}
+
+// --- Diagnostic attempts (roadmap Ö3) -----------------------------------------
+
+/** Insert or replace one attempt (progress save while answering, or the final write). */
+export async function saveDiagnosticAttempt(db: AppDb, attempt: DiagnosticAttempt): Promise<void> {
+  await db.put('diagnosticAttempts', attempt);
+}
+
+/** Every attempt, oldest `startedAt` first. */
+export async function loadDiagnosticAttempts(db: AppDb): Promise<DiagnosticAttempt[]> {
+  const all = await db.getAll('diagnosticAttempts');
+  return all.toSorted((a, b) => a.startedAt - b.startedAt);
+}
+
+/** The unfinished attempt, if any; the newest one should a stray second exist. */
+export async function loadInProgressAttempt(db: AppDb): Promise<DiagnosticAttempt | undefined> {
+  return (await loadDiagnosticAttempts(db)).findLast((a) => a.finishedAt === undefined);
 }

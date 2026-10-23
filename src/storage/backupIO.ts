@@ -35,17 +35,19 @@ export const BACKUP_STORES = ['progress', 'dailyCounters', 'notebook', 'flags', 
 
 /** Everything a full backup holds, read in one transaction. */
 export async function readBackupData(db: AppDb): Promise<BackupData> {
-  const tx = db.transaction(BACKUP_STORES, 'readonly');
-  const [progress, dailyCounters, notebook, flags, answerLog, importedItems] = await Promise.all([
+  const tx = db.transaction([...BACKUP_STORES, 'diagnosticAttempts'], 'readonly');
+  const [progress, dailyCounters, notebook, flags, answerLog, importedItems, diagnosticAttempts] = await Promise.all([
     tx.objectStore('progress').getAll(),
     tx.objectStore('dailyCounters').getAll(),
     tx.objectStore('notebook').index('by-createdAt').getAll(),
     tx.objectStore('flags').getAll(),
     tx.objectStore('answerLog').getAll(),
     tx.objectStore('importedItems').getAll(),
+    tx.objectStore('diagnosticAttempts').getAll(),
     tx.done,
   ]);
-  return { progress, dailyCounters, notebook, flags, answerLog, importedItems };
+  const base = { progress, dailyCounters, notebook, flags, answerLog, importedItems };
+  return diagnosticAttempts.length > 0 ? { ...base, diagnosticAttempts } : base;
 }
 
 export interface RestoreWrite {
@@ -63,16 +65,18 @@ export interface RestoreWrite {
  * without an id get a fresh one from the store's autoIncrement.
  */
 export async function writeRestore(db: AppDb, { data, clearSession, meta = [] }: RestoreWrite): Promise<void> {
-  const tx = db.transaction([...BACKUP_STORES, 'session', 'meta'], 'readwrite');
+  const tx = db.transaction([...BACKUP_STORES, 'diagnosticAttempts', 'session', 'meta'], 'readwrite');
   // A synchronous throw (e.g. DataError) rolls back everything queued, including the clears.
   await writeAll(tx, (track) => {
     for (const name of BACKUP_STORES) track(tx.objectStore(name).clear());
+    track(tx.objectStore('diagnosticAttempts').clear());
     for (const r of data.progress) track(tx.objectStore('progress').put(r));
     for (const r of data.dailyCounters) track(tx.objectStore('dailyCounters').put(r));
     for (const r of data.notebook) track(tx.objectStore('notebook').put(r));
     for (const r of data.flags) track(tx.objectStore('flags').put(r));
     for (const r of data.answerLog) track(tx.objectStore('answerLog').put(r));
     for (const r of data.importedItems) track(tx.objectStore('importedItems').put(r));
+    for (const r of data.diagnosticAttempts ?? []) track(tx.objectStore('diagnosticAttempts').put(r));
     if (clearSession) track(tx.objectStore('session').delete('current'));
     for (const r of meta) track(tx.objectStore('meta').put(r));
   });

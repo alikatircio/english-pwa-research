@@ -4,7 +4,7 @@
 import { z } from 'zod';
 import { compareDays, isDayKey } from './dates.ts';
 import { ItemSchema } from './itemSchema.ts';
-import type { AnswerLog, Box, DailyCounter, Flag, ImportedItem, Item, NotebookEntry, Progress } from './types.ts';
+import type { AnswerLog, Box, DailyCounter, DiagnosticAttempt, Flag, ImportedItem, Item, NotebookEntry, Progress } from './types.ts';
 
 export const SCHEMA_VERSION = 1;
 
@@ -31,6 +31,8 @@ export interface BackupData {
   flags: Flag[];
   answerLog: AnswerLog[];
   importedItems: ImportedItem[];
+  /** Diagnostic runs (roadmap Ö5); absent when there are none. */
+  diagnosticAttempts?: DiagnosticAttempt[];
 }
 
 /** 1) Full backup (Settings → export). The session is never exported. */
@@ -139,6 +141,19 @@ export const AnswerLogSchema: z.ZodType<AnswerLog> = z.object({
   mode: z.enum(['write', 'fix', 'order', 'context', 'practice']).optional(),
 });
 
+const areaCounts = z.object({ correct: count, unsure: count, wrong: count });
+
+export const DiagnosticAttemptSchema: z.ZodType<DiagnosticAttempt> = z.object({
+  id: text,
+  startedAt: epochMs,
+  finishedAt: epochMs.optional(),
+  extrasVersion: text,
+  order: z.array(text),
+  cursor: count,
+  answers: z.record(z.string(), z.object({ chosen: z.array(text), unsure: z.boolean() })),
+  areaResults: z.record(z.string(), areaCounts).optional(),
+});
+
 /** Validates `rest` with ItemSchema and re-reports its issues at the current path. */
 function parseItemInto(rest: Record<string, unknown>, ctx: z.RefinementCtx): Item | typeof z.NEVER {
   const r = ItemSchema.safeParse(rest);
@@ -176,6 +191,7 @@ export const BackupFileSchema: z.ZodType<BackupFileV1> = z.object({
     flags: z.array(FlagSchema),
     answerLog: z.array(AnswerLogSchema),
     importedItems: z.array(ImportedItemSchema),
+    diagnosticAttempts: z.array(DiagnosticAttemptSchema).optional(),
   }),
 });
 
@@ -464,6 +480,7 @@ function withoutId(l: AnswerLog): AnswerLog {
  * - flags: union by itemId; on a collision local stays.
  * - answerLog: deduplicated by (at, itemId); local rows keep their id, new
  *   incoming rows lose theirs so the store's autoIncrement assigns a fresh one.
+ * - diagnosticAttempts (optional): union by id, local wins; field omitted if neither side has it.
  * - importedItems: an incoming id that collides with bundled content is
  *   rejected and listed; the same id locally → local stays.
  */
@@ -478,6 +495,10 @@ export function mergeBackup(local: BackupData, incoming: BackupData, builtinIds:
     seenLogKeys.add(k);
     newLogs.push(withoutId(l));
   }
+  const attempts =
+    local.diagnosticAttempts || incoming.diagnosticAttempts
+      ? { diagnosticAttempts: mergeBy(local.diagnosticAttempts ?? [], incoming.diagnosticAttempts ?? [], (a) => a.id) }
+      : {};
   return {
     data: {
       progress: mergeBy(local.progress, incoming.progress, (p) => p.itemId, pickProgress),
@@ -495,6 +516,7 @@ export function mergeBackup(local: BackupData, incoming: BackupData, builtinIds:
       flags: mergeBy(local.flags, incoming.flags, (f) => f.itemId),
       answerLog: [...local.answerLog, ...newLogs],
       importedItems: mergeBy(local.importedItems, allowed.items, (i) => i.id),
+      ...attempts,
     },
     rejectedImportedItems: allowed.rejected,
   };

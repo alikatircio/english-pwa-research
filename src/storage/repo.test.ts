@@ -1,11 +1,11 @@
 import 'fake-indexeddb/auto';
 import { afterEach, describe, expect, it } from 'vitest';
-import type { AnswerLog, DailyCounter, Progress } from '../domain/types.ts';
+import type { AnswerLog, DailyCounter, DiagnosticAttempt, Progress } from '../domain/types.ts';
 import type { StoreNames } from 'idb';
 import { DB_VERSION, openAppDb, type AppDb, type AppDbSchema } from './db.ts';
 
-const STORES: StoreNames<AppDbSchema>[] = ['answerLog', 'dailyCounters', 'flags', 'importedItems', 'meta', 'notebook', 'progress', 'session'];
-import { addNotebookEntry, clearSession, commitGrade, loadAll, loadCounter, saveSession, toggleFlag, undoGrade } from './repo.ts';
+const STORES: StoreNames<AppDbSchema>[] = ['answerLog', 'dailyCounters', 'diagnosticAttempts', 'flags', 'importedItems', 'meta', 'notebook', 'progress', 'session'];
+import { addNotebookEntry, clearSession, commitGrade, loadAll, loadCounter, loadDiagnosticAttempts, loadInProgressAttempt, saveDiagnosticAttempt, saveSession, toggleFlag, undoGrade } from './repo.ts';
 import { newSession } from '../domain/session.ts';
 
 let n = 0;
@@ -25,7 +25,7 @@ const counter: DailyCounter = { day, newIntroduced: 1, reviewsAnswered: 0 };
 const log: AnswerLog = { at: 1, day, itemId: 'a', answer: 'x', grade: 'correct', gradedBy: 'auto', hintStage: 1, isRepeat: false, boxBefore: null, boxAfter: 2 };
 
 describe('schema v1', () => {
-  it('creates all 8 stores with their keys and indexes', async () => {
+  it('creates all 9 stores with their keys and indexes', async () => {
     const db = await freshDb();
     expect(db.version).toBe(DB_VERSION);
     expect([...db.objectStoreNames].sort()).toEqual(STORES);
@@ -209,5 +209,38 @@ describe('notebook', () => {
     await addNotebookEntry(db, { id: 'a', textTr: 'birinci', createdAt: 1, status: 'open' });
     await expect(addNotebookEntry(db, { id: 'a', textTr: 'başka', createdAt: 2, status: 'open' })).rejects.toThrow();
     expect((await db.get('notebook', 'a'))?.textTr).toBe('birinci');
+  });
+});
+
+describe('diagnostic attempts (v2)', () => {
+  const attempt = (id: string, startedAt: number, finishedAt?: number): DiagnosticAttempt => ({
+    id,
+    startedAt,
+    ...(finishedAt === undefined ? {} : { finishedAt }),
+    extrasVersion: 'x1',
+    order: ['q1', 'q2'],
+    cursor: 1,
+    answers: { q1: { chosen: ['a'], unsure: false } },
+  });
+
+  it('saves, replaces by id and loads sorted by startedAt', async () => {
+    const db = await freshDb();
+    await saveDiagnosticAttempt(db, attempt('b', 20, 30));
+    await saveDiagnosticAttempt(db, attempt('a', 10, 15));
+    await saveDiagnosticAttempt(db, { ...attempt('b', 20, 30), cursor: 2 });
+    const all = await loadDiagnosticAttempts(db);
+    expect(all.map((a) => a.id)).toEqual(['a', 'b']);
+    expect(all[1]?.cursor).toBe(2);
+  });
+
+  it('loadInProgressAttempt returns the unfinished attempt, or undefined', async () => {
+    const db = await freshDb();
+    expect(await loadInProgressAttempt(db)).toBeUndefined();
+    await saveDiagnosticAttempt(db, attempt('done', 10, 15));
+    expect(await loadInProgressAttempt(db)).toBeUndefined();
+    await saveDiagnosticAttempt(db, attempt('open', 20));
+    expect((await loadInProgressAttempt(db))?.id).toBe('open');
+    await saveDiagnosticAttempt(db, attempt('open', 20, 25));
+    expect(await loadInProgressAttempt(db)).toBeUndefined();
   });
 });

@@ -16,4 +16,7 @@ export function upgrade(db: IDBPDatabase<AppDbSchema>, oldVersion: number): void
     db.createObjectStore('session', { keyPath: 'key' });
     db.createObjectStore('meta', { keyPath: 'key' });
   }
+  if (oldVersion < 2) {
+    db.createObjectStore('diagnosticAttempts', { keyPath: 'id' });
+  }
 }

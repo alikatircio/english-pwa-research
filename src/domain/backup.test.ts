@@ -446,6 +446,32 @@ describe('mergeBackup (07 §3.8 merge table)', () => {
   });
 });
 
+describe('diagnosticAttempts (Ö5)', () => {
+  const attempt = (id: string, extra: object = {}) => ({ id, startedAt: 1, extrasVersion: 'x1', order: ['q1'], cursor: 0, answers: { q1: { chosen: ['a'], unsure: false } }, ...extra });
+  const builtin = new Set<string>();
+
+  it('parses an old backup without the field unchanged and validates the field when present', () => {
+    const old = backupFile();
+    expect(parseFile(old, ['english-pwa-backup']).ok).toBe(true);
+    const withField = { ...old, data: { ...old.data, diagnosticAttempts: [attempt('d1')] } };
+    const r = parseFile(withField, ['english-pwa-backup']);
+    expect(r.ok && r.value.file.data.diagnosticAttempts).toEqual([attempt('d1')]);
+    const bad = { ...old, data: { ...old.data, diagnosticAttempts: [attempt('d1', { cursor: -1 })] } };
+    expect(parseFile(bad, ['english-pwa-backup']).ok).toBe(false);
+  });
+
+  it('merge unions by id with local winning, and omits the field when neither side has it', () => {
+    expect('diagnosticAttempts' in mergeBackup(data({}), data({}), builtin).data).toBe(false);
+    const m = mergeBackup(
+      data({ diagnosticAttempts: [attempt('a', { cursor: 5 })] }),
+      data({ diagnosticAttempts: [attempt('a'), attempt('b')] }),
+      builtin,
+    );
+    expect(m.data.diagnosticAttempts).toEqual([attempt('a', { cursor: 5 }), attempt('b')]);
+    expect(mergeBackup(data({}), data({ diagnosticAttempts: [attempt('b')] }), builtin).data.diagnosticAttempts).toEqual([attempt('b')]);
+  });
+});
+
 describe('rejectBuiltinImportedItems ("Tümünü değiştir")', () => {
   it('splits bundled-id collisions from the rest', () => {
     const r = rejectBuiltinImportedItems([imported('u1'), imported('could-you-base-verb')], new Set(['could-you-base-verb']));

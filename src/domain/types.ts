@@ -184,3 +184,17 @@ export interface MetaRecord {
   key: MetaKey;
   value: unknown;
 }
+
+/** One diagnostic run (roadmap Ö3). No `finishedAt` means in progress; at most one such attempt exists. */
+export interface DiagnosticAttempt {
+  id: string;
+  startedAt: number;
+  finishedAt?: number;
+  extrasVersion: string;
+  /** Question ids in display order. */
+  order: string[];
+  cursor: number;
+  answers: Record<string, { chosen: string[]; unsure: boolean }>;
+  /** Frozen when the attempt finishes. */
+  areaResults?: Record<string, { correct: number; unsure: number; wrong: number }>;
+}

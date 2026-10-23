@@ -1,10 +1,10 @@
-// IndexedDB schema v1 (07 §3.7). Every store exists from v1 so later slices
-// need no migration just to add a store.
+// IndexedDB schema (07 §3.7). v1 holds the original stores; v2 adds diagnosticAttempts.
 import { openDB, type DBSchema, type IDBPDatabase } from 'idb';
 import type {
   AnswerLog,
   DailyCounter,
   DayKey,
+  DiagnosticAttempt,
   Flag,
   ImportedItem,
   MetaRecord,
@@ -15,7 +15,7 @@ import type {
 import { upgrade } from './migrations.ts';
 
 export const DB_NAME = 'english-pwa';
-export const DB_VERSION = 1;
+export const DB_VERSION = 2;
 
 export type { ImportedItem } from '../domain/types.ts';
 
@@ -28,6 +28,7 @@ export interface AppDbSchema extends DBSchema {
   importedItems: { key: string; value: ImportedItem };
   session: { key: 'current'; value: SessionState };
   meta: { key: MetaRecord['key']; value: MetaRecord };
+  diagnosticAttempts: { key: string; value: DiagnosticAttempt };
 }
 
 export type AppDb = IDBPDatabase<AppDbSchema>;

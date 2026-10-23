@@ -135,3 +135,24 @@ describe('readBackupData / writeRestore (T5.4)', () => {
     expect(await db.get('session', 'current')).toBeDefined();
   });
 });
+
+describe('diagnosticAttempts in backups (Ö5)', () => {
+  const attempt = { id: 'd1', startedAt: 1, extrasVersion: 'x1', order: ['q1'], cursor: 0, answers: {} };
+  const empty = { progress: [], dailyCounters: [], notebook: [], flags: [], answerLog: [], importedItems: [] };
+
+  it('read omits the field when empty and includes it when present', async () => {
+    const db = await freshDb();
+    expect('diagnosticAttempts' in (await readBackupData(db))).toBe(false);
+    await db.put('diagnosticAttempts', attempt);
+    expect((await readBackupData(db)).diagnosticAttempts).toEqual([attempt]);
+  });
+
+  it('restore without the field clears attempts (like the other stores); with it restores them', async () => {
+    const db = await freshDb();
+    await db.put('diagnosticAttempts', attempt);
+    await writeRestore(db, { data: empty, clearSession: false });
+    expect(await db.getAll('diagnosticAttempts')).toEqual([]);
+    await writeRestore(db, { data: { ...empty, diagnosticAttempts: [attempt] }, clearSession: false });
+    expect(await db.getAll('diagnosticAttempts')).toEqual([attempt]);
+  });
+});
