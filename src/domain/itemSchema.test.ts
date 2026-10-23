@@ -22,6 +22,10 @@ const valid = {
 };
 
 describe('ItemSchema', () => {
+  it('accepts category grammar', () => {
+    expect(ItemSchema.safeParse({ ...valid, category: 'grammar' }).success).toBe(true);
+  });
+
   it('accepts every draft item (68)', () => {
     expect(drafts).toHaveLength(68);
     for (const raw of drafts) {

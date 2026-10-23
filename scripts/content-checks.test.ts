@@ -410,6 +410,7 @@ describe('countByCategory', () => {
       word_form: 0,
       preposition: 0,
       work_vocab: 0,
+      grammar: 0,
     });
   });
 });

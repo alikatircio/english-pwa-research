@@ -52,6 +52,7 @@ const CATEGORY_HELP: Record<(typeof CATEGORIES)[number], string> = {
   word_form: 'sözcük biçimi: isim / fiil / sıfat, sayılamayan isimler (data, feedback, set up / setup)',
   preposition: 'edat seçimi (depend on, wait for, responsible for)',
   work_vocab: 'iş / yazılım sözcüğü ya da kalıbı (escalate, roll back, heads-up)',
+  grammar: 'dilbilgisi kalıbı (present perfect, koşul cümlesi, edilgen, zaman uyumu)',
 };
 
 function entryLines(e: NotebookExportEntry, n: number): string[] {

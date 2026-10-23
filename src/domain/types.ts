@@ -1,6 +1,6 @@
 // Domain types (07 §3.1, §3.2). Pure: no React, no IDB, no DOM.
 
-export type Category = 'aux_to' | 'object' | 'word_form' | 'preposition' | 'work_vocab';
+export type Category = 'aux_to' | 'object' | 'word_form' | 'preposition' | 'work_vocab' | 'grammar';
 export type Grade = 'correct' | 'partial' | 'wrong';
 export type GradedBy = 'auto' | 'self';
 export type Box = 1 | 2 | 3 | 4 | 5 | 6 | 7;

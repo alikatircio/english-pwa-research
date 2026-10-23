@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import type { Item } from './types.ts';
 
-export const CATEGORIES = ['aux_to', 'object', 'word_form', 'preposition', 'work_vocab'] as const;
+export const CATEGORIES = ['aux_to', 'object', 'word_form', 'preposition', 'work_vocab', 'grammar'] as const;
 
 /** kebab-case: lowercase ASCII letters/digits separated by single hyphens. */
 export const KEBAB_CASE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;

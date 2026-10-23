@@ -136,6 +136,22 @@ describe('caps passed in (decision 29)', () => {
   });
 });
 
+describe('six categories incl. grammar (decision 45)', () => {
+  const six: Category[] = ['aux_to', 'object', 'word_form', 'preposition', 'work_vocab', 'grammar'];
+  const sixPools = (cat: (i: number) => Category): Pools => {
+    const newIds = ids('n', 30);
+    return pools({ newIds, caps: { newCap: 20 }, extraItems: newIds.map((id, i) => item(id, { category: cat(i) })) });
+  };
+
+  it('newCap 20: 20 new cards are reachable over 6 categories', () => {
+    expect(todayCount(sixPools((i) => six[i % six.length] ?? 'grammar'), today)).toBe(20);
+  });
+
+  it('no category exceeds perCategoryCap', () => {
+    expect(todayCount(sixPools(() => 'grammar'), today)).toBe(perCategoryCap(20));
+  });
+});
+
 describe('eligibleDue', () => {
   it('orders by dueOn ↑, then box ↑, then itemId ↑', () => {
     const p = pools({
