@@ -479,6 +479,13 @@ describe('diagnosticAttempts (Ö5)', () => {
     );
     expect(m.data.diagnosticAttempts).toEqual([attempt('a', { finishedAt: 9 })]);
   });
+
+  it('merge keeps the later of two finished copies', () => {
+    const later = mergeBackup(data({ diagnosticAttempts: [attempt('a', { finishedAt: 5 })] }), data({ diagnosticAttempts: [attempt('a', { finishedAt: 9 })] }), builtin);
+    expect(later.data.diagnosticAttempts).toEqual([attempt('a', { finishedAt: 9 })]);
+    const earlier = mergeBackup(data({ diagnosticAttempts: [attempt('a', { finishedAt: 9 })] }), data({ diagnosticAttempts: [attempt('a', { finishedAt: 5 })] }), builtin);
+    expect(earlier.data.diagnosticAttempts).toEqual([attempt('a', { finishedAt: 9 })]);
+  });
 });
 
 describe('rejectBuiltinImportedItems ("Tümünü değiştir")', () => {
